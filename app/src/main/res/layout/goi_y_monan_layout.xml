@@ -2,17 +2,24 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cv_lyGoiyMonan"
+
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:backgroundTint="@color/white"
 
     android:layout_marginTop="-10dp"
-    android:outlineAmbientShadowColor="@color/primary_color"
-    android:outlineSpotShadowColor="@color/primary_color"
+    android:outlineAmbientShadowColor="@color/shadow_color"
+    android:outlineSpotShadowColor="@color/shadow_color"
+
     app:cardCornerRadius="20dp"
     app:cardElevation="10dp"
     app:cardUseCompatPadding="true">
-
+    <!--
+        ?cardcornerRadius: bo góc cho CardView
+        cardElevation: tạm hiểu là độ spread của cái shadow
+        cardUseCompatPadding: nó sẽ dựa vào elevation, corner,.. để tạo padding cho cardview
+                                để không bị cắt mất bóng shadow -->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,18 +32,21 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imv_LyGoiYCombo"
+                android:id="@+id/imv_LyGoiMonan"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:background="@drawable/round_corner_image"
+
                 android:scaleType="centerCrop"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+
                 app:srcCompat="@drawable/ic_launcher_background" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -44,21 +54,34 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
+                <com.mcommerce.adapter.CustomBlurView
+                    android:id="@+id/blurview_LyGoiYMonan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignTop="@+id/txtTimeMonan_LyGoiYMonan"
+                    android:layout_alignBottom="@+id/txtTimeMonan_LyGoiYMonan"
+                    android:layout_alignStart="@+id/txtTimeMonan_LyGoiYMonan"
+                    android:layout_alignLeft="@+id/txtTimeMonan_LyGoiYMonan"
+                    android:layout_alignEnd="@+id/txtTimeMonan_LyGoiYMonan"
+                    android:layout_alignRight="@+id/txtTimeMonan_LyGoiYMonan" />
+
                 <TextView
                     android:id="@+id/txtTimeMonan_LyGoiYMonan"
                     android:layout_width="wrap_content"
-                    android:layout_height="19dp"
-
-                    android:background="@drawable/text_background"
-
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/gilroy_bold"
                     android:paddingHorizontal="10dp"
                     android:text="20 phút"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingVertical="5dp"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </RelativeLayout>
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:id="@+id/cv_lyGoiyCombo"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="20dp"
+    android:outlineAmbientShadowColor="@color/shadow_color"
+    android:outlineSpotShadowColor="@color/shadow_color"
+    app:cardElevation="10dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imv_LyGoiYCombo"
+
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                android:scaleType="centerCrop"
+
+                app:srcCompat="@drawable/ic_launcher_background"
+                android:background="@drawable/round_corner_image"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
+
+                <com.mcommerce.adapter.CustomBlurView
+                    android:id="@+id/blurview_LyGoiYCombo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_alignStart="@+id/txtDesCombo_LyGoiYCombo"
+                    android:layout_alignLeft="@+id/txtDesCombo_LyGoiYCombo"
+                    android:layout_alignTop="@+id/txtDesCombo_LyGoiYCombo"
+                    android:layout_alignEnd="@+id/txtDesCombo_LyGoiYCombo"
+                    android:layout_alignRight="@+id/txtDesCombo_LyGoiYCombo"
+                    android:layout_alignBottom="@+id/txtDesCombo_LyGoiYCombo" />
+
+                <TextView
+                    android:id="@+id/txtDesCombo_LyGoiYCombo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:text="TextView" />
+
+
+            </RelativeLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/txtNameCombo_LyGoiYCombo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/primary_color"
+            android:fontFamily="@font/gilroy_medium"
+            android:textSize="14sp"
+            android:paddingHorizontal="20dp"
+            android:paddingTop="10dp"/>
+
+        <TextView
+            android:id="@+id/txtPriceCombo_LyGoiYCombo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="@color/black"
+            android:fontFamily="@font/gilroy_bold"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="10dp"
+            android:textSize="12sp"
+            />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

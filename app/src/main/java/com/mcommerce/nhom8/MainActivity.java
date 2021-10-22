@@ -13,9 +13,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.github.mmin18.widget.RealtimeBlurView;
 import com.mcommerce.adapter.BannerMainAdapter;
+import com.mcommerce.adapter.GoiYComboAdapter;
 import com.mcommerce.adapter.GoiYMonanAdapter;
 import com.mcommerce.model.BannerMainModel;
+import com.mcommerce.model.GoiYComboModel;
 import com.mcommerce.model.GoiYMonanModel;
 
 import java.util.ArrayList;
@@ -26,8 +29,10 @@ public class MainActivity extends AppCompatActivity {
     ViewPager vpgBannerMain;
     List<BannerMainModel> bannerMainModelList;
     List<GoiYMonanModel> goiYMonanModelList;
+    List<GoiYComboModel> goiYComboModelList;
     ImageButton btnSanPham, btnCongThuc, btnGoiY;
-    RecyclerView rcvGoiYMonan;
+    RecyclerView rcvGoiYMonan, rcvGoiYCombo;
+    RealtimeBlurView blurView;
 
 
     LinearLayout llSliderDot;
@@ -41,7 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
         linkview();
         initData();
-
         addEvent();
 
        /* Timer timer = new Timer();
@@ -51,13 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void addEvent() {
-        btnSanPham.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
+        //region hiệu ứng touch cho icon Sản phẩm, Công thức, Gợi Ý
         btnSanPham.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -102,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+        //endregion
 
     }
 
@@ -116,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
         BannerMainAdapter bannerMainAdapter = new BannerMainAdapter(this, bannerMainModelList);
         vpgBannerMain.setAdapter(bannerMainAdapter);
         //endregion
+
+
 
         //region dot cho viewPage
         dotscount = bannerMainAdapter.getCount();
@@ -168,15 +169,36 @@ public class MainActivity extends AppCompatActivity {
 
         //endregion
 
+        //region Gơi ý Combo
+
+        goiYComboModelList = new ArrayList<>();
+        goiYComboModelList.add(new GoiYComboModel(90000,R.drawable.suggest_monan, "Bánh tráng","3 người"));
+        goiYComboModelList.add(new GoiYComboModel(90000,R.drawable.suggest_monan, "Bánh tráng","3 người"));
+        goiYComboModelList.add(new GoiYComboModel(90000,R.drawable.suggest_monan, "Bánh tráng","3 người"));
+        goiYComboModelList.add(new GoiYComboModel(90000,R.drawable.suggest_monan, "Bánh tráng","3 người"));
+
+        GoiYComboAdapter goiYComboAdapter = new GoiYComboAdapter(goiYComboModelList,this);
+        rcvGoiYCombo.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
+        rcvGoiYCombo.setAdapter(goiYComboAdapter);
+
+        //endregion
+
     }
 
     private void linkview() {
         vpgBannerMain = findViewById(R.id.vpgBanner_main);
         llSliderDot = findViewById(R.id.llSliderDots_main);
+
         btnCongThuc = findViewById(R.id.btnCongThuc_main);
         btnSanPham = findViewById(R.id.btnSanPham_main);
         btnGoiY = findViewById(R.id.btnGoiY_main);
+
         rcvGoiYMonan = findViewById(R.id.rcvGoiYMonAn_main);
+        rcvGoiYCombo = findViewById(R.id.rcvGoiYCombo_main);
+
+        blurView = findViewById(R.id.blurview_LyGoiYMonan);
+
+
 
     }
 

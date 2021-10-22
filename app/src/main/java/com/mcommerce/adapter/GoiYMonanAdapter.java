@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mcommerce.model.GoiYMonanModel;
@@ -42,21 +43,24 @@ public class GoiYMonanAdapter extends RecyclerView.Adapter<GoiYMonanAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imv;
         TextView txtTen, txtDes, txtTime;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imv = itemView.findViewById(R.id.imv_LyGoiYCombo);
+            imv = itemView.findViewById(R.id.imv_LyGoiMonan);
             txtTen = itemView.findViewById(R.id.txtTenMonan_LyGoiYMonan);
             txtDes = itemView.findViewById(R.id.txtDesMonan_LyGoiYMonan);
             txtTime = itemView.findViewById(R.id.txtTimeMonan_LyGoiYMonan);
+
         }
 
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.imv.setImageResource(goiYMonanModelList.get(position).getImv());
-        holder.txtDes.setText(goiYMonanModelList.get(position).getTxtDesMonan());
-        holder.txtTen.setText(goiYMonanModelList.get(position).getTxtTenMonan());
-        holder.txtTime.setText(goiYMonanModelList.get(position).getTxtTimeMonan());
+        holder.imv.setImageResource(goiYMonanModelList.get(position).getImgMonan());
+        holder.txtDes.setText(goiYMonanModelList.get(position).getDesMonan());
+        holder.txtTen.setText(goiYMonanModelList.get(position).getNameMonan());
+        holder.txtTime.setText(goiYMonanModelList.get(position).getTimeMonan());
+
     }
 }

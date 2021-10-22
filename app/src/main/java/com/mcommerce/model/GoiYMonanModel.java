@@ -1,45 +1,45 @@
 package com.mcommerce.model;
 
 public class GoiYMonanModel {
-    int imv;
-    String txtTenMonan, txtDesMonan, txtTimeMonan;
+    int imgMonan;
+    String nameMonan, desMonan, timeMonan;
 
-    public GoiYMonanModel(int imv, String txtTenMonan, String txtDesMonan, String txtTimeMonan) {
-        this.imv = imv;
-        this.txtTenMonan = txtTenMonan;
-        this.txtDesMonan = txtDesMonan;
-        this.txtTimeMonan = txtTimeMonan;
+    public GoiYMonanModel(int imgMonan, String nameMonan, String txtDesMonan, String timeMonan) {
+        this.imgMonan = imgMonan;
+        this.nameMonan = nameMonan;
+        this.desMonan = txtDesMonan;
+        this.timeMonan = timeMonan;
     }
 
-    public String getTxtTimeMonan() {
-        return txtTimeMonan;
+    public String getTimeMonan() {
+        return timeMonan;
     }
 
-    public void setTxtTimeMonan(String txtTimeMonan) {
-        this.txtTimeMonan = txtTimeMonan;
+    public void setTimeMonan(String timeMonan) {
+        this.timeMonan = timeMonan;
     }
 
-    public int getImv() {
-        return imv;
+    public int getImgMonan() {
+        return imgMonan;
     }
 
-    public void setImv(int imv) {
-        this.imv = imv;
+    public void setImgMonan(int imgMonan) {
+        this.imgMonan = imgMonan;
     }
 
-    public String getTxtTenMonan() {
-        return txtTenMonan;
+    public String getNameMonan() {
+        return nameMonan;
     }
 
-    public void setTxtTenMonan(String txtTenMonan) {
-        this.txtTenMonan = txtTenMonan;
+    public void setNameMonan(String nameMonan) {
+        this.nameMonan = nameMonan;
     }
 
-    public String getTxtDesMonan() {
-        return txtDesMonan;
+    public String getDesMonan() {
+        return desMonan;
     }
 
-    public void setTxtDesMonan(String txtDesMonan) {
-        this.txtDesMonan = txtDesMonan;
+    public void setDesMonan(String desMonan) {
+        this.desMonan = desMonan;
     }
 }
