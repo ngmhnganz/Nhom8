@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mcommerce.model.GoiYMonanModel;
@@ -35,7 +34,7 @@ public class GoiYMonanAdapter extends RecyclerView.Adapter<GoiYMonanAdapter.View
     @Override
     public GoiYMonanAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.goi_y_monan_layout,parent,false);
+        View view = layoutInflater.inflate(R.layout.layout_goi_y_monan_,parent,false);
         return new ViewHolder(view);
     }
 

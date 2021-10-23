@@ -31,7 +31,7 @@ public class GoiYComboAdapter extends RecyclerView.Adapter<GoiYComboAdapter.View
     @Override
     public GoiYComboAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.goi_y_combo_layout,parent,false);
+        View view = layoutInflater.inflate(R.layout.layout_goi_y_combo,parent,false);
         return new ViewHolder(view);
     }
 

@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     private void addEvent() {
         //region hiệu ứng touch cho icon Sản phẩm, Công thức, Gợi Ý
         btnSanPham.setOnTouchListener(new View.OnTouchListener() {
@@ -65,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else if (motionEvent.getAction() == MotionEvent.ACTION_UP ) {
                     btnSanPham.setImageResource(R.drawable.ic_sanpham_main);
-
                 }
                 return false;
             }
@@ -76,11 +74,9 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN ) {
                     btnCongThuc.setImageResource(R.drawable.ic_congthuc_pressed_main);
-
                 }
                 else if (motionEvent.getAction() == MotionEvent.ACTION_UP ) {
                     btnCongThuc.setImageResource(R.drawable.ic_congthuc_main);
-
                 }
                 return false;
             }
@@ -91,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN ) {
                     btnGoiY.setImageResource(R.drawable.ic_goiy_pressed_main);
-
                 }
                 else if (motionEvent.getAction() == MotionEvent.ACTION_UP ) {
                     btnGoiY.setImageResource(R.drawable.ic_goiy_main);
@@ -116,8 +111,6 @@ public class MainActivity extends AppCompatActivity {
         vpgBannerMain.setAdapter(bannerMainAdapter);
         //endregion
 
-
-
         //region dot cho viewPage
         dotscount = bannerMainAdapter.getCount();
         dots = new ImageView[dotscount];
@@ -137,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
         vpgBannerMain.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
@@ -182,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
         rcvGoiYCombo.setAdapter(goiYComboAdapter);
 
         //endregion
-
     }
 
     private void linkview() {
@@ -197,9 +188,6 @@ public class MainActivity extends AppCompatActivity {
         rcvGoiYCombo = findViewById(R.id.rcvGoiYCombo_main);
 
         blurView = findViewById(R.id.blurview_LyGoiYMonan);
-
-
-
     }
 
    /* class sliderTimer extends TimerTask{

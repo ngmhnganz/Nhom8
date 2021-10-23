@@ -25,5 +25,4 @@ public class BannerMainModel {
         this.desBanner = desBanner;
     }
 
-
 }
