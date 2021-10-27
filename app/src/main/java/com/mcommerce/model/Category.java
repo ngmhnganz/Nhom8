@@ -7,9 +7,6 @@ public class Category {
     public String categotySeeMore;
     public List <Product> products;
 
-    public Category() {
-    }
-
     public Category(String categoryName, String categotySeeMore, List<Product> products) {
         this.categoryName = categoryName;
         this.categotySeeMore = categotySeeMore;

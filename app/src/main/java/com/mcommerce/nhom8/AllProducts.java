@@ -15,13 +15,14 @@ import java.util.List;
 
 public class AllProducts extends AppCompatActivity {
 
-    public RecyclerView rcvCategory_allproducts;
-    public CategoryAdapter categoryAdapter;
+    private RecyclerView rcvCategory_allproducts;
+    private CategoryAdapter categoryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_products);
+
         rcvCategory_allproducts=findViewById(R.id.rcvCategory_allproducts);
         categoryAdapter = new CategoryAdapter(this);
 
@@ -29,11 +30,12 @@ public class AllProducts extends AppCompatActivity {
         rcvCategory_allproducts.setLayoutManager(linearLayoutManager);
 
         categoryAdapter.setData(getListCategory());
+        rcvCategory_allproducts.setAdapter(categoryAdapter);
 
     }
 
     // hàm get dữ liệu từ server gửi về
-    public List<Category> getListCategory(){
+    private List<Category> getListCategory(){
         List<Category> listCategory = new ArrayList<>();
         List<Product> listProduct = new ArrayList<>();
 
@@ -43,13 +45,14 @@ public class AllProducts extends AppCompatActivity {
         listProduct.add(new Product("Bột ca cao",R.drawable.botcacao, 120000));
         listProduct.add(new Product("Bột trà xanh",R.drawable.bottraxanh, 59000));
         listProduct.add(new Product("Trứng gà",R.drawable.trungga, 30000));
+        listProduct.add(new Product("Trứng gà",R.drawable.trungga, 30000));
+        listProduct.add(new Product("Trứng gà",R.drawable.trungga, 30000));
 
         listCategory.add(new Category("Nguyên liệu","Xem tất cả",listProduct));
         listCategory.add(new Category("Dụng cụ","Xem tất cả",listProduct));
         listCategory.add(new Category("Combo","Xem tất cả",listProduct));
 
-
-
         return listCategory;
     }
+
 }

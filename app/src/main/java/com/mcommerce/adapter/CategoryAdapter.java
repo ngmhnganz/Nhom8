@@ -18,8 +18,8 @@ import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
-    public Context context;
-    public List<Category> categoryList;
+    private Context context;
+    private List<Category> categoryList;
 
     public CategoryAdapter(Context context) {
         this.context = context;
@@ -49,16 +49,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         }
 
         holder.txtNameCategory_allproducts.setText(category.getCategoryName());
-        holder.txtSeeMore_allproducts.setText("Xem tất cả");
+        holder.txtSeeMore_allproducts.setText(category.getCategotySeeMore());
 
         LinearLayoutManager linearLayoutManager =new LinearLayoutManager(context,RecyclerView.HORIZONTAL,false);
         holder.rcvProduct_allproducts.setLayoutManager(linearLayoutManager);
 
-
         ProductAdapter productAdapter = new ProductAdapter();
         productAdapter.setData(category.getProducts());
         holder.rcvProduct_allproducts.setAdapter(productAdapter);
-
 
     }
 
@@ -76,9 +74,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView txtNameCategory_allproducts;
-        public TextView txtSeeMore_allproducts;
-        public RecyclerView rcvProduct_allproducts;
+        TextView txtNameCategory_allproducts;
+        TextView txtSeeMore_allproducts;
+        RecyclerView rcvProduct_allproducts;
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);

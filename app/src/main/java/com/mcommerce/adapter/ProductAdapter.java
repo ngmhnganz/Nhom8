@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mcommerce.model.Product;
@@ -18,8 +19,7 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
-
-    public List<Product> productList;
+    private List<Product> productList;
     public void setData(List<Product> list)
     {
         this.productList = list;
@@ -41,7 +41,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
         holder.imvHinh_allproducts.setImageResource(product.getProductImg());
         holder.txtProductName_allproducts.setText(product.getProductName());
-        holder.txtProductPrice_allproducts.setText(product.getProductPrice());
+        holder.txtProductPrice_allproducts.setText(String.valueOf(product.getProductPrice()));
+        holder.cvitem_allproducts.setLayoutParams(marginValue(holder));
     }
 
     @Override
@@ -56,16 +57,31 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder{
-
-        public ImageView imvHinh_allproducts;
-        public TextView txtProductPrice_allproducts, txtProductName_allproducts;
-
+        ImageView imvHinh_allproducts;
+        TextView txtProductPrice_allproducts, txtProductName_allproducts;
+        CardView cvitem_allproducts;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             imvHinh_allproducts = itemView.findViewById(R.id.imvHinh_allproducts);
             txtProductName_allproducts = itemView.findViewById(R.id.txtProductName_allproducts);
             txtProductPrice_allproducts = itemView.findViewById(R.id.txtProductPrice_allproducts);
+            cvitem_allproducts = itemView.findViewById(R.id.cvitem_allproducts);
+
+
+
         }
+    }
+
+    private ViewGroup.MarginLayoutParams marginValue(ProductAdapter.ProductViewHolder viewHolder){
+        float elevation = viewHolder.cvitem_allproducts.getMaxCardElevation();
+        float radius = viewHolder.cvitem_allproducts.getRadius();
+        double cos45 = Math.cos(Math.toRadians(45));
+
+        int horizontalPadding = (int) (elevation + (1 - cos45) * radius);
+        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) viewHolder.cvitem_allproducts.getLayoutParams();
+        params.rightMargin = -horizontalPadding;
+        params.topMargin = -horizontalPadding;
+        return params;
     }
 }

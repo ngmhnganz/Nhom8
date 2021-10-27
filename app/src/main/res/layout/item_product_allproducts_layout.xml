@@ -7,8 +7,10 @@
     android:layout_height="wrap_content"
     android:layout_marginEnd="10dp"
     app:cardCornerRadius="20dp"
+
     android:outlineAmbientShadowColor="@color/colorShadow"
     android:outlineSpotShadowColor="@color/colorShadow"
+
     app:cardElevation="10dp"
     app:cardUseCompatPadding="true">
 
@@ -18,50 +20,40 @@
         android:orientation="vertical"
         android:background="@color/white">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <ImageView
+            android:id="@+id/imvHinh_allproducts"
+
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="130dp"
 
-            <ImageView
-                android:id="@+id/imvHinh_allproducts"
+            android:scaleType="centerInside"
 
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
+            app:srcCompat="@drawable/botcacao"
+            android:background="@drawable/round_corner_background_image"/>
 
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-
-                android:scaleType="centerCrop"
-
-                app:srcCompat="@drawable/ic_launcher_background"
-                android:background="@drawable/round_corner_image"/>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/txtProductName_allproducts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorText"
             android:fontFamily="@font/gilroy_medium"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:paddingHorizontal="20dp"
-            android:paddingTop="10dp"/>
+            android:layout_marginTop="10dp"/>
 
         <TextView
             android:id="@+id/txtProductPrice_allproducts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView"
-            android:textColor="@color/colorText"
+            android:textColor="@color/colorPrimary"
             android:fontFamily="@font/gilroy_bold"
             android:paddingHorizontal="20dp"
-            android:paddingVertical="10dp"
-            android:textSize="12sp"
+            android:layout_marginBottom="10dp"
+            android:textSize="16sp"
             />
     </LinearLayout>
 

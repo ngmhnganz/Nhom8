@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton btnSanPham, btnCongThuc, btnGoiY;
     RecyclerView rcvGoiYMonan, rcvGoiYCombo;
     RealtimeBlurView blurView;
+    BannerMainAdapter bannerMainAdapter;
 
     LinearLayout llSliderDot;
     private int dotscount;
@@ -99,20 +100,6 @@ public class MainActivity extends AppCompatActivity {
         });
         //endregion
 
-    }
-
-
-    private void initData() {
-        //region Banner
-        bannerMainModelList = new ArrayList<>();
-        bannerMainModelList.add(new BannerMainModel(R.drawable.mot,"1"));
-        bannerMainModelList.add(new BannerMainModel(R.drawable.hai,"2"));
-        bannerMainModelList.add(new BannerMainModel(R.drawable.ba,"3"));
-
-        BannerMainAdapter bannerMainAdapter = new BannerMainAdapter(this, bannerMainModelList);
-        vpgBannerMain.setAdapter(bannerMainAdapter);
-        //endregion
-
         //region dot cho viewPage
         dotscount = bannerMainAdapter.getCount();
         dots = new ImageView[dotscount];
@@ -149,6 +136,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //endregion
+
+    }
+
+
+    private void initData() {
+        //region Banner
+        bannerMainModelList = new ArrayList<>();
+        bannerMainModelList.add(new BannerMainModel(R.drawable.mot,"1"));
+        bannerMainModelList.add(new BannerMainModel(R.drawable.hai,"2"));
+        bannerMainModelList.add(new BannerMainModel(R.drawable.ba,"3"));
+
+        bannerMainAdapter = new BannerMainAdapter(this, bannerMainModelList);
+        vpgBannerMain.setAdapter(bannerMainAdapter);
+        //endregion
+
+
 
         //region Gợi ý Món ăn
 
