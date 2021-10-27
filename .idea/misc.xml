@@ -3,6 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/2021-2022/6.CN_Android/Nhom8_real/app/src/main/res/drawable/background_tag.xml" value="0.1" />
+        <entry key="..\:/2021-2022/6.CN_Android/Nhom8_real/app/src/main/res/drawable/background_white.xml" value="0.1" />
+        <entry key="..\:/2021-2022/6.CN_Android/Nhom8_real/app/src/main/res/drawable/ic_bg_white.xml" value="0.1" />
+        <entry key="..\:/2021-2022/6.CN_Android/Nhom8_real/app/src/main/res/drawable/ic_btn_addproduct.xml" value="0.1" />
+        <entry key="..\:/2021-2022/6.CN_Android/Nhom8_real/app/src/main/res/drawable/ic_heart_line.xml" value="0.1" />
+        <entry key="..\:/2021-2022/6.CN_Android/Nhom8_real/app/src/main/res/drawable/ic_left_arrow_24.xml" value="0.1" />
+        <entry key="..\:/2021-2022/6.CN_Android/Nhom8_real/app/src/main/res/drawable/ic_minus_24.xml" value="0.1" />
+        <entry key="..\:/2021-2022/6.CN_Android/Nhom8_real/app/src/main/res/drawable/ic_plus_24.xml" value="0.1" />
+        <entry key="..\:/2021-2022/6.CN_Android/Nhom8_real/app/src/main/res/layout/activity_product_detail.xml" value="0.1" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.23541666666666666" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/drawable/active_dot.xml" value="0.1" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/drawable/custom_imagebutton_main.xml" value="0.4036458333333333" />
