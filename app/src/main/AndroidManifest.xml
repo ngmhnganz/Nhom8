@@ -14,6 +14,9 @@
             android:name=".AllProducts"
             android:exported="true" />
         <activity
+            android:name=".OrderActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
