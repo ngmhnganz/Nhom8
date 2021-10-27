@@ -1,5 +1,6 @@
 package com.mcommerce.nhom8;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,11 +21,13 @@ import com.mcommerce.adapter.GoiYMonanAdapter;
 import com.mcommerce.model.BannerMainModel;
 import com.mcommerce.model.GoiYComboModel;
 import com.mcommerce.model.GoiYMonanModel;
+import com.mcommerce.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
 
     ViewPager vpgBannerMain;
     List<BannerMainModel> bannerMainModelList;
@@ -33,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
     ImageButton btnSanPham, btnCongThuc, btnGoiY;
     RecyclerView rcvGoiYMonan, rcvGoiYCombo;
     RealtimeBlurView blurView;
-
 
     LinearLayout llSliderDot;
     private int dotscount;
@@ -206,6 +208,10 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
-    }*/
+    }
+    }
+}
+
+    */
 
 }
