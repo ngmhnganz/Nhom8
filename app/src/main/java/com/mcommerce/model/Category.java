@@ -10,6 +10,12 @@ public class Category {
     public Category() {
     }
 
+    public Category(String categoryName, String categotySeeMore, List<Product> products) {
+        this.categoryName = categoryName;
+        this.categotySeeMore = categotySeeMore;
+        this.products = products;
+    }
+
     public String getCategoryName() {
         return categoryName;
     }

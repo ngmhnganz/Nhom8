@@ -4,9 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mcommerce.model.Category;
@@ -14,12 +16,12 @@ import com.mcommerce.nhom8.R;
 
 import java.util.List;
 
-public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.CategoryViewHolder> {
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
     public Context context;
     public List<Category> categoryList;
 
-    public categoryAdapter(Context context) {
+    public CategoryAdapter(Context context) {
         this.context = context;
     }
 
@@ -48,35 +50,42 @@ public class categoryAdapter extends RecyclerView.Adapter<categoryAdapter.Catego
 
         holder.txtNameCategory_allproducts.setText(category.getCategoryName());
         holder.txtSeeMore_allproducts.setText("Xem tất cả");
-        holder.rcvCategory_allproducts.;
+
+        LinearLayoutManager linearLayoutManager =new LinearLayoutManager(context,RecyclerView.HORIZONTAL,false);
+        holder.rcvProduct_allproducts.setLayoutManager(linearLayoutManager);
+
 
         ProductAdapter productAdapter = new ProductAdapter();
-        productAdapter.se(category.getProducts());
+        productAdapter.setData(category.getProducts());
+        holder.rcvProduct_allproducts.setAdapter(productAdapter);
 
 
     }
 
     @Override
     public int getItemCount() {
+
         if(categoryList != null)
         {
             return categoryList.size();
         }
         return 0;
+
+
     }
 
     public class CategoryViewHolder extends RecyclerView.ViewHolder{
 
         public TextView txtNameCategory_allproducts;
         public TextView txtSeeMore_allproducts;
-        public RecyclerView rcvCategory_allproducts;
+        public RecyclerView rcvProduct_allproducts;
 
         public CategoryViewHolder(@NonNull View itemView) {
             super(itemView);
 
             txtNameCategory_allproducts = itemView.findViewById(R.id.txtNameCategory_allproducts);
             txtSeeMore_allproducts = itemView.findViewById(R.id.txtSeeMore_allproducts);
-            rcvCategory_allproducts  = itemView.findViewById(R.id.rcvCategory_allproducts);
+            rcvProduct_allproducts  = itemView.findViewById(R.id.rcvProduct_allproducts);
         }
     }
 }

@@ -1,45 +1,11 @@
 package com.mcommerce.adapter;
 
-import android.content.Context;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.mcommerce.nhom8.R;
-import com.squareup.picasso.Picasso;
-
-public class ProductAdapter extends RecyclerView.ViewHolder {
-
-    View view;
-
-    public ProductAdapter(@NonNull View itemView) {
-        super(itemView);
-
-        view=itemView;
-    }
-
-    public void setdetails(Context context,String name, String image, int price ){
-        TextView txtProductPrice_allproducts = view.findViewById(R.id.txtProductPrice_allproducts);
-        TextView txtProductName_allproducts = view.findViewById(R.id.txtProductName_allproducts);
-        ImageView imv_allproducts = view.findViewById(R.id.imv_allproducts);
-
-        txtProductName_allproducts.setText(name);
-        txtProductPrice_allproducts.setText(String.valueOf(price));
-        Picasso.get().load(image).into(imv_allproducts);
-    }
-}
-
-
-/*
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,55 +13,59 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mcommerce.model.Product;
 import com.mcommerce.nhom8.R;
 
-import java.util.ArrayList;
+import org.w3c.dom.Text;
 
-public class productAdapter extends RecyclerView.Adapter<productAdapter.MyViewHolder> {
+import java.util.List;
 
-    Context context;
-    ArrayList<Product> productArrayList;
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
 
-    public productAdapter(Context context, ArrayList<Product> productArrayList) {
-        this.context = context;
-        this.productArrayList = productArrayList;
+    public List<Product> productList;
+    public void setData(List<Product> list)
+    {
+        this.productList = list;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public productAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(context).inflate(R.layout.item_product_allproducts_layout,parent,false);
-
-        return new MyViewHolder(view);
+    public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_allproducts_layout,parent,false);
+        return new ProductViewHolder(view) ;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull productAdapter.MyViewHolder holder, int position) {
-
-        Product product = productArrayList.get(position);
-
-        holder.txtProductName_allproducts.setText(product.productName);
-        holder.txtProductPrice_allproducts.setText(String.valueOf(product.productPrice));
-        holder.imv_allproducts.set
-
+    public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
+        Product product = productList.get(position);
+        if(product== null) {
+            return ;
+        }
+        holder.imvHinh_allproducts.setImageResource(product.getProductImg());
+        holder.txtProductName_allproducts.setText(product.getProductName());
+        holder.txtProductPrice_allproducts.setText(product.getProductPrice());
     }
 
     @Override
     public int getItemCount() {
-        return productArrayList.size();
+        if(productList != null)
+        {
+            return productList.size();
+        }
+        return 0;
+
+
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public class ProductViewHolder extends RecyclerView.ViewHolder{
 
-        TextView txtProductName_allproducts, txtProductPrice_allproducts;
-        ImageView imv_allproducts;
+        public ImageView imvHinh_allproducts;
+        public TextView txtProductPrice_allproducts, txtProductName_allproducts;
 
-        public MyViewHolder(@NonNull View itemView) {
+
+        public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
+            imvHinh_allproducts = itemView.findViewById(R.id.imvHinh_allproducts);
             txtProductName_allproducts = itemView.findViewById(R.id.txtProductName_allproducts);
             txtProductPrice_allproducts = itemView.findViewById(R.id.txtProductPrice_allproducts);
-            imv_allproducts= itemView.findViewById(R.id.imv_allproducts);
         }
     }
 }
-
-*/
