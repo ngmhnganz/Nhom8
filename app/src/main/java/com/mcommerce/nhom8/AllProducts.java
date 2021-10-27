@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.mcommerce.adapter.CategoryAdapter;
 import com.mcommerce.model.Category;
 import com.mcommerce.model.Product;
@@ -17,13 +20,31 @@ public class AllProducts extends AppCompatActivity {
 
     private RecyclerView rcvCategory_allproducts;
     private CategoryAdapter categoryAdapter;
+    private MaterialToolbar topAppBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_products);
 
-        rcvCategory_allproducts=findViewById(R.id.rcvCategory_allproducts);
+        linkview();
+        initAdapter();
+        addEvent();
+
+    }
+
+    private void addEvent() {
+        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentMain = new Intent(AllProducts.this ,
+                        MainActivity.class);
+                AllProducts.this.startActivity(intentMain);
+            }
+        });
+    }
+
+    private void initAdapter() {
         categoryAdapter = new CategoryAdapter(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
@@ -32,6 +53,11 @@ public class AllProducts extends AppCompatActivity {
         categoryAdapter.setData(getListCategory());
         rcvCategory_allproducts.setAdapter(categoryAdapter);
 
+    }
+
+    private void linkview() {
+        rcvCategory_allproducts=findViewById(R.id.rcvCategory_allproducts);
+        topAppBar = findViewById(R.id.topAppBar_allProducts);
     }
 
     // hàm get dữ liệu từ server gửi về

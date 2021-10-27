@@ -23,7 +23,7 @@
 
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
+            android:id="@+id/topAppBar_allProducts"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#00FFFFFF"
@@ -35,30 +35,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvCategory_allproducts"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
 
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
         app:layout_constraintVertical_bias="1.0" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
-
-        android:background="@drawable/round_corner_image"
-        app:itemIconTint="@color/nav_color"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:itemTextAppearanceActive="@style/bottomNavigationText"
-
-        app:menu="@menu/bottom_navigation_menu" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
