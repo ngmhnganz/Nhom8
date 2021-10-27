@@ -71,7 +71,7 @@ public class TestOrderAdapter extends RecyclerView.Adapter<TestOrderAdapter.View
 
                     //orderModelList chứa toàn bộ dữ liệu item đã tạo
                      /*biến orderModelListOld được tạo ở dòng 26, ta sẽ cho nó lấy mọi giá trị mà
-                    user nhập vào (dòng 31)*/
+                    trong database (dòng 31)*/
                     orderModelList = orderModelListOld;
                 }
 
@@ -87,7 +87,7 @@ public class TestOrderAdapter extends RecyclerView.Adapter<TestOrderAdapter.View
                         //ở đây thì cho mặc định search theo địa chỉ, ở màn hình khác cho search theo
                         //id hay tên thì thay đổi giá trị đoạn "getOrderAddress" thành get cái mình muốn
 
-                        // nếu item trong list được lấy ra có kết quả giống với biến strSearch thì
+                        // nếu item kết quả giống với biến strSearch thì
                         // thêm item đó vào list (đã tạo ở dòng 82)
                         if (orderModel.getOrderAddress().toLowerCase().contains(strSearch.toLowerCase())){
                             list.add(orderModel);
@@ -96,7 +96,7 @@ public class TestOrderAdapter extends RecyclerView.Adapter<TestOrderAdapter.View
 
                     // sau khi chạy xong dòng for : có nghĩa ta đã tìm hết các sản phẩm trùng khớp với
                     //cái khách hàng tìm kiếm và lưu vào biến list.
-                    // lúc này cho orderModelList lấy toàn bộ dữ liệu của list item
+                    // lúc này cho orderModelList lấy toàn bộ dữ liệu của list
                     orderModelList = list;
                 }
 
