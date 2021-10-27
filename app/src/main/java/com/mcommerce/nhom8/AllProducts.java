@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.mcommerce.adapter.CategoryAdapter;
@@ -21,6 +22,7 @@ public class AllProducts extends AppCompatActivity {
     private RecyclerView rcvCategory_allproducts;
     private CategoryAdapter categoryAdapter;
     private MaterialToolbar topAppBar;
+    TextView txtSeeMore_allproduct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,17 +33,6 @@ public class AllProducts extends AppCompatActivity {
         initAdapter();
         addEvent();
 
-    }
-
-    private void addEvent() {
-        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentMain = new Intent(AllProducts.this ,
-                        MainActivity.class);
-                AllProducts.this.startActivity(intentMain);
-            }
-        });
     }
 
     private void initAdapter() {
@@ -55,9 +46,31 @@ public class AllProducts extends AppCompatActivity {
 
     }
 
+    private void addEvent() {
+        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentMain = new Intent(AllProducts.this ,
+                        MainActivity.class);
+                AllProducts.this.startActivity(intentMain);
+            }
+        });
+
+        //[pong] setOnClickListener cho txt SeeMore
+//        txtSeeMore_allproduct.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intentListProduct=new Intent(AllProducts.this,ListProductActivity.class);
+//                startActivity(intentListProduct);
+//            }
+//        });
+        //end
+    }
+
     private void linkview() {
         rcvCategory_allproducts=findViewById(R.id.rcvCategory_allproducts);
         topAppBar = findViewById(R.id.topAppBar_allProducts);
+        txtSeeMore_allproduct=findViewById(R.id.txtSeeMore_allproducts);
     }
 
     // hàm get dữ liệu từ server gửi về

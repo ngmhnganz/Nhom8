@@ -9,6 +9,36 @@ public class Product {
     public int productQuantity;
     public int productLike;
 
+    //thêm thuộc tính cho list product của pong
+    public int productBackgroundImg;
+    public int productAddItem;
+
+    public int getProductBackgroundImg() {
+        return productBackgroundImg;
+    }
+
+    public void setProductBackgroundImg(int productBackgroundImg) {
+        this.productBackgroundImg = productBackgroundImg;
+    }
+
+    public int getProductAddItem() {
+        return productAddItem;
+    }
+
+    public void setProductAddItem(int productAddItem) {
+        this.productAddItem = productAddItem;
+    }
+
+    public Product(String productName, int productImg, int productPrice, int productLike, int productBackgroundImg, int productAddItem) {
+        this.productName = productName;
+        this.productImg = productImg;
+        this.productPrice = productPrice;
+        this.productLike = productLike;
+        this.productBackgroundImg = productBackgroundImg;
+        this.productAddItem = productAddItem;
+    }
+    //pong end
+
     public Product(String productName, int productImg, String productDescription, String productDetail, int productPrice, int productQuantity, int productLike) {
         this.productName = productName;
         this.productImg = productImg;
