@@ -11,7 +11,7 @@
         android:theme="@style/Theme.Nhom8">
         <activity
             android:name=".OderActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

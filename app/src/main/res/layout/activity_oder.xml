@@ -59,40 +59,48 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <android.widget.Button
-                android:id="@+id/btnComingOrder_orderactivity"
-
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_height="wrap_content">
 
-                android:background="@color/white"
+                <android.widget.Button
+                    android:id="@+id/btnComingOrder_orderactivity"
 
-                android:text="Đang đến"
-                android:textColor="@color/colorSubText"
-                android:textAllCaps="false"
-                android:fontFamily="@font/sfpro_medium"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
 
-            <android.widget.Button
-                android:id="@+id/btnHistoryOrder_orderactivity"
+                    android:background="@color/white"
+
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="Đang đến"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorSubText" />
+
+                <android.widget.Button
+                    android:id="@+id/btnHistoryOrder_orderactivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+
+                    android:background="@color/white"
+
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="Lịch sử"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorSubText" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutContainerFragment_orderactivity"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-
-                android:background="@color/white"
-
-                android:text="Lịch sử"
-                android:textColor="@color/colorSubText"
-                android:textAllCaps="false"
-                android:fontFamily="@font/sfpro_medium"/>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/layoutContainerFragment_orderactivity"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
     </ScrollView>
 
