@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LikeList"
+    android:background="@color/white">
+
+    //HEADER thiếu nút back và thanh search
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fontFamily="@font/sfpro_black"
+            android:text="Hi Phuc,"
+            android:textColor="@color/white"
+            android:textSize="24sp" />
+    </LinearLayout>
+    //BODY - Thanh trượt
+    <LinearLayout
+        android:id="@+id/lnlNut_LikeList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintBottom_toTopOf="@+id/scv_LikeList">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCongThuc_LikeList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Công Thức"
+                android:textSize="18sp"
+                android:fontFamily="@font/sfpro_medium"
+                android:textColor="@color/colorText"
+                android:backgroundTint="#FFFFFF"/>
+            <Button
+                android:id="@+id/btnSanPham_LikeList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Sản phẩm"
+                android:textColor="@color/colorText"
+                android:fontFamily="@font/sfpro_medium"
+                android:textSize="18sp"
+                android:backgroundTint="#FFFFFF"/>
+
+        </LinearLayout>
+    </LinearLayout>
+    <ScrollView
+        android:id="@+id/scv_LikeList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lnlNut_LikeList"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation">
+        <LinearLayout
+            android:id="@+id/layoutContainer_LikeList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="5dp"
+            tools:layout_editor_absoluteY="53dp">
+        </LinearLayout>
+
+
+    </ScrollView>
+    //NAVIGATE
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+
+        android:background="@drawable/round_corner_image"
+        app:itemIconTint="@color/nav_color"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:itemTextAppearanceActive="@style/bottomNavigationText"
+
+        app:menu="@menu/bottom_navigation_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
