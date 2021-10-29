@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OrderDetailActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout_orderdetail"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_main"
+
+        android:outlineAmbientShadowColor="#00FFFFFF"
+        android:outlineSpotShadowColor="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar_orderdetail"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#00FFFFFF"
+            app:navigationIcon="@drawable/ic_left_arrow_24_white"
+            app:title="CHI TIẾT SẢN PHẨM" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout_orderdetail">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:fontFamily="@font/gilroy_bold"
+                    android:textColor="@color/colorText"
+                    android:text="Mã đơn hàng: ">
+                </TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/txtMaDonHang_orderdetail"
+                    android:fontFamily="@font/gilroy_bold"
+                    android:textColor="@color/colorText"
+                    android:text="#15102021-12652">
+                </TextView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"
+                    android:id="@+id/txtTime_orderdetail"
+                    android:gravity="end"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:textColor="@color/colorText"
+                    android:text="15:45 ">
+                </TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/txtDate_orderdetail"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:textColor="@color/colorText"
+                    android:text="15, Tháng Mười, 2021 ">
+                </TextView>
+
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rcvListProduct_orderdetail"
+                android:padding="5dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/txtTamTinh_orderdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="Tạm tính"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtTotalQuantity_orderdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="(4 món)"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintStart_toEndOf="@id/txtTamTinh_orderdetail"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtSubtotal_orderdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="299.000 đ"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtPhiVanChuyen_orderdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="Phí vận chuyển"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtTamTinh_orderdetail" />
+
+                <TextView
+                    android:id="@+id/txtShippingFee_orderdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="15.000 đ"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSubtotal_orderdetail"></TextView>
+
+                <TextView
+                    android:id="@+id/txtMaGiamGia_orderdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="15dp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="Mã giảm giá"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtPhiVanChuyen_orderdetail" />
+
+
+                <TextView
+                    android:id="@+id/txtDiscount_orderdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="30.000 đ"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtShippingFee_orderdetail" />
+
+
+                <TextView
+                    android:id="@+id/txtTongCong_orderdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="Tổng cộng"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtMaGiamGia_orderdetail" />
+
+
+                <TextView
+                    android:id="@+id/txtTotal_orderdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="20dp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="284.000 đ"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtDiscount_orderdetail" />
+
+                <TextView
+                    android:id="@+id/txtBeforeDiscount_orderdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="314.000 đ"
+                    android:textColor="@color/grey"
+                    app:layout_constraintEnd_toStartOf="@+id/txtTotal_orderdetail"
+                    app:layout_constraintTop_toTopOf="@+id/txtTotal_orderdetail" />
+
+                <TextView
+                    android:id="@+id/txtTen_orderdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/sfpro_regular"
+                    android:text="Tên"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txtTongCong_orderdetail" />
+
+                <TextView
+                    android:id="@+id/txtCustomerName_orderdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/sfpro_regular"
+                    android:text="Vũ Nguyễn Anh Thư"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintStart_toEndOf="@+id/txtTen_orderdetail"
+                    app:layout_constraintTop_toBottomOf="@+id/txtTotal_orderdetail" />
+
+                <TextView
+                    android:id="@+id/txtSoDienThoai_orderdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/sfpro_regular"
+                    android:text="Số điện thoại"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtTen_orderdetail" />
+
+                <TextView
+                    android:id="@+id/txtCustomerPhone_orderdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/sfpro_regular"
+                    android:text="0779565416"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintStart_toStartOf="@+id/txtCustomerName_orderdetail"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCustomerName_orderdetail" />
+
+                <TextView
+                    android:id="@+id/txtDiaChi_orderdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/sfpro_regular"
+                    android:text="Địa chỉ"
+                    android:textColor="@color/colorText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtSoDienThoai_orderdetail" />
+
+                <TextView
+                    android:id="@+id/txtCustomerAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/sfpro_regular"
+                    android:text="62 Huỳnh Khương An, P.5, Q. Gò Vấp, TPHCM "
+                    android:textColor="@color/colorText"
+                    app:layout_constraintStart_toStartOf="@+id/txtCustomerPhone_orderdetail"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCustomerPhone_orderdetail" />
+
+                <Button
+                    android:id="@+id/btnReOrder_orderdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginTop="50dp"
+                    android:fontFamily="@font/gilroy_bold"
+                    android:text="Đặt lại"
+                    android:textColor="@color/white"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtDiaChi_orderdetail" />
+
+                <Button
+                    android:id="@+id/btnSupport_orderdetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="80dp"
+                    android:fontFamily="@font/gilroy_bold"
+                    android:text="Hỗ trợ"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtCustomerAddress" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </LinearLayout>
+
+
+
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
