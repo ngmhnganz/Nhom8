@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/white"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtID_iHistoryOrder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_weight="1"
+                android:textColor="@color/colorText"
+                android:gravity="start"/>
+
+            <TextView
+                android:id="@+id/txtDate_iHistoryOrder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:layout_weight="1"
+                android:textColor="@color/colorText"
+                android:gravity="end"/>
+
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imv_iHistoryOrder"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_launcher_background"
+                android:background="@drawable/round_corner_image"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/txtAddress_iHistoryOrder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/sfpro_regular"
+                    android:text="TextView"
+                    android:textColor="@color/colorText"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/txtDes_iHistoryOrder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:text="Giá"
+                    android:textColor="@color/colorPrimary"
+                    android:fontFamily="@font/sfpro_bold"
+
+                    android:layout_marginHorizontal="20dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imvStatus_iHistoryOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_x_circle_fill"
+                android:padding="10dp"/>
+
+            <TextView
+                android:id="@+id/txtStatus_iHistoryOrder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Hoan thanh"
+                android:textColor="@color/colorSubText"/>
+
+            <android.widget.Button
+                android:id="@+id/btnDatLai_iHistoryOrder"
+                style="@style/button"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+
+                android:layout_margin="10dp"
+
+                android:text="Đặt lại"
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>
