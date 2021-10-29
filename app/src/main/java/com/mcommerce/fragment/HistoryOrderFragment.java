@@ -16,13 +16,27 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.mcommerce.model.Product;
 import com.mcommerce.nhom8.R;
+
+import java.util.List;
+import java.util.Queue;
 
 public class HistoryOrderFragment extends Fragment {
 
     TextView txtDate_fragmentHistoryOrder;
     View view;
     MaterialDatePicker materialDatePicker;
+    List<Product> productList;
+
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference mDatabase =firebaseDatabase.getReference();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -31,9 +45,19 @@ public class HistoryOrderFragment extends Fragment {
 
         linkview();
         addEvent();
+
+
+
+      
+
+
         return view;
 
+
+
     }
+
+
 
     private void addEvent() {
         materialDatePicker = MaterialDatePicker.Builder.dateRangePicker().setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(),MaterialDatePicker.todayInUtcMilliseconds())).build();

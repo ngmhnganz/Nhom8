@@ -55,7 +55,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         holder.rcvProduct_allproducts.setLayoutManager(linearLayoutManager);
 
         ProductAdapter productAdapter = new ProductAdapter();
-        productAdapter.setData(category.getProducts());
+        productAdapter.setData(context,category.getProducts());
         holder.rcvProduct_allproducts.setAdapter(productAdapter);
 
     }

@@ -1,5 +1,6 @@
 package com.mcommerce.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.mcommerce.model.Product;
 import com.mcommerce.nhom8.R;
 
@@ -19,9 +21,13 @@ import org.w3c.dom.Text;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
+
+    private Context context;
     private List<Product> productList;
-    public void setData(List<Product> list)
+
+    public void setData(Context context, List<Product> list)
     {
+        this.context = context;
         this.productList = list;
         notifyDataSetChanged();
     }
@@ -39,9 +45,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         if(product== null) {
             return ;
         }
-        holder.imvHinh_allproducts.setImageResource(product.getProductImg());
+        Glide.with(context).load(product.getProductImg()).into(holder.imvHinh_allproducts);
+
         holder.txtProductName_allproducts.setText(product.getProductName());
-        holder.txtProductPrice_allproducts.setText(String.valueOf(product.getProductPrice()));
+        holder.txtProductPrice_allproducts.setText(product.getProductPrice());
         holder.cvitem_allproducts.setLayoutParams(marginValue(holder));
     }
 

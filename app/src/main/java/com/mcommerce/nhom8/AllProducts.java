@@ -1,5 +1,6 @@
 package com.mcommerce.nhom8;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,6 +10,12 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.CategoryAdapter;
 import com.mcommerce.model.Category;
 import com.mcommerce.model.Product;
@@ -21,6 +28,11 @@ public class AllProducts extends AppCompatActivity {
     private RecyclerView rcvCategory_allproducts;
     private CategoryAdapter categoryAdapter;
     private MaterialToolbar topAppBar;
+
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference myref = firebaseDatabase.getReference();
+    ArrayList<Category> listCategory = new ArrayList<>();
+    ArrayList<Product> listProduct = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +57,43 @@ public class AllProducts extends AppCompatActivity {
     }
 
     private void initAdapter() {
+
         categoryAdapter = new CategoryAdapter(this);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         rcvCategory_allproducts.setLayoutManager(linearLayoutManager);
 
-        categoryAdapter.setData(getListCategory());
-        rcvCategory_allproducts.setAdapter(categoryAdapter);
+
+        Query query = myref.child("NguyenLieu");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Product product = new Product();
+                    product.setProductImg(dataSnapshot.child("productImg").getValue().toString());
+                    product.setProductLike(dataSnapshot.child("productLike").getValue().toString());
+                    product.setProductDescription(dataSnapshot.child("productDescription").getValue().toString());
+                    product.setProductDetail(dataSnapshot.child("productDetail").getValue().toString());
+                    product.setProductName(dataSnapshot.child("productName").getValue().toString());
+                    product.setProductPrice(dataSnapshot.child("productPrice").getValue().toString());
+                    product.setProductQuantity(dataSnapshot.child("productQuantity").getValue().toString());
+                    listProduct.add(product);
+                };
+
+                listCategory.add(new Category("Dụng cụ","Xem tất cả",listProduct));
+                listCategory.add(new Category("Nguyên liệu","Xem tất cả",listProduct));
+                listCategory.add(new Category("Combo","Xem tất cả",listProduct));
+
+                categoryAdapter.setData(listCategory);
+                rcvCategory_allproducts.setAdapter(categoryAdapter);
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
     }
 
@@ -61,13 +103,12 @@ public class AllProducts extends AppCompatActivity {
     }
 
     // hàm get dữ liệu từ server gửi về
-    private List<Category> getListCategory(){
-        List<Category> listCategory = new ArrayList<>();
-        List<Product> listProduct = new ArrayList<>();
+   /* private List<Category> getListCategory(){*/
+
 
         // làm dữ liệu giả
 
-        listProduct.add(new Product("Bột mì",R.drawable.botmi, 24000));
+        /*listProduct.add(new Product("Bột mì",R.drawable.botmi, 24000));
         listProduct.add(new Product("Bột ca cao",R.drawable.botcacao, 120000));
         listProduct.add(new Product("Bột trà xanh",R.drawable.bottraxanh, 59000));
         listProduct.add(new Product("Trứng gà",R.drawable.trungga, 30000));
@@ -76,9 +117,38 @@ public class AllProducts extends AppCompatActivity {
 
         listCategory.add(new Category("Nguyên liệu","Xem tất cả",listProduct));
         listCategory.add(new Category("Dụng cụ","Xem tất cả",listProduct));
+        listCategory.add(new Category("Combo","Xem tất cả",listProduct));*/
+
+        /*Query query = myref.child("NguyenLieu");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Product product = new Product();
+                    product.setProductImg(dataSnapshot.child("productImg").getValue().toString());
+                    product.setProductLike(dataSnapshot.child("productLike").getValue().toString());
+                    product.setProductDescription(dataSnapshot.child("productDescription").getValue().toString());
+                    product.setProductDetail(dataSnapshot.child("productDetail").getValue().toString());
+                    product.setProductName(dataSnapshot.child("productName").getValue().toString());
+                    product.setProductPrice(dataSnapshot.child("productPrice").getValue().toString());
+                    product.setProductQuantity(dataSnapshot.child("productQuantity").getValue().toString());
+                    listProduct.add(product);
+                };
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });*/
+
+
+     /*   listCategory.add(new Category("Dụng cụ","Xem tất cả",listProduct));
         listCategory.add(new Category("Combo","Xem tất cả",listProduct));
 
         return listCategory;
-    }
+
+    }*/
 
 }

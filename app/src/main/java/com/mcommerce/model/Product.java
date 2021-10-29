@@ -1,15 +1,17 @@
 package com.mcommerce.model;
 
 public class Product {
-    public String productName;
-    public int productImg;
-    public String productDescription;
-    public String productDetail;
-    public int productPrice;
-    public int productQuantity;
-    public int productLike;
+    private String productName;
+    private String productImg;
+    private String productDescription;
+    private String productDetail;
+    private String productPrice;
+    private String productQuantity;
+    private String productLike;
 
-    public Product(String productName, int productImg, String productDescription, String productDetail, int productPrice, int productQuantity, int productLike) {
+
+
+    public Product(String productDescription,String productDetail, String pr) {
         this.productName = productName;
         this.productImg = productImg;
         this.productDescription = productDescription;
@@ -19,12 +21,16 @@ public class Product {
         this.productLike = productLike;
     }
 
+    public Product(){
+
+    }
+
     // sẽ xóa nếu đổ dl thật về cho trang AllProducts (Thư)
-    public Product(String productName, int productImg, int productPrice) {
+   /* public Product(String productName, String productImg, int productPrice) {
         this.productName = productName;
         this.productImg = productImg;
         this.productPrice = productPrice;
-    }
+    }*/
 
 
     public String getProductName() {
@@ -35,11 +41,11 @@ public class Product {
         this.productName = productName;
     }
 
-    public int getProductImg() {
+    public String getProductImg() {
         return productImg;
     }
 
-    public void setProductImg(int productImg) {
+    public void setProductImg(String productImg) {
         this.productImg = productImg;
     }
 
@@ -59,30 +65,28 @@ public class Product {
         this.productDetail = productDetail;
     }
 
-    public int getProductPrice() {
+    public String getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(int productPrice) {
+    public void setProductPrice(String productPrice) {
         this.productPrice = productPrice;
     }
 
-    public int getProductQuantity() {
+    public String getProductQuantity() {
         return productQuantity;
     }
 
-    public void setProductQuantity(int productQuantity) {
+    public void setProductQuantity(String productQuantity) {
         this.productQuantity = productQuantity;
     }
 
-    public int getProductLike() {
+    public String getProductLike() {
         return productLike;
     }
 
-    public void setProductLike(int productLike) {
+    public void setProductLike(String productLike) {
         this.productLike = productLike;
     }
 
-    public Product() {
-    }
 }

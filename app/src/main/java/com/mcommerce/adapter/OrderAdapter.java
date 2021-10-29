@@ -46,7 +46,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
         List<Product> products = order.getItemOrder();
         Product product = products.get(1);
 
-        holder.imv_iHistoryOrder.setImageResource(product.getProductImg());
+        /*holder.imv_iHistoryOrder.setImageResource(product.getProductImg());*/
         holder.txtID_iHistoryOrder.setText(order.getIdOrder());
         holder.txtDes_iHistoryOrder.setText(order.getPriceOrder()+" "+String.valueOf(products.size())+"sản phẩm "+ order.getPaymentOrder());
         holder.txtDate_iHistoryOrder.setText(order.getDateOrder());
@@ -62,6 +62,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                 holder.imvStatus_iHistoryOrder.setImageResource(R.drawable.ic_x_circle_fill);
                 break;
         }
+
 
     }
 
