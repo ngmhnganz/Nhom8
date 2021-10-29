@@ -4,7 +4,7 @@
     <color name="colorShadow">#F7A168</color>
     <color name="colorSub">#FFC183</color>
     <color name="colorSubText">#A1A4B2</color>
-    <color name="teal_700">#FF018786</color>
+    <color name="colorDarkPrimary">#EB8542</color>
     <color name="colorText">#3F414E</color>
     <color name="white">#FFFFFFFF</color>
     <color name="brown">#795F51</color>

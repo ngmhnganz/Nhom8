@@ -10,6 +10,7 @@ public class OrderModel {
     public static final int DONG_GOI = 4;
     public static final int VAN_CHUYEN = 5;
     public static final int THANH_CONG = 6;
+    public static final int DA_HUY =0;
 
 
     String idOrder, dateOrder, addOrder, paymentOrder;
