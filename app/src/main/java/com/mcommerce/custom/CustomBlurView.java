@@ -1,4 +1,4 @@
-package com.mcommerce.adapter;
+package com.mcommerce.custom;
 
 import android.content.Context;
 import android.graphics.Bitmap;

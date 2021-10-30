@@ -3,9 +3,9 @@ package com.mcommerce.model;
 import java.util.List;
 
 public class Category {
-    public String categoryName;
-    public String categotySeeMore;
-    public List <Product> products;
+    private String categoryName;
+    private String categotySeeMore;
+    private List <Product> products;
 
     public Category(String categoryName, String categotySeeMore, List<Product> products) {
         this.categoryName = categoryName;

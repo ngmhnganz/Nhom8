@@ -47,7 +47,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0">
 
-                <com.mcommerce.adapter.CustomBlurView
+                <com.mcommerce.custom.CustomBlurView
                     android:id="@+id/blurview_LyGoiYCombo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

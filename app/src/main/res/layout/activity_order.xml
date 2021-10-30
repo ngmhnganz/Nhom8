@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/btn_back"
+            android:id="@+id/btnBack_orderactivity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -39,7 +39,7 @@
             android:textSize="20sp" />
 
         <ImageButton
-            android:id="@+id/btn_card"
+            android:id="@+id/btnCart_orderactivity"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -96,7 +96,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layoutContainerFragment_orderactivity"
+                android:id="@+id/layoutContainer_orderactivity"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>

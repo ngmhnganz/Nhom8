@@ -1,5 +1,6 @@
 package com.mcommerce.adapter;
 
+import android.content.Context;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.mcommerce.model.OrderModel;
 import com.mcommerce.model.Product;
 import com.mcommerce.nhom8.R;
@@ -19,11 +21,14 @@ import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHolder> {
 
+    private Context context;
+    int item_layout;
     private List<OrderModel> orderList;
 
-    public void setData(List<OrderModel> orderList) {
+    public OrderAdapter(Context context, int item_layout, List<OrderModel> orderList) {
+        this.context = context;
+        this.item_layout = item_layout;
         this.orderList = orderList;
-        notifyDataSetChanged();
     }
 
     @NonNull
@@ -43,14 +48,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
             return;
         }
 
-        List<Product> products = order.getItemOrder();
-        Product product = products.get(1);
 
-        /*holder.imv_iHistoryOrder.setImageResource(product.getProductImg());*/
         holder.txtID_iHistoryOrder.setText(order.getIdOrder());
-        holder.txtDes_iHistoryOrder.setText(order.getPriceOrder()+" "+String.valueOf(products.size())+"sản phẩm "+ order.getPaymentOrder());
+        holder.txtDes_iHistoryOrder.setText(order.getPriceOrder()+" "+String.valueOf(order.getItemOrder().size())+"sản phẩm "+ order.getPaymentOrder());
         holder.txtDate_iHistoryOrder.setText(order.getDateOrder());
         holder.txtAddress_iHistoryOrder.setText(order.getAddOrder());
+        Glide.with(context).load(order.getImgOrder()).into(holder.imv_iHistoryOrder);
 
         switch(order.getStatusOrder()) {
             case OrderModel.THANH_CONG:
@@ -62,8 +65,6 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                 holder.imvStatus_iHistoryOrder.setImageResource(R.drawable.ic_x_circle_fill);
                 break;
         }
-
-
     }
 
     @Override

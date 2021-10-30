@@ -35,14 +35,21 @@
 
         <TextView
             android:id="@+id/txtProductName_allproducts"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:text="TextView"
+
             android:textColor="@color/colorText"
             android:fontFamily="@font/gilroy_medium"
             android:textSize="16sp"
+
             android:paddingHorizontal="20dp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+
+            android:maxLines="1"
+            android:ellipsize="end"/>
 
         <TextView
             android:id="@+id/txtProductPrice_allproducts"
