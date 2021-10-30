@@ -5,12 +5,12 @@ public class Product {
     private String productImg;
     private String productDescription;
     private String productDetail;
-    private String productPrice;
-    private String productQuantity;
-    private String productLike;
+    private int productPrice;
+    private int productQuantity;
+    private int productLike;
 
 
-    public Product(String productName, String productImg, String productDescription, String productDetail, String productPrice, String productQuantity, String productLike) {
+    public Product(String productName, String productImg, String productDescription, String productDetail, Integer productPrice, int productQuantity, Integer productLike) {
         this.productName = productName;
         this.productImg = productImg;
         this.productDescription = productDescription;
@@ -64,27 +64,27 @@ public class Product {
         this.productDetail = productDetail;
     }
 
-    public String getProductPrice() {
+    public int getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(String productPrice) {
+    public void setProductPrice(int productPrice) {
         this.productPrice = productPrice;
     }
 
-    public String getProductQuantity() {
+    public int getProductQuantity() {
         return productQuantity;
     }
 
-    public void setProductQuantity(String productQuantity) {
+    public void setProductQuantity(int productQuantity) {
         this.productQuantity = productQuantity;
     }
 
-    public String getProductLike() {
+    public int getProductLike() {
         return productLike;
     }
 
-    public void setProductLike(String productLike) {
+    public void setProductLike(int productLike) {
         this.productLike = productLike;
     }
 

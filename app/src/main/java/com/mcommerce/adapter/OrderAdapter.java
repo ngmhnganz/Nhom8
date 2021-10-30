@@ -50,7 +50,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
 
 
         holder.txtID_iHistoryOrder.setText(order.getIdOrder());
-        holder.txtDes_iHistoryOrder.setText(order.getPriceOrder()+" "+String.valueOf(order.getItemOrder().size())+"sản phẩm "+ order.getPaymentOrder());
+        holder.txtDes_iHistoryOrder.setText(String.valueOf(order.getPriceOrder())+" "+String.valueOf(order.getItemOrder().size())+"sản phẩm "+ order.getPaymentOrder());
         holder.txtDate_iHistoryOrder.setText(order.getDateOrder());
         holder.txtAddress_iHistoryOrder.setText(order.getAddOrder());
         Glide.with(context).load(order.getImgOrder()).into(holder.imv_iHistoryOrder);

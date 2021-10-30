@@ -72,12 +72,12 @@ public class AllProducts extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Product product = new Product();
                     product.setProductImg(dataSnapshot.child("productImg").getValue().toString());
-                    product.setProductLike(dataSnapshot.child("productLike").getValue().toString());
+                    product.setProductLike(((Long) dataSnapshot.child("productLike").getValue()).intValue());
                     product.setProductDescription(dataSnapshot.child("productDescription").getValue().toString());
                     product.setProductDetail(dataSnapshot.child("productDetail").getValue().toString());
                     product.setProductName(dataSnapshot.child("productName").getValue().toString());
-                    product.setProductPrice(dataSnapshot.child("productPrice").getValue().toString());
-                    product.setProductQuantity(dataSnapshot.child("productQuantity").getValue().toString());
+                    product.setProductPrice(((Long) dataSnapshot.child("productPrice").getValue()).intValue());
+                    product.setProductQuantity(((Long) dataSnapshot.child("productQuantity").getValue()).intValue());
                     listProduct.add(product);
                 };
 

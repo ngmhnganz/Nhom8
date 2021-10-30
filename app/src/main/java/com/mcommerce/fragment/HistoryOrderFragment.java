@@ -71,14 +71,14 @@ public class HistoryOrderFragment extends Fragment {
                     OrderModel order = new OrderModel();
 
                     order.setStatusOrder(dataSnapshot.child("statusOrder").getValue().toString());
-                    order.setPriceOrder(dataSnapshot.child("priceOrder").getValue().toString());
+                    order.setPriceOrder(((Long) dataSnapshot.child("priceOrder").getValue()).intValue());
                     order.setDateOrder(dataSnapshot.child("dateOrder").getValue().toString());
                     order.setIdOrder(dataSnapshot.child("idOrder").getValue().toString());
                     order.setPaymentOrder(dataSnapshot.child("paymentOrder").getValue().toString());
                     order.setAddOrder(dataSnapshot.child("addOrder").getValue().toString());
                     order.setImgOrder(dataSnapshot.child("imgOrder").getValue().toString());
 
-                    HashMap<String,String> alt = (HashMap<String, String>) dataSnapshot.child("itemOrder").getValue();
+                    HashMap<String,Integer> alt = (HashMap<String, Integer>) dataSnapshot.child("itemOrder").getValue();
                     order.setItemOrder(alt);
                     orderLists.add(order);
                 };
@@ -107,9 +107,9 @@ public class HistoryOrderFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 materialDatePicker.show(getActivity().getSupportFragmentManager(), "DateRangePicker");
-                materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener() {
+                materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long,Long>>() {
                     @Override
-                    public void onPositiveButtonClick(Object selection) {
+                    public void onPositiveButtonClick(Pair<Long,Long> selection) {
                         txtDate_fragmentHistoryOrder.setText(materialDatePicker.getHeaderText());
                     }
                 });
@@ -123,8 +123,6 @@ public class HistoryOrderFragment extends Fragment {
         txtDate_fragmentHistoryOrder = view.findViewById(R.id.txtDate_fragmentHistoryOrder);
         rcv_fragmentHistoryOrder = view.findViewById(R.id.rcv_fragmentHistoryOrder);
     }
-
-
 }
 
 

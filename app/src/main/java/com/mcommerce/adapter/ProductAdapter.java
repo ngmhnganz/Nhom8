@@ -48,7 +48,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Glide.with(context).load(product.getProductImg()).into(holder.imvHinh_allproducts);
 
         holder.txtProductName_allproducts.setText(product.getProductName());
-        holder.txtProductPrice_allproducts.setText(product.getProductPrice());
+        holder.txtProductPrice_allproducts.setText(String.valueOf(product.getProductPrice()));
         holder.cvitem_allproducts.setLayoutParams(marginValue(holder));
     }
 

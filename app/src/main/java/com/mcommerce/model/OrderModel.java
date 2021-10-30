@@ -14,10 +14,10 @@ public class OrderModel {
     public static final String DA_HUY = "0";
 
 
-    private String idOrder, dateOrder, addOrder, paymentOrder, priceOrder, statusOrder, imgOrder;
+    private String idOrder, dateOrder, addOrder, paymentOrder, statusOrder, imgOrder;
+    private int priceOrder;
 
-    HashMap<String,String> itemOrder;
-    /*List<Product> itemOrder;*/
+    HashMap<String,Integer> itemOrder;
 
     public String getImgOrder() {
         return imgOrder;
@@ -27,7 +27,7 @@ public class OrderModel {
         this.imgOrder = imgOrder;
     }
 
-    public OrderModel(String idOrder, String dateOrder, String addOrder, String paymentOrder, HashMap<String,String> itemOrder, String priceOrder, String statusOrder) {
+    public OrderModel(String idOrder, String dateOrder, String addOrder, String paymentOrder, HashMap<String,Integer> itemOrder, int priceOrder, String statusOrder) {
         this.idOrder = idOrder;
         this.dateOrder = dateOrder;
         this.addOrder = addOrder;
@@ -72,19 +72,19 @@ public class OrderModel {
         this.paymentOrder = paymentOrder;
     }
 
-    public HashMap<String,String> getItemOrder() {
+    public HashMap<String,Integer> getItemOrder() {
         return itemOrder;
     }
 
-    public void setItemOrder(HashMap<String,String> itemOrder) {
+    public void setItemOrder(HashMap<String,Integer> itemOrder) {
         this.itemOrder = itemOrder;
     }
 
-    public String getPriceOrder() {
+    public int getPriceOrder() {
         return priceOrder;
     }
 
-    public void setPriceOrder(String priceOrder) {
+    public void setPriceOrder(int priceOrder) {
         this.priceOrder = priceOrder;
     }
 
