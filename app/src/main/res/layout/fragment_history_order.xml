@@ -24,6 +24,7 @@
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:layout_weight="1"
             android:clickable="true"
             android:text="Kết quả"
@@ -33,6 +34,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_fragmentHistoryOrder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"/>
 
 </LinearLayout>

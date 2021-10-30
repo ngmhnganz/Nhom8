@@ -48,8 +48,8 @@
 
             <ImageView
                 android:id="@+id/imv_iHistoryOrder"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:scaleType="fitXY"
                 app:srcCompat="@drawable/ic_launcher_background"
                 android:background="@drawable/round_corner_image"/>
@@ -64,8 +64,10 @@
                     android:id="@+id/txtAddress_iHistoryOrder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="10dp"
+
                     android:fontFamily="@font/sfpro_regular"
                     android:text="TextView"
                     android:textColor="@color/colorText"
@@ -88,7 +90,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="50dp"
             android:orientation="horizontal"
             android:gravity="center">
 
@@ -96,8 +98,10 @@
                 android:id="@+id/imvStatus_iHistoryOrder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_x_circle_fill"
-                android:padding="10dp"/>
+
+                android:paddingRight="10dp"
+
+                android:src="@drawable/ic_x_circle_fill"/>
 
             <TextView
                 android:id="@+id/txtStatus_iHistoryOrder"
@@ -111,9 +115,10 @@
                 android:id="@+id/btnDatLai_iHistoryOrder"
                 style="@style/button"
                 android:layout_width="wrap_content"
-                android:layout_height="38dp"
+                android:layout_height="30dp"
 
-                android:layout_margin="10dp"
+                android:fontFamily="@font/sfpro_medium"
+                android:textSize="14sp"
 
                 android:text="Đặt lại"
                 android:textColor="@color/white"/>

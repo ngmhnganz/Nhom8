@@ -72,6 +72,9 @@ public class OrderActivity extends AppCompatActivity {
 
             if ( view.getId()==R.id.btnHistoryOrder_orderactivity){
                 fragment = new HistoryOrderFragment();
+                btnHistoryOder.setEnabled(false);
+                btnComingOrder.setEnabled(true);
+
             }
 
             if (fragment != null){
