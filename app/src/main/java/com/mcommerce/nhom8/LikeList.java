@@ -9,10 +9,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 public class LikeList extends AppCompatActivity {
     Button btnCongThuc_LikeList, btnSanPham_LikeList;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
+    BottomNavigationView bottom_navigation_likelist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +29,7 @@ public class LikeList extends AppCompatActivity {
     private void linkViews() {
         btnCongThuc_LikeList=findViewById(R.id.btnCongThuc_LikeList);
         btnSanPham_LikeList=findViewById(R.id.btnSanPham_LikeList);
+        bottom_navigation_likelist=findViewById(R.id.bottom_navigation_likelist);
     }
 
     private void addEvents() {

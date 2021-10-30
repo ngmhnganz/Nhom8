@@ -6,29 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".LikeList"
     android:background="@color/white">
-
-    //HEADER thiếu nút back và thanh search
-    <LinearLayout
+// Đổi tên class - làm xong fix navigation bar
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/header"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="20dp"
-        android:background="@color/colorPrimary"
-        android:orientation="horizontal"
+        android:background="#00FFFFFF"
+        android:outlineSpotShadowColor="#00FFFFFF"
+        android:outlineAmbientShadowColor="#00FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:fontFamily="@font/sfpro_black"
-            android:text="Hi Phuc,"
-            android:textColor="@color/white"
-            android:textSize="24sp" />
-    </LinearLayout>
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topBar_ComingOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationIcon="@drawable/ic_back"
+            android:background="@drawable/header_main">
+
+            <SearchView
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     //BODY - Thanh trượt
     <LinearLayout
         android:id="@+id/lnlNut_LikeList"
@@ -76,21 +80,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lnlNut_LikeList"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation">
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_likelist">
         <LinearLayout
             android:id="@+id/layoutContainer_LikeList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteX="5dp"
-            tools:layout_editor_absoluteY="53dp">
+            android:orientation="vertical">
         </LinearLayout>
 
 
     </ScrollView>
-    //NAVIGATE
+    //NAVIGATION BAR - Đổi hiển thị từ - trang chủ -> Yêu thích
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+        android:id="@+id/bottom_navigation_likelist"
 
         android:background="@drawable/round_corner_image"
         app:itemIconTint="@color/nav_color"
