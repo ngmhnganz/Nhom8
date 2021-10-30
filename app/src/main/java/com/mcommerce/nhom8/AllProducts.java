@@ -66,18 +66,23 @@ public class AllProducts extends AppCompatActivity {
         rcvCategory_allproducts.setLayoutManager(linearLayoutManager);
 
         Query query = myref.child("NguyenLieu");
+
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Product product = new Product();
                     product.setProductImg(dataSnapshot.child("productImg").getValue().toString());
-                    product.setProductLike(((Long) dataSnapshot.child("productLike").getValue()).intValue());
+
+                    product.setProductLike( ((Long) dataSnapshot.child("productLike").getValue()).intValue() );
+
                     product.setProductDescription(dataSnapshot.child("productDescription").getValue().toString());
                     product.setProductDetail(dataSnapshot.child("productDetail").getValue().toString());
                     product.setProductName(dataSnapshot.child("productName").getValue().toString());
                     product.setProductPrice(((Long) dataSnapshot.child("productPrice").getValue()).intValue());
                     product.setProductQuantity(((Long) dataSnapshot.child("productQuantity").getValue()).intValue());
+                    product.setProductID(dataSnapshot.child("productID").getValue().toString());
+                    product.setProductType(dataSnapshot.child("productType").getValue().toString());
                     listProduct.add(product);
                 };
 

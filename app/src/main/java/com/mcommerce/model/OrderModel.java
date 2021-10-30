@@ -13,8 +13,12 @@ public class OrderModel {
     public static final String THANH_CONG = "6";
     public static final String DA_HUY = "0";
 
-
-    private String idOrder, dateOrder, addOrder, paymentOrder, statusOrder, imgOrder;
+    private String  idOrder,
+                    dateOrder,
+                    addOrder,
+                    paymentOrder,
+                    statusOrder,
+                    imgOrder;
     private int priceOrder;
 
     HashMap<String,Integer> itemOrder;

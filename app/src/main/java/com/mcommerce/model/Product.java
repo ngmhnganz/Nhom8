@@ -1,16 +1,21 @@
 package com.mcommerce.model;
 
 public class Product {
+    public static final String  NGUYEN_lIEU = "Nguyên liệu",
+                                DUNG_CU = "Dụng cụ",
+                                COMBO = "Combo";
     private String productName;
     private String productImg;
     private String productDescription;
     private String productDetail;
+    private String productID;
+    private String productType;
     private int productPrice;
     private int productQuantity;
     private int productLike;
 
 
-    public Product(String productName, String productImg, String productDescription, String productDetail, Integer productPrice, int productQuantity, Integer productLike) {
+    public Product(String productName, String productImg, String productDescription, String productDetail, Integer productPrice, int productQuantity, Integer productLike, String productID, String productType) {
         this.productName = productName;
         this.productImg = productImg;
         this.productDescription = productDescription;
@@ -18,6 +23,24 @@ public class Product {
         this.productPrice = productPrice;
         this.productQuantity = productQuantity;
         this.productLike = productLike;
+        this.productID = productID;
+        this.productType = productType;
+    }
+
+    public String getProductType() {
+        return productType;
+    }
+
+    public void setProductType(String productType) {
+        this.productType = productType;
+    }
+
+    public String getProductID() {
+        return productID;
+    }
+
+    public void setProductID(String productID) {
+        this.productID = productID;
     }
 
     public Product(){

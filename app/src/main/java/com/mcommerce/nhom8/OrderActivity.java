@@ -85,8 +85,8 @@ public class OrderActivity extends AppCompatActivity {
 
     private void initAdapter() {
 
+        //region Tạo dữ liệu cho Order trên date base, xóa cũng được
         List<Product> listProduct = new ArrayList<>();
-
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference myref = firebaseDatabase.getReference();
@@ -105,8 +105,11 @@ public class OrderActivity extends AppCompatActivity {
                     product.setProductName(dataSnapshot.child("productName").getValue().toString());
                     product.setProductPrice(((Long) dataSnapshot.child("productPrice").getValue()).intValue());
                     product.setProductQuantity(((Long) dataSnapshot.child("productQuantity").getValue()).intValue());
+                    product.setProductID(dataSnapshot.child("productID").getValue().toString());
+                    product.setProductType(dataSnapshot.child("productType").getValue().toString());
                     listProduct.add(product);
                 };
+
                 OrderModel order = new OrderModel();
                 
                 order.setAddOrder("48 Bùi Thị Xuân Quận 3 Hồ Chí Minh");
@@ -114,17 +117,17 @@ public class OrderActivity extends AppCompatActivity {
                 order.setIdOrder("od1");
                 order.setPaymentOrder("Ngân hàng");
                 order.setPriceOrder(890000);
-                order.setStatusOrder("0");
+                order.setStatusOrder(OrderModel.DA_HUY);
 
                 Date currentTime = Calendar.getInstance().getTime();
                 order.setDateOrder(currentTime.toString());
 
 
                 HashMap<String,Integer> itemOrder = new HashMap<>();
-                itemOrder.put(listProduct.get(2).getProductName(),1);
-                itemOrder.put(listProduct.get(4).getProductName(),2);
-                itemOrder.put(listProduct.get(9).getProductName(),3);
-                itemOrder.put(listProduct.get(8).getProductName(),2);
+                itemOrder.put(  listProduct.get(2).getProductID()   , 1  );
+                itemOrder.put(listProduct.get(4).getProductID(), 2);
+                itemOrder.put(listProduct.get(8).getProductID(), 2);
+                itemOrder.put(listProduct.get(9).getProductID(), 3);
 
                 order.setItemOrder(itemOrder);
                 order.setImgOrder(listProduct.get(0).getProductImg());
@@ -137,6 +140,7 @@ public class OrderActivity extends AppCompatActivity {
 
             }
         });
+        //endregion
         
         
     }
