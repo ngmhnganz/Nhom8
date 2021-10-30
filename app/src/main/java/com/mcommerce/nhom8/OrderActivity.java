@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import android.os.Bundle;
@@ -85,7 +88,7 @@ public class OrderActivity extends AppCompatActivity {
 
     private void initAdapter() {
 
-        //region Tạo dữ liệu cho Order trên date base, xóa cũng được
+      /*  //region Tạo dữ liệu cho Order trên date base, xóa cũng được
         List<Product> listProduct = new ArrayList<>();
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -112,23 +115,29 @@ public class OrderActivity extends AppCompatActivity {
 
                 OrderModel order = new OrderModel();
                 
-                order.setAddOrder("48 Bùi Thị Xuân Quận 3 Hồ Chí Minh");
+                order.setAddOrder("48 Bùi Thị Xuân Quận 3");
 
                 order.setIdOrder("od1");
-                order.setPaymentOrder("Ngân hàng");
-                order.setPriceOrder(890000);
-                order.setStatusOrder(OrderModel.DA_HUY);
+                order.setPaymentOrder("Tiền mặt");
+                order.setPriceOrder(340000);
+                order.setStatusOrder(OrderModel.THANH_CONG);
 
-                Date currentTime = Calendar.getInstance().getTime();
-                order.setDateOrder(currentTime.toString());
+                String sDate1="30/10/2021";
+                try {
+                    Date date =new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
+                    order.setDateOrder(date.toString());
+                    order.setDateLongOder(date.getTime());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
 
 
                 HashMap<String,Integer> itemOrder = new HashMap<>();
-                itemOrder.put(  listProduct.get(2).getProductID()   , 1  );
-                itemOrder.put(listProduct.get(4).getProductID(), 2);
+                itemOrder.put(  listProduct.get(1).getProductID()   , 1  );
+                itemOrder.put(listProduct.get(3).getProductID(), 1);
+                itemOrder.put(listProduct.get(2).getProductID(), 2);
                 itemOrder.put(listProduct.get(8).getProductID(), 2);
-                itemOrder.put(listProduct.get(9).getProductID(), 3);
-
                 order.setItemOrder(itemOrder);
                 order.setImgOrder(listProduct.get(0).getProductImg());
 
@@ -140,9 +149,17 @@ public class OrderActivity extends AppCompatActivity {
 
             }
         });
-        //endregion
+        //endregion*/
         
         
     }
+
+  /*  public static Date parseDate(String date) {
+        try {
+            return new SimpleDateFormat("dd/MM/YYYY").parse(date);
+        } catch (ParseException e) {
+            return null;
+        }
+    }*/
     
 }

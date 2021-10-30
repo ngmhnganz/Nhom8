@@ -20,6 +20,15 @@ public class OrderModel {
                     statusOrder,
                     imgOrder;
     private int priceOrder;
+    private long dateLongOder;
+
+    public long getDateLongOder() {
+        return dateLongOder;
+    }
+
+    public void setDateLongOder(long dateLongOder) {
+        this.dateLongOder = dateLongOder;
+    }
 
     HashMap<String,Integer> itemOrder;
 

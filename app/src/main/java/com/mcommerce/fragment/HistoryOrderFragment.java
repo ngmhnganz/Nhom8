@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,6 +41,12 @@ public class HistoryOrderFragment extends Fragment {
     View view;
     MaterialDatePicker materialDatePicker;
     RecyclerView rcv_fragmentHistoryOrder;
+    long startDate, endDate;
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = firebaseDatabase.getReference();
+    OrderAdapter adapter;
+    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
+
 
     @Nullable
     @Override
@@ -56,36 +63,17 @@ public class HistoryOrderFragment extends Fragment {
     }
 
     private void initData() {
-
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = firebaseDatabase.getReference();
-
         //region Lấy dữ liệu Order từ Firebase
-        ArrayList<OrderModel> orderLists = new ArrayList<>();
-
         Query query = myRef.child("DonHang");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                ArrayList<OrderModel> orderLists = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    OrderModel order = new OrderModel();
-
-                    order.setStatusOrder(dataSnapshot.child("statusOrder").getValue().toString());
-                    order.setPriceOrder(((Long) dataSnapshot.child("priceOrder").getValue()).intValue());
-                    order.setDateOrder(dataSnapshot.child("dateOrder").getValue().toString());
-                    order.setIdOrder(dataSnapshot.child("idOrder").getValue().toString());
-                    order.setPaymentOrder(dataSnapshot.child("paymentOrder").getValue().toString());
-                    order.setAddOrder(dataSnapshot.child("addOrder").getValue().toString());
-                    order.setImgOrder(dataSnapshot.child("imgOrder").getValue().toString());
-
-                    HashMap<String,Integer> alt = (HashMap<String, Integer>) dataSnapshot.child("itemOrder").getValue();
-                    order.setItemOrder(alt);
-                    orderLists.add(order);
+                   orderLists.add(setData(dataSnapshot));
                 };
-
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
-                rcv_fragmentHistoryOrder.setLayoutManager(linearLayoutManager);
-                OrderAdapter adapter = new OrderAdapter(getContext(),R.layout.layout_history_order_item,orderLists);
+                adapter = new OrderAdapter(getContext(),R.layout.layout_history_order_item,orderLists);
                 rcv_fragmentHistoryOrder.setAdapter(adapter);
             }
 
@@ -96,6 +84,26 @@ public class HistoryOrderFragment extends Fragment {
         });
         //endregion
     }
+
+    private OrderModel setData (DataSnapshot dataSnapshot){
+
+        OrderModel order = new OrderModel();
+
+        order.setStatusOrder(dataSnapshot.child("statusOrder").getValue().toString());
+        order.setPriceOrder(((Long) dataSnapshot.child("priceOrder").getValue()).intValue());
+        order.setDateOrder(dataSnapshot.child("dateOrder").getValue().toString());
+        order.setIdOrder(dataSnapshot.child("idOrder").getValue().toString());
+        order.setPaymentOrder(dataSnapshot.child("paymentOrder").getValue().toString());
+        order.setAddOrder(dataSnapshot.child("addOrder").getValue().toString());
+        order.setImgOrder(dataSnapshot.child("imgOrder").getValue().toString());
+        order.setDateLongOder((Long) dataSnapshot.child("dateLongOder").getValue());
+
+        HashMap<String,Integer> alt = (HashMap<String, Integer>) dataSnapshot.child("itemOrder").getValue();
+        order.setItemOrder(alt);
+
+        return order;
+    }
+
 
 
     private void addEvent() {
@@ -110,18 +118,45 @@ public class HistoryOrderFragment extends Fragment {
                 materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long,Long>>() {
                     @Override
                     public void onPositiveButtonClick(Pair<Long,Long> selection) {
-                        txtDate_fragmentHistoryOrder.setText(materialDatePicker.getHeaderText());
+                        startDate = selection.first;
+                        endDate=selection.second;
+
+                        Query query = myRef.child("DonHang").orderByChild("dateLongOder").startAt(startDate).endAt(endDate);
+                        query.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                ArrayList<OrderModel> orderLists = new ArrayList<>();
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                                    orderLists.add(setData(dataSnapshot));
+                                };
+                                adapter = new OrderAdapter(getContext(),R.layout.layout_history_order_item,orderLists);
+                                rcv_fragmentHistoryOrder.setAdapter(adapter);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Toast.makeText(getContext(),"Có lỗi",Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
                     }
                 });
+
+
+
             }
+
         });
+
         //endregion
 
     }
 
     private void linkview() {
         txtDate_fragmentHistoryOrder = view.findViewById(R.id.txtDate_fragmentHistoryOrder);
+
         rcv_fragmentHistoryOrder = view.findViewById(R.id.rcv_fragmentHistoryOrder);
+        rcv_fragmentHistoryOrder.setLayoutManager(linearLayoutManager);
     }
 }
 
