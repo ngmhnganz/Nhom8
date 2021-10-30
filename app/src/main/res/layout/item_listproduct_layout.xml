@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="15dp"
+    android:background="@color/white"
     >
 
     <ImageView
@@ -36,7 +37,8 @@
         android:textSize="20sp"
         app:layout_constraintLeft_toRightOf="@+id/imvbgProduct_listProduct"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:textColor="#333333"/>
 
     <TextView
         android:id="@+id/txtLike_listProduct"
@@ -49,7 +51,8 @@
         app:layout_constraintBottom_toTopOf="@+id/txtProductPrice_listProduct"
         app:layout_constraintLeft_toRightOf="@+id/imvbgProduct_listProduct"
         app:layout_constraintTop_toBottomOf="@+id/txtproductName_listProduct"
-        app:layout_constraintVertical_bias="0.708" />
+        app:layout_constraintVertical_bias="0.708"
+        android:textColor="#333333"/>
 
     <TextView
         android:id="@+id/txtProductPrice_listProduct"
@@ -59,7 +62,8 @@
         android:text="24000 đ"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/imvbgProduct_listProduct" />
+        app:layout_constraintLeft_toRightOf="@+id/imvbgProduct_listProduct"
+        android:textColor="#333333"/>
 
     <ImageView
         android:id="@+id/imvAdd_listProduct"
