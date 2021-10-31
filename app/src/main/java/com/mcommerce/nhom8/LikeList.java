@@ -24,6 +24,10 @@ public class LikeList extends AppCompatActivity {
         linkViews();
         addEvents();
         fragmentManager=getSupportFragmentManager();
+//        manager=getSupportFragmentManager();
+//        FragmentTransaction transaction=manager.beginTransaction();
+//        transaction.replace(R.id.layoutContainer,new ProductFragment());
+//        transaction.commit();
     }
 
     private void linkViews() {
@@ -44,9 +48,9 @@ public class LikeList extends AppCompatActivity {
             FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
             Fragment fragment=null;
             if(view.getId()==R.id.btnCongThuc_LikeList){
-                fragment=new LikeListRecipe();
+                fragment=new FragmentRecipeLikeList();
             }else if(view.getId()==R.id.btnSanPham_LikeList){
-                fragment=new LikeListProduct();
+                fragment=new FragmentProductLikeList();
             }
             if(fragment !=null){
                 fragmentTransaction.replace(R.id.layoutContainer_LikeList,fragment);

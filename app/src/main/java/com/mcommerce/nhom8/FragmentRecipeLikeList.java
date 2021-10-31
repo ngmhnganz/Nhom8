@@ -10,11 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class LikeListProduct extends Fragment {
+public class FragmentRecipeLikeList extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View  view= inflater.inflate(R.layout.activity_like_list_product,container,false);
-        return view;
+        return inflater.inflate(R.layout.activity_like_list_recipe,container,false);
     }
 }

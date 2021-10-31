@@ -36,6 +36,7 @@
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/layout_goi_y_monan_.xml" value="0.358695652173913" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.371875" />
         <entry key="..\:/Mobile/Doan/Nhom8/app/src/main/res/drawable/ic_heart.xml" value="0.2755208333333333" />
+        <entry key="..\:/Mobile/Doan/Nhom8/app/src/main/res/drawable/ic_sanpham_main.xml" value="0.23802083333333332" />
         <entry key="..\:/Mobile/Doan/Nhom8/app/src/main/res/layout/activity_all_products.xml" value="0.21510416666666668" />
         <entry key="..\:/Mobile/Doan/Nhom8/app/src/main/res/layout/activity_like_list.xml" value="0.2" />
         <entry key="..\:/Mobile/Doan/Nhom8/app/src/main/res/layout/activity_like_list2.xml" value="0.19739583333333333" />
@@ -44,10 +45,12 @@
         <entry key="..\:/Mobile/Doan/Nhom8/app/src/main/res/layout/activity_main.xml" value="0.21510416666666668" />
         <entry key="..\:/Mobile/Doan/Nhom8/app/src/main/res/layout/activity_order.xml" value="0.21145833333333333" />
         <entry key="..\:/Mobile/Doan/Nhom8/app/src/main/res/layout/banner_main_layout.xml" value="0.21510416666666668" />
+        <entry key="..\:/Mobile/Doan/Nhom8/app/src/main/res/layout/fragment_product_likelist.xml" value="0.221875" />
         <entry key="..\:/Mobile/Doan/Nhom8/app/src/main/res/layout/item_category_allproducts_layout.xml" value="0.259375" />
         <entry key="..\:/Mobile/Doan/Nhom8/app/src/main/res/layout/item_product_allproducts_layout.xml" value="0.259375" />
         <entry key="..\:/Mobile/Doan/Nhom8/app/src/main/res/layout/layout_goi_y_combo.xml" value="0.259375" />
         <entry key="..\:/Mobile/Doan/Nhom8/app/src/main/res/layout/layout_goi_y_monan_.xml" value="0.1793478260869565" />
+        <entry key="..\:/Mobile/Doan/Nhom8/app/src/main/res/layout/layout_itemproduct_likelist.xml" value="0.221875" />
       </map>
     </option>
   </component>
