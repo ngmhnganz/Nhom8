@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.mcommerce.fragment.ComingOrderFragment;
 import com.mcommerce.fragment.HistoryOrderFragment;
 import com.mcommerce.model.OrderModel;
 import com.mcommerce.model.Product;
@@ -54,6 +55,7 @@ public class OrderActivity extends AppCompatActivity {
     private void addEvent() {
 
         btnHistoryOder.setOnClickListener(myClick);
+        btnComingOrder.setOnClickListener(myClick);
     }
 
     private void linkView() {
@@ -73,10 +75,16 @@ public class OrderActivity extends AppCompatActivity {
             Fragment fragment= null;
 
             if ( view.getId()==R.id.btnHistoryOrder_orderactivity){
+                fragment= null;
                 fragment = new HistoryOrderFragment();
                 btnHistoryOder.setEnabled(false);
                 btnComingOrder.setEnabled(true);
 
+            } else if (view.getId()==R.id.btnComingOrder_orderactivity){
+                fragment= null;
+                fragment = new ComingOrderFragment();
+                btnComingOrder.setEnabled(false);
+                btnHistoryOder.setEnabled(true);
             }
 
             if (fragment != null){
@@ -88,7 +96,7 @@ public class OrderActivity extends AppCompatActivity {
 
     private void initAdapter() {
 
-      /*  //region Tạo dữ liệu cho Order trên date base, xóa cũng được
+     /*  //region Tạo dữ liệu cho Order trên date base, xóa cũng được
         List<Product> listProduct = new ArrayList<>();
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -117,12 +125,12 @@ public class OrderActivity extends AppCompatActivity {
                 
                 order.setAddOrder("48 Bùi Thị Xuân Quận 3");
 
-                order.setIdOrder("od1");
+                order.setIdOrder("od7");
                 order.setPaymentOrder("Tiền mặt");
-                order.setPriceOrder(340000);
+                order.setPriceOrder(9050000);
                 order.setStatusOrder(OrderModel.THANH_CONG);
 
-                String sDate1="30/10/2021";
+                String sDate1="16/10/2021";
                 try {
                     Date date =new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
                     order.setDateOrder(date.toString());
@@ -134,10 +142,10 @@ public class OrderActivity extends AppCompatActivity {
 
 
                 HashMap<String,Integer> itemOrder = new HashMap<>();
-                itemOrder.put(  listProduct.get(1).getProductID()   , 1  );
-                itemOrder.put(listProduct.get(3).getProductID(), 1);
-                itemOrder.put(listProduct.get(2).getProductID(), 2);
-                itemOrder.put(listProduct.get(8).getProductID(), 2);
+
+                itemOrder.put(listProduct.get(9).getProductID(), 2);
+                itemOrder.put(listProduct.get(16).getProductID(), 2);
+                itemOrder.put(listProduct.get(14).getProductID(), 2);
                 order.setItemOrder(itemOrder);
                 order.setImgOrder(listProduct.get(0).getProductImg());
 

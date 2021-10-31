@@ -38,15 +38,17 @@ import java.util.Queue;
 public class HistoryOrderFragment extends Fragment {
 
     TextView txtDate_fragmentHistoryOrder;
-    View view;
-    MaterialDatePicker materialDatePicker;
     RecyclerView rcv_fragmentHistoryOrder;
-    long startDate, endDate;
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = firebaseDatabase.getReference();
-    OrderAdapter adapter;
-    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
+    MaterialDatePicker materialDatePicker;
 
+    private View view;
+    private OrderAdapter adapter;
+
+    long startDate, endDate;
+    private LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
+
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef = firebaseDatabase.getReference();
 
     @Nullable
     @Override
@@ -64,7 +66,7 @@ public class HistoryOrderFragment extends Fragment {
 
     private void initData() {
         //region Lấy dữ liệu Order từ Firebase
-        Query query = myRef.child("DonHang");
+        Query query = myRef.child("DonHang").orderByChild("statusOrder").startAt(OrderModel.THANH_CONG).endAt(OrderModel.DA_HUY);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -73,7 +75,7 @@ public class HistoryOrderFragment extends Fragment {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                    orderLists.add(setData(dataSnapshot));
                 };
-                adapter = new OrderAdapter(getContext(),R.layout.layout_history_order_item,orderLists);
+                adapter = new OrderAdapter(getContext(),R.layout.layout_history_order_item,orderLists, OrderAdapter.HISTORY_ITEM);
                 rcv_fragmentHistoryOrder.setAdapter(adapter);
             }
 
@@ -89,7 +91,7 @@ public class HistoryOrderFragment extends Fragment {
 
         OrderModel order = new OrderModel();
 
-        order.setStatusOrder(dataSnapshot.child("statusOrder").getValue().toString());
+        order.setStatusOrder(((Long) dataSnapshot.child("statusOrder").getValue()).intValue());
         order.setPriceOrder(((Long) dataSnapshot.child("priceOrder").getValue()).intValue());
         order.setDateOrder(dataSnapshot.child("dateOrder").getValue().toString());
         order.setIdOrder(dataSnapshot.child("idOrder").getValue().toString());
@@ -129,7 +131,7 @@ public class HistoryOrderFragment extends Fragment {
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                                     orderLists.add(setData(dataSnapshot));
                                 };
-                                adapter = new OrderAdapter(getContext(),R.layout.layout_history_order_item,orderLists);
+                                adapter = new OrderAdapter(getContext(),R.layout.layout_history_order_item,orderLists, OrderAdapter.HISTORY_ITEM);
                                 rcv_fragmentHistoryOrder.setAdapter(adapter);
                             }
 

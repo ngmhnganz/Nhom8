@@ -5,21 +5,23 @@ import java.util.List;
 
 public class OrderModel {
 
-    public static final String DAT_HANG_THANH_CONG = "1";
-    public static final String XAC_NHAN = "2";
-    public static final String CHUAN_BI = "3";
-    public static final String DONG_GOI = "4";
-    public static final String VAN_CHUYEN = "5";
-    public static final String THANH_CONG = "6";
-    public static final String DA_HUY = "0";
+
+    public static final int THANH_CONG = 0;
+    public static final int DA_HUY = 1;
+    public static final int DAT_HANG_THANH_CONG = 2;
+    public static final int XAC_NHAN = 3;
+    public static final int CHUAN_BI =4;
+    public static final int DONG_GOI = 5;
+    public static final int VAN_CHUYEN = 6;
+
 
     private String  idOrder,
                     dateOrder,
                     addOrder,
                     paymentOrder,
-                    statusOrder,
                     imgOrder;
-    private int priceOrder;
+    private int     priceOrder,
+                    statusOrder;
     private long dateLongOder;
 
     public long getDateLongOder() {
@@ -40,7 +42,7 @@ public class OrderModel {
         this.imgOrder = imgOrder;
     }
 
-    public OrderModel(String idOrder, String dateOrder, String addOrder, String paymentOrder, HashMap<String,Integer> itemOrder, int priceOrder, String statusOrder) {
+    public OrderModel(String idOrder, String dateOrder, String addOrder, String paymentOrder, HashMap<String,Integer> itemOrder, int priceOrder, int statusOrder) {
         this.idOrder = idOrder;
         this.dateOrder = dateOrder;
         this.addOrder = addOrder;
@@ -101,11 +103,11 @@ public class OrderModel {
         this.priceOrder = priceOrder;
     }
 
-    public String getStatusOrder() {
+    public int getStatusOrder() {
         return statusOrder;
     }
 
-    public void setStatusOrder(String statusOrder) {
+    public void setStatusOrder(int statusOrder) {
         this.statusOrder = statusOrder;
     }
 }
