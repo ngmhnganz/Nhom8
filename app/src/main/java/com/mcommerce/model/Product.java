@@ -10,10 +10,18 @@ public class Product {
     private String productDetail;
     private String productID;
     private String productType;
+    private String productshortName;
     private int productPrice;
     private int productQuantity;
     private int productLike;
 
+    public String getProductshortName() {
+        return productshortName;
+    }
+
+    public void setProductshortName(String productshortName) {
+        this.productshortName = productshortName;
+    }
 
     public Product(String productName, String productImg, String productDescription, String productDetail, Integer productPrice, int productQuantity, Integer productLike, String productID, String productType) {
         this.productName = productName;
