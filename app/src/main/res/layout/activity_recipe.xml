@@ -43,13 +43,66 @@
         android:text="Công thức làm món gì đó"
         android:textSize="24sp"/>
 
+    <ImageView
+        android:id="@+id/imvLine1"
+        app:layout_constraintTop_toBottomOf="@id/txtRecipe"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:src="@drawable/textlines"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"/>
+
+    <LinearLayout
+        android:id="@+id/llMaterialLable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:padding="5dp"
+        android:weightSum="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imvLine1"
+        >
+
+        <TextView
+            android:id="@+id/txtPreparedMaterials_Recipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="@string/nguyen_lieu"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp"
+            android:fontFamily="@font/gilroy_medium"/>
+
+        <ImageView
+            android:id="@+id/imvDropDownMaterial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2"
+            android:src="@drawable/ic_arrow_down_24" />
+
+
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/imvLine2"
+        app:layout_constraintTop_toBottomOf="@id/llMaterialLable"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:src="@drawable/textlines"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
+
     <GridView
         android:id="@+id/grvRecipeMaterial"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtRecipe"
+        app:layout_constraintTop_toBottomOf="@+id/llMaterialLable"
         android:numColumns="3"
         android:horizontalSpacing="12dp"
         android:verticalSpacing="16dp"
