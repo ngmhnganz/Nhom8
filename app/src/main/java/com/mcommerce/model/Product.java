@@ -55,13 +55,6 @@ public class Product {
 
     }
 
-    // sẽ xóa nếu đổ dl thật về cho trang AllProducts (Thư)
-   /* public Product(String productName, String productImg, int productPrice) {
-        this.productName = productName;
-        this.productImg = productImg;
-        this.productPrice = productPrice;
-    }*/
-
 
     public String getProductName() {
         return productName;
@@ -119,4 +112,6 @@ public class Product {
         this.productLike = productLike;
     }
 
+    public Product() {
+    }
 }

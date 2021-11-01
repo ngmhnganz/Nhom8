@@ -115,12 +115,12 @@ public class AllProducts extends AppCompatActivity {
 
         làm dữ liệu giả
 
-        listProduct.add(new Product("Bột mì",R.drawable.botmi, 24000));
+        /*listProduct.add(new Product("Bột mì",R.drawable.botmi, 24000));
         listProduct.add(new Product("Bột ca cao",R.drawable.botcacao, 120000));
         listProduct.add(new Product("Bột trà xanh",R.drawable.bottraxanh, 59000));
         listProduct.add(new Product("Trứng gà",R.drawable.trungga, 30000));
         listProduct.add(new Product("Trứng gà",R.drawable.trungga, 30000));
-        listProduct.add(new Product("Trứng gà",R.drawable.trungga, 30000));
+        listProduct.add(new Product("Trứng gà",R.drawable.trungga, 30000));*/
 
         listCategory.add(new Category("Nguyên liệu","Xem tất cả",listProduct));
         listCategory.add(new Category("Dụng cụ","Xem tất cả",listProduct));

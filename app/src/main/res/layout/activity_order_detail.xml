@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OrderDetailActivity"
+    android:background="@color/white">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout_orderdetail"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_main"
+
+        android:outlineAmbientShadowColor="#00FFFFFF"
+        android:outlineSpotShadowColor="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar_orderdetail"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#00FFFFFF"
+            app:navigationIcon="@drawable/ic_left_arrow_24_white"
+            app:title="CHI TIẾT SẢN PHẨM" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout_orderdetail">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/txtID_orderdetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:text="Mã đơn hàng #15102021-12652"
+
+                android:fontFamily="@font/gilroy_bold"
+                android:textColor="@color/colorText"
+                android:textSize="20sp"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:gravity="center"
+                android:id="@+id/txtDate_orderdetail"
+                android:fontFamily="@font/gilroy_medium"
+                android:textColor="@color/grey"
+                android:text="15, Tháng Mười, 2021 "/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/rcvListProduct_orderdetail"
+                android:padding="5dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="4"
+
+                        android:fontFamily="@font/sfpro_medium"
+                        android:text="Tạm tính"
+                        android:textColor="@color/colorText" />
+
+                    <TextView
+                        android:id="@+id/txtTotalQuantity_orderdetail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="3"
+                        android:fontFamily="@font/sfpro_medium"
+                        android:text="(4 món)"
+                        android:textColor="@color/colorText" />
+
+                    <TextView
+                        android:id="@+id/txtSubtotal_orderdetail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="3"
+                        android:fontFamily="@font/sfpro_medium"
+                        android:text="299.000 đ"
+                        android:textColor="@color/colorText" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="7"
+                        android:fontFamily="@font/sfpro_medium"
+                        android:text="Phí vận chuyển"
+                        android:textColor="@color/colorText" />
+
+                    <TextView
+                        android:id="@+id/txtShippingFee_orderdetail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="7"
+                        android:fontFamily="@font/sfpro_medium"
+                        android:text="15.000 đ"
+                        android:textColor="@color/colorText"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="7"
+                        android:fontFamily="@font/sfpro_medium"
+                        android:text="Mã giảm giá"
+                        android:textColor="@color/colorPrimary" />
+
+                    <TextView
+                        android:id="@+id/txtDiscount_orderdetail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="3"
+                        android:fontFamily="@font/sfpro_medium"
+                        android:text="30.000 đ"
+                        android:textColor="@color/colorPrimary" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="4"
+                        android:fontFamily="@font/sfpro_medium"
+                        android:text="Tổng cộng"
+                        android:textColor="@color/colorText" />
+
+                    <TextView
+                        android:id="@+id/txtBeforeDiscount_orderdetail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="3"
+                        android:fontFamily="@font/sfpro_medium"
+                        android:text="314.000 đ"
+                        android:textColor="@color/grey" />
+
+                    <TextView
+                        android:id="@+id/txtTotal_orderdetail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="3"
+                        android:fontFamily="@font/sfpro_medium"
+                        android:text="284.000 đ"
+                        android:textColor="@color/colorText" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="3"
+                        android:fontFamily="@font/sfpro_regular"
+                        android:text="Tên"
+                        android:textColor="@color/colorText" />
+
+                    <TextView
+                        android:id="@+id/txtCustomerName_orderdetail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="7"
+                        android:fontFamily="@font/sfpro_regular"
+                        android:text="Vũ Nguyễn Anh Thư"
+                        android:textColor="@color/colorText" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="3"
+                        android:fontFamily="@font/sfpro_regular"
+                        android:text="Số điện thoại"
+                        android:textColor="@color/colorText" />
+
+                    <TextView
+                        android:id="@+id/txtCustomerPhone_orderdetail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="7"
+                        android:fontFamily="@font/sfpro_regular"
+                        android:text="0779565416"
+                        android:textColor="@color/colorText" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="3"
+                        android:fontFamily="@font/sfpro_regular"
+                        android:text="Địa chỉ"
+                        android:textColor="@color/colorText" />
+
+                    <TextView
+                        android:id="@+id/txtCustomerAddress"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="7"
+                        android:fontFamily="@font/sfpro_regular"
+                        android:text="62 Huỳnh Khương An, P.5, Q. Gò Vấp, TPHCM "
+                        android:textColor="@color/colorText" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="end"
+                    android:weightSum="10">
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/ic_heart" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+
+                        android:layout_weight="9"
+
+                        android:gravity="start"
+                        android:text="Giao hàng thành công"
+                        android:textColor="@color/grey"/>
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnSupport_orderdetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="1"
+                        android:fontFamily="@font/gilroy_bold"
+                        android:text="Hỗ trợ"
+                        android:textColor="@color/white" />
+
+                    <Button
+                        android:id="@+id/btnReOrder_orderdetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="1"
+                        android:fontFamily="@font/gilroy_bold"
+                        android:text="Đặt lại"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
