@@ -39,7 +39,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         if(product== null) {
             return ;
         }
-        holder.imvHinh_allproducts.setImageResource(product.getProductImg());
+        //holder.imvHinh_allproducts.setImageResource(product.getProductImg());
         holder.txtProductName_allproducts.setText(product.getProductName());
         holder.txtProductPrice_allproducts.setText(String.valueOf(product.getProductPrice()));
         holder.cvitem_allproducts.setLayoutParams(marginValue(holder));
