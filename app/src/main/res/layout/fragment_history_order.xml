@@ -3,39 +3,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/colorSecondBackground">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/txtDate_fragmentHistoryOrder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:text="Chọn ngày hiển thị:"
+        android:fontFamily="@font/sfpro_medium"
+        android:textColor="@color/colorPrimary"
+        android:background="@color/white"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:layout_marginLeft="20dp"
-
-            android:layout_weight="1"
-            android:text="Chọn ngày:"
-            android:textColor="@color/colorSubText"/>
-
-        <TextView
-            android:id="@+id/txtDate_fragmentHistoryOrder"
-
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:layout_weight="1"
-            android:clickable="true"
-            android:text="Kết quả"
-            android:textColor="@color/colorSubText" />
-
-    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcv_fragmentHistoryOrder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_height="wrap_content"
+        android:background="@color/white"/>
 
 </LinearLayout>

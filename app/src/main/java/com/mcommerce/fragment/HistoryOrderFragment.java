@@ -12,8 +12,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,10 +29,13 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.OrderAdapter;
 import com.mcommerce.model.OrderModel;
-import com.mcommerce.model.Product;
 import com.mcommerce.nhom8.R;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Queue;
@@ -120,8 +125,12 @@ public class HistoryOrderFragment extends Fragment {
                 materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long,Long>>() {
                     @Override
                     public void onPositiveButtonClick(Pair<Long,Long> selection) {
+
                         startDate = selection.first;
                         endDate=selection.second;
+
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        txtDate_fragmentHistoryOrder.setText(simpleDateFormat.format(new Timestamp(startDate))+ " - " + simpleDateFormat.format(new Timestamp(endDate)));
 
                         Query query = myRef.child("DonHang").orderByChild("dateLongOder").startAt(startDate).endAt(endDate);
                         query.addValueEventListener(new ValueEventListener() {
@@ -134,7 +143,6 @@ public class HistoryOrderFragment extends Fragment {
                                 adapter = new OrderAdapter(getContext(),R.layout.layout_history_order_item,orderLists, OrderAdapter.HISTORY_ITEM);
                                 rcv_fragmentHistoryOrder.setAdapter(adapter);
                             }
-
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
                                 Toast.makeText(getContext(),"Có lỗi",Toast.LENGTH_SHORT).show();
@@ -143,11 +151,7 @@ public class HistoryOrderFragment extends Fragment {
                         });
                     }
                 });
-
-
-
             }
-
         });
 
         //endregion
@@ -158,7 +162,10 @@ public class HistoryOrderFragment extends Fragment {
         txtDate_fragmentHistoryOrder = view.findViewById(R.id.txtDate_fragmentHistoryOrder);
 
         rcv_fragmentHistoryOrder = view.findViewById(R.id.rcv_fragmentHistoryOrder);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(view.getContext(),DividerItemDecoration.VERTICAL);
+        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(view.getContext(),R.drawable.divider));
         rcv_fragmentHistoryOrder.setLayoutManager(linearLayoutManager);
+        rcv_fragmentHistoryOrder.addItemDecoration(dividerItemDecoration);
     }
 }
 

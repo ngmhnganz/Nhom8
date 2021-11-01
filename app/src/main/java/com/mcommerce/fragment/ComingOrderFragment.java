@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -58,7 +60,10 @@ public class ComingOrderFragment extends Fragment {
                     orderLists.add(setData(dataSnapshot));
                 };
                 adapter = new OrderAdapter(getContext(),R.layout.layout_coming_order_item,orderLists, OrderAdapter.COMING_ITEM);
+                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(view.getContext(),DividerItemDecoration.VERTICAL);
+                dividerItemDecoration.setDrawable(ContextCompat.getDrawable(view.getContext(),R.drawable.divider));
                 rcv_fragmentComingOrder.setAdapter(adapter);
+                rcv_fragmentComingOrder.addItemDecoration(dividerItemDecoration);
             }
 
             @Override

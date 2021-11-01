@@ -1,7 +1,6 @@
 package com.mcommerce.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mcommerce.model.OrderModel;
-import com.mcommerce.model.Product;
 import com.mcommerce.nhom8.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHolder> {
@@ -25,9 +26,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
 
     private Context context;
     private int item_layout,
-                type;
+                type,
+                amount;
     private List<OrderModel> orderList;
-
 
     public OrderAdapter(Context context, int item_layout, List<OrderModel> orderList, int type) {
         this.context = context;
@@ -63,8 +64,21 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
 
         switch (type){
             case COMING_ITEM:
-                holder.txtDes_iComingOrder.setText(String.valueOf(order.getPriceOrder())+" "+String.valueOf(order.getItemOrder().size())+"sản phẩm "+ order.getPaymentOrder());
+                amount =0;
+                for (String i :  order.getItemOrder().keySet()) {
+                    String s = String.valueOf(order.getItemOrder().get(i));
+                    amount += Integer.parseInt(s);
+                }
+
+                holder.txtPrice_iComingOrder.setText(""+order.getPriceOrder() +"đ");
+
+                holder.txtAmount_iComingOrder.setText("   |   " + amount +" sản phẩm");
+
+                holder.txtPayment_iComingOrder.setText("   |   " + order.getPaymentOrder());
+
                 holder.txtDate_iComingOrder.setText(order.getDateOrder());
+
+
                 holder.txtAddress_iComingOrder.setText(order.getAddOrder());
                 Glide.with(context).load(order.getImgOrder()).into(holder.imv_iComingOrder);
 
@@ -88,8 +102,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                 break;
 
             case HISTORY_ITEM:
+                amount =0;
+                for (String i :  order.getItemOrder().keySet()) {
+                    String s = String.valueOf(order.getItemOrder().get(i));
+                    amount += Integer.parseInt(s);
+                }
+
+                holder.txtPrice_iHistoryOrder.setText(""+order.getPriceOrder() +"đ");
+
+                holder.txtAmount_iHistoryOrder.setText("   |   " + amount +" sản phẩm");
+
+                holder.txtPayment_iHistoryOrder.setText("   |   " + order.getPaymentOrder());
+
                 holder.txtID_iHistoryOrder.setText(order.getIdOrder());
-                holder.txtDes_iHistoryOrder.setText(String.valueOf(order.getPriceOrder())+" "+String.valueOf(order.getItemOrder().size())+"sản phẩm "+ order.getPaymentOrder());
                 holder.txtDate_iHistoryOrder.setText(order.getDateOrder());
                 holder.txtAddress_iHistoryOrder.setText(order.getAddOrder());
                 Glide.with(context).load(order.getImgOrder()).into(holder.imv_iHistoryOrder);
@@ -118,8 +143,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
         TextView    txtID_iHistoryOrder,
                     txtDate_iHistoryOrder,
                     txtAddress_iHistoryOrder,
-                    txtDes_iHistoryOrder,
-                    txtStatus_iHistoryOrder;
+                    txtStatus_iHistoryOrder,
+                    txtPrice_iHistoryOrder,
+                    txtAmount_iHistoryOrder,
+                    txtPayment_iHistoryOrder;
         ImageView   imv_iHistoryOrder,
                     imvStatus_iHistoryOrder;
         Button      btnDatLai_iHistoryOrder;
@@ -128,9 +155,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
         TextView    txtSatus_iComingOrder,
                     txtDate_iComingOrder,
                     txtAddress_iComingOrder,
-                    txtDes_iComingOrder;
+                    txtPrice_iComingOrder,
+                    txtAmount_iComingOrder,
+                    txtPayment_iComingOrder;
         ImageView   imv_iComingOrder;
-        Button      btnChiTiet_iComingOrder;
 
 
         public OderViewHolder(@NonNull View itemView) {
@@ -140,15 +168,20 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                 case COMING_ITEM:
                     txtAddress_iComingOrder = itemView.findViewById(R.id.txtAddress_iComingOrder);
                     txtDate_iComingOrder = itemView.findViewById(R.id.txtDate_iComingOrder);
-                    txtDes_iComingOrder = itemView.findViewById(R.id.txtDes_iComingOrder);
+                    txtPrice_iComingOrder = itemView.findViewById(R.id.txtPrice_iComingOrder);
                     txtSatus_iComingOrder = itemView.findViewById(R.id.txtSatus_iComingOrder);
+                    txtAmount_iComingOrder = itemView.findViewById(R.id.txtAmount_iComingOrder);
+                    txtPayment_iComingOrder = itemView.findViewById(R.id.txtPayment_iComingOrder);
+
                     imv_iComingOrder = itemView.findViewById(R.id.imv_iComingOrder);
-                    btnChiTiet_iComingOrder = itemView.findViewById(R.id.btnChiTiet_iComingOrder);
                     break;
                 case HISTORY_ITEM:
                     txtAddress_iHistoryOrder = itemView.findViewById(R.id.txtAddress_iHistoryOrder);
                     txtDate_iHistoryOrder = itemView.findViewById(R.id.txtDate_iHistoryOrder);
-                    txtDes_iHistoryOrder = itemView.findViewById(R.id.txtDes_iHistoryOrder);
+                    txtPrice_iHistoryOrder = itemView.findViewById(R.id.txtPrice_iHistoryOrder);
+                    txtAmount_iHistoryOrder = itemView.findViewById(R.id.txtAmount_iHistoryOrder);
+                    txtPayment_iHistoryOrder = itemView.findViewById(R.id.txtPayment_iHistoryOrder);
+
                     txtID_iHistoryOrder = itemView.findViewById(R.id.txtID_iHistoryOrder);
                     txtStatus_iHistoryOrder = itemView.findViewById(R.id.txtStatus_iHistoryOrder);
 

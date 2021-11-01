@@ -36,7 +36,9 @@ public class OrderActivity extends AppCompatActivity {
 
     Button btnComingOrder, btnHistoryOder;
     ImageButton btnBack, btnCart;
-
+    private Fragment fragment = null;
+    FragmentTransaction fragmentTransaction;
+    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,17 @@ public class OrderActivity extends AppCompatActivity {
         initAdapter();
         
         addEvent();
+
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
+
+        fragment = new ComingOrderFragment();
+        btnComingOrder.setEnabled(false);
+        btnHistoryOder.setEnabled(true);
+        btnComingOrder.setBackgroundResource(R.drawable.button_underline);
+
+        fragmentTransaction.replace(R.id.layoutContainer_orderactivity,fragment);
+        fragmentTransaction.commit();
 
     }
   
@@ -70,21 +83,25 @@ public class OrderActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            Fragment fragment= null;
+            fragmentManager = getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragment= null;
 
             if ( view.getId()==R.id.btnHistoryOrder_orderactivity){
                 fragment= null;
                 fragment = new HistoryOrderFragment();
                 btnHistoryOder.setEnabled(false);
                 btnComingOrder.setEnabled(true);
+                btnHistoryOder.setBackgroundResource(R.drawable.button_underline);
+                btnComingOrder.setBackgroundResource(R.color.white);
 
             } else if (view.getId()==R.id.btnComingOrder_orderactivity){
                 fragment= null;
                 fragment = new ComingOrderFragment();
                 btnComingOrder.setEnabled(false);
                 btnHistoryOder.setEnabled(true);
+                btnComingOrder.setBackgroundResource(R.drawable.button_underline);
+                btnHistoryOder.setBackgroundResource(R.color.white);
             }
 
             if (fragment != null){
@@ -96,7 +113,7 @@ public class OrderActivity extends AppCompatActivity {
 
     private void initAdapter() {
 
-     /*  //region Tạo dữ liệu cho Order trên date base, xóa cũng được
+    /*   //region Tạo dữ liệu cho Order trên date base, xóa cũng được
         List<Product> listProduct = new ArrayList<>();
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -125,15 +142,15 @@ public class OrderActivity extends AppCompatActivity {
                 
                 order.setAddOrder("48 Bùi Thị Xuân Quận 3");
 
-                order.setIdOrder("od7");
+                order.setIdOrder("od1");
                 order.setPaymentOrder("Tiền mặt");
                 order.setPriceOrder(9050000);
                 order.setStatusOrder(OrderModel.THANH_CONG);
 
-                String sDate1="16/10/2021";
+                String sDate1="11/10/2021";
                 try {
                     Date date =new SimpleDateFormat("dd/MM/yyyy").parse(sDate1);
-                    order.setDateOrder(date.toString());
+                    order.setDateOrder(sDate1);
                     order.setDateLongOder(date.getTime());
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -144,7 +161,7 @@ public class OrderActivity extends AppCompatActivity {
                 HashMap<String,Integer> itemOrder = new HashMap<>();
 
                 itemOrder.put(listProduct.get(9).getProductID(), 2);
-                itemOrder.put(listProduct.get(16).getProductID(), 2);
+                itemOrder.put(listProduct.get(1).getProductID(), 2);
                 itemOrder.put(listProduct.get(14).getProductID(), 2);
                 order.setItemOrder(itemOrder);
                 order.setImgOrder(listProduct.get(0).getProductImg());
@@ -156,8 +173,8 @@ public class OrderActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
-        //endregion*/
+        });*/
+        //endregion
         
         
     }
