@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecipeActivity"
+    android:background="@color/white"
+    >
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_main"
+
+        android:outlineAmbientShadowColor="#00FFFFFF"
+        android:outlineSpotShadowColor="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar_Recipe"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#00FFFFFF"
+            app:navigationIcon="@drawable/ic_left_arrow_24_white"
+            app:title="CÔNG THỨC" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/txtRecipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        android:textColor="@color/colorPrimary"
+        android:text="Công thức làm món gì đó"
+        android:textSize="24sp"/>
+
+    <GridView
+        android:id="@+id/grvRecipeMaterial"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtRecipe"
+        android:numColumns="3"
+        android:horizontalSpacing="12dp"
+        android:verticalSpacing="16dp"
+        android:padding="20dp"
+        />
+    <ScrollView
+        app:layout_constraintTop_toBottomOf="@+id/grvRecipeMaterial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="#333333"
+            android:textSize="20dp"
+            android:text="@string/testContent"
+            android:padding="20dp"/>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

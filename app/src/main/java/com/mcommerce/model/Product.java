@@ -9,6 +9,14 @@ public class Product {
     public int productQuantity;
     public int productLike;
 
+    //thêm constructer chỉ có product name va bg, pong làm recipe
+
+
+    public Product(String productName, int productBackgroundImg) {
+        this.productName = productName;
+        this.productBackgroundImg = productBackgroundImg;
+    }
+
     //thêm thuộc tính cho list product của pong
     public int productBackgroundImg;
     public int productAddItem;
