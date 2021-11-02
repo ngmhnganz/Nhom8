@@ -1,6 +1,8 @@
 package com.mcommerce.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mcommerce.model.OrderModel;
+import com.mcommerce.nhom8.OrderDetailActivity;
 import com.mcommerce.nhom8.R;
+import com.mcommerce.interfaces.RecyclerViewItemClickListener;
+import com.mcommerce.util.Constant;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHolder> {
@@ -131,6 +133,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                 }
                 break;
         }
+
+        holder.setItemClickListener(new RecyclerViewItemClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Intent intent= new Intent(context, OrderDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(Constant.SELECTED_ORDER,order);
+                bundle.putSerializable(Constant.ITEMS_ORDER,order.getItemOrder());
+                intent.putExtra(Constant.ORDER_BUNDLE,bundle);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -138,7 +153,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
         return orderList.size();
     }
 
-    public class OderViewHolder extends RecyclerView.ViewHolder {
+    public class OderViewHolder extends RecyclerView.ViewHolder  implements View.OnClickListener{
 
         TextView    txtID_iHistoryOrder,
                     txtDate_iHistoryOrder,
@@ -160,6 +175,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                     txtPayment_iComingOrder;
         ImageView   imv_iComingOrder;
 
+        private RecyclerViewItemClickListener itemClickListener;
+
 
         public OderViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -174,6 +191,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                     txtPayment_iComingOrder = itemView.findViewById(R.id.txtPayment_iComingOrder);
 
                     imv_iComingOrder = itemView.findViewById(R.id.imv_iComingOrder);
+                    itemView.setOnClickListener(this);
                     break;
                 case HISTORY_ITEM:
                     txtAddress_iHistoryOrder = itemView.findViewById(R.id.txtAddress_iHistoryOrder);
@@ -189,10 +207,20 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                     imvStatus_iHistoryOrder = itemView.findViewById(R.id.imvStatus_iHistoryOrder);
 
                     btnDatLai_iHistoryOrder = itemView.findViewById(R.id.btnDatLai_iHistoryOrder);
+                    itemView.setOnClickListener(this);
                     break;
             }
 
 
+        }
+        public void setItemClickListener(RecyclerViewItemClickListener itemClickListener)
+        {
+            this.itemClickListener = itemClickListener;
+        }
+
+        @Override
+        public void onClick(View view) {
+            itemClickListener.onClick(view,getAdapterPosition());
         }
     }
 }

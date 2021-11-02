@@ -1,6 +1,6 @@
 package com.mcommerce.adapter;
 
-import android.content.Context;
+import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,23 +9,28 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mcommerce.model.OrderModel;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.model.Product;
 import com.mcommerce.nhom8.R;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class OrderDetailAdapter  extends RecyclerView.Adapter<OrderDetailAdapter.OrderDetailViewHolder> {
-    private Context context;
-    private List<OrderModel> orderList;
-    private List<Product> productList;
+    private Activity context;
+    private HashMap<String,Integer> itemsOrder;
+    private DatabaseReference myRef;
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    private String[] key;
 
-    public OrderDetailAdapter(Context context, List<OrderModel> orderModelList, List<Product> productList) {
+
+    public OrderDetailAdapter(Activity context, HashMap<String,Integer> itemsOrder) {
         this.context = context;
-        this.orderList = orderModelList;
-        this.productList = productList;
-        notifyDataSetChanged();
+        this.itemsOrder = itemsOrder;
+        key = this.itemsOrder.keySet().toArray(new String[itemsOrder.size()]);
     }
 
 
@@ -38,32 +43,31 @@ public class OrderDetailAdapter  extends RecyclerView.Adapter<OrderDetailAdapter
 
     @Override
     public void onBindViewHolder(@NonNull OrderDetailViewHolder holder, int position) {
-        Product product =productList.get(position);
-        OrderModel order = orderList.get(position);
+        myRef = firebaseDatabase.getReference().child("NguyenLieu");
+        String itemID = key[position];
+        int itemQ =  Integer.parseInt(String.valueOf(itemsOrder.get(key[position])));
+        myRef.child(itemID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Product product = new Product();
+                product.setProductName(snapshot.child("productName").getValue().toString());
+                product.setProductPrice(((Long) snapshot.child("productPrice").getValue()).intValue());
+                holder.txtProductName_orderdetail.setText(product.getProductName());
+                holder.txtProductPrice_orderdetail.setText(String.valueOf(product.getProductPrice()*itemQ));
+            }
 
-        if(product==null && order==null)
-        {
-            return;
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
 
-        holder.txtProductPrice_orderdetail.setText(String.valueOf(product.getProductPrice()));
-        holder.txtProductName_orderdetail.setText(product.getProductName());
-        // chỗ này nghi sai
-        holder.txtProductQuantity_orderdetail.setText(order.getItemOrder().get(""));
-
-
-
+        holder.txtProductQuantity_orderdetail.setText(itemQ+"x");
     }
-
 
 
     @Override
     public int getItemCount() {
-        if(productList != null)
-        {
-            return productList.size();
-        }
-        return 0;
+        return itemsOrder.size();
     }
 
     public class OrderDetailViewHolder extends RecyclerView.ViewHolder {

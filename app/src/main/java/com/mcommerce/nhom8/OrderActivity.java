@@ -1,14 +1,9 @@
 package com.mcommerce.nhom8;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 import android.os.Bundle;
 import android.view.View;
@@ -16,21 +11,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.fragment.ComingOrderFragment;
 import com.mcommerce.fragment.HistoryOrderFragment;
-import com.mcommerce.model.OrderModel;
-import com.mcommerce.model.Product;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
 
 public class OrderActivity extends AppCompatActivity {
 
@@ -59,7 +41,7 @@ public class OrderActivity extends AppCompatActivity {
         btnHistoryOder.setEnabled(true);
         btnComingOrder.setBackgroundResource(R.drawable.button_underline);
 
-        fragmentTransaction.replace(R.id.layoutContainer_orderactivity,fragment);
+        fragmentTransaction.replace(R.id.containerOrderLists_orderactivity,fragment);
         fragmentTransaction.commit();
 
     }
@@ -105,7 +87,7 @@ public class OrderActivity extends AppCompatActivity {
             }
 
             if (fragment != null){
-                fragmentTransaction.replace(R.id.layoutContainer_orderactivity,fragment);
+                fragmentTransaction.replace(R.id.containerOrderLists_orderactivity,fragment);
                 fragmentTransaction.commit();
             }
         }

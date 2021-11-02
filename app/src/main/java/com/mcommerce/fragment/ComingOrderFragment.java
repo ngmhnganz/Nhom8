@@ -83,6 +83,29 @@ public class ComingOrderFragment extends Fragment {
         OrderModel order = new OrderModel();
 
         order.setStatusOrder(((Long) dataSnapshot.child("statusOrder").getValue()).intValue());
+        switch (order.getStatusOrder()){
+            case 0 :
+                order.setStatusStringOrder("Giao hàng thành công");
+                break;
+            case 1 :
+                order.setStatusStringOrder("Đã hủy đơn hàng");
+                break;
+            case 2 :
+                order.setStatusStringOrder("Đặt hàng thành công");
+                break;
+            case 3 :
+                order.setStatusStringOrder("Đơn hàng đã được xác nhận");
+                break;
+            case 4 :
+                order.setStatusStringOrder("Đơn hàng đang được chuẩn bị");
+                break;
+            case 5 :
+                order.setStatusStringOrder("Đơn hàng đã được đóng gói");
+                break;
+            case 6 :
+                order.setStatusStringOrder("Đơn hàng đang được vận chuyển");
+                break;
+        }
         order.setPriceOrder(((Long) dataSnapshot.child("priceOrder").getValue()).intValue());
         order.setDateOrder(dataSnapshot.child("dateOrder").getValue().toString());
         order.setIdOrder(dataSnapshot.child("idOrder").getValue().toString());
@@ -90,6 +113,8 @@ public class ComingOrderFragment extends Fragment {
         order.setAddOrder(dataSnapshot.child("addOrder").getValue().toString());
         order.setImgOrder(dataSnapshot.child("imgOrder").getValue().toString());
         order.setDateLongOder((Long) dataSnapshot.child("dateLongOder").getValue());
+        order.setDiscountOrder(((Long) dataSnapshot.child("discountOrder").getValue()).intValue());
+        order.setShippingFeeOrder(((Long) dataSnapshot.child("shippingFeeOrder").getValue()).intValue());
 
         HashMap<String,Integer> alt = (HashMap<String, Integer>) dataSnapshot.child("itemOrder").getValue();
         order.setItemOrder(alt);

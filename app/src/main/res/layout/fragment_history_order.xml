@@ -19,7 +19,7 @@
         android:background="@color/white"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcv_fragmentHistoryOrder"
+        android:id="@+id/lv_fragmentHistoryOrder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"/>

@@ -8,7 +8,7 @@
     android:background="@color/white">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout_orderdetail"
+        android:id="@+id/appBarLayout_aOrderDetail"
         android:layout_width="match_parent"
 
         android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
 
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar_orderdetail"
+            android:id="@+id/topAppBar_aOrderDetail"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#00FFFFFF"
@@ -31,56 +31,48 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ScrollView
+    <LinearLayout
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout_orderdetail">
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout_aOrderDetail">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
             <TextView
-                android:id="@+id/txtID_orderdetail"
+                android:id="@+id/txtID_aOrderDetail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:gravity="center"
-                android:text="Mã đơn hàng #15102021-12652"
-
                 android:fontFamily="@font/gilroy_bold"
+                android:gravity="center"
+
+                android:text="Mã đơn hàng #15102021-12652"
                 android:textColor="@color/colorText"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
 
             <TextView
+                android:id="@+id/txtDate_aOrderDetail"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
 
-                android:gravity="center"
-                android:id="@+id/txtDate_orderdetail"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/gilroy_medium"
-                android:textColor="@color/grey"
-                android:text="15, Tháng Mười, 2021 "/>
+                android:gravity="center"
+                android:text="15, Tháng Mười, 2021 "
+                android:textColor="@color/colorSubText" />
 
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/rcvListProduct_orderdetail"
-                android:padding="5dp">
-
-            </androidx.recyclerview.widget.RecyclerView>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -100,7 +92,7 @@
                         android:textColor="@color/colorText" />
 
                     <TextView
-                        android:id="@+id/txtTotalQuantity_orderdetail"
+                        android:id="@+id/txtTotalQuantity_aOrderDetail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
@@ -110,12 +102,14 @@
                         android:textColor="@color/colorText" />
 
                     <TextView
-                        android:id="@+id/txtSubtotal_orderdetail"
+                        android:id="@+id/txtSubtotal_aOrderDetail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
                         android:layout_weight="3"
+
                         android:fontFamily="@font/sfpro_medium"
+                        android:gravity="end"
                         android:text="299.000 đ"
                         android:textColor="@color/colorText" />
 
@@ -137,43 +131,25 @@
                         android:textColor="@color/colorText" />
 
                     <TextView
-                        android:id="@+id/txtShippingFee_orderdetail"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-
-                        android:layout_weight="7"
-                        android:fontFamily="@font/sfpro_medium"
-                        android:text="15.000 đ"
-                        android:textColor="@color/colorText"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-
-                        android:layout_weight="7"
-                        android:fontFamily="@font/sfpro_medium"
-                        android:text="Mã giảm giá"
-                        android:textColor="@color/colorPrimary" />
-
-                    <TextView
-                        android:id="@+id/txtDiscount_orderdetail"
+                        android:id="@+id/txtShippingFee_aOrderDetail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
                         android:layout_weight="3"
+
                         android:fontFamily="@font/sfpro_medium"
-                        android:text="30.000 đ"
-                        android:textColor="@color/colorPrimary" />
+                        android:gravity="end"
+                        android:text="15.000 đ"
+                        android:textColor="@color/colorText" />
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutDiscount"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:weightSum="10" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -191,22 +167,24 @@
                         android:textColor="@color/colorText" />
 
                     <TextView
-                        android:id="@+id/txtBeforeDiscount_orderdetail"
+                        android:id="@+id/txtBeforeDiscount_aOrderDetail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
                         android:layout_weight="3"
                         android:fontFamily="@font/sfpro_medium"
                         android:text="314.000 đ"
-                        android:textColor="@color/grey" />
+                        android:textColor="@color/colorSubText" />
 
                     <TextView
-                        android:id="@+id/txtTotal_orderdetail"
+                        android:id="@+id/txtTotal_aOrderDetail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
                         android:layout_weight="3"
+
                         android:fontFamily="@font/sfpro_medium"
+                        android:gravity="end"
                         android:text="284.000 đ"
                         android:textColor="@color/colorText" />
                 </LinearLayout>
@@ -215,7 +193,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
 
@@ -235,7 +213,7 @@
                         android:textColor="@color/colorText" />
 
                     <TextView
-                        android:id="@+id/txtCustomerName_orderdetail"
+                        android:id="@+id/txtCustomerName_aOrderDetail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
@@ -261,7 +239,7 @@
                         android:textColor="@color/colorText" />
 
                     <TextView
-                        android:id="@+id/txtCustomerPhone_orderdetail"
+                        android:id="@+id/txtCustomerPhone_aOrderDetail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
@@ -288,7 +266,7 @@
                         android:textColor="@color/colorText" />
 
                     <TextView
-                        android:id="@+id/txtCustomerAddress"
+                        android:id="@+id/txtCustomerAddress_aOrderDetail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
@@ -298,6 +276,7 @@
                         android:textColor="@color/colorText" />
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -305,7 +284,7 @@
                     android:weightSum="10">
 
                     <ImageView
-                        android:id="@+id/imageView2"
+                        android:id="@+id/imvStatus_aOrderDetail"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
@@ -313,6 +292,7 @@
                         app:srcCompat="@drawable/ic_heart" />
 
                     <TextView
+                        android:id="@+id/txtStatus_aOrderDetail"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
 
@@ -320,9 +300,7 @@
 
                         android:gravity="start"
                         android:text="Giao hàng thành công"
-                        android:textColor="@color/grey"/>
-
-
+                        android:textColor="@color/colorSubText" />
 
 
                 </LinearLayout>
@@ -330,38 +308,48 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingVertical="20dp">
 
                     <Button
-                        android:id="@+id/btnSupport_orderdetail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/btnSupport_aOrderDetail"
+                        style="@style/button_default"
+                        android:layout_width="250dp"
 
+                        android:layout_height="match_parent"
+
+                        android:layout_marginHorizontal="20dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/gilroy_bold"
                         android:text="Hỗ trợ"
+
                         android:textColor="@color/white" />
 
                     <Button
-                        android:id="@+id/btnReOrder_orderdetail"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/btnReOrder_aOrderDetail"
+                        style="@style/button_default"
+                        android:layout_width="250dp"
 
+                        android:layout_height="match_parent"
+
+                        android:layout_marginHorizontal="20dp"
                         android:layout_weight="1"
                         android:fontFamily="@font/gilroy_bold"
                         android:text="Đặt lại"
+
                         android:textColor="@color/white" />
                 </LinearLayout>
 
             </LinearLayout>
-
-
         </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvListProduct_aOrderDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp" />
+
+    </LinearLayout>
 
 
-
-
-
-    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

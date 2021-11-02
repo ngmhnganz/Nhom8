@@ -27,6 +27,8 @@ public class AllProducts extends AppCompatActivity {
 
     private RecyclerView rcvCategory_allproducts;
     private MaterialToolbar topAppBar;
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference myref = firebaseDatabase.getReference();
 
 
     @Override
@@ -37,6 +39,7 @@ public class AllProducts extends AppCompatActivity {
         linkview();
         initAdapter();
         addEvent();
+
 
     }
 
@@ -53,8 +56,7 @@ public class AllProducts extends AppCompatActivity {
 
     private void initAdapter() {
 
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myref = firebaseDatabase.getReference();
+
 
         //region Lấy dữ liệu Sản Phẩm từ Fireabase về truyền cho adapter
         ArrayList<Category> listCategory = new ArrayList<>();
@@ -120,7 +122,7 @@ public class AllProducts extends AppCompatActivity {
         listProduct.add(new Product("Bột trà xanh",R.drawable.bottraxanh, 59000));
         listProduct.add(new Product("Trứng gà",R.drawable.trungga, 30000));
         listProduct.add(new Product("Trứng gà",R.drawable.trungga, 30000));
-        listProduct.add(new Product("Trứng gà",R.drawable.trungga, 30000));*/
+        listProduct.add(new Product("Trứng gà",R.drawable.trungga, 30000));
 
         listCategory.add(new Category("Nguyên liệu","Xem tất cả",listProduct));
         listCategory.add(new Category("Dụng cụ","Xem tất cả",listProduct));

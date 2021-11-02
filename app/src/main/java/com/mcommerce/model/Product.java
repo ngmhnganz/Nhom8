@@ -51,11 +51,6 @@ public class Product {
         this.productID = productID;
     }
 
-    public Product(){
-
-    }
-
-
     public String getProductName() {
         return productName;
     }
