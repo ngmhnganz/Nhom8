@@ -11,7 +11,6 @@ public class Product {
 
     //thêm constructer chỉ có product name va bg, pong làm recipe
 
-
     public Product(String productName, int productBackgroundImg) {
         this.productName = productName;
         this.productBackgroundImg = productBackgroundImg;

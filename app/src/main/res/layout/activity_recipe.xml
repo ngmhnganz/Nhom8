@@ -96,28 +96,52 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"/>
 
-    <GridView
-        android:id="@+id/grvRecipeMaterial"
+    <LinearLayout
+        android:id="@+id/llMaterialBuying"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/imvLine2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/llMaterialLable"
-        android:numColumns="3"
-        android:horizontalSpacing="12dp"
-        android:verticalSpacing="16dp"
-        android:padding="20dp"
-        />
+        android:orientation="vertical">
+        <GridView
+            android:id="@+id/grvRecipeMaterial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintTop_toBottomOf="@+id/llMaterialLable"
+            android:numColumns="3"
+            android:horizontalSpacing="12dp"
+            android:verticalSpacing="16dp"
+            android:padding="20dp"
+            />
+        <Button
+            android:id="@+id/btnAddToCart_Recipe"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Thêm vào giỏ hàng"
+            android:fontFamily="@font/gilroy_medium"
+            android:drawableLeft="@drawable/ic_add_shopping_cart_24"
+            android:drawablePadding="5dp"
+            android:background="@drawable/background_pressed_material"
+            android:textColor="@android:color/white"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
     <ScrollView
-        app:layout_constraintTop_toBottomOf="@+id/grvRecipeMaterial"
+        app:layout_constraintTop_toBottomOf="@+id/llMaterialBuying"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="#333333"
             android:textSize="20dp"
+            android:fontFamily="@font/sfpro_regular"
             android:text="@string/testContent"
-            android:padding="20dp"/>
+            />
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mcommerce.adapter.ListProductAdapter;
@@ -20,6 +22,7 @@ public class RecipeActivity extends AppCompatActivity {
     ArrayList<Product> materials;
     ImageView imvDropDownMaterial;
     TextView txtPreparedMaterials_Recipe;
+    LinearLayout llMaterialBuying;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +36,8 @@ public class RecipeActivity extends AppCompatActivity {
 
     private void linkViews() {
         grvRecipeMaterial=findViewById(R.id.grvRecipeMaterial);
-        grvRecipeMaterial.setVisibility(View.GONE);
+        llMaterialBuying=findViewById(R.id.llMaterialBuying);
+        llMaterialBuying.setVisibility(View.GONE);
         imvDropDownMaterial=findViewById(R.id.imvDropDownMaterial);
         txtPreparedMaterials_Recipe=findViewById(R.id.txtPreparedMaterials_Recipe);
     }
@@ -41,16 +45,26 @@ public class RecipeActivity extends AppCompatActivity {
     private void addEvents() {
         imvDropDownMaterial.setOnClickListener(clickSetVisibility);
         txtPreparedMaterials_Recipe.setOnClickListener(clickSetVisibility);
+
+        //khi click vào item trên grid view => đồng thời đổi màu + lưu list sp người dùng chọn
+        grvRecipeMaterial.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Product p= (Product) grvRecipeMaterial.getItemAtPosition(i);
+//                p.setProductBackgroundImg(R.drawable.background_pressed_material);
+
+            }
+        });
     }
 
     View.OnClickListener clickSetVisibility=new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if(grvRecipeMaterial.getVisibility()==view.VISIBLE){
-                grvRecipeMaterial.setVisibility(View.GONE);
+            if(llMaterialBuying.getVisibility()==view.VISIBLE){
+                llMaterialBuying.setVisibility(View.GONE);
                 imvDropDownMaterial.setImageResource(R.drawable.ic_arrow_down_24);
             }else {
-                grvRecipeMaterial.setVisibility(View.VISIBLE);
+                llMaterialBuying.setVisibility(View.VISIBLE);
                 imvDropDownMaterial.setImageResource(R.drawable.ic__arrow_up_24);
             }
         }
