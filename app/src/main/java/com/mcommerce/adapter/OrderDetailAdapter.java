@@ -53,7 +53,7 @@ public class OrderDetailAdapter  extends RecyclerView.Adapter<OrderDetailAdapter
                 product.setProductName(snapshot.child("productName").getValue().toString());
                 product.setProductPrice(((Long) snapshot.child("productPrice").getValue()).intValue());
                 holder.txtProductName_orderdetail.setText(product.getProductName());
-                holder.txtProductPrice_orderdetail.setText(String.valueOf(product.getProductPrice()*itemQ));
+                holder.txtProductPrice_orderdetail.setText(String.valueOf(product.getProductPrice()*itemQ)+" đ");
             }
 
             @Override

@@ -2,11 +2,15 @@ package com.mcommerce.nhom8;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Layout;
+import android.view.Gravity;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -45,7 +49,6 @@ public class OrderDetailActivity extends AppCompatActivity {
     private Button      btnSupport_aOrderDetail,
                         btnReOrder_aOrderDetail;
 
-    private ImageView   imvStatus_aOrderDetail;
     private RecyclerView rcvListProduct_aOrderDetail;
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -68,37 +71,37 @@ public class OrderDetailActivity extends AppCompatActivity {
         Bundle bundle = intent.getBundleExtra(Constant.ORDER_BUNDLE);
 
         OrderModel order = bundle.getParcelable(Constant.SELECTED_ORDER);
-        txtID_aOrderDetail.setText(order.getIdOrder());
+        txtID_aOrderDetail.setText("Mã đơn hàng "+order.getIdOrder());
         txtDate_aOrderDetail.setText(order.getDateOrder());
-        txtSubtotal_aOrderDetail.setText(order.getPriceOrder()+"");
+        txtSubtotal_aOrderDetail.setText(order.getPriceOrder()+" đ");
 
-        txtShippingFee_aOrderDetail.setText(order.getShippingFeeOrder()+"");
+        txtShippingFee_aOrderDetail.setText(order.getShippingFeeOrder()+" đ");
         if (order.getDiscountOrder()!=0){
             LinearLayout layoutDiscount = findViewById(R.id.layoutDiscount);
 
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-            params.weight= 9f;
+            params.weight=7;
             TextView txtDiscountTitle = new TextView(this);
             txtDiscountTitle.setTextSize(14);
             txtDiscountTitle.setText("Khuyến mãi");
             txtDiscountTitle.setLayoutParams(params);
             txtDiscountTitle.setTextColor(getResources().getColor(R.color.colorText));
+            txtDiscountTitle.setTypeface(ResourcesCompat.getFont(this,R.font.sfpro_medium));
             layoutDiscount.addView(txtDiscountTitle);
 
 
-            LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-            params2.weight=3f;
+            params2.weight=3;
             TextView txtDiscount = new TextView(this);
             txtDiscount.setTextSize(14);
-            txtDiscount.setText(order.getDiscountOrder()+"");
-            txtDiscount.setLayoutParams(params);
+            txtDiscount.setText("-"+order.getDiscountOrder()+" đ");
+            txtDiscount.setLayoutParams(params2);
             txtDiscount.setTextColor(getResources().getColor(R.color.colorText));
+            txtDiscount.setTypeface(ResourcesCompat.getFont(this,R.font.sfpro_medium));
+            txtDiscount.setGravity(Gravity.END);
             layoutDiscount.addView(txtDiscount);
-
-
-
         }
         txtStatus_aOrderDetail.setText(order.getStatusStringOrder());
 
@@ -127,8 +130,6 @@ public class OrderDetailActivity extends AppCompatActivity {
         txtCustomerPhone_aOrderDetail = findViewById(R.id.txtCustomerPhone_aOrderDetail);
         txtCustomerAddress_aOrderDetail = findViewById(R.id.txtCustomerAddress_aOrderDetail);
         txtStatus_aOrderDetail = findViewById(R.id.txtStatus_aOrderDetail);
-
-        imvStatus_aOrderDetail = findViewById(R.id.imvStatus_aOrderDetail);
 
         btnSupport_aOrderDetail = findViewById(R.id.btnSupport_aOrderDetail);
         btnReOrder_aOrderDetail = findViewById(R.id.btnReOrder_aOrderDetail);
