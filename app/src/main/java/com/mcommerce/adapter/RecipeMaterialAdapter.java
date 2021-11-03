@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.mcommerce.model.Product;
 import com.mcommerce.nhom8.R;
-import com.mcommerce.nhom8.RecipeActivity;
+import com.mcommerce.nhom8.EachRecipeActivity;
 
 import java.util.List;
 
