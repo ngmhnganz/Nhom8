@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
 
        /* Timer timer = new Timer();
         timer.scheduleAtFixedRate( new sliderTimer(), 5000, 4000);*/
-
     }
 
     private void addEvent() {

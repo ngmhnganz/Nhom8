@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="1000">
+        <KeyFrameSet>
+            <KeyAttribute
+                motion:motionTarget="@+id/imgFood_productDetail"
+                motion:framePosition="0"
+                android:alpha="1" />
+            <KeyAttribute
+                motion:motionTarget="@+id/imgFood_productDetail"
+                motion:framePosition="100"
+                android:alpha="0" />
+            <KeyAttribute
+                motion:motionTarget="@+id/imgHeart_productDetail"
+                motion:framePosition="0"
+                android:alpha="1" />
+            <KeyAttribute
+                motion:motionTarget="@id/imgHeart_productDetail"
+                motion:framePosition="100"
+                android:alpha="0" />
+            <KeyAttribute
+                motion:motionTarget="@+id/imgBack_productDetail"
+                motion:framePosition="0"
+                android:alpha="1" />
+            <KeyAttribute
+                motion:motionTarget="@id/imgBack_productDetail"
+                motion:framePosition="100"
+                android:alpha="0" />
+            <KeyAttribute
+                motion:motionTarget="@+id/imgBack_productDetail"
+                motion:framePosition="27"
+                android:alpha="0" />
+            <KeyAttribute
+                motion:motionTarget="@+id/imgHeart_productDetail"
+                motion:framePosition="27"
+                android:alpha="0" />
+            <KeyAttribute
+                motion:motionTarget="@+id/layoutBackground"
+                motion:framePosition="0" >
+                <CustomAttribute
+                    motion:attributeName="background"
+                    motion:customColorDrawableValue="@color/colorLightSub" />
+            </KeyAttribute>
+            <KeyAttribute
+                motion:motionTarget="@+id/layoutBackground"
+                motion:framePosition="100" >
+                <CustomAttribute
+                    motion:attributeName="background"
+                    motion:customColorDrawableValue="@color/colorPrimary" />
+            </KeyAttribute>
+            <KeyAttribute
+                motion:motionTarget="@+id/imgFood_productDetail"
+                motion:framePosition="0" >
+                <CustomAttribute
+                    motion:attributeName="background"
+                    motion:customColorDrawableValue="@color/colorLightSub" />
+            </KeyAttribute>
+            <KeyAttribute
+                motion:motionTarget="@+id/imgFood_productDetail"
+                motion:framePosition="100" >
+                <CustomAttribute
+                    motion:attributeName="background"
+                    motion:customColorDrawableValue="@color/colorPrimary" />
+            </KeyAttribute>
+        </KeyFrameSet>
+        <OnSwipe
+            motion:touchAnchorId="@+id/layoutContainer"
+            motion:touchAnchorSide="bottom"
+            motion:dragDirection="dragUp"/>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:layout_height="1dp"
+            android:layout_width="match_parent"
+            android:id="@+id/imgFood_productDetail" />
+        <Constraint
+            android:layout_height="wrap_content"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:id="@+id/layoutContainer"
+            motion:layout_constraintTop_toBottomOf="@+id/topAppBar_allProducts" />
+        <Constraint
+            android:id="@+id/layoutBackground"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintStart_toStartOf="parent">
+            <CustomAttribute
+                motion:attributeName="background"
+                motion:customColorDrawableValue="@color/colorPrimary" />
+        </Constraint>
+    </ConstraintSet>
+</MotionScene>
