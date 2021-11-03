@@ -39,8 +39,6 @@ public class AllProducts extends AppCompatActivity {
         linkview();
         initAdapter();
         addEvent();
-
-
     }
 
     private void addEvent() {
@@ -55,9 +53,6 @@ public class AllProducts extends AppCompatActivity {
     }
 
     private void initAdapter() {
-
-
-
         //region Lấy dữ liệu Sản Phẩm từ Fireabase về truyền cho adapter
         ArrayList<Category> listCategory = new ArrayList<>();
         ArrayList<Product> listProduct = new ArrayList<>();
