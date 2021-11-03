@@ -1,6 +1,7 @@
 package com.mcommerce.nhom8;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,6 +10,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -16,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.github.mmin18.widget.RealtimeBlurView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 import com.mcommerce.adapter.BannerMainAdapter;
 import com.mcommerce.adapter.GoiYComboAdapter;
 import com.mcommerce.adapter.GoiYMonanAdapter;
@@ -29,15 +34,18 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private BottomNavigationView bottomNavigation;
+    private Menu menu;
+    private MenuItem menuItem;
 
-    ViewPager vpgBannerMain;
-    List<BannerMainModel> bannerMainModelList;
-    List<GoiYMonanModel> goiYMonanModelList;
-    List<GoiYComboModel> goiYComboModelList;
-    ImageButton btnSanPham, btnCongThuc, btnGoiY;
-    RecyclerView rcvGoiYMonan, rcvGoiYCombo;
-    RealtimeBlurView blurView;
-    BannerMainAdapter bannerMainAdapter;
+    private ViewPager vpgBannerMain;
+    private List<BannerMainModel> bannerMainModelList;
+    private List<GoiYMonanModel> goiYMonanModelList;
+    private List<GoiYComboModel> goiYComboModelList;
+    private ImageButton btnSanPham, btnCongThuc, btnGoiY;
+    private RecyclerView rcvGoiYMonan, rcvGoiYCombo;
+    private RealtimeBlurView blurView;
+    private BannerMainAdapter bannerMainAdapter;
 
     LinearLayout llSliderDot;
     private int dotscount;
@@ -47,8 +55,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         linkview();
+        menuItem = menu.getItem(0);
+        menuItem.setChecked(true);
         initData();
         addEvent();
 
@@ -78,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentMain = new Intent(MainActivity.this ,
                         AllProducts.class);
-                MainActivity.this.startActivity(intentMain);
+                startActivity(intentMain);
             }
         });
         btnCongThuc.setOnTouchListener(new View.OnTouchListener() {
@@ -146,6 +155,22 @@ public class MainActivity extends AppCompatActivity {
         });
         //endregion
 
+        //region Xử lý sự kiện menu navigation click
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case (R.id.menu_order):
+                        startActivity(new Intent(MainActivity.this,OrderActivity.class));
+                        break;
+                    case (R.id.menu_home):
+                        break;
+                }
+                return false;
+            }
+        });
+        //endregion
+
     }
 
 
@@ -159,8 +184,6 @@ public class MainActivity extends AppCompatActivity {
         bannerMainAdapter = new BannerMainAdapter(this, bannerMainModelList);
         vpgBannerMain.setAdapter(bannerMainAdapter);
         //endregion
-
-
 
         //region Gợi ý Món ăn
 
@@ -202,6 +225,10 @@ public class MainActivity extends AppCompatActivity {
         rcvGoiYCombo = findViewById(R.id.rcvGoiYCombo_main);
 
         blurView = findViewById(R.id.blurview_LyGoiYMonan);
+
+        bottomNavigation = findViewById(R.id.bottom_navigation);
+        menu = bottomNavigation.getMenu();
+
     }
 
    /* class sliderTimer extends TimerTask{

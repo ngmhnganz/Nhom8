@@ -1,26 +1,35 @@
 package com.mcommerce.nhom8;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mcommerce.fragment.ComingOrderFragment;
 import com.mcommerce.fragment.HistoryOrderFragment;
 
 public class OrderActivity extends AppCompatActivity {
 
+    BottomNavigationView bottomNavigation;
     Button btnComingOrder, btnHistoryOder;
     ImageButton btnBack, btnCart;
     private Fragment fragment = null;
     FragmentTransaction fragmentTransaction;
     FragmentManager fragmentManager;
+
+    private Menu menu;
+    private MenuItem menuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +37,8 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
 
         linkView();
+        menuItem = menu.getItem(3);
+        menuItem.setChecked(true);
         
         initAdapter();
         
@@ -51,6 +62,24 @@ public class OrderActivity extends AppCompatActivity {
 
         btnHistoryOder.setOnClickListener(myClick);
         btnComingOrder.setOnClickListener(myClick);
+
+        //region Xử lý sự kiện menu navigation click
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case (R.id.menu_order):
+
+                        break;
+                    case (R.id.menu_home):
+                        startActivity(new Intent(OrderActivity.this,MainActivity.class));
+                        break;
+                }
+                return false;
+            }
+        });
+        //endregion
+
     }
 
     private void linkView() {
@@ -58,6 +87,9 @@ public class OrderActivity extends AppCompatActivity {
         btnCart = findViewById(R.id.btnCart_orderactivity);
         btnComingOrder = findViewById(R.id.btnComingOrder_orderactivity);
         btnHistoryOder = findViewById(R.id.btnHistoryOrder_orderactivity);
+
+        bottomNavigation = findViewById(R.id.bottom_navigation);
+        menu = bottomNavigation.getMenu();
 
     }
 

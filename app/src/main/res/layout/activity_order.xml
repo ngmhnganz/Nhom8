@@ -9,7 +9,6 @@
     android:orientation="vertical"
     tools:context=".OrderActivity">
 
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
@@ -46,7 +45,8 @@
             android:layout_weight="1"
 
             android:background="?attr/actionBarItemBackground"
-            android:src="@drawable/ic_cart"/>
+            android:src="@drawable/ic_cart"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
     <LinearLayout
@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
@@ -114,8 +114,23 @@
                 android:orientation="vertical" />
         </LinearLayout>
 
-
-
     </LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+
+        android:background="@drawable/round_corner_image"
+        app:itemIconTint="@color/nav_color"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        app:itemTextAppearanceActive="@style/bottomNavigationText"
+
+        app:menu="@menu/bottom_navigation_menu" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,7 +4,7 @@
         android:id="@+id/menu_home"
         android:enabled="true"
         android:icon="@drawable/ic_home"
-        android:title="Công thức"/>
+        android:title="Trang chủ"/>
     <item
         android:id="@+id/menu_person"
         android:enabled="true"
@@ -18,7 +18,7 @@
         android:title="Yêu thích"/>
 
     <item
-        android:id="@+id/menu_doc"
+        android:id="@+id/menu_order"
         android:enabled="true"
         android:icon="@drawable/ic_doc"
         android:title="Đơn hàng"/>
