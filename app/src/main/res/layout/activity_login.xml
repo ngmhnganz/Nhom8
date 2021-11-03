@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F58A42"
+    android:orientation="vertical"
+    tools:context=".Login">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="172dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/sfpro_medium"
+        android:gravity="center_horizontal"
+        android:text="Trứng"
+        android:textColor="#000000"
+        android:textSize="28sp"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="530dp"
+        android:background="@drawable/vie_bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="ĐĂNG NHẬP"
+            android:layout_marginTop="32dp"
+            android:textSize="24sp"
+            android:fontFamily="@font/sfpro_medium"
+            android:textColor="@color/colorPrimary" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/txtILEmail_Login"
+            android:layout_marginTop="8dp"
+            android:layout_width="336dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:counterEnabled="true"
+            app:counterMaxLength="32"
+            app:endIconMode="clear_text"
+            android:hint="Tên/Email người dùng">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="336dp"
+                android:id="@+id/edtEmail"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/txtILPass_Login"
+
+            android:layout_width="336dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:endIconMode="password_toggle"
+            android:hint="Mật khẩu">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="336dp"
+                android:id="@+id/edtPass"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:inputType="textPassword"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnLogin"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:text="Đăng nhập"
+            android:fontFamily="@font/sfpro_regular"
+            android:textSize="16sp"/>
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
