@@ -68,6 +68,14 @@
                     motion:attributeName="background"
                     motion:customColorDrawableValue="@color/colorPrimary" />
             </KeyAttribute>
+            <KeyAttribute
+                motion:motionTarget="@+id/layoutAppBar_productDetail"
+                motion:framePosition="0"
+                android:alpha="0" />
+            <KeyAttribute
+                motion:motionTarget="@+id/layoutAppBar_productDetail"
+                motion:framePosition="100"
+                android:alpha="1" />
         </KeyFrameSet>
         <OnSwipe
             motion:touchAnchorId="@+id/layoutContainer"

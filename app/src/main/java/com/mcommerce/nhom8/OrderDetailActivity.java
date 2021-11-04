@@ -39,7 +39,6 @@ public class OrderDetailActivity extends AppCompatActivity {
                         txtTotalQuantity_aOrderDetail,
                         txtSubtotal_aOrderDetail,
                         txtShippingFee_aOrderDetail,
-                        txtDiscount_aOrderDetail,
                         txtBeforeDiscount_aOrderDetail,
                         txtTotal_aOrderDetail,
                         txtCustomerName_aOrderDetail,

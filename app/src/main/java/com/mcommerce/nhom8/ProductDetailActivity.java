@@ -62,6 +62,8 @@ public class ProductDetailActivity extends AppCompatActivity {
         txtTag_productDetail.setText(product.getProductType());
         txtName_productDetail.setText(product.getProductName());
         txtPrice_productDetail.setText(product.getProductPrice()+" đ");
+        txtDescription_productDetail.setText(product.getProductDescription());
+        txtDetail_productDetail.setText(product.getProductDetail());
         Glide.with(ProductDetailActivity.this).load(product.getProductImg()).into(imvProduct_productDetail);
 
     }

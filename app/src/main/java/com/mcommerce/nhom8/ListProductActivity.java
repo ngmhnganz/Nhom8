@@ -81,6 +81,7 @@ public class ListProductActivity extends AppCompatActivity {
 
         //region Lấy dữ liệu từ firebase bỏ vào rcv
         Query query = firebaseDatabase.getReference().child("NguyenLieu").orderByChild("productType").equalTo(type);
+
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -94,7 +95,6 @@ public class ListProductActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
         //endregion
