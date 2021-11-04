@@ -9,11 +9,11 @@
         motion:duration="1000">
         <KeyFrameSet>
             <KeyAttribute
-                motion:motionTarget="@+id/imgFood_productDetail"
+                motion:motionTarget="@+id/imvProduct_productDetail"
                 motion:framePosition="0"
                 android:alpha="1" />
             <KeyAttribute
-                motion:motionTarget="@+id/imgFood_productDetail"
+                motion:motionTarget="@+id/imvProduct_productDetail"
                 motion:framePosition="100"
                 android:alpha="0" />
             <KeyAttribute
@@ -25,15 +25,15 @@
                 motion:framePosition="100"
                 android:alpha="0" />
             <KeyAttribute
-                motion:motionTarget="@+id/imgBack_productDetail"
+                motion:motionTarget="@+id/btnBackOuter_productDetail"
                 motion:framePosition="0"
                 android:alpha="1" />
             <KeyAttribute
-                motion:motionTarget="@id/imgBack_productDetail"
+                motion:motionTarget="@id/btnBackOuter_productDetail"
                 motion:framePosition="100"
                 android:alpha="0" />
             <KeyAttribute
-                motion:motionTarget="@+id/imgBack_productDetail"
+                motion:motionTarget="@+id/btnBackOuter_productDetail"
                 motion:framePosition="27"
                 android:alpha="0" />
             <KeyAttribute
@@ -45,7 +45,7 @@
                 motion:framePosition="0" >
                 <CustomAttribute
                     motion:attributeName="background"
-                    motion:customColorDrawableValue="@color/colorLightSub" />
+                    motion:customColorDrawableValue="#F3F3F3" />
             </KeyAttribute>
             <KeyAttribute
                 motion:motionTarget="@+id/layoutBackground"
@@ -55,14 +55,14 @@
                     motion:customColorDrawableValue="@color/colorPrimary" />
             </KeyAttribute>
             <KeyAttribute
-                motion:motionTarget="@+id/imgFood_productDetail"
+                motion:motionTarget="@+id/imvProduct_productDetail"
                 motion:framePosition="0" >
                 <CustomAttribute
                     motion:attributeName="background"
-                    motion:customColorDrawableValue="@color/colorLightSub" />
+                    motion:customColorDrawableValue="#F3F3F3" />
             </KeyAttribute>
             <KeyAttribute
-                motion:motionTarget="@+id/imgFood_productDetail"
+                motion:motionTarget="@+id/imvProduct_productDetail"
                 motion:framePosition="100" >
                 <CustomAttribute
                     motion:attributeName="background"
@@ -82,14 +82,14 @@
         <Constraint
             android:layout_height="1dp"
             android:layout_width="match_parent"
-            android:id="@+id/imgFood_productDetail" />
+            android:id="@+id/imvProduct_productDetail" />
         <Constraint
             android:layout_height="wrap_content"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="match_parent"
             android:id="@+id/layoutContainer"
-            motion:layout_constraintTop_toBottomOf="@+id/topAppBar_allProducts" />
+            motion:layout_constraintTop_toBottomOf="@+id/layoutAppBar_productDetail" />
         <Constraint
             android:id="@+id/layoutBackground"
             motion:layout_constraintEnd_toEndOf="parent"

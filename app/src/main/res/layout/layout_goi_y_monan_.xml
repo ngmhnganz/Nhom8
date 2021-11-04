@@ -107,7 +107,7 @@
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/sfpro_medium"
             android:text="TextView"
-            android:textColor="@color/brown"
+            android:textColor="@color/colorSubText"
             android:textSize="12sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

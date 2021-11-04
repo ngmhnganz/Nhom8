@@ -14,7 +14,7 @@
 
         android:fontFamily="@font/sfpro_medium"
         android:text="1x"
-        android:textColor="@color/grey" />
+        android:textColor="@color/colorSubText" />
 
     <TextView
         android:id="@+id/txtProductName_orderdetail"

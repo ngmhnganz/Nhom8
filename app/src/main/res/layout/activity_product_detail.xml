@@ -7,38 +7,62 @@
     android:layout_height="match_parent"
 
     app:layoutDescription="@xml/activity_product_detail_scene"
-    tools:context=".Product_detail">
+    tools:context=".ProductDetailActivity">
 
     <LinearLayout
         android:id="@+id/layoutBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorLightSub"
+        android:background="#F3F3F3"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/topAppBar_allProducts"
+    <LinearLayout
+        android:id="@+id/layoutAppBar_productDetail"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="#00FFFFFF"
-        app:navigationIcon="@drawable/ic_left_arrow_24_white"
-        app:title="SẢN PHẨM"
-
+        android:layout_height="80dp"
+        android:background="@drawable/header_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent">
 
+        <ImageButton
+            android:id="@+id/btnBack_productDetail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/actionBarItemBackground"
+            android:src="@drawable/ic_left_arrow_24_white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.51"
+
+            android:fontFamily="@font/gilroy_bold"
+            android:gravity="center"
+            android:text="SẢN PHẨM"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:background="?attr/actionBarItemBackground" />
+
+    </LinearLayout>
 
     <ImageView
-        android:id="@+id/imgFood_productDetail"
+        android:id="@+id/imvProduct_productDetail"
         android:layout_width="match_parent"
         android:layout_height="200dp"
 
-        android:background="@color/colorLightSub"
+        android:background="#F3F3F3"
 
         android:scaleType="centerInside"
         android:src="@drawable/cocoa"
@@ -46,26 +70,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imgBack_productDetail"
+    <ImageButton
+        android:id="@+id/btnBackOuter_productDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_left_arrow_24_white"/>
 
-    <ImageView
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+
+        android:padding="10dp"
+
+        android:background="@drawable/action_item_background_custom"
+        android:src="@drawable/ic_left_arrow_24" />
+
+
+    <ImageButton
         android:id="@+id/imgHeart_productDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+
+        android:padding="10dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_heart"/>
 
+        android:background="@drawable/action_item_background_custom"
+        android:src="@drawable/ic_heart" />
 
 
     <LinearLayout
@@ -77,16 +113,18 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgFood_productDetail">
+        app:layout_constraintTop_toBottomOf="@id/imvProduct_productDetail">
 
         <TextView
             android:id="@+id/txtTag_productDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/background_tag"
-            android:paddingHorizontal="20dp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="5dp"
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="30dp"
+            android:fontFamily="@font/gilroy_bold"
 
             android:text="Tag"
             android:textColor="@color/colorPrimary" />
@@ -100,7 +138,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txtTittle__productDetail"
+                android:id="@+id/txtName_productDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
@@ -132,10 +170,10 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
         android:background="@color/white"
+        android:orientation="vertical"
 
-        app:layout_constraintBottom_toTopOf="@+id/btn_AddProduct_productDetail"
+        app:layout_constraintBottom_toTopOf="@id/layoutButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutContainer">
@@ -153,7 +191,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/txtDescription1"
+            android:id="@+id/txtDescription_productDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -165,7 +203,7 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/txtChiTiet"
+            android:id="@+id/txtDetail_productDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
@@ -218,17 +256,30 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_AddProduct_productDetail"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/layoutButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:fontFamily="@font/sfpro_medium"
-        android:text="Thêm vào giỏ hàng"
+        android:paddingVertical="20dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+
+        android:background="@color/white">
+        <android.widget.Button
+            android:id="@+id/btnAddProduct_productDetail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginHorizontal="50dp"
+
+            style="@style/button_default"
+            android:fontFamily="@font/sfpro_medium"
+            android:text="Thêm vào giỏ hàng" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

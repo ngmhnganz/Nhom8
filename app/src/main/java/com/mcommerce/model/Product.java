@@ -1,6 +1,9 @@
 package com.mcommerce.model;
 
-public class Product {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Product implements Parcelable {
     public static final String  NGUYEN_lIEU = "Nguyên liệu",
                                 DUNG_CU = "Dụng cụ",
                                 COMBO = "Combo";
@@ -14,6 +17,31 @@ public class Product {
     private int productPrice;
     private int productQuantity;
     private int productLike;
+
+    protected Product(Parcel in) {
+        productName = in.readString();
+        productImg = in.readString();
+        productDescription = in.readString();
+        productDetail = in.readString();
+        productID = in.readString();
+        productType = in.readString();
+        productshortName = in.readString();
+        productPrice = in.readInt();
+        productQuantity = in.readInt();
+        productLike = in.readInt();
+    }
+
+    public static final Creator<Product> CREATOR = new Creator<Product>() {
+        @Override
+        public Product createFromParcel(Parcel in) {
+            return new Product(in);
+        }
+
+        @Override
+        public Product[] newArray(int size) {
+            return new Product[size];
+        }
+    };
 
     public String getProductshortName() {
         return productshortName;
@@ -108,5 +136,24 @@ public class Product {
     }
 
     public Product() {
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(productName);
+        dest.writeString(productImg);
+        dest.writeString(productDescription);
+        dest.writeString(productDetail);
+        dest.writeString(productID);
+        dest.writeString(productType);
+        dest.writeString(productshortName);
+        dest.writeInt(productPrice);
+        dest.writeInt(productQuantity);
+        dest.writeInt(productLike);
     }
 }

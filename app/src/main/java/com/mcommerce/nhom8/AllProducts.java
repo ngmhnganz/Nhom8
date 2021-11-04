@@ -9,24 +9,20 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.mcommerce.adapter.CategoryAdapter;
-import com.mcommerce.model.Category;
+import com.mcommerce.adapter.ProductAdapter;
 import com.mcommerce.model.Product;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AllProducts extends AppCompatActivity {
 
-    private RecyclerView rcvCategory_allproducts;
-    private MaterialToolbar topAppBar;
+    private RecyclerView rcvCategory_allproducts, rcvDungCu_allproducts, rcvCombo_allproducts;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference myref = firebaseDatabase.getReference();
 
@@ -42,117 +38,75 @@ public class AllProducts extends AppCompatActivity {
     }
 
     private void addEvent() {
-        topAppBar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intentMain = new Intent(AllProducts.this ,
-                        MainActivity.class);
-                AllProducts.this.startActivity(intentMain);
-            }
-        });
     }
 
     private void initAdapter() {
         //region Lấy dữ liệu Sản Phẩm từ Fireabase về truyền cho adapter
-        ArrayList<Category> listCategory = new ArrayList<>();
-        ArrayList<Product> listProduct = new ArrayList<>();
+        ArrayList<Product> listProductNL = new ArrayList<>();
+        ArrayList<Product> listProductDC = new ArrayList<>();
+        ArrayList<Product> listProductCB = new ArrayList<>();
 
-        CategoryAdapter categoryAdapter = new CategoryAdapter(this);
+        ProductAdapter nguyenLieuAdapter = new ProductAdapter();
+        ProductAdapter comboAdapter = new ProductAdapter();
+        ProductAdapter dungCuAdapter = new ProductAdapter();
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
-        rcvCategory_allproducts.setLayoutManager(linearLayoutManager);
-
-        Query query = myref.child("NguyenLieu");
-
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query queryNL = firebaseDatabase.getReference().child("NguyenLieu");
+        queryNL.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Product product = new Product();
-                    product.setProductImg(dataSnapshot.child("productImg").getValue().toString());
 
-                    product.setProductLike( ((Long) dataSnapshot.child("productLike").getValue()).intValue() );
-
-                    product.setProductDescription(dataSnapshot.child("productDescription").getValue().toString());
-                    product.setProductDetail(dataSnapshot.child("productDetail").getValue().toString());
-                    product.setProductName(dataSnapshot.child("productName").getValue().toString());
-                    product.setProductPrice(((Long) dataSnapshot.child("productPrice").getValue()).intValue());
-                    product.setProductQuantity(((Long) dataSnapshot.child("productQuantity").getValue()).intValue());
-                    product.setProductID(dataSnapshot.child("productID").getValue().toString());
-                    product.setProductType(dataSnapshot.child("productType").getValue().toString());
-                    listProduct.add(product);
+                    Product p = getDataProductFromFirebase(dataSnapshot);
+                    switch (p.getProductType()){
+                        case Product.COMBO:
+                            listProductCB.add(p);
+                            break;
+                        case Product.DUNG_CU:
+                            listProductDC.add(p);
+                            break;
+                        case Product.NGUYEN_lIEU:
+                            listProductNL.add(p);
+                            break;
+                    }
                 };
 
+                nguyenLieuAdapter.setData(AllProducts.this,listProductNL);
+                rcvCategory_allproducts.setLayoutManager(new LinearLayoutManager(AllProducts.this, LinearLayoutManager.HORIZONTAL,false));
+                rcvCategory_allproducts.setAdapter(nguyenLieuAdapter);
 
-                listCategory.add(new Category("Dụng cụ","Xem tất cả",listProduct));
-                listCategory.add(new Category("Nguyên liệu","Xem tất cả",listProduct));
-                listCategory.add(new Category("Combo","Xem tất cả",listProduct));
+                comboAdapter.setData(AllProducts.this,listProductCB);
+                rcvCombo_allproducts.setLayoutManager(new LinearLayoutManager(AllProducts.this, LinearLayoutManager.HORIZONTAL,false));
+                rcvCombo_allproducts.setAdapter(comboAdapter);
 
-                categoryAdapter.setData(listCategory);
-                rcvCategory_allproducts.setAdapter(categoryAdapter);
-
+                dungCuAdapter.setData(AllProducts.this,listProductDC);
+                rcvDungCu_allproducts.setLayoutManager(new LinearLayoutManager(AllProducts.this, LinearLayoutManager.HORIZONTAL,false));
+                rcvDungCu_allproducts.setAdapter(dungCuAdapter);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
         //endregion
 
     }
 
-    private void linkview() {
-        rcvCategory_allproducts=findViewById(R.id.rcvCategory_allproducts);
-        topAppBar = findViewById(R.id.topAppBar_allProducts);
+    private Product getDataProductFromFirebase(DataSnapshot dataSnapshot) {
+        Product product = new Product();
+        product.setProductImg(dataSnapshot.child("productImg").getValue().toString());
+        product.setProductLike( ((Long) dataSnapshot.child("productLike").getValue()).intValue() );
+        product.setProductDescription(dataSnapshot.child("productDescription").getValue().toString());
+        product.setProductDetail(dataSnapshot.child("productDetail").getValue().toString());
+        product.setProductName(dataSnapshot.child("productName").getValue().toString());
+        product.setProductPrice(((Long) dataSnapshot.child("productPrice").getValue()).intValue());
+        product.setProductQuantity(((Long) dataSnapshot.child("productQuantity").getValue()).intValue());
+        product.setProductID(dataSnapshot.child("productID").getValue().toString());
+        product.setProductType(dataSnapshot.child("productType").getValue().toString());
+        return product;
     }
 
-    /* hàm get dữ liệu từ server gửi về
-    private List<Category> getListCategory(){
-
-
-        làm dữ liệu giả
-
-        /*listProduct.add(new Product("Bột mì",R.drawable.botmi, 24000));
-        listProduct.add(new Product("Bột ca cao",R.drawable.botcacao, 120000));
-        listProduct.add(new Product("Bột trà xanh",R.drawable.bottraxanh, 59000));
-        listProduct.add(new Product("Trứng gà",R.drawable.trungga, 30000));
-        listProduct.add(new Product("Trứng gà",R.drawable.trungga, 30000));
-        listProduct.add(new Product("Trứng gà",R.drawable.trungga, 30000));
-
-        listCategory.add(new Category("Nguyên liệu","Xem tất cả",listProduct));
-        listCategory.add(new Category("Dụng cụ","Xem tất cả",listProduct));
-        listCategory.add(new Category("Combo","Xem tất cả",listProduct));
-
-        Query query = myref.child("NguyenLieu");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Product product = new Product();
-                    product.setProductImg(dataSnapshot.child("productImg").getValue().toString());
-                    product.setProductLike(dataSnapshot.child("productLike").getValue().toString());
-                    product.setProductDescription(dataSnapshot.child("productDescription").getValue().toString());
-                    product.setProductDetail(dataSnapshot.child("productDetail").getValue().toString());
-                    product.setProductName(dataSnapshot.child("productName").getValue().toString());
-                    product.setProductPrice(dataSnapshot.child("productPrice").getValue().toString());
-                    product.setProductQuantity(dataSnapshot.child("productQuantity").getValue().toString());
-                    listProduct.add(product);
-                };
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-        listCategory.add(new Category("Dụng cụ","Xem tất cả",listProduct));
-        listCategory.add(new Category("Combo","Xem tất cả",listProduct));
-
-        return listCategory;
-
-    }*/
-
+    private void linkview() {
+        rcvCategory_allproducts=findViewById(R.id.rcvNguyenLieu_allproducts);
+        rcvDungCu_allproducts = findViewById(R.id.rcvDungCu_allproducts);
+        rcvCombo_allproducts = findViewById(R.id.rcvCombo_allproducts);
+    }
 }
