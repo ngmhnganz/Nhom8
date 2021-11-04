@@ -24,7 +24,7 @@
             android:name=".OrderDetailActivity"
             android:exported="true" />
         <activity
-            android:name=".AllProducts"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".AllProducts"
             android:exported="true">
 
         </activity>

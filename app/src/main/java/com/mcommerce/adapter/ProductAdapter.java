@@ -27,20 +27,34 @@ import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
 
+    public static final int CATEGORY = 1;
+    public static final int PRODUCT =2;
+
     private Context context;
     private List<Product> productList;
+    private int type;
 
-    public void setData(Context context, List<Product> list)
+    public void setData(Context context, List<Product> list, int type)
     {
         this.context = context;
         this.productList = list;
+        this.type = type;
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_allproducts_layout,parent,false);
+        View view = null;
+        switch (type){
+            case CATEGORY:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product_allproducts_layout,parent,false);
+                break;
+            case PRODUCT:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_listproduct_layout,parent,false);
+                break;
+        }
+
         return new ProductViewHolder(view) ;
     }
 
@@ -50,12 +64,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         if(product== null) {
             return ;
         }
-        Glide.with(context).load(product.getProductImg()).into(holder.imvHinh_allproducts);
 
-        holder.txtProductName_allproducts.setText(product.getProductName());
-        holder.txtProductPrice_allproducts.setText(String.valueOf(product.getProductPrice()));
-        holder.cvitem_allproducts.setLayoutParams(marginValue(holder));
+        switch (type){
+            case PRODUCT:
 
+                Glide.with(context).load(product.getProductImg()).into(holder.imvProduct_listProduct);
+
+                holder.txtproductName_listProduct.setText(product.getProductName());
+                holder.txtProductPrice_listProduct.setText(String.valueOf(product.getProductPrice()));
+                holder.txtLike_listProduct.setText(product.getProductLike()+" anh em đã thích :))");
+
+
+                break;
+            case CATEGORY:
+                Glide.with(context).load(product.getProductImg()).into(holder.imvHinh_allproducts);
+                holder.txtProductName_allproducts.setText(product.getProductName());
+                holder.txtProductPrice_allproducts.setText(String.valueOf(product.getProductPrice()));
+                holder.cvitem_allproducts.setLayoutParams(marginValue(holder));
+
+                break;
+        }
         holder.setItemClickListener(new RecyclerViewItemClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -75,23 +103,43 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             return productList.size();
         }
         return 0;
-
-
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView imvHinh_allproducts;
-        TextView txtProductPrice_allproducts, txtProductName_allproducts;
+        TextView    txtProductPrice_allproducts,
+                    txtProductName_allproducts;
         CardView cvitem_allproducts;
 
+        ImageView imvProduct_listProduct;
+        TextView    txtproductName_listProduct,
+                    txtProductPrice_listProduct,
+                    txtLike_listProduct;
         private RecyclerViewItemClickListener itemClickListener;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-            imvHinh_allproducts = itemView.findViewById(R.id.imvHinh_allproducts);
-            txtProductName_allproducts = itemView.findViewById(R.id.txtProductName_allproducts);
-            txtProductPrice_allproducts = itemView.findViewById(R.id.txtProductPrice_allproducts);
-            cvitem_allproducts = itemView.findViewById(R.id.cvitem_allproducts);
+
+            switch (type){
+                case CATEGORY:
+
+                    imvHinh_allproducts = itemView.findViewById(R.id.imvHinh_allproducts);
+
+                    txtProductName_allproducts = itemView.findViewById(R.id.txtProductName_allproducts);
+                    txtProductPrice_allproducts = itemView.findViewById(R.id.txtProductPrice_allproducts);
+                    cvitem_allproducts = itemView.findViewById(R.id.cvitem_allproducts);
+                    break;
+                case PRODUCT:
+
+                    imvProduct_listProduct = itemView.findViewById(R.id.imvProduct_listProduct);
+
+                    txtproductName_listProduct = itemView.findViewById(R.id.txtproductName_listProduct);
+                    txtProductPrice_listProduct = itemView.findViewById(R.id.txtProductPrice_listProduct);
+                    txtLike_listProduct = itemView.findViewById(R.id.txtLike_listProduct);
+                    break;
+            }
+
+
             itemView.setOnClickListener(this);
         }
 

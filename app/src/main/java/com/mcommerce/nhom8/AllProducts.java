@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,15 +18,24 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.ProductAdapter;
 import com.mcommerce.model.Product;
+import com.mcommerce.util.Constant;
 
 import java.util.ArrayList;
 
 public class AllProducts extends AppCompatActivity {
 
-    private RecyclerView rcvCategory_allproducts, rcvDungCu_allproducts, rcvCombo_allproducts;
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference myref = firebaseDatabase.getReference();
+    private RecyclerView    rcvCategory_allproducts,
+                            rcvDungCu_allproducts,
+                            rcvCombo_allproducts;
 
+    private TextView    txtMoreDC_allproducts,
+                        txtMoreNL_allproducts,
+                        txtMoreCB_allproducts;
+
+    private ArrayList<Product> listProductNL = new ArrayList<>();
+    private ArrayList<Product> listProductDC = new ArrayList<>();
+    private ArrayList<Product> listProductCB = new ArrayList<>();
+    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +48,36 @@ public class AllProducts extends AppCompatActivity {
     }
 
     private void addEvent() {
+        txtMoreCB_allproducts.setOnClickListener(goToProductList);
+        txtMoreNL_allproducts.setOnClickListener(goToProductList);
+        txtMoreDC_allproducts.setOnClickListener(goToProductList);
     }
+
+    View.OnClickListener goToProductList = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent= new Intent(AllProducts.this, ListProductActivity.class);
+            Bundle bundle = new Bundle();
+            switch (v.getId()) {
+                case R.id.txtMoreCB_allproducts:
+                    intent.putExtra(Constant.PRODUCT_LIST_TYPE,Product.COMBO);
+                    startActivity(intent);
+                    break;
+                case R.id.txtMoreNL_allproducts:
+                    intent.putExtra(Constant.PRODUCT_LIST_TYPE,Product.NGUYEN_lIEU);
+                    startActivity(intent);
+                    break;
+                case R.id.txtMoreDC_allproducts:
+                    intent.putExtra(Constant.PRODUCT_LIST_TYPE,Product.DUNG_CU);
+                    startActivity(intent);
+                    break;
+            }
+        }
+    };
 
     private void initAdapter() {
         //region Lấy dữ liệu Sản Phẩm từ Fireabase về truyền cho adapter
-        ArrayList<Product> listProductNL = new ArrayList<>();
-        ArrayList<Product> listProductDC = new ArrayList<>();
-        ArrayList<Product> listProductCB = new ArrayList<>();
+
 
         ProductAdapter nguyenLieuAdapter = new ProductAdapter();
         ProductAdapter comboAdapter = new ProductAdapter();
@@ -70,15 +103,15 @@ public class AllProducts extends AppCompatActivity {
                     }
                 };
 
-                nguyenLieuAdapter.setData(AllProducts.this,listProductNL);
+                nguyenLieuAdapter.setData(AllProducts.this,listProductNL, ProductAdapter.CATEGORY);
                 rcvCategory_allproducts.setLayoutManager(new LinearLayoutManager(AllProducts.this, LinearLayoutManager.HORIZONTAL,false));
                 rcvCategory_allproducts.setAdapter(nguyenLieuAdapter);
 
-                comboAdapter.setData(AllProducts.this,listProductCB);
+                comboAdapter.setData(AllProducts.this,listProductCB, ProductAdapter.CATEGORY);
                 rcvCombo_allproducts.setLayoutManager(new LinearLayoutManager(AllProducts.this, LinearLayoutManager.HORIZONTAL,false));
                 rcvCombo_allproducts.setAdapter(comboAdapter);
 
-                dungCuAdapter.setData(AllProducts.this,listProductDC);
+                dungCuAdapter.setData(AllProducts.this,listProductDC, ProductAdapter.CATEGORY);
                 rcvDungCu_allproducts.setLayoutManager(new LinearLayoutManager(AllProducts.this, LinearLayoutManager.HORIZONTAL,false));
                 rcvDungCu_allproducts.setAdapter(dungCuAdapter);
             }
@@ -108,5 +141,9 @@ public class AllProducts extends AppCompatActivity {
         rcvCategory_allproducts=findViewById(R.id.rcvNguyenLieu_allproducts);
         rcvDungCu_allproducts = findViewById(R.id.rcvDungCu_allproducts);
         rcvCombo_allproducts = findViewById(R.id.rcvCombo_allproducts);
+
+        txtMoreDC_allproducts = findViewById(R.id.txtMoreDC_allproducts);
+        txtMoreNL_allproducts = findViewById(R.id.txtMoreNL_allproducts);
+        txtMoreCB_allproducts = findViewById(R.id.txtMoreCB_allproducts);
     }
 }

@@ -1,79 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="15dp"
     android:background="@color/white"
-    >
+    android:padding="15dp">
 
     <ImageView
-        android:id="@+id/imvbgProduct_listProduct"
+        android:id="@+id/imvProduct_listProduct"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/background_listproduct"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+
+        android:scaleType="fitCenter"
+
+        android:src="@drawable/ic_launcher_background"
+        android:background="@color/colorSecondBackground">
 
     </ImageView>
 
-    <ImageView
-        android:id="@+id/imv_product_listProduct"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imvbgProduct_listProduct"
-        app:layout_constraintEnd_toEndOf="@+id/imvbgProduct_listProduct"
-        app:layout_constraintStart_toStartOf="@+id/imvbgProduct_listProduct"
-        app:layout_constraintTop_toTopOf="@+id/imvbgProduct_listProduct"
-        android:src="@drawable/ic_square_add"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/txtproductName_listProduct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="Tên nguyên liệu"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toRightOf="@+id/imvbgProduct_listProduct"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="5dp"
-        android:textColor="#333333"/>
+        <TextView
+            android:id="@+id/txtproductName_listProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-    <TextView
-        android:id="@+id/txtLike_listProduct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:text="500 anh em đã thích"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/txtProductPrice_listProduct"
-        app:layout_constraintLeft_toRightOf="@+id/imvbgProduct_listProduct"
-        app:layout_constraintTop_toBottomOf="@+id/txtproductName_listProduct"
-        app:layout_constraintVertical_bias="0.708"
-        android:textColor="#333333"/>
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
 
-    <TextView
-        android:id="@+id/txtProductPrice_listProduct"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="24000 đ"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/imvbgProduct_listProduct"
-        android:textColor="#333333"/>
+            android:text="Tên nguyên liệu"
+            android:textColor="@color/colorText"
+            android:fontFamily="@font/gilroy_medium"
 
-    <ImageView
-        android:id="@+id/imvAdd_listProduct"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="4dp"
-        android:src="@drawable/ic_square_add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/txtProductPrice_listProduct"
-        app:layout_constraintVertical_bias="0.875" />
+            android:textSize="20sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/txtLike_listProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+
+            android:text="500 anh em đã thích"
+
+            android:fontFamily="@font/sfpro_regular"
+            android:textColor="@color/colorSubText"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/txtProductPrice_listProduct"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="10dp"
+
+                android:layout_weight="8"
+                android:text="24000 đ"
+                android:textColor="@color/colorPrimary"
+                android:fontFamily="@font/sfpro_bold"
+
+                android:textSize="20sp" />
+
+            <ImageButton
+                android:id="@+id/btnAddProduct_productList"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+
+                android:layout_weight="2"
+                android:scaleType="fitCenter"
+                android:background="@drawable/action_item_background_custom"
+                android:src="@drawable/ic_square_add"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
