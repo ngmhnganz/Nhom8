@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +33,7 @@ public class AllProducts extends AppCompatActivity {
                         txtMoreNL_allproducts,
                         txtMoreCB_allproducts;
 
+    ImageButton btnBack_allproducts;
     private ArrayList<Product> listProductNL = new ArrayList<>();
     private ArrayList<Product> listProductDC = new ArrayList<>();
     private ArrayList<Product> listProductCB = new ArrayList<>();
@@ -51,6 +53,13 @@ public class AllProducts extends AppCompatActivity {
         txtMoreCB_allproducts.setOnClickListener(goToProductList);
         txtMoreNL_allproducts.setOnClickListener(goToProductList);
         txtMoreDC_allproducts.setOnClickListener(goToProductList);
+
+        btnBack_allproducts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     View.OnClickListener goToProductList = new View.OnClickListener() {
@@ -145,5 +154,7 @@ public class AllProducts extends AppCompatActivity {
         txtMoreDC_allproducts = findViewById(R.id.txtMoreDC_allproducts);
         txtMoreNL_allproducts = findViewById(R.id.txtMoreNL_allproducts);
         txtMoreCB_allproducts = findViewById(R.id.txtMoreCB_allproducts);
+
+        btnBack_allproducts = findViewById(R.id.btnBack_allproducts);
     }
 }
