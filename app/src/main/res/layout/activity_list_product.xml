@@ -25,18 +25,11 @@
             android:background="?attr/actionBarItemBackground"
             android:src="@drawable/ic_left_arrow_24_white" />
 
-        <TextView
-            android:id="@+id/txtTitle_aListProduct"
+        <SearchView
+            android:id="@+id/searchView_aListProduct"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="0.51"
-
-            android:fontFamily="@font/gilroy_bold"
-            android:gravity="center"
-            android:text="SẢN PHẨM"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
+            android:layout_weight="0.51" />
         <ImageButton
             android:id="@+id/btnCart_aListProduct"
             android:layout_width="match_parent"

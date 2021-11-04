@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mcommerce.interfaces.RecyclerViewItemClickListener;
+import com.mcommerce.model.OrderModel;
 import com.mcommerce.model.Product;
 import com.mcommerce.nhom8.ProductDetailActivity;
 import com.mcommerce.nhom8.R;
@@ -23,15 +26,18 @@ import com.mcommerce.util.Constant;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder>{
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     public static final int CATEGORY = 1;
     public static final int PRODUCT =2;
 
     private Context context;
-    private List<Product> productList;
+    private List<Product> productList, productListBase;
     private int type;
 
     public void setData(Context context, List<Product> list, int type)
@@ -39,6 +45,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         this.context = context;
         this.productList = list;
         this.type = type;
+        this.productListBase = list;
         notifyDataSetChanged();
     }
 
