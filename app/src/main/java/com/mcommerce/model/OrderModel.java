@@ -8,7 +8,6 @@ import java.util.List;
 
 public class OrderModel implements Parcelable {
 
-
     public static final int THANH_CONG = 0;
     public static final int DA_HUY = 1;
     public static final int DAT_HANG_THANH_CONG = 2;
@@ -17,7 +16,6 @@ public class OrderModel implements Parcelable {
     public static final int DONG_GOI = 5;
     public static final int VAN_CHUYEN = 6;
 
-    //region Khai báo biến
     private String  idOrder,
                     dateOrder,
                     addOrder,
@@ -29,8 +27,8 @@ public class OrderModel implements Parcelable {
                     discountOrder,
                     shippingFeeOrder;
     private long dateLongOder;
+    private HashMap<String,Integer> itemOrder;
 
-    //endregion
 
     protected OrderModel(Parcel in) {
         idOrder = in.readString();
@@ -112,8 +110,6 @@ public class OrderModel implements Parcelable {
     public void setDateLongOder(long dateLongOder) {
         this.dateLongOder = dateLongOder;
     }
-
-    HashMap<String,Integer> itemOrder;
 
     public String getImgOrder() {
         return imgOrder;

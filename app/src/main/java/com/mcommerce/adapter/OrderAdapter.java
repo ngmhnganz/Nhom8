@@ -31,6 +31,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
     private int item_layout,
                 type,
                 amount;
+    private String s;
     private List<OrderModel> orderList;
 
     public OrderAdapter(Context context, int item_layout, List<OrderModel> orderList, int type) {
@@ -69,7 +70,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
             case COMING_ITEM:
                 amount =0;
                 for (String i :  order.getItemOrder().keySet()) {
-                    String s = String.valueOf(order.getItemOrder().get(i));
+                    s = String.valueOf(order.getItemOrder().get(i));
                     amount += Integer.parseInt(s);
                 }
 
@@ -107,7 +108,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
             case HISTORY_ITEM:
                 amount =0;
                 for (String i :  order.getItemOrder().keySet()) {
-                    String s = String.valueOf(order.getItemOrder().get(i));
+                    s = String.valueOf(order.getItemOrder().get(i));
                     amount += Integer.parseInt(s);
                 }
 

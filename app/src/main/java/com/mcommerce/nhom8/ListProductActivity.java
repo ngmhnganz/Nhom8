@@ -52,6 +52,7 @@ public class ListProductActivity extends AppCompatActivity {
                 finish();
             }
         });
+
         searchView_aListProduct.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

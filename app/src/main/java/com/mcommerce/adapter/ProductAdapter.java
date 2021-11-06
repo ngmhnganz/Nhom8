@@ -65,6 +65,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return new ProductViewHolder(view) ;
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Product product = productList.get(position);
@@ -113,6 +114,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private RecyclerViewItemClickListener itemClickListener;
+
+
         ImageView imvHinh_allproducts;
         TextView    txtProductPrice_allproducts,
                     txtProductName_allproducts;
@@ -122,11 +126,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         TextView    txtproductName_listProduct,
                     txtProductPrice_listProduct,
                     txtLike_listProduct;
-        private RecyclerViewItemClickListener itemClickListener;
+
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
-
             switch (type){
                 case CATEGORY:
 
@@ -146,8 +149,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     break;
             }
 
-
             itemView.setOnClickListener(this);
+
         }
 
         public void setItemClickListener(RecyclerViewItemClickListener itemClickListener)
