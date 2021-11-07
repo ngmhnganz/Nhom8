@@ -33,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AllProducts"
+            android:name=".AllProductsActivity"
             android:exported="true">
 
         </activity>

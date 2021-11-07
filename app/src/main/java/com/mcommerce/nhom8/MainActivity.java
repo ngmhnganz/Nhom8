@@ -1,7 +1,6 @@
 package com.mcommerce.nhom8;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,14 +19,12 @@ import android.widget.LinearLayout;
 
 import com.github.mmin18.widget.RealtimeBlurView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 import com.mcommerce.adapter.BannerMainAdapter;
 import com.mcommerce.adapter.GoiYComboAdapter;
 import com.mcommerce.adapter.GoiYMonanAdapter;
 import com.mcommerce.model.BannerMainModel;
 import com.mcommerce.model.GoiYComboModel;
 import com.mcommerce.model.GoiYMonanModel;
-import com.mcommerce.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intentMain = new Intent(MainActivity.this ,
-                        AllProducts.class);
+                        AllProductsActivity.class);
                 startActivity(intentMain);
             }
         });
