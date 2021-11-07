@@ -10,10 +10,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
-public class SplashScreen extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-    private static int SPLASH_SCREEN = 5000;
-
+public class SplashScreenActivity extends AppCompatActivity {
     Animation topAnim;
     ImageView image;
 
@@ -22,19 +22,34 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splashscreen);
-        topAnim= AnimationUtils.loadAnimation(this,R.anim.top_animation);
 
-        image = findViewById(R.id.imgLogo);
+        setAnimation();
 
-        image.setAnimation(topAnim);
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent= new Intent(SplashScreen.this,Login.class);
-                startActivity(intent);
+
+                nextActivity();
                 finish();
             }
         }, 3000);
+    }
+
+    private void setAnimation() {
+        topAnim= AnimationUtils.loadAnimation(this,R.anim.top_animation);
+        image = findViewById(R.id.imgLogo);
+        image.setAnimation(topAnim);
+    }
+
+    private void nextActivity() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            Intent intent= new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        } else {
+            Intent intent= new Intent(this,MainActivity.class);
+            startActivity(intent);
+        }
     }
 }

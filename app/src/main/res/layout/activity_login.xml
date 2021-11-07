@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F58A42"
     android:orientation="vertical"
-    tools:context=".Login">
+    tools:context=".LoginActivity">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -32,7 +32,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="530dp"
+        android:layout_height="match_parent"
         android:background="@drawable/vie_bg"
         android:orientation="vertical">
 
@@ -48,7 +48,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:id="@+id/txtILEmail_Login"
+            android:id="@+id/inpEmail_Login"
             android:layout_marginTop="8dp"
             android:layout_width="336dp"
             android:layout_height="wrap_content"
@@ -56,19 +56,19 @@
             app:counterEnabled="true"
             app:counterMaxLength="32"
             app:endIconMode="clear_text"
-            android:hint="Tên/Email người dùng">
+            android:hint="Email">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="336dp"
-                android:id="@+id/edtEmail"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:maxLines="1"
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:id="@+id/txtILPass_Login"
+            android:id="@+id/inpPass_Login"
 
             android:layout_width="336dp"
             android:layout_height="wrap_content"
@@ -78,25 +78,58 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="336dp"
-                android:id="@+id/edtPass"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:inputType="textPassword"
+                android:maxLines="1"
                 />
         </com.google.android.material.textfield.TextInputLayout>
+
         <Button
+            android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btnLogin"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
-            android:text="Đăng nhập"
             android:fontFamily="@font/sfpro_regular"
-            android:textSize="16sp"/>
+            android:text="Đăng nhập"
+            android:textSize="16sp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingVertical="20dp">
 
+            <TextView
+                android:id="@+id/txtForgotPassword_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Quên mật khẩu ?" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="Bạn chưa có tài khoản? " />
+
+                <TextView
+                    android:id="@+id/txtSignUpNow_login"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:text="Đăng ký ngay"
+                    android:textColor="@color/colorPrimary" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
 

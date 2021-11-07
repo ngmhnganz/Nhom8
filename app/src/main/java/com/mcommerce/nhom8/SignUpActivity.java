@@ -138,6 +138,13 @@ public class SignUpActivity extends AppCompatActivity {
                         });
             }
         });
+
+        txtDangNhap_signup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+            }
+        });
     }
 
     private boolean checkValidatePassword(String password){
