@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".SignUp"
+    tools:context=".SignUpActivity"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -25,212 +25,213 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:hint="Họ tên"
-        android:textColorHint="@color/colorText"
-        app:boxStrokeColor="@color/brown"
-        app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:hintTextColor="@color/colorText">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtHoTen_signup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorText" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:hint="Tài khoản"
-        android:textColorHint="@color/colorText"
-        app:boxStrokeColor="@color/brown"
-        app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:hintTextColor="@color/colorText">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtTaiKhoan_signup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorText" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:hint="Email/Số điện thoại"
-        android:textColorHint="@color/colorText"
-        app:boxStrokeColor="@color/brown"
-        app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:hintTextColor="@color/colorText">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtEmailSdt_signup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorText" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:hint="Mật khẩu"
-        app:boxStrokeColor="@color/brown"
-        app:endIconMode="password_toggle"
-        app:endIconTint="@color/colorText"
-        android:textColorHint="@color/colorText"
-        app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:hintTextColor="@color/colorText">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtMatKhau_signup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:textColor="@color/colorText" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:hint="Nhập lại mật khẩu"
-        android:textColorHint="@color/colorText"
-        app:endIconTint="@color/colorText"
-        app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
-        app:hintTextColor="@color/colorText"
-        app:boxStrokeColor="@color/brown"
-        app:endIconMode="password_toggle">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtNhapLaiMatKhau_signup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:textColor="@color/colorText" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="20dp">
-        <CheckBox
-            android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingTop="20dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inpHoTen_signup"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/chk_signup"/>
+
+            android:paddingVertical="10dp"
+
+            android:hint="Nhập họ và tên"
+            android:textColorHint="@color/colorText"
+            app:boxStrokeColor="@color/colorPrimary"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:hintTextColor="@color/colorText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtHoTen_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorText"
+                android:maxLines="1"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/inpEmailSdt_signup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:endIconTint="@color/colorPrimary"
+            android:paddingTop="10dp"
+            android:hint="Nhập email hoặc số điện thoại"
+            android:textColorHint="@color/colorText"
+            app:boxStrokeColor="@color/colorPrimary"
+
+
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:hintTextColor="@color/colorText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorText"
+                android:maxLines="1"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:paddingVertical="10dp"
+
+            android:hint="Mật khẩu"
+            android:id="@+id/inpMatKhau_signup"
+            android:textColorHint="@color/colorText"
+            app:boxStrokeColor="@color/colorPrimary"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/colorText"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:hintTextColor="@color/colorText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtMatKhau_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textColor="@color/colorText"
+                android:maxLines="1"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+
+            android:id="@+id/inpNhapLaiMatKhau_signup"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:paddingVertical="10dp"
+
+            app:errorEnabled="true"
+
+            android:hint="Nhập lại mật khẩu"
+            android:textColorHint="@color/colorText"
+            app:boxStrokeColor="@color/colorPrimary"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/colorText"
+
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:hintTextColor="@color/colorText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtNhapLaiMatKhau_signup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:textColor="@color/colorText"
+                android:maxLines="1"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingVertical="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/txtDieuKhoanDichVu_signup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="Điều khoản dịch vụ"
+                    android:textColor="@color/colorText"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="và"
+                    android:textColor="@color/colorText"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txtChinhSachBaoMat_signup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="Chính sách bảo mật"
+                    android:textColor="@color/colorText"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <CheckBox
+                    android:id="@+id/chk_signup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="Tôi đã đọc và đồng ý"
+                    android:textColor="@color/colorText"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnTiepTuc_signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/sfpro_medium"
+            android:text="Tiếp tục" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:gravity="center"
+
+            android:orientation="horizontal"
+            android:paddingVertical="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/colorText"
-                android:textSize="17sp"
                 android:fontFamily="@font/sfpro_medium"
-                android:text="Tôi đã đọc và đồng ý với Trứng về"/>
-            <LinearLayout
+                android:text="Bạn đã có tài khoản?"
+                android:textColor="@color/colorText"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/txtDangNhap_signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Điều khoản dịch vụ"
-                    android:textColor="@color/colorText"
-                    android:textSize="17sp"
-                    android:fontFamily="@font/sfpro_medium"
-                    android:id="@+id/txtDieuKhoanDichVu_signup"/>
-                <TextView
-                    android:layout_marginStart="5dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorText"
-                    android:textSize="17sp"
-                    android:fontFamily="@font/sfpro_medium"
-                    android:text="và"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Chính sách bảo mật"
-                    android:textColor="@color/colorText"
-                    android:textSize="17sp"
-                    android:fontFamily="@font/sfpro_medium"
-                    android:id="@+id/txtChinhSachBaoMat_signup"/>
-            </LinearLayout>
-
+                android:fontFamily="@font/sfpro_medium"
+                android:text="Đăng nhập"
+                android:textColor="@color/colorPrimary"
+                android:textSize="18sp" />
         </LinearLayout>
+
     </LinearLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tiếp tục"
-        android:fontFamily="@font/sfpro_medium"
-        android:layout_gravity="center"
-        android:id="@+id/btnTiepTuc_signup"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="10dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bạn đã có tài khoản?"
-            android:textSize="18sp"
-            android:textColor="@color/colorText"
-            android:fontFamily="@font/sfpro_medium"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Đăng nhập"
-            android:textColor="@color/colorText"
-            android:textSize="18sp"
-            android:fontFamily="@font/sfpro_medium"
-            android:layout_marginStart="5dp"
-            android:id="@+id/txtDangNhap_signup"/>
-    </LinearLayout>
-
 
 
 </LinearLayout>
