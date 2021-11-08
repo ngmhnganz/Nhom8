@@ -29,7 +29,11 @@
             android:exported="true" />
 
         <activity
-            android:name=".AllProducts"
+            android:name=".LoginActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".AllProductsActivity"
             android:exported="true"/>
 
         <activity
