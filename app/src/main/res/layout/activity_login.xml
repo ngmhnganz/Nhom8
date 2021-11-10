@@ -12,7 +12,6 @@
         android:id="@+id/imageView2"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="16dp"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/logo"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,12 +20,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="172dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/sfpro_medium"
-        android:gravity="center_horizontal"
-        android:text="Trứng"
-        android:textColor="#000000"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/gilroy_bold"
+        android:text="trứng nè"
+        android:textColor="@color/white"
         android:textSize="28sp"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
@@ -34,7 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/vie_bg"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingHorizontal="40dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,17 +48,16 @@
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:id="@+id/inpEmail_Login"
-            android:layout_marginTop="8dp"
-            android:layout_width="336dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:counterEnabled="true"
-            app:counterMaxLength="32"
             app:endIconMode="clear_text"
             android:hint="Email">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="336dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:maxLines="1"
@@ -70,14 +68,14 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:id="@+id/inpPass_Login"
 
-            android:layout_width="336dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             app:endIconMode="password_toggle"
             android:hint="Mật khẩu">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="336dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:inputType="textPassword"
@@ -85,13 +83,14 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
+        <android.widget.Button
             android:id="@+id/btnLogin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/button_default"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/sfpro_regular"
+            android:layout_marginVertical="20dp"
+            android:fontFamily="@font/sfpro_bold"
             android:text="Đăng nhập"
             android:textSize="16sp" />
 

@@ -3,6 +3,7 @@ package com.mcommerce.nhom8;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -19,19 +20,27 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.mcommerce.model.User;
 
 public class SignUpActivity extends AppCompatActivity {
-    TextView txtDieuKhoanDichVu_signup, txtChinhSachBaoMat_signup, txtDangNhap_signup;
-    TextInputLayout inpHoTen_signup,
+    private TextView txtDieuKhoanDichVu_signup, txtChinhSachBaoMat_signup, txtDangNhap_signup;
+    private TextInputLayout inpHoTen_signup,
                     inpEmailSdt_signup,
                     inpMatKhau_signup,
                     inpNhapLaiMatKhau_signup;
-    Button btnTiepTuc_signup;
+    private Button btnTiepTuc_signup;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+        progressDialog = new ProgressDialog(this);
         
         linkViews();
         addEvent();
@@ -120,12 +129,28 @@ public class SignUpActivity extends AppCompatActivity {
                 String email = inpEmailSdt_signup.getEditText().getText().toString().trim();
                 String password = inpMatKhau_signup.getEditText().getText().toString().trim();
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                progressDialog.show();
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+                                progressDialog.dismiss();
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
+                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                    UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
+                                            .setDisplayName(inpHoTen_signup.getEditText().getText().toString())
+                                            .build();
+                                    user.updateProfile(profileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            User mUser = new User();
+                                            mUser.setUserName(user.getDisplayName());
+                                            mUser.setUserID(user.getUid());
+                                            DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+                                            database.child("User").child(mUser.getUserID()).setValue(mUser);
+                                        }
+                                    });
                                     Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
                                     startActivity(intent);
                                     finishAffinity();

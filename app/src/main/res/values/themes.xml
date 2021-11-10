@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Nhom8" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="Theme.Nhom8" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorSub</item>
@@ -39,5 +39,12 @@
         <item name="android:background">@drawable/button_stroke_default</item>
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
+    </style>
+
+    <style name="UserInfoTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxStrokeColor">@color/edt_selector</item>
+    </style>
+    <style name="UserInfoTextInputLayoutStyle.ExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="boxStrokeColor">@color/edt_selector</item>
     </style>
 </resources>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mcommerce.nhom8">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Nhom8">
-
+        <activity
+            android:name=".UserInfoActivity"
+            android:exported="true" />
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true">
@@ -22,31 +25,23 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"/>
-
+            android:exported="true" />
         <activity
             android:name=".SignUpActivity"
             android:exported="true" />
-
         <activity
             android:name=".LoginActivity"
             android:exported="true" />
-
         <activity
             android:name=".AllProductsActivity"
-            android:exported="true"/>
-
+            android:exported="true" />
         <activity
             android:name=".ListProductActivity"
-            android:exported="true"/>
-        <activity
-            android:name=".OrderActivity"
             android:exported="true" />
         <activity
             android:name=".ProductDetailActivity"
             android:exported="true" />
         <activity
-
             android:name=".OrderDetailActivity"
             android:exported="true" />
     </application>

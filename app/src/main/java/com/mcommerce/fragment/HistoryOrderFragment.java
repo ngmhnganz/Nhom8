@@ -27,6 +27,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.OrderAdapter;
 import com.mcommerce.model.OrderModel;
+import com.mcommerce.nhom8.MainActivity;
 import com.mcommerce.nhom8.R;
 
 import java.sql.Timestamp;
@@ -139,7 +140,7 @@ public class HistoryOrderFragment extends Fragment {
         txtDate_fragmentHistoryOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                materialDatePicker.show(getActivity().getSupportFragmentManager(), "DateRangePicker");
+                materialDatePicker.show(((MainActivity)getActivity()).getSupportFragmentManager(), "DateRangePicker");
                 materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long,Long>>() {
                     @Override
                     public void onPositiveButtonClick(Pair<Long,Long> selection) {
@@ -173,7 +174,6 @@ public class HistoryOrderFragment extends Fragment {
         });
 
         //endregion
-
     }
 
     private void linkview() {
@@ -223,7 +223,6 @@ private void initAdapter() {
 
                 categoryAdapter.setData(listCategory);
                 rcvCategory_allproducts.setAdapter(categoryAdapter);
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

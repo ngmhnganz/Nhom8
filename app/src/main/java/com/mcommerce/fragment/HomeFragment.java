@@ -30,8 +30,6 @@ import com.mcommerce.model.BannerMainModel;
 import com.mcommerce.model.GoiYComboModel;
 import com.mcommerce.model.GoiYMonanModel;
 import com.mcommerce.nhom8.AllProductsActivity;
-import com.mcommerce.nhom8.MainActivity;
-import com.mcommerce.nhom8.OrderActivity;
 import com.mcommerce.nhom8.R;
 
 import java.util.ArrayList;
@@ -63,8 +61,6 @@ public class HomeFragment extends Fragment {
         addEvent();
         return view;
     }
-
-
     private void linkview() {
         vpgBannerMain = view.findViewById(R.id.vpgBanner_main);
         llSliderDot = view.findViewById(R.id.llSliderDots_main);
