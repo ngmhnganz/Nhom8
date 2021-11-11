@@ -7,7 +7,16 @@ public class User {
     private String userGender = null;
     private String userPhone = null;
     private String userEmail = null;
+    private String userOrder = null;
     private String userDefaultAddress = null;
+
+    public String getUserOrder() {
+        return userOrder;
+    }
+
+    public void setUserOrder(String userOrder) {
+        this.userOrder = userOrder;
+    }
 
     public String getUserName() {
         return userName;

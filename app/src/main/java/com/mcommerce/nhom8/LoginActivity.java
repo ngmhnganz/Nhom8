@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private TextView txtSignUpNow_login;
     private ProgressDialog progressDialog;
+    private LinearLayout llThamQuan_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,24 +43,24 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void addEvent() {
-        txtSignUpNow_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
-            }
+        txtSignUpNow_login.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, SignUpActivity.class)));
+
+        llThamQuan_login.setOnClickListener(v -> {
+            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+            finish();
         });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (inpPass_Login.getEditText().getText().toString().trim().equals("") || inpEmail_Login.getEditText().getText().toString().trim().equals("")){
-                    inpPass_Login.setErrorEnabled(true); inpPass_Login.setError("Nhập mật khẩu");
-                    inpEmail_Login.setErrorEnabled(true); inpEmail_Login.setError("Nhập email");
+                    inpPass_Login.setErrorEnabled(true); inpPass_Login.setError("Vui lòng nhập mật khẩu");
+                    inpEmail_Login.setErrorEnabled(true); inpEmail_Login.setError("Vui lòng nhập email");
                 } else {
                     inpPass_Login.setErrorEnabled(false);
                     inpEmail_Login.setErrorEnabled(false);
-                    String email = inpEmail_Login.getEditText().getText().toString().trim();
 
+                    String email = inpEmail_Login.getEditText().getText().toString().trim();
                     String password = inpPass_Login.getEditText().getText().toString().trim();
                     FirebaseAuth mAuth = FirebaseAuth.getInstance();
                     progressDialog.show();
@@ -98,5 +100,6 @@ public class LoginActivity extends AppCompatActivity {
         inpPass_Login = findViewById(R.id.inpPass_Login);
         txtSignUpNow_login = findViewById(R.id.txtSignUpNow_login);
 
+        llThamQuan_login = findViewById(R.id.llThamQuan_login);
     }
 }

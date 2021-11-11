@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".VerifyPhoneActivity">
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_main"
+
+        android:orientation="vertical"
+
+        android:paddingVertical="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center"
+            android:fontFamily="@font/gilroy_bold"
+            android:paddingVertical="10dp"
+            android:text="XÁC THỰC"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/sfpro_regular"
+            android:gravity="center"
+            android:text="Vui lòng nhập mã OTP được gửi tới để \nxác thực người dùng"
+            android:textColor="#CCFFFFFF"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center">
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/edt_otp1_aVerifyPhone"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="3dp"
+                android:background="@drawable/layout_input_otp"
+                android:fontFamily="@font/sfpro_bold"
+                android:gravity="center"
+                android:maxLength="1"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:imeOptions="actionNext"/>
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/edt_otp2_aVerifyPhone"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="3dp"
+                android:background="@drawable/layout_input_otp"
+                android:fontFamily="@font/sfpro_bold"
+                android:gravity="center"
+                android:maxLength="1"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:imeOptions="actionNext" />
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/edt_otp3_aVerifyPhone"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="3dp"
+                android:background="@drawable/layout_input_otp"
+                android:fontFamily="@font/sfpro_bold"
+                android:gravity="center"
+                android:maxLength="1"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:imeOptions="actionNext"/>
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/edt_otp4_aVerifyPhone"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="3dp"
+                android:background="@drawable/layout_input_otp"
+                android:fontFamily="@font/sfpro_bold"
+                android:gravity="center"
+                android:maxLength="1"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:imeOptions="actionNext"/>
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/edt_otp5_aVerifyPhone"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="3dp"
+                android:background="@drawable/layout_input_otp"
+                android:fontFamily="@font/sfpro_bold"
+                android:gravity="center"
+                android:maxLength="1"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:imeOptions="actionNext"/>
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/edt_otp6_aVerifyPhone"
+                android:layout_width="40dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="3dp"
+                android:background="@drawable/layout_input_otp"
+                android:fontFamily="@font/sfpro_bold"
+                android:gravity="center"
+                android:maxLength="1"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:imeOptions="actionDone"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginVertical="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chưa nhận được OTP? "
+                android:fontFamily="@font/sfpro_regular"/>
+            <TextView
+                android:id="@+id/txtResendOTP_aVerifyPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gửi lại OTP"
+                android:fontFamily="@font/sfpro_bold"
+                android:textColor="@color/colorPrimary"
+                android:clickable="true"/>
+        </LinearLayout>
+
+        <android.widget.Button
+
+            android:id="@+id/btnAuthOTP_aVerifyPhone"
+            android:layout_marginTop="40dp"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            style="@style/button_default"
+            android:text="Xác minh"
+            android:fontFamily="@font/sfpro_bold"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,7 +33,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 nextActivity();
                 finish();
             }
-        }, 3000);
+        }, 2000);
     }
 
     private void setAnimation() {

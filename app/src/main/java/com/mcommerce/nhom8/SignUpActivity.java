@@ -16,58 +16,91 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthOptions;
+import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.mcommerce.model.User;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.mcommerce.interfaces.CheckEmailExisted;
+import com.mcommerce.util.Constant;
+
+import java.util.concurrent.TimeUnit;
 
 public class SignUpActivity extends AppCompatActivity {
-    private TextView txtDieuKhoanDichVu_signup, txtChinhSachBaoMat_signup, txtDangNhap_signup;
-    private TextInputLayout inpHoTen_signup,
-                    inpEmailSdt_signup,
-                    inpMatKhau_signup,
-                    inpNhapLaiMatKhau_signup;
-    private Button btnTiepTuc_signup;
+
+    private TextView txtDieuKhoanDichVu_aSignUp, txtChinhSachBaoMat_aSignUp, txtDangNhap_aSignUp;
+    private TextInputLayout inpHoTen_aSignUp,
+            inpEmail_aSignUp,
+            inpMatKhau_aSignUp,
+            inpPhone_aSignUp,
+            inpNhapLaiMatKhau_aSignUp;
+    private Button btnTiepTuc_aSignUp;
     private ProgressDialog progressDialog;
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        progressDialog = new ProgressDialog(this);
-        
+        mAuth = FirebaseAuth.getInstance();
         linkViews();
         addEvent();
     }
 
+    private void linkViews() {
+        txtDieuKhoanDichVu_aSignUp =findViewById(R.id.txtDieuKhoanDichVu_aSignUp);
+        txtDieuKhoanDichVu_aSignUp.setPaintFlags(txtDieuKhoanDichVu_aSignUp.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        txtChinhSachBaoMat_aSignUp =findViewById(R.id.txtChinhSachBaoMat_aSignUp);
+        txtChinhSachBaoMat_aSignUp.setPaintFlags(txtChinhSachBaoMat_aSignUp.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        txtDangNhap_aSignUp =findViewById(R.id.txtDangNhap_aSignUp);
+        txtDangNhap_aSignUp.setPaintFlags(txtDangNhap_aSignUp.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
+        inpHoTen_aSignUp =findViewById(R.id.inpHoTen_aSignUp);
+        inpEmail_aSignUp =findViewById(R.id.inpEmail_aSignUp);
+        inpMatKhau_aSignUp =findViewById(R.id.inpMatKhau_aSignUp);
+        inpNhapLaiMatKhau_aSignUp =findViewById(R.id.inpNhapLaiMatKhau_aSignUp);
+        inpPhone_aSignUp =findViewById(R.id.inpPhone_aSignUp);
+
+        btnTiepTuc_aSignUp =findViewById(R.id.btnTiepTuc_aSignUp);
+
+        progressDialog = new ProgressDialog(this);
+    }
+
     private void addEvent() {
-        inpEmailSdt_signup.getEditText().addTextChangedListener(new TextWatcher() {
+        inpEmail_aSignUp.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s != null){
+                if (!s.toString().isEmpty()){
                     if (checkValidateEmail(s.toString())) {
-                        inpEmailSdt_signup.setEndIconDrawable(R.drawable.ic_heart);
-                        inpEmailSdt_signup.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
-                        inpEmailSdt_signup.setErrorEnabled(false);
+                        inpEmail_aSignUp.setEndIconDrawable(R.drawable.ic_heart);
+                        inpEmail_aSignUp.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
+                        inpEmail_aSignUp.setErrorEnabled(false);
                     }
                     else{
-                        inpEmailSdt_signup.setErrorEnabled(true);
-                        inpEmailSdt_signup.setError("Email không hợp lệ");
+                        InvalidInput("Email không hợp lệ",inpEmail_aSignUp);
                     }
-                }
-                if (s == null) {
-                    inpEmailSdt_signup.setErrorEnabled(false);
+                } else {
+                    inpEmail_aSignUp.setErrorEnabled(false);
                 }
             }
             @Override
@@ -75,20 +108,44 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        inpMatKhau_signup.getEditText().addTextChangedListener(new TextWatcher() {
+        inpPhone_aSignUp.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (!s.toString().isEmpty()) {
+                    if (checkValidatePhone(s.toString())){
+                        inpPhone_aSignUp.setErrorEnabled(false);
+                    }
+                    else {
+                        InvalidInput("Số điện thoại không hợp lệ",inpPhone_aSignUp);
+                    }
+                } else {
+                    inpPhone_aSignUp.setErrorEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        inpMatKhau_aSignUp.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s != null) {
                     if (!checkValidatePassword(s.toString())) {
-                        inpMatKhau_signup.setErrorEnabled(true);
-                        inpMatKhau_signup.setError("Mật khẩu phải có ít nhất một ký tự số, 1 ký tự hoa, 1 ký tự thường và 1 ký tự đặc biệc thuộc @,#,$,%,!");
+                        InvalidInput("Mật khẩu phải có ít nhất một ký tự số, 1 ký tự hoa, 1 ký tự thường và 1 ký tự đặc biệc thuộc @,#,$,%,!",inpMatKhau_aSignUp);
                     } else {
-                        inpMatKhau_signup.setErrorEnabled(false);
+                        inpMatKhau_aSignUp.setErrorEnabled(false);
                     }
                 }
 
@@ -100,21 +157,20 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        inpNhapLaiMatKhau_signup.getEditText().addTextChangedListener(new TextWatcher() {
+        inpNhapLaiMatKhau_aSignUp.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String password = inpMatKhau_signup.getEditText().getText().toString();
-                 if (s != null) {
+                String password = inpMatKhau_aSignUp.getEditText().getText().toString();
+                if (s != null) {
                     if (!password.equals(s.toString())){
-                        inpNhapLaiMatKhau_signup.setErrorEnabled(true);
-                        inpNhapLaiMatKhau_signup.setError("Mật khẩu không đúng");
+                        InvalidInput("Mật khẩu không đúng", inpNhapLaiMatKhau_aSignUp);
                     }
                     else {
-                        inpNhapLaiMatKhau_signup.setErrorEnabled(false);
+                        inpNhapLaiMatKhau_aSignUp.setErrorEnabled(false);
                     }
                 }
             }
@@ -123,53 +179,90 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        btnTiepTuc_signup.setOnClickListener(new View.OnClickListener() {
+        btnTiepTuc_aSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = inpEmailSdt_signup.getEditText().getText().toString().trim();
-                String password = inpMatKhau_signup.getEditText().getText().toString().trim();
+                boolean valid = true;
+                /*String email = inpEmailSdt_aSignUp.getEditText().getText().toString().trim();
+                String password = inpMatKhau_aSignUp.getEditText().getText().toString().trim();
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                progressDialog.show();
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressDialog.dismiss();
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                    UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder()
-                                            .setDisplayName(inpHoTen_signup.getEditText().getText().toString())
-                                            .build();
-                                    user.updateProfile(profileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            User mUser = new User();
-                                            mUser.setUserName(user.getDisplayName());
-                                            mUser.setUserID(user.getUid());
-                                            DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-                                            database.child("User").child(mUser.getUserID()).setValue(mUser);
-                                        }
-                                    });
-                                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finishAffinity();
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(SignUpActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
+                progressDialog.show();*/
+
+                if (inpHoTen_aSignUp.getEditText().getText().toString().isEmpty()){
+                    InvalidInput("Vui lòng điền tên", inpHoTen_aSignUp);
+                    valid = false;
+                }
+
+                if (inpEmail_aSignUp.getEditText().getText().toString().isEmpty()){
+                    InvalidInput("Vui lòng điền email", inpEmail_aSignUp);
+                    valid = false;
+                }
+
+                if (inpMatKhau_aSignUp.getEditText().getText().toString().isEmpty()){
+                    InvalidInput("Vui lòng điền mật khẩu", inpMatKhau_aSignUp);
+                    valid = false;
+                }
+                if (inpNhapLaiMatKhau_aSignUp.getEditText().getText().toString().isEmpty()){
+                    InvalidInput("vui lòng nhập lại mật khẩu", inpNhapLaiMatKhau_aSignUp);
+                    valid = false;
+                }
+
+                if (!valid) {
+                    return;
+                }
+
+                checkHaveRegisted(inpEmail_aSignUp.getEditText().getText().toString().trim(), new CheckEmailExisted() {
+                    @Override
+
+                    public void onCheck(boolean isRegistered) {
+                        progressDialog.show();
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("User");
+                        Query query = reference.orderByChild("userPhone").equalTo(inpPhone_aSignUp.getEditText().getText().toString().trim());
+
+                        if (isRegistered) {
+                            InvalidInput("Email này đã được sử dụng để đăng ký", inpEmail_aSignUp);
+                            progressDialog.dismiss();
+                            return;
+                        } else {
+                            query.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.exists()) {
+                                        InvalidInput("Số điện thoại này đã được sử dụng để đăng ký", inpPhone_aSignUp);
+                                        progressDialog.dismiss();
+                                    } else {
+                                        progressDialog.dismiss();
+                                        sendOTP(inpPhone_aSignUp.getEditText().getText().toString().trim());
+                                    }
                                 }
-                            }
-                        });
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+                    }
+                });
+
+
             }
         });
-
-        txtDangNhap_signup.setOnClickListener(new View.OnClickListener() {
+        txtDangNhap_aSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
             }
         });
+    }
+
+    private void InvalidInput(String text, TextInputLayout input) {
+        input.setError(text);
+        input.setErrorEnabled(true);
+    }
+
+    private boolean checkValidatePhone(String phone) {
+        String regex = "0[0-9\\s.-]{9,13}";
+        return phone.matches(regex);
     }
 
     private boolean checkValidatePassword(String password){
@@ -182,26 +275,89 @@ public class SignUpActivity extends AppCompatActivity {
         return email.matches(regex);
     }
 
-    private void linkViews() {
-        txtDieuKhoanDichVu_signup = findViewById(R.id.txtDieuKhoanDichVu_signup);
-        txtDieuKhoanDichVu_signup.setPaintFlags(txtDieuKhoanDichVu_signup.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+    private void checkHaveRegisted(String email, CheckEmailExisted checkEmailExisted){
+        mAuth.fetchSignInMethodsForEmail(email).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+            @Override
+            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                boolean result = !task.getResult().getSignInMethods().isEmpty();
+                checkEmailExisted.onCheck(result);
+            }
+        });
+    }
 
-        txtChinhSachBaoMat_signup = findViewById(R.id.txtChinhSachBaoMat_signup);
-        txtChinhSachBaoMat_signup.setPaintFlags(txtChinhSachBaoMat_signup.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+    private void sendOTP(String phone) {
+        PhoneAuthOptions options =
+                PhoneAuthOptions.newBuilder(mAuth)
+                        .setPhoneNumber(phone)       // Phone number to verify
+                        .setTimeout(60L, TimeUnit.SECONDS) // Timeout and unit
+                        .setActivity(this)                 // Activity (for callback binding)
+                        .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                            @Override
+                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                                signInWithPhoneAuthCredential(phoneAuthCredential);
+                            }
 
-        txtDangNhap_signup = findViewById(R.id.txtDangNhap_signup);
-        txtDangNhap_signup.setPaintFlags(txtDangNhap_signup.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+                            @Override
+                            public void onVerificationFailed(@NonNull FirebaseException e) {
+                                Toast.makeText(SignUpActivity.this,"Xác minh không thành công", Toast.LENGTH_SHORT).show();
+                            }
 
-        inpHoTen_signup = findViewById(R.id.inpHoTen_signup);
-        inpEmailSdt_signup = findViewById(R.id.inpEmailSdt_signup);
-        inpMatKhau_signup = findViewById(R.id.inpMatKhau_signup);
-        inpNhapLaiMatKhau_signup = findViewById(R.id.inpNhapLaiMatKhau_signup);
+                            @Override
+                            public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                                super.onCodeSent(s, forceResendingToken);
+                                openVerifyOTPActivity(s);
+                            }
+                        })          // OnVerificationStateChangedCallbacks
+                        .build();
+        PhoneAuthProvider.verifyPhoneNumber(options);
 
-        btnTiepTuc_signup = findViewById(R.id.btnTiepTuc_signup);
+    }
 
-/*        edtHoTen_signup = findViewById(R.id.edtHoTen_signup);
-        edtEmailSdt_signup = findViewById(R.id.edtEmailSdt_signup);
-        edtMatKhau_signup = findViewById(R.id.edtMatKhau_signup);
-        edtNhapLaiMatKhau_signup = findViewById(R.id.edtNhapLaiMatKhau_signup);*/
+    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+
+                            FirebaseUser user = task.getResult().getUser();
+                            AuthCredential credential = EmailAuthProvider.getCredential(inpEmail_aSignUp.getEditText().getText().toString().trim(), inpMatKhau_aSignUp.getEditText().getText().toString().trim());
+                            linktoEmailPassword(credential);
+                            startActivity(new Intent(SignUpActivity.this,MainActivity.class));
+                            // Update UI
+                        } else {
+                            // Sign in failed, display a message and update the UI
+                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                // The verification code entered was invalid
+                            }
+                        }
+                    }
+                });
+    }
+
+
+    private void openVerifyOTPActivity(String verifyID) {
+        Intent intent = new Intent(SignUpActivity.this, VerifyPhoneActivity.class);
+        intent.putExtra(Constant.PHONE,inpPhone_aSignUp.getEditText().getText().toString().trim());
+        intent.putExtra(Constant.NAME, inpHoTen_aSignUp.getEditText().getText().toString().trim());
+        intent.putExtra(Constant.EMAIL, inpEmail_aSignUp.getEditText().getText().toString().trim());
+        intent.putExtra(Constant.PASSWORD, inpMatKhau_aSignUp.getEditText().getText().toString().trim());
+        intent.putExtra(Constant.VERIFY_ID, verifyID);
+        startActivity(intent);
+    }
+
+    private void linktoEmailPassword(AuthCredential credential ){
+        mAuth.getCurrentUser().linkWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = task.getResult().getUser();
+                        } else {
+
+                        }
+                    }
+                });
     }
 }
