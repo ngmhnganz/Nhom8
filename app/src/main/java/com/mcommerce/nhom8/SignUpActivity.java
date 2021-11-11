@@ -222,7 +222,7 @@ public class SignUpActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                             return;
                         } else {
-                            query.addValueEventListener(new ValueEventListener() {
+                            /*query.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     if (snapshot.exists()) {
@@ -237,7 +237,8 @@ public class SignUpActivity extends AppCompatActivity {
                                 public void onCancelled(@NonNull DatabaseError error) {
 
                                 }
-                            });
+                            });*/
+                            sendOTP(inpPhone_aSignUp.getEditText().getText().toString().trim());
                         }
                     }
                 });
