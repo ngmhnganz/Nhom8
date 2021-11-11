@@ -284,6 +284,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void sendOTP(String phone) {
+        progressDialog.show();
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(mAuth)
                         .setPhoneNumber(phone)       // Phone number to verify
@@ -329,6 +330,7 @@ public class SignUpActivity extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             FirebaseUser user = task.getResult().getUser();
                             startActivity(new Intent(SignUpActivity.this, MainActivity.class));
