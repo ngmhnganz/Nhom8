@@ -20,7 +20,9 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
@@ -293,8 +295,8 @@ public class SignUpActivity extends AppCompatActivity {
                                 String email = inpEmail_aSignUp.getEditText().getText().toString().trim();
                                 String password = inpMatKhau_aSignUp.getEditText().getText().toString().trim();
                                 String name = inpHoTen_aSignUp.getEditText().getText().toString();
-                                createUserWithEmail(email, password);
-                                linktoEmailPassword(phoneAuthCredential, phone, name);
+                                createUserWithEmail(email, password, phone, name, phoneAuthCredential);
+                                linktoEmailPassword(phoneAuthCredential);
                             }
 
                             @Override
@@ -323,21 +325,13 @@ public class SignUpActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void linktoEmailPassword(AuthCredential credential, String phone, String name ){
+    private void linktoEmailPassword(AuthCredential credential){
         mAuth.getCurrentUser().linkWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = task.getResult().getUser();
-                            UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
-                            user.updateProfile(profileChangeRequest);
-                            User mUser = new User();
-                            mUser.setUserName(user.getDisplayName());
-                            mUser.setUserID(user.getUid());
-                            mUser.setUserPhone(phone);
-                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                            databaseReference.child("User").child(mUser.getUserID()).setValue(mUser);
                             startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                         } else {
                             Toast.makeText(SignUpActivity.this, "Xác minh không thành công",Toast.LENGTH_SHORT).show();
@@ -346,7 +340,33 @@ public class SignUpActivity extends AppCompatActivity {
                 });
     }
 
-    private void createUserWithEmail(String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password);
+    private void createUserWithEmail(String email, String password, String phone, String name, AuthCredential phoneAuthCredential) {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+                    user.updateProfile(profileChangeRequest);
+                    User mUser = new User();
+                    mUser.setUserName(user.getDisplayName());
+                    mUser.setUserID(user.getUid());
+                    mUser.setUserPhone(phone);
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                    databaseReference.child("User").child(mUser.getUserID()).setValue(mUser);
+                    linktoEmailPassword(phoneAuthCredential);
+                }
+            }
+        });
     }
+
+/*
+    UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+                            user.updateProfile(profileChangeRequest);
+    User mUser = new User();
+                            mUser.setUserName(user.getDisplayName());
+                            mUser.setUserID(user.getUid());
+                            mUser.setUserPhone(phone);
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                            databaseReference.child("User").child(mUser.getUserID()).setValue(mUser);*/
 }
