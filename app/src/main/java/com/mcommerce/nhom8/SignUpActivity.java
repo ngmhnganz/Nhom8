@@ -296,7 +296,6 @@ public class SignUpActivity extends AppCompatActivity {
                                 String password = inpMatKhau_aSignUp.getEditText().getText().toString().trim();
                                 String name = inpHoTen_aSignUp.getEditText().getText().toString();
                                 createUserWithEmail(email, password, phone, name, phoneAuthCredential);
-                                linktoEmailPassword(phoneAuthCredential);
                             }
 
                             @Override
