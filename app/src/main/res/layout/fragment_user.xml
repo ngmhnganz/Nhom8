@@ -34,7 +34,7 @@
 
             android:textSize="24sp"
             android:textColor="@color/white"
-            android:text="Nguyễn Văn A"
+            android:text="Bạn chưa đăng nhập"
             android:textAllCaps="true"
             android:fontFamily="@font/sfpro_bold"/>
 
@@ -53,7 +53,7 @@
                 android:id="@+id/txtUserPoint_fmuser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="900 điểm"
+                android:text=""
                 android:textColor="@color/white"
                 android:fontFamily="@font/gilroy_medium"
                 android:textSize="16sp"/>

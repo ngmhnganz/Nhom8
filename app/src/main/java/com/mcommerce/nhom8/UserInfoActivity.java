@@ -30,7 +30,8 @@ public class UserInfoActivity extends AppCompatActivity {
     private ImageView imv_aUserInfo;
     private TextInputLayout inpUserEmail_aUserInfo,
                             inpUserName_aUserInfo,
-            inpUserBirthday_aUserInfo;
+            inpUserBirthday_aUserInfo,
+            inpUserPhone_aUserInfo;
 
     private ImageButton btnBack_aUserInfo;
     @Override
@@ -53,8 +54,10 @@ public class UserInfoActivity extends AppCompatActivity {
         inpUserEmail_aUserInfo = findViewById(R.id.inpUserEmail_aUserInfo);
         inpUserName_aUserInfo = findViewById(R.id.inpUserName_aUserInfo);
         inpUserBirthday_aUserInfo = findViewById(R.id.inpUserBirthday_aUserInfo);
+        inpUserPhone_aUserInfo = findViewById(R.id.inpUserPhone_aUserInfo);
 
         btnBack_aUserInfo = findViewById(R.id.btnBack_aUserInfo);
+
 
     }
 
@@ -75,8 +78,10 @@ public class UserInfoActivity extends AppCompatActivity {
         String name = user.getDisplayName();
         String email = user.getEmail();
         Uri uri = user.getPhotoUrl();
+        String phone = user.getPhoneNumber();
         inpUserEmail_aUserInfo.getEditText().setText(email);
         inpUserName_aUserInfo.getEditText().setText(name);
+        inpUserPhone_aUserInfo.getEditText().setText(phone);
         Glide.with(this).load(uri).error(R.drawable.default_ava).into(imv_aUserInfo);
     }
 

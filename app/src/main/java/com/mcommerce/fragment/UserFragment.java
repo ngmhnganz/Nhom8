@@ -64,6 +64,7 @@ public class UserFragment extends Fragment {
     private void loadUserInfo() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
+            btnLogout_fmuser.setText("Đăng nhập");
             return;
         }
 
@@ -71,6 +72,7 @@ public class UserFragment extends Fragment {
         String email = user.getEmail();
         Uri uri = user.getPhotoUrl();
 
+        txtUserPoint_fmuser.setText("900 điểm");
         txtUserName_fmuser.setText(name);
         Glide.with(this).load(uri).error(R.drawable.default_ava).into(imv_fmuser);
     }

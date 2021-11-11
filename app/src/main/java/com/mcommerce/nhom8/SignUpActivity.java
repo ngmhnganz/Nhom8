@@ -20,14 +20,13 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.interfaces.CheckEmailExisted;
+import com.mcommerce.model.User;
 import com.mcommerce.util.Constant;
 
 import java.util.concurrent.TimeUnit;
@@ -183,10 +183,6 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 boolean valid = true;
-                /*String email = inpEmailSdt_aSignUp.getEditText().getText().toString().trim();
-                String password = inpMatKhau_aSignUp.getEditText().getText().toString().trim();
-                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                progressDialog.show();*/
 
                 if (inpHoTen_aSignUp.getEditText().getText().toString().isEmpty()){
                     InvalidInput("Vui lòng điền tên", inpHoTen_aSignUp);
@@ -294,7 +290,11 @@ public class SignUpActivity extends AppCompatActivity {
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                                signInWithPhoneAuthCredential(phoneAuthCredential);
+                                String email = inpEmail_aSignUp.getEditText().getText().toString().trim();
+                                String password = inpMatKhau_aSignUp.getEditText().getText().toString().trim();
+                                String name = inpHoTen_aSignUp.getEditText().getText().toString();
+                                createUserWithEmail(email, password);
+                                linktoEmailPassword(phoneAuthCredential, phone, name);
                             }
 
                             @Override
@@ -313,30 +313,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-
-                            FirebaseUser user = task.getResult().getUser();
-                            AuthCredential credential = EmailAuthProvider.getCredential(inpEmail_aSignUp.getEditText().getText().toString().trim(), inpMatKhau_aSignUp.getEditText().getText().toString().trim());
-                            linktoEmailPassword(credential);
-                            startActivity(new Intent(SignUpActivity.this,MainActivity.class));
-                            // Update UI
-                        } else {
-                            // Sign in failed, display a message and update the UI
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                // The verification code entered was invalid
-                            }
-                        }
-                    }
-                });
-    }
-
-
     private void openVerifyOTPActivity(String verifyID) {
         Intent intent = new Intent(SignUpActivity.this, VerifyPhoneActivity.class);
         intent.putExtra(Constant.PHONE,inpPhone_aSignUp.getEditText().getText().toString().trim());
@@ -347,17 +323,30 @@ public class SignUpActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void linktoEmailPassword(AuthCredential credential ){
+    private void linktoEmailPassword(AuthCredential credential, String phone, String name ){
         mAuth.getCurrentUser().linkWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = task.getResult().getUser();
+                            UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+                            user.updateProfile(profileChangeRequest);
+                            User mUser = new User();
+                            mUser.setUserName(user.getDisplayName());
+                            mUser.setUserID(user.getUid());
+                            mUser.setUserPhone(phone);
+                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                            databaseReference.child("User").child(mUser.getUserID()).setValue(mUser);
+                            startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                         } else {
-
+                            Toast.makeText(SignUpActivity.this, "Xác minh không thành công",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+    }
+
+    private void createUserWithEmail(String email, String password) {
+        mAuth.createUserWithEmailAndPassword(email, password);
     }
 }

@@ -18,12 +18,17 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.mcommerce.model.User;
 import com.mcommerce.util.Constant;
 
 import java.util.concurrent.TimeUnit;
@@ -170,21 +175,20 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         verifyID = getIntent().getStringExtra(Constant.VERIFY_ID);
     }
 
-
     private void addEvent() {
         setUpEditText();
         btnAuthOTP_aVerifyPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                createUserWithEmail();
                 strOTP = edt_otp1_aVerifyPhone.getText().toString()+edt_otp2_aVerifyPhone.getText().toString()+edt_otp3_aVerifyPhone.getText().toString()+edt_otp4_aVerifyPhone.getText().toString()+edt_otp5_aVerifyPhone.getText().toString()+edt_otp6_aVerifyPhone.getText().toString();
-                PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(verifyID,strOTP);
-                signInWithPhoneAuthCredential(phoneAuthCredential);
+
             }
         });
         txtResendOTP_aVerifyPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                requestOTPCodeAgain();
             }
         });
     }
@@ -199,7 +203,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-                                signInWithPhoneAuthCredential(phoneAuthCredential);
+                                linktoEmailPassword(phoneAuthCredential);
                             }
 
                             @Override
@@ -220,39 +224,45 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         PhoneAuthProvider.verifyPhoneNumber(options);
     }
 
-    private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-
-                            FirebaseUser user = task.getResult().getUser();
-                            linktoEmailPassword(credential);
-                            startActivity(new Intent(VerifyPhoneActivity.this, MainActivity.class));
-                            // Update UI
-                        } else {
-                            // Sign in failed, display a message and update the UI
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                // The verification code entered was invalid
-                            }
-                        }
-                    }
-                });
-    }
-
-    private void linktoEmailPassword(AuthCredential credential ){
+    private void linktoEmailPassword(AuthCredential credential){
+        mAuth = FirebaseAuth.getInstance();
         mAuth.getCurrentUser().linkWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = task.getResult().getUser();
+                            startActivity(new Intent(VerifyPhoneActivity.this, MainActivity.class));
                         } else {
-
+                            Toast.makeText(VerifyPhoneActivity.this,"Xác minh số điện thoại không thành công không thành công",Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(VerifyPhoneActivity.this, MainActivity.class));
                         }
                     }
                 });
+    }
+
+    private void createUserWithEmail() {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+                    user.updateProfile(profileChangeRequest);
+                    User mUser = new User();
+                    mUser.setUserID(user.getUid());
+                    mUser.setUserName(name);
+                    mUser.setUserPhone(phone);
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+                    databaseReference.child("User").child(mUser.getUserID()).setValue(mUser);
+                    AuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(verifyID,strOTP);
+                    linktoEmailPassword(phoneAuthCredential);
+                }
+                else {
+                    Toast.makeText(VerifyPhoneActivity.this,"Tạo tài khoản thất bại",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 }
