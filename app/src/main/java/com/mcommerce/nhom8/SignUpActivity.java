@@ -94,7 +94,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!s.toString().isEmpty()){
                     if (checkValidateEmail(s.toString())) {
-                        inpEmail_aSignUp.setEndIconDrawable(R.drawable.ic_heart);
+                        inpEmail_aSignUp.setEndIconDrawable(R.drawable.ic_check_fill_green);
                         inpEmail_aSignUp.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
                         inpEmail_aSignUp.setErrorEnabled(false);
                     }
@@ -120,6 +120,8 @@ public class SignUpActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (!s.toString().isEmpty()) {
                     if (checkValidatePhone(s.toString())){
+                        inpEmail_aSignUp.setEndIconDrawable(R.drawable.ic_check_fill_green);
+                        inpEmail_aSignUp.setEndIconMode(TextInputLayout.END_ICON_CUSTOM);
                         inpPhone_aSignUp.setErrorEnabled(false);
                     }
                     else {
@@ -260,7 +262,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private boolean checkValidatePhone(String phone) {
-        String regex = "0[0-9\\s.-]{9,13}";
+        String regex = "^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$";
         return phone.matches(regex);
     }
 
