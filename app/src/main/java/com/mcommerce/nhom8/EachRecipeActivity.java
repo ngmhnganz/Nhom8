@@ -90,6 +90,7 @@ public class EachRecipeActivity extends AppCompatActivity {
         grvRecipeMaterial.setExpanded(true);
     }
 
+    //Đặt gridview trong scrollview
     public void setGridViewHeightBasedOnChildren(GridView gridView, int columns) {
         ListAdapter listAdapter = gridView.getAdapter();
         if (listAdapter == null) {
