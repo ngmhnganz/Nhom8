@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nhom8">
         <activity
+            android:name=".ListRecipeActivity"
+            android:exported="true" />
+        <activity
             android:name=".SuggestRecipeActivity"
             android:exported="true" />
         <activity

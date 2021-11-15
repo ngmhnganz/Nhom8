@@ -8,6 +8,12 @@ public class Recipe {
     private String recipeDesciption;
     private int recipeImage;
 
+    public Recipe(String recipeName, int recipeLike, int recipeImage) {
+        this.recipeName = recipeName;
+        this.recipeLike = recipeLike;
+        this.recipeImage = recipeImage;
+    }
+
     public String getRecipeName() {
         return recipeName;
     }
