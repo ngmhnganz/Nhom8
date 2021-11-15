@@ -62,7 +62,7 @@ public class EachRecipeActivity extends AppCompatActivity {
         });
     }
 
-    View.OnClickListener clickSetVisibility=new View.OnClickListener() {
+     View.OnClickListener clickSetVisibility=new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             if(llMaterialBuying.getVisibility()==view.VISIBLE){
@@ -87,7 +87,7 @@ public class EachRecipeActivity extends AppCompatActivity {
     private void initAdapter() {
         adapterRecipeMaterial=new RecipeMaterialAdapter(EachRecipeActivity.this,R.layout.item_recipe_material_layout,materials);
         grvRecipeMaterial.setAdapter(adapterRecipeMaterial);
-        grvRecipeMaterial.setExpanded(true);
+        grvRecipeMaterial.setExpanded(true); //dat grv trong scrollview
     }
 
     //Đặt gridview trong scrollview

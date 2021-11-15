@@ -28,36 +28,161 @@
             android:layout_height="?attr/actionBarSize"
             android:background="#00FFFFFF"
             app:navigationIcon="@drawable/ic_left_arrow_24_white"
-            app:title="Gợi ý công thức" />
+            app:title="GỢI Ý CÔNG THỨC"
+            app:titleTextColor="@color/white"
+            />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
+        android:id="@+id/llMaterialLable_Bot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_margin="10dp"
-        android:background="@drawable/background_suggestrecipe">
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/background_suggestrecipe"
+        android:paddingHorizontal="15dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="10">
+            android:weightSum="100">
             <TextView
+                android:paddingVertical="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Bột"
                 android:fontFamily="@font/sfpro_bold"
-                android:textSize="18dp"
+                android:textSize="20dp"
                 android:textColor="@color/colorPrimary"
-                android:layout_weight="9"
-                android:layout_marginLeft="20dp"/>
+                android:layout_weight="97"
+                />
             <ImageView
+                android:id="@+id/imvDropDownBot_SuggestRecipe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_arrow_down_24"
+                android:src="@drawable/ic__arrow_up_24"
                 android:layout_gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llBot_RecipeMaterial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+            <GridView
+                android:id="@+id/grvBot_RecipeMaterial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="3"
+                android:horizontalSpacing="10dp"
+                android:verticalSpacing="10dp"
+                android:paddingVertical="15dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llMaterialLable_SuaKem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/background_suggestrecipe"
+        android:paddingHorizontal="15dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100">
+            <TextView
+                android:paddingVertical="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sữa - Kem"
+                android:fontFamily="@font/sfpro_bold"
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimary"
+                android:layout_weight="97"
+                />
+            <ImageView
+                android:id="@+id/imvDropDownSuaKem_SuggestRecipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic__arrow_up_24"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llSuaKem_RecipeMaterial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+            <GridView
+                android:id="@+id/grvSuaKem_RecipeMaterial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="3"
+                android:horizontalSpacing="10dp"
+                android:verticalSpacing="10dp"
+                android:paddingVertical="15dp"/>
         </LinearLayout>
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/llMaterialLable_Bo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/background_suggestrecipe"
+        android:paddingHorizontal="15dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100">
+            <TextView
+                android:paddingVertical="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bơ"
+                android:fontFamily="@font/sfpro_bold"
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimary"
+                android:layout_weight="97"
+                />
+            <ImageView
+                android:id="@+id/imvDropDownBo_SuggestRecipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic__arrow_up_24"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llBo_RecipeMaterial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+            <GridView
+                android:id="@+id/grvBo_RecipeMaterial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="3"
+                android:horizontalSpacing="10dp"
+                android:verticalSpacing="10dp"
+                android:paddingVertical="15dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
 </LinearLayout>
