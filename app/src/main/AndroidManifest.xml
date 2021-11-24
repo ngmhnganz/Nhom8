@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nhom8">
         <activity
-            android:name=".EachRecipeActivity"
+            android:name=".ListRecipeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +20,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".SuggestRecipeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".EachRecipeActivity"
+            android:exported="true">
 
+        </activity>
         <activity
             android:name=".ListProductActivity"
             android:exported="true" />
@@ -29,7 +36,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

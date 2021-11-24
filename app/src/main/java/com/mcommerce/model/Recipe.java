@@ -7,6 +7,22 @@ public class Recipe {
     private int recipeLike;
     private String recipeDesciption;
     private int recipeImage;
+    private int recipeLikeImageHeart;
+
+    public int getRecipeLikeImageHeart() {
+        return recipeLikeImageHeart;
+    }
+
+    public void setRecipeLikeImageHeart(int recipeLikeImageHeart) {
+        this.recipeLikeImageHeart = recipeLikeImageHeart;
+    }
+
+    public Recipe(String recipeName, int recipeLike, int recipeImage, int recipeLikeImageHeart) {
+        this.recipeName = recipeName;
+        this.recipeLike = recipeLike;
+        this.recipeImage = recipeImage;
+        this.recipeLikeImageHeart = recipeLikeImageHeart;
+    }
 
     public String getRecipeName() {
         return recipeName;
