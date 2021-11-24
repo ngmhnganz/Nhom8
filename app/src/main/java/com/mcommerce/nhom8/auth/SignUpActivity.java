@@ -1,4 +1,4 @@
-package com.mcommerce.nhom8;
+package com.mcommerce.nhom8.auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,23 +20,20 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.interfaces.CheckEmailExisted;
 import com.mcommerce.model.User;
+import com.mcommerce.nhom8.MainActivity;
+import com.mcommerce.nhom8.R;
 import com.mcommerce.util.Constant;
 
 import java.util.concurrent.TimeUnit;
@@ -312,8 +309,10 @@ public class SignUpActivity extends AppCompatActivity {
                                 super.onCodeSent(s, forceResendingToken);
                                 openVerifyOTPActivity(s);
                             }
+
                         })          // OnVerificationStateChangedCallbacks
                         .build();
+        progressDialog.dismiss();
         PhoneAuthProvider.verifyPhoneNumber(options);
 
     }
@@ -359,6 +358,7 @@ public class SignUpActivity extends AppCompatActivity {
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                     databaseReference.child("User").child(mUser.getUserID()).setValue(mUser);
                     linktoEmailPassword(phoneAuthCredential);
+                    startActivity(new Intent(SignUpActivity.this,MainActivity.class));
                 }
             }
         });

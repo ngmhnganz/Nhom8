@@ -30,8 +30,8 @@ public class UserInfoActivity extends AppCompatActivity {
     private ImageView imv_aUserInfo;
     private TextInputLayout inpUserEmail_aUserInfo,
                             inpUserName_aUserInfo,
-            inpUserBirthday_aUserInfo,
-            inpUserPhone_aUserInfo;
+                            inpUserBirthday_aUserInfo,
+                            inpUserPhone_aUserInfo;
 
     private ImageButton btnBack_aUserInfo;
     @Override
@@ -47,7 +47,6 @@ public class UserInfoActivity extends AppCompatActivity {
 
 
     private void linkview() {
-
         autoCompleteTextView = findViewById(R.id.txtGender);
         imv_aUserInfo = findViewById(R.id.imv_aUserInfo);
 
@@ -57,8 +56,6 @@ public class UserInfoActivity extends AppCompatActivity {
         inpUserPhone_aUserInfo = findViewById(R.id.inpUserPhone_aUserInfo);
 
         btnBack_aUserInfo = findViewById(R.id.btnBack_aUserInfo);
-
-
     }
 
     private void setUI() {

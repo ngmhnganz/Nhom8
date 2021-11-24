@@ -1,4 +1,4 @@
-package com.mcommerce.nhom8;
+package com.mcommerce.nhom8.auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,12 +24,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.model.User;
+import com.mcommerce.nhom8.MainActivity;
+import com.mcommerce.nhom8.R;
 
 public class LoginActivity extends AppCompatActivity {
 
     private TextInputLayout inpEmail_Login, inpPass_Login;
     private Button btnLogin;
-    private TextView txtSignUpNow_login;
+    private TextView txtSignUpNow_login, txtForgotPassword_login;;
     private ProgressDialog progressDialog;
     private LinearLayout llThamQuan_login;
 
@@ -46,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         txtSignUpNow_login.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, SignUpActivity.class)));
 
         llThamQuan_login.setOnClickListener(v -> {
-            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         });
 
@@ -92,6 +94,13 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+
+        txtForgotPassword_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this,ResetPasswordActivity.class));
+            }
+        });
     }
 
     private void linkview() {
@@ -99,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
         inpEmail_Login = findViewById(R.id.inpEmail_Login);
         inpPass_Login = findViewById(R.id.inpPass_Login);
         txtSignUpNow_login = findViewById(R.id.txtSignUpNow_login);
-
+        txtForgotPassword_login = findViewById(R.id.txtForgotPassword_login);
         llThamQuan_login = findViewById(R.id.llThamQuan_login);
     }
 }

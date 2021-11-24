@@ -18,7 +18,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.mcommerce.nhom8.LoginActivity;
+import com.mcommerce.nhom8.auth.LoginActivity;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.nhom8.UserInfoActivity;
 
@@ -35,6 +35,7 @@ public class UserFragment extends Fragment {
 
     private ImageView imv_fmuser;
     private Button btnLogout_fmuser;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class UserFragment extends Fragment {
     }
 
     private void loadUserInfo() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         if (user == null) {
             btnLogout_fmuser.setText("Đăng nhập");
             return;
@@ -81,15 +82,30 @@ public class UserFragment extends Fragment {
 
         llUserInfo_fmuser.setOnClickListener(goToContentActivity);
 
-        btnLogout_fmuser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-                getActivity().finish();
-            }
-        });
+        if (user == null) {
+            btnLogout_fmuser.setOnClickListener(signin);
+        }
+        else {
+            btnLogout_fmuser.setOnClickListener(logout);
+        }
     }
+
+    View.OnClickListener logout = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            getActivity().finish();
+        }
+    };
+
+    View.OnClickListener signin = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(getActivity(), LoginActivity.class));
+            getActivity().finish();
+        }
+    };
 
     View.OnClickListener goToContentActivity = new View.OnClickListener() {
         @Override

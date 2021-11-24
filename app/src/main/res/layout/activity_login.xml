@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F58A42"
     android:orientation="vertical"
-    tools:context=".LoginActivity">
+    tools:context=".auth.LoginActivity">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -104,7 +104,8 @@
                 android:layout_marginVertical="20dp"
                 android:fontFamily="@font/sfpro_bold"
                 android:text="Đăng nhập"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:clickable="true"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

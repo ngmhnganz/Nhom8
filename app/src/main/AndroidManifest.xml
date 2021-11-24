@@ -12,7 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nhom8">
         <activity
-            android:name=".VerifyPhoneActivity"
+            android:name=".auth.ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".auth.VerifyPhoneActivity"
             android:exported="false" />
         <activity
             android:name=".UserInfoActivity"
@@ -30,10 +33,10 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".auth.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".auth.LoginActivity"
             android:exported="true" />
         <activity
             android:name=".AllProductsActivity"

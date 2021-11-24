@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.mcommerce.nhom8.auth.LoginActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
     Animation topAnim;
