@@ -62,7 +62,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         myRef = firebaseDatabase.getReference();
         itemID = productIDs.get(position);
         int itemQ = Integer.parseInt(String.valueOf(cartList.get(itemID)));
-        myRef.child("NguyenLieu").child(itemID).addValueEventListener(new ValueEventListener() {
+        myRef.child("NguyenLieu").child(itemID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 holder.txtSanPham_lyCart.setText(snapshot.child("productName").getValue().toString());
@@ -91,16 +91,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            myRef.child("User").child(user.getUid()).child("userCart").child(itemID).removeValue();
-                            productIDs.remove(itemID);
-                            cartList.remove(itemID);
+                            myRef.child("User").child(user.getUid()).child("userCart").child(productIDs.get(holder.getBindingAdapterPosition())).removeValue();
+                            cartList.remove(productIDs.get(holder.getBindingAdapterPosition()));
+                            productIDs.remove(productIDs.get(holder.getBindingAdapterPosition()));
                             notifyItemRemoved(holder.getBindingAdapterPosition());
                         }
                     });
                     builder.create().show();
                         } else {
                             holder.btn_decrease_lyCart.setEnabled(true);
-                            myRef.child("User").child(user.getUid()).child("userCart").child(itemID).setValue(holder.txtQuantity_lyCart.getText().toString());
+                            myRef.child("User").child(user.getUid()).child("userCart").child(productIDs.get(holder.getBindingAdapterPosition())).setValue(holder.txtQuantity_lyCart.getText().toString());
                         }
                     }
 

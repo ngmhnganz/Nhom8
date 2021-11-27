@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +34,7 @@ public class CartActivity extends AppCompatActivity {
     private RecyclerView rcv_aCart;
     private Button btnPayment_aCart;
     private CartAdapter adapter;
-
+    private ImageView imvCartEmpty_aCart;
     private  FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private DatabaseReference myRef;
@@ -48,8 +50,10 @@ public class CartActivity extends AppCompatActivity {
     private void linkview() {
 //        txtDeleteAll_aCart = findViewById(R.id.txtDeleteAll_aCart);
         rcv_aCart = findViewById(R.id.rcv_aCart);
+        rcv_aCart.setLayoutManager(new LinearLayoutManager(CartActivity.this, LinearLayoutManager.VERTICAL, false));
         btnPayment_aCart = findViewById(R.id.btnPayment_aCart);
         txtDeleteAll_aCart = findViewById(R.id.txtDeleteAll_aCart);
+        imvCartEmpty_aCart= findViewById(R.id.imvCartEmpty_aCart);
     }
 
     private void setAdapter() {
@@ -57,21 +61,25 @@ public class CartActivity extends AppCompatActivity {
         if (user == null) {
 
         } else {
-           myRef = firebaseDatabase.getReference().child("User");
-           myRef.child(user.getUid()).child("userCart").addValueEventListener(new ValueEventListener() {
-               @Override
-               public void onDataChange(@NonNull DataSnapshot snapshot) {
-                   Map<String,Integer> cartList = (Map<String, Integer>) snapshot.getValue();
-                   Map<String, Integer> sortedMap = new TreeMap<String, Integer>(cartList);
-                   if (sortedMap != null) {
+            ProgressDialog progressDialog = new ProgressDialog(CartActivity.this);
+            progressDialog.show();
+            myRef = firebaseDatabase.getReference().child("User");
+            myRef.child(user.getUid()).child("userCart").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    Map<String,Integer> cartList = (Map<String, Integer>) snapshot.getValue();
+                    if (cartList != null) {
+                       Map<String, Integer> sortedMap = new TreeMap<String, Integer>(cartList);
                        adapter = new CartAdapter(CartActivity.this,sortedMap);
-                       rcv_aCart.setLayoutManager(new LinearLayoutManager(CartActivity.this, LinearLayoutManager.VERTICAL, false));
-                       rcv_aCart.setAdapter(adapter);
+                       imvCartEmpty_aCart.setVisibility(View.GONE);
 
-                   } else {
+                    } else {
                        adapter = null;
-                   }
+                       imvCartEmpty_aCart.setVisibility(View.VISIBLE);
+                    }
+                    progressDialog.dismiss();
 
+                    rcv_aCart.setAdapter(adapter);
 
                }
                @Override
@@ -94,6 +102,9 @@ public class CartActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         myRef.child(user.getUid()).child("userCart").removeValue();
+                        adapter = null;
+                        imvCartEmpty_aCart.setVisibility(View.VISIBLE);
+                        rcv_aCart.setAdapter(adapter);
                     }
                 });
                 builder.create().show();
