@@ -41,6 +41,18 @@
         <item name="android:clickable">true</item>
     </style>
 
+    <style name="btn_increase" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_increase</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="btn_decrease" parent="@android:style/Widget.Button">
+        <item name="android:background">@drawable/btn_decrease</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+    </style>
+
     <style name="UserInfoTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="boxStrokeColor">@color/edt_selector</item>
     </style>

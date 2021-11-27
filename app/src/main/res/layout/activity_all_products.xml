@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".AllProductsActivity">
+    tools:context=".product.AllProductsActivity">
 
     <LinearLayout
         android:id="@+id/layoutAppBar_allproducts"
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-
+            android:src="@drawable/ic_cart"
             android:background="?attr/actionBarItemBackground" />
 
     </LinearLayout>

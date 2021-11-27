@@ -12,13 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Nhom8">
         <activity
+            android:name=".order.CartActivity"
+            android:exported="true" />
+        <activity
             android:name=".auth.ResetPasswordActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".auth.VerifyPhoneActivity"
             android:exported="false" />
         <activity
-            android:name=".UserInfoActivity"
+            android:name=".auth.UserInfoActivity"
             android:exported="true" />
         <activity
             android:name=".SplashScreenActivity"
@@ -39,16 +42,16 @@
             android:name=".auth.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".AllProductsActivity"
+            android:name=".product.AllProductsActivity"
             android:exported="true" />
         <activity
-            android:name=".ListProductActivity"
+            android:name=".product.ListProductActivity"
             android:exported="true" />
         <activity
-            android:name=".ProductDetailActivity"
+            android:name=".product.ProductDetailActivity"
             android:exported="true" />
         <activity
-            android:name=".OrderDetailActivity"
+            android:name=".order.OrderDetailActivity"
             android:exported="true" />
     </application>
 

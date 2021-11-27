@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mcommerce.model.OrderModel;
-import com.mcommerce.nhom8.OrderDetailActivity;
+import com.mcommerce.nhom8.order.OrderDetailActivity;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.interfaces.RecyclerViewItemClickListener;
 import com.mcommerce.util.Constant;

@@ -6,11 +6,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -18,17 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.mcommerce.interfaces.RecyclerViewItemClickListener;
-import com.mcommerce.model.OrderModel;
 import com.mcommerce.model.Product;
-import com.mcommerce.nhom8.ProductDetailActivity;
+import com.mcommerce.nhom8.product.ProductDetailActivity;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.util.Constant;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
@@ -81,7 +73,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 holder.txtproductName_listProduct.setText(product.getProductName());
                 holder.txtProductPrice_listProduct.setText(String.valueOf(product.getProductPrice()));
                 holder.txtLike_listProduct.setText(product.getProductLike()+" anh em đã thích :))");
-
+                holder.btnAdd_listProduct.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, ProductDetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable(Constant.SELECTED_PRODUCTED,product);
+                        intent.putExtra(Constant.PRODUCT_BUNDLE, bundle);
+                        context.startActivity(intent);
+                    }
+                });
 
                 break;
             case CATEGORY:
@@ -126,6 +127,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         TextView    txtproductName_listProduct,
                     txtProductPrice_listProduct,
                     txtLike_listProduct;
+        Button btnAdd_listProduct;
 
 
         public ProductViewHolder(@NonNull View itemView) {
@@ -146,6 +148,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     txtproductName_listProduct = itemView.findViewById(R.id.txtproductName_listProduct);
                     txtProductPrice_listProduct = itemView.findViewById(R.id.txtProductPrice_listProduct);
                     txtLike_listProduct = itemView.findViewById(R.id.txtLike_listProduct);
+                    btnAdd_listProduct = itemView.findViewById(R.id.btnAdd_listProduct);
                     break;
             }
 

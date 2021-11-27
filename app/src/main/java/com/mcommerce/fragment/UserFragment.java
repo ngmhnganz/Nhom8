@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mcommerce.nhom8.auth.LoginActivity;
 import com.mcommerce.nhom8.R;
-import com.mcommerce.nhom8.UserInfoActivity;
+import com.mcommerce.nhom8.auth.UserInfoActivity;
 
 public class UserFragment extends Fragment {
 

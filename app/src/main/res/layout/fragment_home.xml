@@ -25,11 +25,13 @@
             android:textColor="@color/white"
             android:textSize="24sp" />
 
-        <ImageView
-            android:id="@+id/imv"
-            android:layout_width="24dp"
+        <ImageButton
+            android:id="@+id/btnCard_main"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:srcCompat="@drawable/ic_cart" />
+            android:padding="20dp"
+            app:srcCompat="@drawable/ic_cart"
+            android:background="?attr/actionBarItemBackground" />
     </LinearLayout>
 
     <ScrollView

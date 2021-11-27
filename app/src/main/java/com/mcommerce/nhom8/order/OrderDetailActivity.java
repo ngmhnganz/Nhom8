@@ -1,4 +1,4 @@
-package com.mcommerce.nhom8;
+package com.mcommerce.nhom8.order;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.OrderDetailAdapter;
 import com.mcommerce.model.OrderModel;
 import com.mcommerce.model.Product;
+import com.mcommerce.nhom8.R;
 import com.mcommerce.util.Constant;
 
 import java.util.ArrayList;

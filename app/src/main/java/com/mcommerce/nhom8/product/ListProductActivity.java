@@ -1,4 +1,4 @@
-package com.mcommerce.nhom8;
+package com.mcommerce.nhom8.product;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,6 +19,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.ProductAdapter;
 import com.mcommerce.model.Product;
+import com.mcommerce.nhom8.R;
 import com.mcommerce.util.Constant;
 
 import java.util.ArrayList;
@@ -34,6 +35,7 @@ public class ListProductActivity extends AppCompatActivity {
     private ArrayList<Product> products = new ArrayList<>();
     private SearchView searchView_aListProduct;
 
+    private Product product;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +104,7 @@ public class ListProductActivity extends AppCompatActivity {
     }
 
     private Product getDataProductFromFirebase(DataSnapshot dataSnapshot) {
-        Product product = new Product();
+        product  = new Product();
         product.setProductImg(dataSnapshot.child("productImg").getValue().toString());
         product.setProductLike( ((Long) dataSnapshot.child("productLike").getValue()).intValue() );
         product.setProductDescription(dataSnapshot.child("productDescription").getValue().toString());
@@ -120,6 +122,6 @@ public class ListProductActivity extends AppCompatActivity {
         btnBack_aListProduct = findViewById(R.id.btnBack_aListProduct);
         searchView_aListProduct = findViewById(R.id.searchView_aListProduct);
         rcv_aListProduct.setLayoutManager(new LinearLayoutManager(ListProductActivity.this, LinearLayoutManager.VERTICAL,false));
-
     }
+
 }

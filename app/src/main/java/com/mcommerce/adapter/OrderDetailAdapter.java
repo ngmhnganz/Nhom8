@@ -24,7 +24,7 @@ public class OrderDetailAdapter  extends RecyclerView.Adapter<OrderDetailAdapter
     private HashMap<String,Integer> itemsOrder;
     private DatabaseReference myRef;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private String[] key;
+    private String[] key; // Mãng lưu các ID của sản phẩm
 
 
     public OrderDetailAdapter(Activity context, HashMap<String,Integer> itemsOrder) {

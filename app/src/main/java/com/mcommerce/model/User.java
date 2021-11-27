@@ -1,14 +1,17 @@
 package com.mcommerce.model;
 
+import java.util.Map;
+
 public class User {
-    private String userID = null;
-    private String userName = null;
-    private String userBirthday = null;
-    private String userGender = null;
-    private String userPhone = null;
-    private String userEmail = null;
-    private String userOrder = null;
-    private String userDefaultAddress = null;
+    private String userID;
+    private String userName;
+    private String userBirthday;
+    private String userGender;
+    private String userPhone;
+    private String userEmail;
+    private String userOrder;
+    private String userDefaultAddress;
+    private Map<String, Integer> userCart;
 
     public String getUserOrder() {
         return userOrder;
@@ -74,6 +77,15 @@ public class User {
         this.userID = userID;
     }
 
+    public Map<String, Integer> getUserCart() {
+        return userCart;
+    }
+
+    public void setUserCart(Map<String, Integer> userCart) {
+        this.userCart = userCart;
+    }
+
     public User() {
     }
+
 }
