@@ -24,11 +24,11 @@ import java.util.ArrayList;
 
 public class SuggestRecipeActivity extends AppCompatActivity {
 
-    RecyclerView rcvBot_RecipeMaterial,rcvSuaKem_RecipeMaterial,rcvBo_RecipeMaterial;
-    ImageView imvDropDownBot_SuggestRecipe, imvDropDownSuaKem_SuggestRecipe, imvDropDownBo_SuggestRecipe;
-    RecipeMaterialAdapterRCV adapterBot, adapterSuaKem, adapterBo;
-    ArrayList<Product> materialsBot, materialsSuaKem, materialsBo;
-    LinearLayout llBot_RecipeMaterial, llSua_RecipeMaterial, llBo_RecipeMaterial;
+    RecyclerView rcvBot_RecipeMaterial,rcvSuaKem_RecipeMaterial,rcvBo_RecipeMaterial,rcvKhac_RecipeMaterial;
+    ImageView imvDropDownBot_SuggestRecipe, imvDropDownSuaKem_SuggestRecipe, imvDropDownBo_SuggestRecipe,imvDropDownKhac_SuggestRecipe;
+    RecipeMaterialAdapterRCV adapterBot, adapterSuaKem, adapterBo,adapterKhac;
+    ArrayList<Product> materialsBot, materialsSuaKem, materialsBo,materialsKhac;
+    LinearLayout llBot_RecipeMaterial, llSua_RecipeMaterial, llBo_RecipeMaterial,llKhac_RecipeMaterial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,21 +45,25 @@ public class SuggestRecipeActivity extends AppCompatActivity {
         rcvBot_RecipeMaterial = findViewById(R.id.rcvBot_RecipeMaterial);
         rcvSuaKem_RecipeMaterial=findViewById(R.id.rcvSuaKem_RecipeMaterial);
         rcvBo_RecipeMaterial=findViewById(R.id.rcvBo_RecipeMaterial);
+        rcvKhac_RecipeMaterial=findViewById(R.id.rcvKhac_RecipeMaterial);
 
 
         llBot_RecipeMaterial = findViewById(R.id.llBot_RecipeMaterial);
         llSua_RecipeMaterial = findViewById(R.id.llSuaKem_RecipeMaterial);
         llBo_RecipeMaterial = findViewById(R.id.llBo_RecipeMaterial);
+        llKhac_RecipeMaterial = findViewById(R.id.llKhac_RecipeMaterial);
 
         imvDropDownBot_SuggestRecipe = findViewById(R.id.imvDropDownBot_SuggestRecipe);
         imvDropDownSuaKem_SuggestRecipe = findViewById(R.id.imvDropDownSuaKem_SuggestRecipe);
         imvDropDownBo_SuggestRecipe = findViewById(R.id.imvDropDownBo_SuggestRecipe);
+        imvDropDownKhac_SuggestRecipe = findViewById(R.id.imvDropDownKhac_SuggestRecipe);
     }
 
     private void configRCV() {
         configRecyclerView(rcvBot_RecipeMaterial);
         configRecyclerView(rcvSuaKem_RecipeMaterial);
         configRecyclerView(rcvBo_RecipeMaterial);
+        configRecyclerView(rcvKhac_RecipeMaterial);
     }
 
     public void configRecyclerView(RecyclerView rcv) {
@@ -112,6 +116,19 @@ public class SuggestRecipeActivity extends AppCompatActivity {
                 }
             }
         });
+
+        imvDropDownKhac_SuggestRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (llKhac_RecipeMaterial.getVisibility() == view.VISIBLE) {
+                    llKhac_RecipeMaterial.setVisibility(View.GONE);
+                    imvDropDownKhac_SuggestRecipe.setImageResource(R.drawable.ic_arrow_down_24);
+                } else {
+                    llKhac_RecipeMaterial.setVisibility(View.VISIBLE);
+                    imvDropDownKhac_SuggestRecipe.setImageResource(R.drawable.ic__arrow_up_24);
+                }
+            }
+        });
     }
 
     private void initData() {
@@ -135,18 +152,23 @@ public class SuggestRecipeActivity extends AppCompatActivity {
         materialsBo.add(new Product("Bơ lạt"));
         materialsBo.add(new Product("Bơ mặn"));
         materialsBo.add(new Product("Bơ thực vật"));
+
+        materialsKhac = new ArrayList<Product>();
+        materialsKhac.add(new Product("Men nở"));
+        materialsKhac.add(new Product("Baking soda"));
+        materialsKhac.add(new Product("Trứng gà"));
     }
 
     private void initAdapter() {
-        adapterBot=new RecipeMaterialAdapterRCV(SuggestRecipeActivity.this,materialsBot);
-        rcvBot_RecipeMaterial.setAdapter(adapterBot);
+        initAdapterfor(rcvBot_RecipeMaterial,materialsBot);
+        initAdapterfor(rcvSuaKem_RecipeMaterial,materialsSuaKem);
+        initAdapterfor(rcvBo_RecipeMaterial,materialsBo);
+        initAdapterfor(rcvKhac_RecipeMaterial,materialsKhac);
+    }
 
-        adapterSuaKem=new RecipeMaterialAdapterRCV(SuggestRecipeActivity.this,materialsSuaKem);
-        rcvSuaKem_RecipeMaterial.setAdapter(adapterSuaKem);
-
-        adapterBo=new RecipeMaterialAdapterRCV(SuggestRecipeActivity.this,materialsBo);
-        rcvBo_RecipeMaterial.setAdapter(adapterBo);
-
+    private void initAdapterfor(RecyclerView recyclerView, ArrayList<Product> materials) {
+        RecipeMaterialAdapterRCV adapter=new RecipeMaterialAdapterRCV(SuggestRecipeActivity.this,materials);
+        recyclerView.setAdapter(adapter);
     }
 
 }

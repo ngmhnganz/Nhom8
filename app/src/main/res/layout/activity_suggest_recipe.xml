@@ -156,7 +156,7 @@
                 android:paddingVertical="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bột"
+                android:text="Bơ"
                 android:fontFamily="@font/sfpro_bold"
                 android:textSize="20dp"
                 android:textColor="@color/colorPrimary"
@@ -180,6 +180,59 @@
                 android:background="@android:color/darker_gray"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcvBo_RecipeMaterial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:horizontalSpacing="10dp"
+                android:verticalSpacing="10dp"
+                android:paddingVertical="15dp"
+                app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llMaterialLable_Khac"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp"
+        android:background="@drawable/background_suggestrecipe"
+        android:paddingHorizontal="15dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100">
+            <TextView
+                android:paddingVertical="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Khác"
+                android:fontFamily="@font/sfpro_bold"
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimary"
+                android:layout_weight="97"
+                />
+            <ImageView
+                android:id="@+id/imvDropDownKhac_SuggestRecipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic__arrow_up_24"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/llKhac_RecipeMaterial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvKhac_RecipeMaterial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:horizontalSpacing="10dp"
