@@ -51,7 +51,6 @@ public class RecipeMaterialAdapter extends BaseAdapter {
             view=inflater.inflate(item_layout, null);
 
             holder.txtMaterials=view.findViewById(R.id.txtRecipeMaterial);
-            holder.imvMaterialBackGround=view.findViewById(R.id.imvRecipeMaterialBackground);
 
             view.setTag(holder);
         }else {
@@ -62,13 +61,11 @@ public class RecipeMaterialAdapter extends BaseAdapter {
         //biding data
         Product product=materialList.get(i);
         holder.txtMaterials.setText(product.getProductName());
-        holder.imvMaterialBackGround.setImageResource(product.getProductBackgroundImg());
 
         return view;
     }
 
     public static class ViewHolder{
         TextView txtMaterials;
-        ImageView imvMaterialBackGround;
     }
 }

@@ -55,5 +55,8 @@ dependencies {
 
     implementation 'com.google.android.material:material:<version>'
 
+    //start using FlexboxLayout out of the box/ added the alpha version (with the RecyclerView integration)
+    implementation 'com.google.android:flexbox:2.0.1'
+
 
 }

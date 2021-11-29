@@ -9,7 +9,10 @@ public class Product {
     public int productQuantity;
     public int productLike;
 
-    //thêm constructer chỉ có product name va bg, pong làm recipe
+    public Product(String productName) {
+        this.productName = productName;
+    }
+//thêm constructer chỉ có product name va bg, pong làm recipe
 
     public Product(String productName, int productBackgroundImg) {
         this.productName = productName;

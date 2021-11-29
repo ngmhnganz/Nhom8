@@ -73,14 +73,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@android:color/darker_gray"/>
-            <GridView
-                android:id="@+id/grvBot_RecipeMaterial"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvBot_RecipeMaterial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:numColumns="3"
                 android:horizontalSpacing="10dp"
                 android:verticalSpacing="10dp"
-                android:paddingVertical="15dp"/>
+                android:paddingVertical="15dp"
+                app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+
+                />
         </LinearLayout>
 
     </LinearLayout>
@@ -123,14 +125,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@android:color/darker_gray"/>
-            <GridView
-                android:id="@+id/grvSuaKem_RecipeMaterial"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvSuaKem_RecipeMaterial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:numColumns="3"
                 android:horizontalSpacing="10dp"
                 android:verticalSpacing="10dp"
-                android:paddingVertical="15dp"/>
+                android:paddingVertical="15dp"
+                app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+
+                />
         </LinearLayout>
 
     </LinearLayout>
@@ -152,7 +156,7 @@
                 android:paddingVertical="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Bơ"
+                android:text="Bột"
                 android:fontFamily="@font/sfpro_bold"
                 android:textSize="20dp"
                 android:textColor="@color/colorPrimary"
@@ -174,14 +178,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@android:color/darker_gray"/>
-            <GridView
-                android:id="@+id/grvBo_RecipeMaterial"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvBo_RecipeMaterial"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:numColumns="3"
                 android:horizontalSpacing="10dp"
                 android:verticalSpacing="10dp"
-                android:paddingVertical="15dp"/>
+                android:paddingVertical="15dp"
+                app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+
+                />
         </LinearLayout>
 
     </LinearLayout>
