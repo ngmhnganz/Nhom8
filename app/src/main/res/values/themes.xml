@@ -59,4 +59,5 @@
     <style name="UserInfoTextInputLayoutStyle.ExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
         <item name="boxStrokeColor">@color/edt_selector</item>
     </style>
+
 </resources>

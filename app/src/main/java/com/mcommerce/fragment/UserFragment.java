@@ -10,12 +10,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mcommerce.nhom8.auth.LoginActivity;
@@ -75,7 +77,7 @@ public class UserFragment extends Fragment {
 
         txtUserPoint_fmuser.setText("900 điểm");
         txtUserName_fmuser.setText(name);
-        Glide.with(this).load(uri).error(R.drawable.default_ava).into(imv_fmuser);
+        Glide.with(this).load(uri).apply(RequestOptions.circleCropTransform()).error(R.drawable.default_ava).into(imv_fmuser);
     }
 
     private void addEvent() {
@@ -115,4 +117,10 @@ public class UserFragment extends Fragment {
             }
         }
     };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadUserInfo();
+    }
 }
