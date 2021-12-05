@@ -9,5 +9,7 @@
     <color name="colorText">#3F414E</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorSecondaryLightest">#D9D9DC</color>
-    <color name="colorSecondBackground">#F7F7F7</color>
+    <color name="colorSecondBackground">#FAFAFA</color>
+    <color name="colorSecondBackgroundShadow">#CFCFCF</color>
+
 </resources>

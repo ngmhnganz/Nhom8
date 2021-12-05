@@ -107,9 +107,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         //region Lấy dữ liệu Order từ Firebase
         HashMap<String,Integer> itemsOrder = (HashMap<String, Integer>) bundle.getSerializable(Constant.ITEMS_ORDER);
 
-
         //endregion
-
         OrderDetailAdapter orderDetailAdapter = new OrderDetailAdapter(this,itemsOrder);
         rcvListProduct_aOrderDetail.setAdapter(orderDetailAdapter);
 

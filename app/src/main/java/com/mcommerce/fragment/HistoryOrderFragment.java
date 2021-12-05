@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +29,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.OrderAdapter;
 import com.mcommerce.model.OrderModel;
+import com.mcommerce.nhom8.MainActivity;
 import com.mcommerce.nhom8.R;
 
 import java.sql.Timestamp;
@@ -64,6 +67,11 @@ public class HistoryOrderFragment extends Fragment {
     }
 
     private void initAdapter() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+
+        }
+
         //region Lấy dữ liệu Order từ Firebase
         Query query = myRef.child("DonHang").orderByChild("statusOrder").startAt(OrderModel.THANH_CONG).endAt(OrderModel.DA_HUY);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -139,7 +147,7 @@ public class HistoryOrderFragment extends Fragment {
         txtDate_fragmentHistoryOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                materialDatePicker.show(getActivity().getSupportFragmentManager(), "DateRangePicker");
+                materialDatePicker.show(((MainActivity)getActivity()).getSupportFragmentManager(), "DateRangePicker");
                 materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long,Long>>() {
                     @Override
                     public void onPositiveButtonClick(Pair<Long,Long> selection) {
@@ -173,7 +181,6 @@ public class HistoryOrderFragment extends Fragment {
         });
 
         //endregion
-
     }
 
     private void linkview() {
@@ -223,7 +230,6 @@ private void initAdapter() {
 
                 categoryAdapter.setData(listCategory);
                 rcvCategory_allproducts.setAdapter(categoryAdapter);
-
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
