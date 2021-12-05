@@ -11,5 +11,6 @@
     <color name="colorSecondaryLightest">#D9D9DC</color>
     <color name="colorSecondBackground">#FAFAFA</color>
     <color name="colorSecondBackgroundShadow">#CFCFCF</color>
+    <color name="transparent">#00FFFFFF</color>
 
 </resources>

@@ -24,6 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.model.Product;
 import com.mcommerce.nhom8.R;
@@ -62,7 +63,63 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         linkview();
         getData();
+        loadData();
         addEvent();
+    }
+
+    private void linkview() {
+        txtTag_productDetail = findViewById(R.id.txtTag_productDetail);
+        txtName_productDetail = findViewById(R.id.txtName_productDetail);
+        txtDescription_productDetail = findViewById(R.id.txtDescription_productDetail);
+        txtDetail_productDetail = findViewById(R.id.txtDetail_productDetail);
+        txtPrice_productDetail = findViewById(R.id.txtPrice_productDetail);
+
+        imvProduct_productDetail = findViewById(R.id.imvProduct_productDetail);
+
+        btnBack_productDetail = findViewById(R.id.btnBack_productDetail);
+        btnBackOuter_productDetail = findViewById(R.id.btnBackOuter_productDetail);
+        btn_minus = findViewById(R.id.btn_minus);
+        btn_plus = findViewById(R.id.btn_plus);
+
+        edtQuantity_aProductDetail = findViewById(R.id.edtQuantity_aProductDetail);
+
+        btnAddProduct_productDetail = findViewById(R.id.btnAddProduct_productDetail);
+        btnText = btnAddProduct_productDetail.getText().toString();
+    }
+
+    private void getData() {
+        Intent intent = getIntent();
+
+        Bundle bundle = intent.getBundleExtra(Constant.PRODUCT_BUNDLE);
+        product =bundle.getParcelable(Constant.SELECTED_PRODUCTED);
+        txtTag_productDetail.setText(product.getProductType());
+        txtName_productDetail.setText(product.getProductName());
+        txtPrice_productDetail.setText(product.getProductPrice()+" đ");
+        txtDescription_productDetail.setText(product.getProductDescription());
+        txtDetail_productDetail.setText(product.getProductDetail());
+        Glide.with(ProductDetailActivity.this).load(product.getProductImg()).into(imvProduct_productDetail);
+
+    }
+
+    private void loadData() {
+        ref.child(product.getProductID()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                long quantiy;
+                // nếu khách hàng đã từng thêm món này vào cart
+                if (snapshot.getValue()!=null){
+                    // nội dung nút là cập nhật
+                    btnText = "Cập nhật giỏ hàng";
+                    HashMap<String, Object> result = (HashMap<String, Object>) snapshot.getValue();
+                    quantiy = (long) result.get("quantity");
+                    edtQuantity_aProductDetail.setText(quantiy+"");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ProductDetailActivity.this, "Lỗi",Toast.LENGTH_SHORT);
+            }
+        });
     }
 
     private void addEvent() {
@@ -117,23 +174,6 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         }
 
-        ref.child(product.getProductID()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // nếu khách hàng đã từng thêm món này vào cart
-                if (snapshot.getValue()!=null){
-                    // nội dung nút là cập nhật
-                    btnText = "Cập nhật giỏ hàng";
-                    edtQuantity_aProductDetail.setText(snapshot.getValue().toString());
-                }
-
-
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProductDetailActivity.this, "Lỗi",Toast.LENGTH_SHORT);
-            }
-        });
         btnAddProduct_productDetail.setOnClickListener(v -> {
             //nếu edt =0, gán nút = Thêm vào giỏ hàng, remove item khỏi firebase nếu có, btn có nội dung thêm vào giỏ hàng
             if (edtQuantity_aProductDetail.getText().toString().equals("0")) {
@@ -151,7 +191,10 @@ public class ProductDetailActivity extends AppCompatActivity {
                 // nếu thêm vào giỏ hàng thành công
                 // đổi từ "thêm vào" thành "cập nhật" ( nếu có)
                 // thông báo cho người dùng đã thành công
-                ref.child(product.getProductID()).setValue(edtQuantity_aProductDetail.getText().toString());
+                int quantity = Integer.parseInt(edtQuantity_aProductDetail.getText().toString());
+                ref.child(product.getProductID()).child("quantity").setValue(quantity);
+                ref.child(product.getProductID()).child("name").setValue(product.getProductName());
+                ref.child(product.getProductID()).child("price").setValue(product.getProductPrice());
                 Toast.makeText(ProductDetailActivity.this, "Giỏ hàng của bạn đã được cập nhật", Toast.LENGTH_SHORT).show();
                 btnText = btnAddProduct_productDetail.getText().toString();
                 btnText = btnText.replace("Thêm vào giỏ hàng", "Cập nhật giỏ hàng");
@@ -165,45 +208,5 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         });
 
-    }
-
-    private void getData() {
-        Intent intent = getIntent();
-
-        Bundle bundle = intent.getBundleExtra(Constant.PRODUCT_BUNDLE);
-        product =bundle.getParcelable(Constant.SELECTED_PRODUCTED);
-        txtTag_productDetail.setText(product.getProductType());
-        txtName_productDetail.setText(product.getProductName());
-        txtPrice_productDetail.setText(product.getProductPrice()+" đ");
-        txtDescription_productDetail.setText(product.getProductDescription());
-        txtDetail_productDetail.setText(product.getProductDetail());
-        Glide.with(ProductDetailActivity.this).load(product.getProductImg()).into(imvProduct_productDetail);
-
-    }
-
-    private void linkview() {
-        txtTag_productDetail = findViewById(R.id.txtTag_productDetail);
-        txtName_productDetail = findViewById(R.id.txtName_productDetail);
-        txtDescription_productDetail = findViewById(R.id.txtDescription_productDetail);
-        txtDetail_productDetail = findViewById(R.id.txtDetail_productDetail);
-        txtPrice_productDetail = findViewById(R.id.txtPrice_productDetail);
-
-        imvProduct_productDetail = findViewById(R.id.imvProduct_productDetail);
-
-        btnBack_productDetail = findViewById(R.id.btnBack_productDetail);
-        btnBackOuter_productDetail = findViewById(R.id.btnBackOuter_productDetail);
-        btn_minus = findViewById(R.id.btn_minus);
-        btn_plus = findViewById(R.id.btn_plus);
-
-        edtQuantity_aProductDetail = findViewById(R.id.edtQuantity_aProductDetail);
-
-        btnAddProduct_productDetail = findViewById(R.id.btnAddProduct_productDetail);
-        btnText = btnAddProduct_productDetail.getText().toString();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        this.finish();
     }
 }

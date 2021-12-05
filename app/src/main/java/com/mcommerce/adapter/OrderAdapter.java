@@ -14,12 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.mcommerce.model.OrderModel;
+import com.mcommerce.model.Order;
 import com.mcommerce.nhom8.order.OrderDetailActivity;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.interfaces.RecyclerViewItemClickListener;
 import com.mcommerce.util.Constant;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHolder> {
@@ -31,9 +32,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                 type,
                 amount;
     private String s;
-    private List<OrderModel> orderList;
+    private List<Order> orderList;
 
-    public OrderAdapter(Context context, int item_layout, List<OrderModel> orderList, int type) {
+    public OrderAdapter(Context context, int item_layout, List<Order> orderList, int type) {
         this.context = context;
         this.item_layout = item_layout;
         this.orderList = orderList;
@@ -43,23 +44,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
     @NonNull
     @Override
     public OderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = null;
-
-        switch(type) {
-            case HISTORY_ITEM:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_history_order_item,parent,false);
-                break;
-            case COMING_ITEM:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_coming_order_item,parent,false);
-                break;
-        }
+        View view = LayoutInflater.from(parent.getContext()).inflate(item_layout,parent,false);
         return new OderViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull OderViewHolder holder, int position) {
 
-        OrderModel order = orderList.get(position);
+        Order order = orderList.get(position);
 
         if (order == null){
             return;
@@ -68,11 +60,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
         switch (type){
             case COMING_ITEM:
                 amount =0;
+
                 for (String i :  order.getItemOrder().keySet()) {
-                    s = String.valueOf(order.getItemOrder().get(i));
+                    s = String.valueOf(order.getItemOrder().get(i).get("quantity"));
                     amount += Integer.parseInt(s);
                 }
-
                 holder.txtPrice_iComingOrder.setText(""+order.getPriceOrder() +"đ");
 
                 holder.txtAmount_iComingOrder.setText("   |   " + amount +" sản phẩm");
@@ -86,19 +78,19 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                 Glide.with(context).load(order.getImgOrder()).into(holder.imv_iComingOrder);
 
                 switch(order.getStatusOrder()) {
-                    case OrderModel.DAT_HANG_THANH_CONG:
+                    case Order.DAT_HANG_THANH_CONG:
                         holder.txtSatus_iComingOrder.setText("Đặt hàng thành công");
                         break;
-                    case OrderModel.XAC_NHAN:
+                    case Order.XAC_NHAN:
                         holder.txtSatus_iComingOrder.setText("Xác nhận");
                         break;
-                    case OrderModel.CHUAN_BI:
+                    case Order.CHUAN_BI:
                         holder.txtSatus_iComingOrder.setText("Chuẩn bị");
                         break;
-                    case OrderModel.DONG_GOI:
+                    case Order.DONG_GOI:
                         holder.txtSatus_iComingOrder.setText("Đóng gói");
                         break;
-                    case OrderModel.VAN_CHUYEN:
+                    case Order.VAN_CHUYEN:
                         holder.txtSatus_iComingOrder.setText("Vận chuyển");
                         break;
                 }
@@ -106,8 +98,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
 
             case HISTORY_ITEM:
                 amount =0;
+
                 for (String i :  order.getItemOrder().keySet()) {
-                    s = String.valueOf(order.getItemOrder().get(i));
+                    s = String.valueOf(order.getItemOrder().get(i).get("quantity"));
                     amount += Integer.parseInt(s);
                 }
 
@@ -123,11 +116,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                 Glide.with(context).load(order.getImgOrder()).into(holder.imv_iHistoryOrder);
 
                 switch(order.getStatusOrder()) {
-                    case OrderModel.THANH_CONG:
+                    case Order.THANH_CONG:
                         holder.txtStatus_iHistoryOrder.setText("Hoàn thành");
                         holder.imvStatus_iHistoryOrder.setImageResource(R.drawable.ic_check_circle_fill);
                         break;
-                    case OrderModel.DA_HUY:
+                    case Order.DA_HUY:
                         holder.txtStatus_iHistoryOrder.setText("Đã hủy");
                         holder.imvStatus_iHistoryOrder.setImageResource(R.drawable.ic_x_circle_fill);
                         break;
@@ -141,7 +134,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                 Intent intent= new Intent(context, OrderDetailActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Constant.SELECTED_ORDER,order);
-                bundle.putSerializable(Constant.ITEMS_ORDER,order.getItemOrder());
+                bundle.putSerializable(Constant.ITEMS_ORDER, (Serializable) order.getItemOrder());
                 intent.putExtra(Constant.ORDER_BUNDLE,bundle);
                 context.startActivity(intent);
             }

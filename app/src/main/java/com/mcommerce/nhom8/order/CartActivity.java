@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -44,7 +45,8 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
         linkview();
-        setAdapter();
+        loadData();
+        addEvent();
     }
 
     private void linkview() {
@@ -56,21 +58,21 @@ public class CartActivity extends AppCompatActivity {
         imvCartEmpty_aCart= findViewById(R.id.imvCartEmpty_aCart);
     }
 
-    private void setAdapter() {
+    private void loadData() {
 
         if (user == null) {
-
+            return;
         } else {
             ProgressDialog progressDialog = new ProgressDialog(CartActivity.this);
             progressDialog.show();
-            myRef = firebaseDatabase.getReference().child("User");
-            myRef.child(user.getUid()).child("userCart").addListenerForSingleValueEvent(new ValueEventListener() {
+            myRef = firebaseDatabase.getReference().child("User").child(user.getUid()).child("userCart");
+            myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Map<String,Integer> cartList = (Map<String, Integer>) snapshot.getValue();
+                    Map<String,HashMap<String,?>> cartList = (Map<String, HashMap<String,?>>) snapshot.getValue();
                     if (cartList != null) {
-                       Map<String, Integer> sortedMap = new TreeMap<String, Integer>(cartList);
-                       adapter = new CartAdapter(CartActivity.this,sortedMap);
+                       Map<String, HashMap<String,?>> sortedMap = new TreeMap<String, HashMap<String,?>>(cartList);
+                       adapter = new CartAdapter(CartActivity.this,sortedMap,R.layout.layout_cart_item);
                        imvCartEmpty_aCart.setVisibility(View.GONE);
 
                     } else {
@@ -78,7 +80,6 @@ public class CartActivity extends AppCompatActivity {
                        imvCartEmpty_aCart.setVisibility(View.VISIBLE);
                     }
                     progressDialog.dismiss();
-
                     rcv_aCart.setAdapter(adapter);
 
                }
@@ -88,6 +89,12 @@ public class CartActivity extends AppCompatActivity {
                }
            });
         }
+    }
+
+    private void addEvent() {
+        btnPayment_aCart.setOnClickListener(v -> {
+            startActivity(new Intent(CartActivity.this, PaymentActivity.class));
+        });
         txtDeleteAll_aCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,9 +115,7 @@ public class CartActivity extends AppCompatActivity {
                     }
                 });
                 builder.create().show();
-
             }
         });
-
     }
 }

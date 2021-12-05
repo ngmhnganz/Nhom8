@@ -20,7 +20,7 @@
         android:theme="@style/Theme.Nhom8">
         <activity
             android:name=".order.PaymentActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".order.CartActivity"
             android:exported="true" />

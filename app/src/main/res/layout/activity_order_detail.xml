@@ -325,6 +325,36 @@
                         android:textColor="@color/colorText" />
 
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:id="@+id/llTitleDiscount_aOrderDetail"
+                    android:visibility="gone"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="7"
+                        android:fontFamily="@font/sfpro_medium"
+                        android:text="Khuyến mãi"
+                        android:textColor="@color/colorText" />
+
+                    <TextView
+                        android:id="@+id/txtDiscount_aOrderDetail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="3"
+
+                        android:fontFamily="@font/sfpro_medium"
+                        android:gravity="end"
+                        android:text="15.000 đ"
+                        android:textColor="@color/colorText" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/layoutDiscount"
