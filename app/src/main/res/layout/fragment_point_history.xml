@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorSecondBackground">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="14dp"
+        android:stretchColumns="1,2,3">
+<!-- Table Heading -->
+        <TableRow
+            android:background="@color/colorSecondaryLightest">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/ngay"
+                android:textColor="#22313F"
+                android:textSize="14sp"
+                android:layout_column="1"
+                android:gravity="center"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/hoadon"
+                android:textColor="#22313F"
+                android:textSize="14sp"
+                android:layout_column="1"
+                android:gravity="center"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/Points"
+                android:textColor="#22313F"
+                android:textSize="14sp"
+                android:layout_column="1"
+                android:gravity="center"
+                />
+
+        </TableRow>
+        <!-- Data -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rcv_PointsHistory">
+
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+
+    </TableLayout>
+
+
+
+</LinearLayout>

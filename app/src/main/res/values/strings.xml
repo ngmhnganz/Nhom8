@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Nhom8</string>
+    <string name="ngay">Ngày</string>
+    <string name="hoadon">Hóa đơn</string>
+    <string name="Points">Điểm tích lũy</string>
 
 </resources>

@@ -81,6 +81,7 @@ public class UserFragment extends Fragment {
     private void addEvent() {
 
         llUserInfo_fmuser.setOnClickListener(goToContentActivity);
+        llPoint_fmuser.setOnClickListener(pointsHistory);
 
         if (user == null) {
             btnLogout_fmuser.setOnClickListener(signin);
@@ -104,6 +105,15 @@ public class UserFragment extends Fragment {
         public void onClick(View v) {
             startActivity(new Intent(getActivity(), LoginActivity.class));
             getActivity().finish();
+        }
+    };
+
+    View.OnClickListener pointsHistory = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if (v.getId() == R.id.llPoint_fmuser){
+                startActivity(new Intent(getActivity(), PointsHistoryFragment.class));
+            }
         }
     };
 
