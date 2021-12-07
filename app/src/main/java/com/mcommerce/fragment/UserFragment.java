@@ -33,7 +33,7 @@ public class UserFragment extends Fragment {
                 llPoint_fmuser,
                 llUserInfo_fmuser;
     private TextView    txtUserName_fmuser,
-                txtUserPoint_fmuser;
+                        txtUserPoint_fmuser;
 
     private ImageView imv_fmuser;
     private Button btnLogout_fmuser;

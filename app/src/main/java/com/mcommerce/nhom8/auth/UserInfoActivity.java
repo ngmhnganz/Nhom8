@@ -128,9 +128,21 @@ public class UserInfoActivity extends AppCompatActivity {
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                inpUserBirthday_aUserInfo.getEditText().setText(snapshot.child("userBirthday").getValue().toString());
-                inpUserAdress_aUserInfo.getEditText().setText(snapshot.child("userAddress").getValue().toString());
-                txtGender.setText(snapshot.child("userGender").getValue().toString(), false);
+                String birthday = null;
+                String address = null;
+                String gender = null;
+                if (snapshot.child("userBirthday").getValue() != null){
+                    birthday = snapshot.child("userBirthday").getValue().toString();
+                }
+                if (snapshot.child("userAddress").getValue() != null){
+                    address = snapshot.child("userAddress").getValue().toString();
+                }
+                if (snapshot.child("userGender").getValue() != null){
+                    gender = snapshot.child("userGender").getValue().toString();
+                }
+                inpUserBirthday_aUserInfo.getEditText().setText(birthday);
+                inpUserAdress_aUserInfo.getEditText().setText(address != null ? address : "");
+                txtGender.setText(gender != null? gender : "", false);
             }
 
             @Override

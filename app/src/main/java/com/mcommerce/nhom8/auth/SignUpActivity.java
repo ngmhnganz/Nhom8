@@ -127,12 +127,7 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 } else {
                     inpPhone_aSignUp.setErrorEnabled(false);
-                    phone =s.toString().trim();
-
-                    if (phone.startsWith("0")) {
-                        phone = phone.substring(1,phone.length()-1);
-                    }
-                    phone = "+84"+phone;
+                    phone =inpPhone_aSignUp.toString().trim();
                 }
             }
 
@@ -244,6 +239,11 @@ public class SignUpActivity extends AppCompatActivity {
 
                                 }
                             });*/
+                            phone= inpPhone_aSignUp.getEditText().getText().toString();
+                            if (phone.startsWith("0")) {
+                                phone = phone.substring(1,phone.length());
+                            }
+                            phone = "+84"+phone;
                             sendOTP(phone);
                         }
                     }

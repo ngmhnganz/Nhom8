@@ -15,6 +15,7 @@ public class PaymentActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment);
         linkview();
         loadUI();
+
     }
 
     private void loadUI() {
@@ -27,4 +28,9 @@ public class PaymentActivity extends AppCompatActivity {
         layoutContainer = findViewById(R.id.layoutContainer);
    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
 }

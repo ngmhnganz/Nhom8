@@ -36,7 +36,9 @@ import java.util.HashMap;
 import java.util.Locale;
 
 public class ConfirmOrderFragment extends Fragment {
-
+    public static final String ADDRESS = "address";
+    public static final String PHONE = "phone";
+    public static final String NAME = "name";
     View view;
 
     Button btnPayment;
@@ -74,6 +76,12 @@ public class ConfirmOrderFragment extends Fragment {
         linkView();
         loadData();
         addEvent();
+        Bundle receiveBundle = getArguments();
+        if (receiveBundle!= null){
+            txtAddress.setText(receiveBundle.getString(ADDRESS));
+            txtPhone.setText(receiveBundle.getString(PHONE));
+            txtName.setText(receiveBundle.getString(NAME));
+        }
         return view;
     }
 
@@ -107,6 +115,7 @@ public class ConfirmOrderFragment extends Fragment {
                     userSnapshot = snapshot.child("User").child(user.getUid());
                     mUser = userSnapshot.getValue(User.class);
                     cartList = (HashMap<String, HashMap<String, ?>>) mUser.getUserCart();
+
                     if (cartList != null){
                         productSnapshot = snapshot.child("NguyenLieu").child(cartList.keySet().toArray()[0].toString()).child("productImg");
                         product.setProductImg(productSnapshot.getValue().toString());
@@ -150,7 +159,6 @@ public class ConfirmOrderFragment extends Fragment {
         txtTamTinh.setText(sum+" đ");
         ship = 15000L;
         point = mUser.getUserPoint();
-        mUser.setUserPoint(point);
 
         total = sum+ship;
         txtTotal.setText(total+" đ");
@@ -185,7 +193,7 @@ public class ConfirmOrderFragment extends Fragment {
         });
 
         btnPayment.setOnClickListener(v -> {
-            if (mUser.getUserAddress() == null){
+            if (txtAddress.getText().toString().equals("")){
                 // thực hiện màn hình nhập địa chỉ
             } else {
                 if (radCash.isChecked()){
@@ -193,17 +201,32 @@ public class ConfirmOrderFragment extends Fragment {
                 }
             }
         });
+        txtAddress.setOnClickListener(editInfomation);
 
-        txtChangeInfo.setOnClickListener( v -> {
-            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.layoutContainer, new ChangeCustomerFragment())
-                    .commit();
-        });
+        txtChangeInfo.setOnClickListener(editInfomation);
+
     }
+
+    View.OnClickListener editInfomation = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            Bundle bundle = new Bundle();
+            if (txtAddress.getText().toString().equals("Vui lòng chọn địa chỉ")) {
+                bundle.putString(ADDRESS, null);
+
+            } else bundle.putString(ADDRESS, txtAddress.getText().toString());
+            bundle.putString(PHONE, phone);
+            bundle.putString(NAME, name);
+            ChangeCustomerFragment changeCustomerFragment = new ChangeCustomerFragment();
+            changeCustomerFragment.setArguments(bundle);
+            fragmentManager.beginTransaction().replace(R.id.layoutContainer, changeCustomerFragment).addToBackStack(ChangeCustomerFragment.TAG).commit();
+        }
+    };
 
     private void createrOrder() {
         Order order = new Order();
-        order.setAddOrder(address);
+        order.setAddOrder(txtAddress.getText().toString());
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         Timestamp ts = new Timestamp(date.getTime());
