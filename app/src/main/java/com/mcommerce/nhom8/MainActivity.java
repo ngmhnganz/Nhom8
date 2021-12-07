@@ -65,15 +65,18 @@ public class MainActivity extends AppCompatActivity {
         switch (intentFragment){
             case HOME_FRAGMENT:
                 loadFragment(new HomeFragment());
+                bottomNavigation.setSelectedItemId(R.id.menu_home);
                 break;
             case LIKE_FRAGMENT:
 //
                 break;
             case ORDER_FRAGMENT:
                 loadFragment(new OrderFragment());
+                bottomNavigation.setSelectedItemId(R.id.menu_order);
                 break;
             case USER_FRAGMENT:
                 loadFragment(new UserFragment());
+                bottomNavigation.setSelectedItemId(R.id.menu_person);
                 break;
             case 0:
                 loadFragment(new HomeFragment());

@@ -22,6 +22,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.CartAdapter;
 import com.mcommerce.model.Order;
@@ -154,20 +155,16 @@ public class ConfirmOrderFragment extends Fragment {
         //region thông tin thanh toán
         sum=0L;
         for (HashMap<String, ?> i: cartList.values()) {
-            sum = sum + (long) i.get("quantity") * (long) i.get("price");
+            if (i.get("quantity") != null && i.get("price") != null){
+                sum = sum + (long) i.get("quantity") * (long) i.get("price");
+            }
         }
         txtTamTinh.setText(sum+" đ");
         ship = 15000L;
-        point = mUser.getUserPoint();
-
         total = sum+ship;
         txtTotal.setText(total+" đ");
-        discount = (sum+ship-point*10) < 0 ? (sum+ship) : point*10;
 
-        txtDiscount.setText(discount+" đ");
-        txtPoint.setText("Áp dụng "+discount/10+" điểm tích lũy");
-
-        if (point==0L){
+        if (mUser.getUserPoint()==0L){
             txtDiscount.setVisibility(View.GONE);
             txtDiscountTitle.setVisibility(View.GONE);
             swUsePoint.setVisibility(View.GONE);
@@ -178,10 +175,17 @@ public class ConfirmOrderFragment extends Fragment {
     private void addEvent() {
         swUsePoint.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
+                discount = (sum+ship- mUser.getUserPoint()*10) < 0 ? (sum+ship) :  mUser.getUserPoint()*10;
+                point = discount <  mUser.getUserPoint()*10 ? discount/10 :  mUser.getUserPoint();
                 total = sum+ship-discount;
+
                 txtPoint.setVisibility(View.VISIBLE);
                 txtDiscount.setVisibility(View.VISIBLE);
+                txtDiscount.setText(discount+" đ");
                 txtDiscountTitle.setVisibility(View.VISIBLE);
+
+                txtPoint.setText("Áp dụng "+point+" điểm tích lũy");
+
                 txtTotal.setText(total+" đ");
             } else {
                 total = sum+ship;
@@ -237,15 +241,15 @@ public class ConfirmOrderFragment extends Fragment {
         } else {
             order.setDiscountOrder((int) discount);
         }
+
         order.setIdOrder(user.getUid()+ts.getTime());
         order.setItemOrder(cartList);
         order.setPaymentOrder(Order.CASH);
-        order.setPriceOrder(total);
+        order.setPriceOrder(sum);
         order.setStatusOrder(Order.DAT_HANG_THANH_CONG);
         order.setUidOrder(user.getUid());
         order.setImgOrder(product.getProductImg());
         order.setShippingFeeOrder(ship);
-
 
         ref = firebaseDatabase.getReference().child("DonHang").child(order.getIdOrder());
         ref.setValue(order).addOnSuccessListener(task -> {
@@ -254,14 +258,20 @@ public class ConfirmOrderFragment extends Fragment {
             ref.removeValue();
 
             order.setUidOrder(null);
-            ref = firebaseDatabase.getReference().child("User").child(user.getUid()).child("userOrder").child(order.getIdOrder());
-            ref.setValue(order);
+            ref = firebaseDatabase.getReference().child("User").child(user.getUid());
+            ref.child("userOrder").child(order.getIdOrder()).setValue(order);
+
+            if (order.getDiscountOrder()==0){
+                ref.child("userPoint").setValue(ServerValue.increment(sum/100));
+            } else {
+                ref.child("userPoint").setValue(ServerValue.increment(-point));
+            }
 
             Intent intent = new Intent(getActivity(), MainActivity.class);
             intent.putExtra(MainActivity.SELECTED_FRAGMENT,MainActivity.ORDER_FRAGMENT);
             startActivity(intent);
             Toast.makeText(getActivity(), "Đặt hàng thành công", Toast.LENGTH_SHORT).show();
-            getActivity().finish();
+            getActivity().finishAffinity();
         });
     }
 }
