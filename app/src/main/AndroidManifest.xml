@@ -14,6 +14,11 @@
         <activity
             android:name=".ListRecipeActivity"
             android:exported="true">
+
+        </activity>
+        <activity
+            android:name=".SuggestRecipeActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,11 +26,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SuggestRecipeActivity"
-            android:exported="true" />
-        <activity
             android:name=".EachRecipeActivity"
             android:exported="true">
+
 
         </activity>
         <activity

@@ -1,56 +1,88 @@
 package com.mcommerce.nhom8;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.mcommerce.adapter.RecipeMaterialAdapter;
+import com.google.android.flexbox.FlexDirection;
+import com.google.android.flexbox.FlexWrap;
+import com.google.android.flexbox.FlexboxLayoutManager;
+import com.google.android.flexbox.JustifyContent;
+import com.mcommerce.adapter.RecipeMaterialAdapterRCV;
 import com.mcommerce.model.Product;
+import com.mcommerce.utils.SpacingItemDecorator;
 
 import java.util.ArrayList;
 
 public class SuggestRecipeActivity extends AppCompatActivity {
-    GridView grvBot_RecipeMaterial,grvSua_RecipeMaterial,grvBo_RecipeMaterial;
-    ImageView imvDropDownBot_SuggestRecipe,imvDropDownSuaKem_SuggestRecipe,imvDropDownBo_SuggestRecipe;
-    RecipeMaterialAdapter adapterBot,adapterSuaKem,adapterBo;
-    ArrayList<Product> materialsBot,materialsSuaKem,materialsBo;
-    LinearLayout llBot_RecipeMaterial,llSua_RecipeMaterial,llBo_RecipeMaterial;
+
+    RecyclerView rcvBot_RecipeMaterial,rcvSuaKem_RecipeMaterial,rcvBo_RecipeMaterial,rcvKhac_RecipeMaterial;
+    ImageView imvDropDownBot_SuggestRecipe, imvDropDownSuaKem_SuggestRecipe, imvDropDownBo_SuggestRecipe,imvDropDownKhac_SuggestRecipe;
+    ArrayList<Product> materialsBot, materialsSuaKem, materialsBo,materialsKhac;
+    LinearLayout llBot_RecipeMaterial, llSua_RecipeMaterial, llBo_RecipeMaterial,llKhac_RecipeMaterial;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggest_recipe);
         linkViews();
+        configRCV();
         addEvents();
         initData();
         initAdapter();
     }
 
     private void linkViews() {
-        grvBot_RecipeMaterial=findViewById(R.id.grvBot_RecipeMaterial);
-        grvSua_RecipeMaterial=findViewById(R.id.grvSuaKem_RecipeMaterial);
-        grvBo_RecipeMaterial=findViewById(R.id.grvBo_RecipeMaterial);
+        rcvBot_RecipeMaterial = findViewById(R.id.rcvBot_RecipeMaterial);
+        rcvSuaKem_RecipeMaterial=findViewById(R.id.rcvSuaKem_RecipeMaterial);
+        rcvBo_RecipeMaterial=findViewById(R.id.rcvBo_RecipeMaterial);
+        rcvKhac_RecipeMaterial=findViewById(R.id.rcvKhac_RecipeMaterial);
 
-        llBot_RecipeMaterial=findViewById(R.id.llBot_RecipeMaterial);
-        llSua_RecipeMaterial=findViewById(R.id.llSuaKem_RecipeMaterial);
-        llBo_RecipeMaterial=findViewById(R.id.llBo_RecipeMaterial);
 
-        imvDropDownBot_SuggestRecipe=findViewById(R.id.imvDropDownBot_SuggestRecipe);
-        imvDropDownSuaKem_SuggestRecipe=findViewById(R.id.imvDropDownSuaKem_SuggestRecipe);
-        imvDropDownBo_SuggestRecipe=findViewById(R.id.imvDropDownBo_SuggestRecipe);
+        llBot_RecipeMaterial = findViewById(R.id.llBot_RecipeMaterial);
+        llSua_RecipeMaterial = findViewById(R.id.llSuaKem_RecipeMaterial);
+        llBo_RecipeMaterial = findViewById(R.id.llBo_RecipeMaterial);
+        llKhac_RecipeMaterial = findViewById(R.id.llKhac_RecipeMaterial);
+
+        imvDropDownBot_SuggestRecipe = findViewById(R.id.imvDropDownBot_SuggestRecipe);
+        imvDropDownSuaKem_SuggestRecipe = findViewById(R.id.imvDropDownSuaKem_SuggestRecipe);
+        imvDropDownBo_SuggestRecipe = findViewById(R.id.imvDropDownBo_SuggestRecipe);
+        imvDropDownKhac_SuggestRecipe = findViewById(R.id.imvDropDownKhac_SuggestRecipe);
+    }
+
+    private void configRCV() {
+        configRecyclerView(rcvBot_RecipeMaterial);
+        configRecyclerView(rcvSuaKem_RecipeMaterial);
+        configRecyclerView(rcvBo_RecipeMaterial);
+        configRecyclerView(rcvKhac_RecipeMaterial);
+    }
+
+    public void configRecyclerView(RecyclerView rcv) {
+
+        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
+        layoutManager.setFlexWrap(FlexWrap.WRAP);
+        //layoutManager.setJustifyContent(JustifyContent.CENTER);
+        rcv.setLayoutManager(layoutManager);
+
+        SpacingItemDecorator itemDecorator=new SpacingItemDecorator(25);
+        rcv.addItemDecoration(itemDecorator);
     }
 
     private void addEvents() {
         imvDropDownBot_SuggestRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(llBot_RecipeMaterial.getVisibility()==view.VISIBLE){
+                if (llBot_RecipeMaterial.getVisibility() == view.VISIBLE) {
                     llBot_RecipeMaterial.setVisibility(View.GONE);
                     imvDropDownBot_SuggestRecipe.setImageResource(R.drawable.ic_arrow_down_24);
-                }else {
+                } else {
                     llBot_RecipeMaterial.setVisibility(View.VISIBLE);
                     imvDropDownBot_SuggestRecipe.setImageResource(R.drawable.ic__arrow_up_24);
                 }
@@ -60,10 +92,10 @@ public class SuggestRecipeActivity extends AppCompatActivity {
         imvDropDownSuaKem_SuggestRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(llSua_RecipeMaterial.getVisibility()==view.VISIBLE){
+                if (llSua_RecipeMaterial.getVisibility() == view.VISIBLE) {
                     llSua_RecipeMaterial.setVisibility(View.GONE);
                     imvDropDownSuaKem_SuggestRecipe.setImageResource(R.drawable.ic_arrow_down_24);
-                }else {
+                } else {
                     llSua_RecipeMaterial.setVisibility(View.VISIBLE);
                     imvDropDownSuaKem_SuggestRecipe.setImageResource(R.drawable.ic__arrow_up_24);
                 }
@@ -73,49 +105,68 @@ public class SuggestRecipeActivity extends AppCompatActivity {
         imvDropDownBo_SuggestRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(llBo_RecipeMaterial.getVisibility()==view.VISIBLE){
+                if (llBo_RecipeMaterial.getVisibility() == view.VISIBLE) {
                     llBo_RecipeMaterial.setVisibility(View.GONE);
                     imvDropDownBo_SuggestRecipe.setImageResource(R.drawable.ic_arrow_down_24);
-                }else {
+                } else {
                     llBo_RecipeMaterial.setVisibility(View.VISIBLE);
                     imvDropDownBo_SuggestRecipe.setImageResource(R.drawable.ic__arrow_up_24);
+                }
+            }
+        });
+
+        imvDropDownKhac_SuggestRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (llKhac_RecipeMaterial.getVisibility() == view.VISIBLE) {
+                    llKhac_RecipeMaterial.setVisibility(View.GONE);
+                    imvDropDownKhac_SuggestRecipe.setImageResource(R.drawable.ic_arrow_down_24);
+                } else {
+                    llKhac_RecipeMaterial.setVisibility(View.VISIBLE);
+                    imvDropDownKhac_SuggestRecipe.setImageResource(R.drawable.ic__arrow_up_24);
                 }
             }
         });
     }
 
     private void initData() {
-        materialsBot=new ArrayList<Product>();
-        materialsBot.add(new Product("Bột mì",R.drawable.background_listproduct));
-        materialsBot.add(new Product("Bột bắp",R.drawable.background_listproduct));
-        materialsBot.add(new Product("Bột năng",R.drawable.background_listproduct));
-        materialsBot.add(new Product("Bột cacao",R.drawable.background_listproduct));
-        materialsBot.add(new Product("Bột nếp",R.drawable.background_listproduct));
-        materialsBot.add(new Product("Bột matcha",R.drawable.background_listproduct));
+        materialsBot = new ArrayList<Product>();
+        materialsBot.add(new Product("Bột mì"));
+        materialsBot.add(new Product("Bột năng dẻo"));
+        materialsBot.add(new Product("Bột Cacao thơm"));
+        materialsBot.add(new Product("Bột nếp mlem"));
+        materialsBot.add(new Product("Bột matcha ngon quá trời quá đất"));
 
-        materialsSuaKem=new ArrayList<Product>();
-        materialsSuaKem.add(new Product("Sữa tươi",R.drawable.background_listproduct));
-        materialsSuaKem.add(new Product("Sữa đặc",R.drawable.background_listproduct));
-        materialsSuaKem.add(new Product("Sữa béo",R.drawable.background_listproduct));
-        materialsSuaKem.add(new Product("Sữa hạt",R.drawable.background_listproduct));
-        materialsSuaKem.add(new Product("Sữa chua",R.drawable.background_listproduct));
-        materialsSuaKem.add(new Product("Whipping",R.drawable.background_listproduct));
-        materialsSuaKem.add(new Product("Topping",R.drawable.background_listproduct));
+        materialsSuaKem = new ArrayList<Product>();
+        materialsSuaKem.add(new Product("Sữa tươi"));
+        materialsSuaKem.add(new Product("Sữa đặc"));
+        materialsSuaKem.add(new Product("Sữa béo"));
+        materialsSuaKem.add(new Product("Sữa hạt"));
+        materialsSuaKem.add(new Product("Sữa chua"));
+        materialsSuaKem.add(new Product("Whipping"));
+        materialsSuaKem.add(new Product("Topping"));
 
-        materialsBo=new ArrayList<Product>();
-        materialsBo.add(new Product("Bơ lạt",R.drawable.background_listproduct));
-        materialsBo.add(new Product("Bơ mặn",R.drawable.background_listproduct));
-        materialsBo.add(new Product("Bơ thực vật",R.drawable.background_listproduct));
+        materialsBo = new ArrayList<Product>();
+        materialsBo.add(new Product("Bơ lạt"));
+        materialsBo.add(new Product("Bơ mặn"));
+        materialsBo.add(new Product("Bơ thực vật"));
+
+        materialsKhac = new ArrayList<Product>();
+        materialsKhac.add(new Product("Men nở"));
+        materialsKhac.add(new Product("Baking soda"));
+        materialsKhac.add(new Product("Trứng gà"));
     }
 
     private void initAdapter() {
-        adapterBot=new RecipeMaterialAdapter(SuggestRecipeActivity.this,R.layout.item_recipe_material_layout,materialsBot);
-        grvBot_RecipeMaterial.setAdapter(adapterBot);
-
-        adapterSuaKem=new RecipeMaterialAdapter(SuggestRecipeActivity.this,R.layout.item_recipe_material_layout,materialsSuaKem);
-        grvSua_RecipeMaterial.setAdapter(adapterSuaKem);
-
-        adapterBo=new RecipeMaterialAdapter(SuggestRecipeActivity.this,R.layout.item_recipe_material_layout,materialsBo);
-        grvBo_RecipeMaterial.setAdapter(adapterBo);
+        initAdapterfor(rcvBot_RecipeMaterial,materialsBot);
+        initAdapterfor(rcvSuaKem_RecipeMaterial,materialsSuaKem);
+        initAdapterfor(rcvBo_RecipeMaterial,materialsBo);
+        initAdapterfor(rcvKhac_RecipeMaterial,materialsKhac);
     }
+
+    private void initAdapterfor(RecyclerView recyclerView, ArrayList<Product> materials) {
+        RecipeMaterialAdapterRCV adapter=new RecipeMaterialAdapterRCV(SuggestRecipeActivity.this,materials);
+        recyclerView.setAdapter(adapter);
+    }
+
 }

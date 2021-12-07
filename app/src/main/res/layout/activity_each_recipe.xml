@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
-        android:paddingHorizontal="10dp">
+        android:paddingHorizontal="15dp">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -136,14 +136,15 @@
                 android:orientation="vertical"
                 android:background="@drawable/each_recipe_image_corner_radius"
                 android:layout_marginTop="5dp">
-                <com.mcommerce.ExpandableHeightGridView
-                    android:id="@+id/grvRecipeMaterial"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvRecipeMaterial_EachRecipe"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/llMaterialLable"
-                    android:numColumns="3"
                     android:horizontalSpacing="10dp"
-                    android:verticalSpacing="10dp"
+                    android:verticalSpacing="12dp"
+
+                    app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+                    android:layout_marginTop="7dp"
                     />
                 <Button
                     android:id="@+id/btnAddToCart_Recipe"
@@ -156,7 +157,8 @@
                     android:background="@drawable/background_pressed_material"
                     android:textColor="@android:color/white"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"/>
+                    android:textSize="12dp"
+                    />
             </LinearLayout>
 
 
