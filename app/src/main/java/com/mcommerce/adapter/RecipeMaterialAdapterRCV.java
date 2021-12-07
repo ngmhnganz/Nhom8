@@ -42,7 +42,8 @@ public class RecipeMaterialAdapterRCV extends RecyclerView.Adapter<RecipeMateria
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //biding dữ liệu
         holder.txtRecipeMaterialName.setText(materials.get(position).getProductName());
-
+//      selector cho checkbox đổi thành checkbox
+//
 //        //flexGrow works like the weight attribute in horizontal LinearLayouts
 //        ViewGroup.LayoutParams layoutParams=holder.txtRecipeMaterialName.getLayoutParams();
 //        if(layoutParams instanceof FlexboxLayoutManager.LayoutParams){

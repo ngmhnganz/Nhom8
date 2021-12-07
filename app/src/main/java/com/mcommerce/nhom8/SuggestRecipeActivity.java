@@ -23,10 +23,23 @@ import java.util.ArrayList;
 
 public class SuggestRecipeActivity extends AppCompatActivity {
 
-    RecyclerView rcvBot_RecipeMaterial,rcvSuaKem_RecipeMaterial,rcvBo_RecipeMaterial,rcvKhac_RecipeMaterial;
-    ImageView imvDropDownBot_SuggestRecipe, imvDropDownSuaKem_SuggestRecipe, imvDropDownBo_SuggestRecipe,imvDropDownKhac_SuggestRecipe;
-    ArrayList<Product> materialsBot, materialsSuaKem, materialsBo,materialsKhac;
-    LinearLayout llBot_RecipeMaterial, llSua_RecipeMaterial, llBo_RecipeMaterial,llKhac_RecipeMaterial;
+    RecyclerView
+            rcvBot_RecipeMaterial,
+            rcvSuaKem_RecipeMaterial,
+            rcvBo_RecipeMaterial,
+            rcvKhac_RecipeMaterial;
+    ImageView imvDropDownBot_SuggestRecipe,
+            imvDropDownSuaKem_SuggestRecipe,
+            imvDropDownBo_SuggestRecipe,
+            imvDropDownKhac_SuggestRecipe;
+    ArrayList<Product> materialsBot,
+            materialsSuaKem,
+            materialsBo,
+            materialsKhac;
+    LinearLayout llBot_RecipeMaterial,
+            llSua_RecipeMaterial,
+            llBo_RecipeMaterial,
+            llKhac_RecipeMaterial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
