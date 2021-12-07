@@ -15,7 +15,6 @@ import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
-import com.mcommerce.adapter.RecipeMaterialAdapter;
 import com.mcommerce.adapter.RecipeMaterialAdapterRCV;
 import com.mcommerce.model.Product;
 import com.mcommerce.utils.SpacingItemDecorator;
@@ -26,7 +25,6 @@ public class SuggestRecipeActivity extends AppCompatActivity {
 
     RecyclerView rcvBot_RecipeMaterial,rcvSuaKem_RecipeMaterial,rcvBo_RecipeMaterial,rcvKhac_RecipeMaterial;
     ImageView imvDropDownBot_SuggestRecipe, imvDropDownSuaKem_SuggestRecipe, imvDropDownBo_SuggestRecipe,imvDropDownKhac_SuggestRecipe;
-    RecipeMaterialAdapterRCV adapterBot, adapterSuaKem, adapterBo,adapterKhac;
     ArrayList<Product> materialsBot, materialsSuaKem, materialsBo,materialsKhac;
     LinearLayout llBot_RecipeMaterial, llSua_RecipeMaterial, llBo_RecipeMaterial,llKhac_RecipeMaterial;
 

@@ -16,8 +16,6 @@ import android.widget.TextView;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
 import com.google.android.flexbox.JustifyContent;
-import com.mcommerce.ExpandableHeightGridView;
-import com.mcommerce.adapter.RecipeMaterialAdapter;
 import com.mcommerce.adapter.RecipeMaterialAdapterRCV;
 import com.mcommerce.model.Product;
 import com.mcommerce.utils.SpacingItemDecorator;
@@ -71,15 +69,8 @@ public class EachRecipeActivity extends AppCompatActivity {
         imvDropDownMaterial.setOnClickListener(clickSetVisibility);
         txtPreparedMaterials_Recipe.setOnClickListener(clickSetVisibility);
 
-//        //khi click vào item trên grid view => đồng thời đổi màu + lưu list sp người dùng chọn
-//        grvRecipeMaterial.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-////                Product p= (Product) grvRecipeMaterial.getItemAtPosition(i);
-////                p.setProductBackgroundImg(R.drawable.background_pressed_material);
-//
-//            }
-//        });
+//        //khi click vào item trên rcv view => đồng thời đổi màu + lưu list sp người dùng chọn
+//        rcvRecipeMaterial.setOnItemClickListener
     }
 
      View.OnClickListener clickSetVisibility=new View.OnClickListener() {
@@ -107,35 +98,5 @@ public class EachRecipeActivity extends AppCompatActivity {
     private void initAdapter() {
         adapterRecipeMaterial=new RecipeMaterialAdapterRCV(EachRecipeActivity.this,materials);
         rcvRecipeMaterial.setAdapter(adapterRecipeMaterial);
-        //grvRecipeMaterial.setExpanded(true); //dat grv trong scrollview
     }
-
-//    //Đặt gridview trong scrollview
-//    public void setGridViewHeightBasedOnChildren(GridView gridView, int columns) {
-//        ListAdapter listAdapter = gridView.getAdapter();
-//        if (listAdapter == null) {
-//            // pre-condition
-//            return;
-//        }
-//
-//        int totalHeight = 0;
-//        int items = listAdapter.getCount();
-//        int rows = 0;
-//
-//        View listItem = listAdapter.getView(0, null, gridView);
-//        listItem.measure(0, 0);
-//        totalHeight = listItem.getMeasuredHeight();
-//
-//        float x = 1;
-//        if( items > columns ){
-//            x = items/columns;
-//            rows = (int) (x + 1);
-//            totalHeight *= rows;
-//        }
-//
-//        ViewGroup.LayoutParams params = gridView.getLayoutParams();
-//        params.height = totalHeight;
-//        gridView.setLayoutParams(params);
-//
-//    }
 }
