@@ -52,6 +52,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             case PRODUCT:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_listproduct_layout,parent,false);
                 break;
+
         }
 
         return new ProductViewHolder(view) ;
@@ -67,7 +68,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         switch (type){
             case PRODUCT:
-
                 Glide.with(context).load(product.getProductImg()).into(holder.imvProduct_listProduct);
 
                 holder.txtproductName_listProduct.setText(product.getProductName());
@@ -83,16 +83,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                         context.startActivity(intent);
                     }
                 });
-
                 break;
+
             case CATEGORY:
                 Glide.with(context).load(product.getProductImg()).into(holder.imvHinh_allproducts);
                 holder.txtProductName_allproducts.setText(product.getProductName());
                 holder.txtProductPrice_allproducts.setText(String.valueOf(product.getProductPrice()));
                 holder.cvitem_allproducts.setLayoutParams(marginValue(holder));
-
                 break;
         }
+
         holder.setItemClickListener(new RecyclerViewItemClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -117,34 +117,28 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private RecyclerViewItemClickListener itemClickListener;
 
-
-        ImageView imvHinh_allproducts;
+        ImageView  imvHinh_allproducts;
         TextView    txtProductPrice_allproducts,
                     txtProductName_allproducts;
-        CardView cvitem_allproducts;
+        CardView    cvitem_allproducts;
 
-        ImageView imvProduct_listProduct;
+        ImageView   imvProduct_listProduct;
         TextView    txtproductName_listProduct,
                     txtProductPrice_listProduct,
                     txtLike_listProduct;
         Button btnAdd_listProduct;
 
-
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
             switch (type){
                 case CATEGORY:
-
                     imvHinh_allproducts = itemView.findViewById(R.id.imvHinh_allproducts);
-
                     txtProductName_allproducts = itemView.findViewById(R.id.txtProductName_allproducts);
                     txtProductPrice_allproducts = itemView.findViewById(R.id.txtProductPrice_allproducts);
                     cvitem_allproducts = itemView.findViewById(R.id.cvitem_allproducts);
                     break;
                 case PRODUCT:
-
                     imvProduct_listProduct = itemView.findViewById(R.id.imvProduct_listProduct);
-
                     txtproductName_listProduct = itemView.findViewById(R.id.txtproductName_listProduct);
                     txtProductPrice_listProduct = itemView.findViewById(R.id.txtProductPrice_listProduct);
                     txtLike_listProduct = itemView.findViewById(R.id.txtLike_listProduct);
