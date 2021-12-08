@@ -64,7 +64,7 @@ public class ConfirmOrderFragment extends Fragment {
     User mUser = new User();
     Product product = new Product();
 
-    String phone, name, address;
+    String phone, name, address, editAddress, editName, editPhone;
     HashMap<String, HashMap<String,?>> cartList = new HashMap<>();
     CartAdapter adapter;
     long sum, point, total, discount, ship;
@@ -79,9 +79,9 @@ public class ConfirmOrderFragment extends Fragment {
         addEvent();
         Bundle receiveBundle = getArguments();
         if (receiveBundle!= null){
-            txtAddress.setText(receiveBundle.getString(ADDRESS));
-            txtPhone.setText(receiveBundle.getString(PHONE));
-            txtName.setText(receiveBundle.getString(NAME));
+            editAddress = receiveBundle.getString(ADDRESS);
+            editName = receiveBundle.getString(NAME);
+            editPhone = receiveBundle.getString(PHONE);
         }
         return view;
     }
@@ -135,15 +135,31 @@ public class ConfirmOrderFragment extends Fragment {
 
     private void loadUI() {
         //region thông tin người dùng
-        phone = user.getPhoneNumber();
-        name = user.getDisplayName();
-        txtPhone.setText(phone);
-        txtName.setText(name);
 
-        if (mUser.getUserAddress()!= null){
-            address = mUser.getUserAddress();
-            txtAddress.setText(address);
+        if (editName!=null && !editName.equals("")){
+            name = editName;
+        } else {
+            name = user.getDisplayName();
         }
+
+        if (editPhone != null && !editPhone.equals("")){
+            phone = editPhone;
+        } else {
+            phone= user.getPhoneNumber();
+        }
+
+        if (editAddress != null && !editAddress.equals("")) {
+            address = editAddress;
+        } else {
+            if (mUser.getUserAddress() != null){
+                address = mUser.getUserAddress();
+            }
+        }
+
+        txtName.setText(name);
+        txtPhone.setText(phone);
+        txtAddress.setText(address != null ? address: "");
+
         //endregion
 
         //region thông tin giỏ hàng
@@ -198,7 +214,7 @@ public class ConfirmOrderFragment extends Fragment {
 
         btnPayment.setOnClickListener(v -> {
             if (txtAddress.getText().toString().equals("")){
-                // thực hiện màn hình nhập địa chỉ
+                txtAddress.setError("Vui lòng nhập địa chỉ");
             } else {
                 if (radCash.isChecked()){
                     createrOrder();
@@ -230,7 +246,6 @@ public class ConfirmOrderFragment extends Fragment {
 
     private void createrOrder() {
         Order order = new Order();
-        order.setAddOrder(txtAddress.getText().toString());
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         Timestamp ts = new Timestamp(date.getTime());
@@ -250,7 +265,15 @@ public class ConfirmOrderFragment extends Fragment {
         order.setUidOrder(user.getUid());
         order.setImgOrder(product.getProductImg());
         order.setShippingFeeOrder(ship);
-
+        order.setCustomerName(name);
+        order.setCustomerPhone(phone);
+        order.setAddOrder(address);
+        order.setTotalOrder(total);
+        if (order.getDiscountOrder()==0){
+            order.setRewardOrder(sum/100);
+        } else {
+            order.setRewardOrder(0);
+        }
         ref = firebaseDatabase.getReference().child("DonHang").child(order.getIdOrder());
         ref.setValue(order).addOnSuccessListener(task -> {
             isClear= true;

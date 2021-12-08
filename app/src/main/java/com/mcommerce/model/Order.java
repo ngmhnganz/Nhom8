@@ -29,7 +29,9 @@ public class Order implements Parcelable {
                     customerPhone;
     private long    priceOrder,
                     discountOrder,
-                    shippingFeeOrder;
+                    shippingFeeOrder,
+                    rewardOrder,
+                    totalOrder;
     private int statusOrder;
     private long dateLongOrder;
     private Map<String, HashMap<String,?>> itemOrder;
@@ -50,6 +52,8 @@ public class Order implements Parcelable {
         uidOrder = in.readString();
         customerName = in.readString();
         customerPhone = in.readString();
+        rewardOrder = in.readLong();
+        totalOrder = in.readLong();
     }
 
     public static final Creator<Order> CREATOR = new Creator<Order>() {
@@ -72,6 +76,24 @@ public class Order implements Parcelable {
     //endregion
 
     //region Getter và Setter
+
+
+    public long getTotalOrder() {
+        return totalOrder;
+    }
+
+    public void setTotalOrder(long totalOrder) {
+        this.totalOrder = totalOrder;
+    }
+
+    public long getRewardOrder() {
+        return rewardOrder;
+    }
+
+    public void setRewardOrder(long rewardOrder) {
+        this.rewardOrder = rewardOrder;
+    }
+
     public String getCustomerName() {
         return customerName;
     }
@@ -218,5 +240,7 @@ public class Order implements Parcelable {
         parcel.writeString(uidOrder);
         parcel.writeString(customerPhone);
         parcel.writeString(customerName);
+        parcel.writeLong(rewardOrder);
+        parcel.writeLong(totalOrder);
     }
 }

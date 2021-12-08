@@ -27,7 +27,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                         txtDate_aOrderDetail,
                         txtDiscount_aOrderDetail,
                         txtTotalQuantity_aOrderDetail,
-                        txtSubtotal_aOrderDetail,
+            txtPrice_aOrderDetail,
                         txtShippingFee_aOrderDetail,
                         txtBeforeDiscount_aOrderDetail,
                         txtTotal_aOrderDetail,
@@ -62,24 +62,23 @@ public class OrderDetailActivity extends AppCompatActivity {
         Order order = bundle.getParcelable(Constant.SELECTED_ORDER);
         txtID_aOrderDetail.setText("Mã đơn hàng "+order.getIdOrder());
         txtDate_aOrderDetail.setText(order.getDateOrder());
-
+        txtCustomerName_aOrderDetail.setText(order.getCustomerName());
+        txtCustomerPhone_aOrderDetail.setText(order.getCustomerPhone());
         txtCustomerAddress_aOrderDetail.setText(order.getAddOrder());
-        long ship, discount, total, subtotal;
-        ship = order.getShippingFeeOrder();  discount = order.getDiscountOrder(); total = order.getPriceOrder();
-        subtotal = total - ship + discount;
-        txtSubtotal_aOrderDetail.setText(subtotal+" đ");
-        txtShippingFee_aOrderDetail.setText(ship+" đ");
-        txtDiscount_aOrderDetail.setText(discount+" đ");
-        txtTotal_aOrderDetail.setText(total+" đ");
-        txtBeforeDiscount_aOrderDetail.setText(subtotal+ship+" đ");
+//        long ship, discount, total, subtotal;
+//        ship = order.getShippingFeeOrder();  discount = order.getDiscountOrder(); total = order.getPriceOrder();
+//        subtotal = total - ship + discount;
+        txtPrice_aOrderDetail.setText(order.getPriceOrder()+" đ");
+        txtShippingFee_aOrderDetail.setText(order.getShippingFeeOrder()+" đ");
+        txtDiscount_aOrderDetail.setText(order.getDiscountOrder()+" đ");
+        txtTotal_aOrderDetail.setText(order.getTotalOrder()+" đ");
+        txtBeforeDiscount_aOrderDetail.setText(order.getTotalOrder()+order.getDiscountOrder()+" đ");
 
 
         if (order.getDiscountOrder()!=0L){
             llTitleDiscount_aOrderDetail.setVisibility(View.VISIBLE);
         }
         txtStatus_aOrderDetail.setText(order.getStatusStringOrder());
-
-
 
         HashMap<String,HashMap<String, ?>> itemsOrder = (HashMap<String,HashMap<String, ?>>) bundle.getSerializable(Constant.ITEMS_ORDER);
         OrderDetailAdapter orderDetailAdapter = new OrderDetailAdapter(this,itemsOrder);
@@ -100,7 +99,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         txtID_aOrderDetail = findViewById(R.id.txtID_aOrderDetail);
         txtDate_aOrderDetail = findViewById(R.id.txtDate_aOrderDetail);
         txtTotalQuantity_aOrderDetail = findViewById(R.id.txtTotalQuantity_aOrderDetail);
-        txtSubtotal_aOrderDetail = findViewById(R.id.txtSubtotal_aOrderDetail);
+        txtPrice_aOrderDetail = findViewById(R.id.txtPrice_aOrderDetail);
         txtShippingFee_aOrderDetail = findViewById(R.id.txtShippingFee_aOrderDetail);
         txtBeforeDiscount_aOrderDetail = findViewById(R.id.txtBeforeDiscount_aOrderDetail);
         txtTotal_aOrderDetail = findViewById(R.id.txtTotal_aOrderDetail);

@@ -18,8 +18,6 @@ import java.util.HashMap;
 public class OrderDetailAdapter  extends RecyclerView.Adapter<OrderDetailAdapter.OrderDetailViewHolder> {
     private Activity context;
     private HashMap<String,HashMap<String, ?>> itemsOrder;
-    private DatabaseReference myRef;
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private final ArrayList<String> productIDs;
 
     private String itemID;
@@ -48,26 +46,6 @@ public class OrderDetailAdapter  extends RecyclerView.Adapter<OrderDetailAdapter
         holder.txtProductName_orderdetail.setText(itemsOrder.get(itemID).get("name").toString());
         holder.txtProductPrice_orderdetail.setText(price*quantity+ " đ");
         holder.txtProductQuantity_orderdetail.setText(quantity+"x");
-
-//        myRef = firebaseDatabase.getReference().child("NguyenLieu");
-//        String itemID = key[position];
-//        int itemQ =  Integer.parseInt(String.valueOf(itemsOrder.get(key[position])));
-//        myRef.child(itemID).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                Product product = new Product();
-//                product.setProductName(snapshot.child("productName").getValue().toString());
-//                product.setProductPrice(((Long) snapshot.child("productPrice").getValue()).intValue());
-//                holder.txtProductName_orderdetail.setText(product.getProductName());
-//                holder.txtProductPrice_orderdetail.setText(String.valueOf(product.getProductPrice()*itemQ)+" đ");
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//            }
-//        });
-//
-//        holder.txtProductQuantity_orderdetail.setText(itemQ+"x");
     }
 
 

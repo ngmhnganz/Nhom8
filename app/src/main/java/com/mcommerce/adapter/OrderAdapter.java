@@ -65,7 +65,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                     s = String.valueOf(order.getItemOrder().get(i).get("quantity"));
                     amount += Integer.parseInt(s);
                 }
-                holder.txtPrice_iComingOrder.setText(""+order.getPriceOrder() +"đ");
+                holder.txtPrice_iComingOrder.setText(""+order.getTotalOrder() +"đ");
 
                 holder.txtAmount_iComingOrder.setText("   |   " + amount +" sản phẩm");
 
@@ -104,7 +104,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                     amount += Integer.parseInt(s);
                 }
 
-                holder.txtPrice_iHistoryOrder.setText(""+order.getPriceOrder() +"đ");
+                holder.txtPrice_iHistoryOrder.setText(""+order.getTotalOrder() +"đ");
 
                 holder.txtAmount_iHistoryOrder.setText("   |   " + amount +" sản phẩm");
 
