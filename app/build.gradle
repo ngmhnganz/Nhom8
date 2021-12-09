@@ -69,5 +69,8 @@ dependencies {
     //cắt hình ảnh
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 
+    //start using FlexboxLayout out of the box/ added the alpha version (with the RecyclerView integration)
+    implementation 'com.google.android:flexbox:2.0.1'
+
 
 }

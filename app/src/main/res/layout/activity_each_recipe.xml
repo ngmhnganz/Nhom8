@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EachRecipeActivity"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:background="@drawable/header_main"
+
+        android:outlineAmbientShadowColor="#00FFFFFF"
+        android:outlineSpotShadowColor="#00FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar_Recipe"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="#00FFFFFF"
+            app:navigationIcon="@drawable/ic_left_arrow_24_white"
+            app:title="CÔNG THỨC"
+            app:titleTextColor="@color/white"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:paddingHorizontal="15dp">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="1">
+
+            <TextView
+                android:id="@+id/txtRecipeName_recipe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorPrimary"
+                android:text="CÔNG THỨC LÀM CHEESE CAKE"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:fontFamily="@font/sfpro_bold"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:id="@+id/txtRecipe_Info_recipe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:gravity="center"
+                android:text="Khẩu phần: 2 người Thời gian: 30 phút Mức độ: Dễ"
+                />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="368dp"
+                android:layout_height="276dp"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/suggest_monan" />
+
+            </androidx.cardview.widget.CardView>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:weightSum="10"
+                android:layout_marginTop="10dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Giới thiệu"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:layout_weight="10"/>
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_heart"
+                    android:layout_gravity="center"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="Bánh cheesecake là sự kết hợp hoàn hảo của vị béo ngậy ở nhân kem phô mai, hòa cùng hương thơm và vị trái cây tự nhiên."
+                android:fontFamily="@font/sfpro_regular"/>
+            <LinearLayout
+                android:id="@+id/llMaterialLable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10"
+                android:background="@drawable/each_recipe_image_corner_radius"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/txtPreparedMaterials_Recipe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:text="@string/nguyen_lieu"
+                    android:textSize="20sp"
+                    android:fontFamily="@font/sfpro_medium"
+                    />
+
+                <ImageView
+                    android:id="@+id/imvDropDownMaterial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:src="@drawable/ic_arrow_down_24" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llMaterialBuying"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/each_recipe_image_corner_radius"
+                android:layout_marginTop="5dp">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcvRecipeMaterial_EachRecipe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:horizontalSpacing="10dp"
+                    android:verticalSpacing="12dp"
+
+                    app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
+                    android:layout_marginTop="7dp"
+                    />
+                <Button
+                    android:id="@+id/btnAddToCart_Recipe"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Thêm vào giỏ hàng"
+                    android:fontFamily="@font/gilroy_medium"
+                    android:drawableLeft="@drawable/ic_add_shopping_cart_24"
+                    android:drawablePadding="5dp"
+                    android:background="@drawable/background_pressed_material"
+                    android:textColor="@android:color/white"
+                    android:layout_gravity="center"
+                    android:textSize="12dp"
+                    />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="20dp"
+                android:fontFamily="@font/sfpro_regular"
+                android:text="Hướng dẫn cách làm"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="16dp"
+                android:fontFamily="@font/sfpro_regular"
+                android:text="@string/testContent"
+                />
+
+        </TableLayout>
+    </ScrollView>
+
+
+</LinearLayout>

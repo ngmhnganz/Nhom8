@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/txtRecipeMaterial"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Bột mì"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        android:background="@drawable/background_suggestrecipe"
+        android:backgroundTint="@color/colorShadow"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="7dp"
+        android:fontFamily="@font/gilroy_medium"
+        android:gravity="center"
+        />
+
+</LinearLayout>
