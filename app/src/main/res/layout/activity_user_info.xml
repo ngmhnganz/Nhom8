@@ -146,7 +146,7 @@
                     android:textColorHint="@color/colorSubText"
                     android:hint="Giới tính">
 
-                    <AutoCompleteTextView
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
                         android:id="@+id/txtGender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -184,14 +184,13 @@
                     app:boxBackgroundColor="@color/white"
                     app:boxStrokeWidth="1dp"
                     android:textColorHint="@color/colorSubText"
-                    app:prefixText="+84"
 
                     android:hint="Số điện thoại">
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/colorText"
-                        android:inputType="none"
+                        android:enabled="false"
                         android:layout_gravity="center"
                         android:maxLines="1"
                         android:text="" />
@@ -204,15 +203,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
 
-                    app:endIconMode="clear_text"
-
                     app:boxBackgroundColor="@color/white"
                     app:boxStrokeWidth="1dp"
                     android:textColorHint="@color/colorSubText"
                     android:hint="Email">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:inputType="none"
+                        android:enabled="false"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -226,21 +223,22 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-
-                    app:endIconMode="clear_text"
-
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/ic_right_arrow_24"
                     app:boxBackgroundColor="@color/white"
                     app:boxStrokeWidth="1dp"
                     android:textColorHint="@color/colorSubText"
 
                     android:hint="Địa chỉ">
+
                     <com.google.android.material.textfield.TextInputEditText
+                        android:inputType="none"
+                        android:clickable="true"
+                        android:focusable="false"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/colorText"
-                        android:layout_gravity="center"
-                        android:maxLines="2"
-                        android:text="" />
+                        android:layout_height="match_parent"
+                        android:textColor="@color/colorText"/>
+
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>

@@ -13,6 +13,5 @@ public class Constant {
     public static final String PASSWORD = "password";
     public static final String VERIFY_ID = "verify ID";
 
-    public static final int REQUEST_PERMISSION = 101;
     public static final String FRAGMENT_INIT = "Last Fragment";
 }

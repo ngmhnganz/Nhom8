@@ -1,5 +1,6 @@
 package com.mcommerce.nhom8.auth;
 
+import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -7,14 +8,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -26,11 +32,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,16 +45,25 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.mcommerce.model.User;
 import com.mcommerce.nhom8.R;
+import com.mcommerce.nhom8.setting.FillAddressActivity;
 import com.mcommerce.util.Constant;
 import com.theartofdev.edmodo.cropper.CropImage;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class UserInfoActivity extends AppCompatActivity {
+    private static final int REQUEST_CAMERA =1;
+    private static final int REQUEST_GALLERY =2;
 
-
-    private AutoCompleteTextView txtGender;
+    private MaterialAutoCompleteTextView txtGender;
     private ImageView imv_aUserInfo;
     private TextInputLayout inpUserEmail_aUserInfo,
                             inpUserName_aUserInfo,
@@ -60,9 +74,10 @@ public class UserInfoActivity extends AppCompatActivity {
     private ImageButton btnBack_aUserInfo;
     private Button btnSave_aUserInfo;
     private BottomSheetDialog sheetDialog = null;
-    private ActivityResultLauncher<Intent> moGallery;
+    private ActivityResultLauncher<Intent> pickImage;
+    private boolean isCamera;
     private Uri userImage = null;
-
+    private ActivityResultLauncher<Intent> getAdress;
     private boolean valid = true;
     final private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     final private DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("User/"+user.getUid());
@@ -74,6 +89,7 @@ public class UserInfoActivity extends AppCompatActivity {
         linkview();
         loadUserInfo();
         setUI();
+        checkValidInput();
         addEvent();
     }
 
@@ -100,17 +116,72 @@ public class UserInfoActivity extends AppCompatActivity {
         //endregion
 
         //region Ảnh người dùng
-        moGallery = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        pickImage = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if ( result.getResultCode()==RESULT_OK && result.getData()!=null){
+                Uri uri = null;
                 //result là một cái màn hình resul
                 // getdata lần nhất dc màn hình
                 // get data lần hai dc data đã pick
-                Uri uri = result.getData().getData();
+                if (isCamera){
+                    Bitmap bitmap = (Bitmap) result.getData().getExtras().get("data");
+                    uri = getImageUri(bitmap);
+                } else {
+                    uri = result.getData().getData();
+                }
                 // sau khi lấy được dữ liệu uri thì truyền qua màn hình crop
+                Log.d("cam", "setUI: trả cam");
                 openCrop(uri);
             }
         });
         //endregion
+
+        //region Trả dữ liệu địa chỉ
+        getAdress = registerForActivityResult( new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode()== Activity.RESULT_OK){
+                    Intent mIntent = result.getData();
+                    if (mIntent.getStringExtra(FillAddressActivity.ADDRESS) != null){
+                        String string = mIntent.getStringExtra(FillAddressActivity.ADDRESS);
+                        inpUserAdress_aUserInfo.getEditText().setText(string);
+                    }
+                }
+            }
+        );
+        //endregion
+    }
+
+    private Uri getImageUri(Bitmap inImage) {
+        try {
+            // lấy đường dẫn file hình ảnh của bộ nhớ trong thiết bị
+            String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString();
+            // tạo 1 file để chứa mấy ảnh của tờ rứng
+            File dir = new File(path+"/trung_images");
+            // nếu có rồi thì hoi :)
+            if (!dir.exists()){
+               dir.mkdirs();
+            }
+
+            // lấy timestamp lúc chụp để làm tên
+            long date = Calendar.getInstance().getTime().getTime();
+            String imageName = date+"_trung_image.jpg";
+
+            // tạo file ảnh
+            File fileImage = new File(dir, imageName );
+
+            //tạo output stream cho cái thư file vừa rồi
+            FileOutputStream fileOutputStream = new FileOutputStream(fileImage);
+            // bỏ ảnh vô, định hong compress cho đẹp nhưng thôi, máy cùi lại lâu :)
+            inImage.compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream);
+
+            // viết dữ liệu ra
+            fileOutputStream.flush();
+
+            // đóng lại
+            fileOutputStream.close();
+            return Uri.fromFile(fileImage);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private void loadUserInfo() {
@@ -162,6 +233,15 @@ public class UserInfoActivity extends AppCompatActivity {
             sheetDialog.show();
         });
 
+        inpUserAdress_aUserInfo.getEditText().setOnClickListener(v-> {
+            Intent intent = new Intent(UserInfoActivity.this, FillAddressActivity.class);
+            getAdress.launch(intent);
+        });
+
+
+    }
+
+    private void checkValidInput(){
         inpUserBirthday_aUserInfo.getEditText().setOnClickListener(v -> {
             MaterialDatePicker.Builder<Long> builder = MaterialDatePicker.Builder.datePicker().setTitleText("Chọn ngày sinh");
             MaterialDatePicker<Long> materialDatePicker = builder.build();
@@ -289,13 +369,15 @@ public class UserInfoActivity extends AppCompatActivity {
             txtGallery = view.findViewById(R.id.txtGallery);
 
             txtCamera.setOnClickListener(v -> {
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                moGallery.launch(intent);
+                cameraPermisson();
+                isCamera = true;
                 sheetDialog.dismiss();
+
             });
 
             txtGallery.setOnClickListener(v -> {
-                requestPermission();
+                galerryPermisson();
+                isCamera = false;
                 sheetDialog.dismiss();
             });
             sheetDialog = new BottomSheetDialog(this);
@@ -305,7 +387,7 @@ public class UserInfoActivity extends AppCompatActivity {
     //endregion
 
     //region Quyền truy cập cho thư viện ảnh
-    private void requestPermission(){
+    private void galerryPermisson(){
         // với android M về trước chỉ cần grant permission thông qua manifest
         // từ android m trở đi thì cần ng dùng cho phép quyền thì mới được, nhưng do min sdk là 24 nên phải check per
         //nếu như đã được cho quyền truy cập
@@ -313,18 +395,43 @@ public class UserInfoActivity extends AppCompatActivity {
             openGallery();
         } else {
             String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
-            this.requestPermissions(permissions, Constant.REQUEST_PERMISSION);
+            this.requestPermissions(permissions, REQUEST_GALLERY);
         }
+    }
+
+    private void cameraPermisson(){
+        // với android M về trước chỉ cần grant permission thông qua manifest
+        // từ android m trở đi thì cần ng dùng cho phép quyền thì mới được, nhưng do min sdk là 24 nên phải check per
+        //nếu như đã được cho quyền truy cập
+        if (this.checkSelfPermission(Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED &&
+            this.checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED){
+            openCam();
+        } else {
+            String[] permissions = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            this.requestPermissions(permissions, REQUEST_CAMERA);
+        }
+
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode==Constant.REQUEST_PERMISSION) {
-            if (grantResults.length>0){
-                if (grantResults[0]==PackageManager.PERMISSION_GRANTED){
-                    openGallery();
-                } else {
-                    Toast.makeText(this,"Vui lòng cho phép truy cập vào thư viện", Toast.LENGTH_SHORT).show();
+        switch (requestCode){
+            case REQUEST_GALLERY:{
+                if (grantResults.length>0){
+                    if (grantResults[0]==PackageManager.PERMISSION_GRANTED){
+                        openGallery();
+                    } else {
+                        Toast.makeText(this,"Vui lòng cho phép truy cập vào thư viện", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+            case REQUEST_CAMERA:{
+                if (grantResults.length>0){
+                    if (grantResults[0]==PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                        openCam();
+                    } else {
+                        Toast.makeText(this,"Vui lòng cho phép truy cập vào máy ảnh", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         }
@@ -335,11 +442,17 @@ public class UserInfoActivity extends AppCompatActivity {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        moGallery.launch(Intent.createChooser(intent,"Chọn ảnh"));
+        pickImage.launch(Intent.createChooser(intent,"Chọn ảnh"));
+    }
+
+    private void openCam() {
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        pickImage.launch(intent);
     }
 
     //region crop ảnh rồi set lên imageview
     private void openCrop(Uri imageUri){
+        Log.d("cam", "openCrop: a");
         CropImage.activity(imageUri)
                 .start(this);
     }
