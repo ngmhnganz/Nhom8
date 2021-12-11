@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class LikeList extends AppCompatActivity {
+public class WishList extends AppCompatActivity {
     Button btnCongThuc_LikeList, btnSanPham_LikeList;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;

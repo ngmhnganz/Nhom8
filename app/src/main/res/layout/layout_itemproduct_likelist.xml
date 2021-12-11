@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -51,8 +52,9 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
+            android:background="@color/white"
             android:src="@drawable/ic_bold_heart"
-            android:background="@color/white"></ImageButton>
+            tools:ignore="SpeakableTextPresentCheck"></ImageButton>
     </LinearLayout>
 
 </LinearLayout>
