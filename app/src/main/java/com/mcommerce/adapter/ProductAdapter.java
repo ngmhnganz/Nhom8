@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,7 +55,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_listproduct_layout,parent,false);
                 break;
           case WISH:
-              view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_wish_list,parent,false);
+              view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_wishproduct,parent,false);
               break;
         }
 
@@ -94,13 +95,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 holder.txtProductPrice_allproducts.setText(String.valueOf(product.getProductPrice()));
                 holder.cvitem_allproducts.setLayoutParams(marginValue(holder));
                 break;
-//          case WISH:
-//            holder.tx
-//            holder.txtName.setText(product.getProductName);
-//
-//            gán hình ảnh
-//            Glide.with(context).load(product.getProductImg()).into(holder.hinhanh);
-//                break;
+
+          case WISH:
+              Glide.with(context).load(product.getProductImg()).into(holder.imvProduct_Wish);
+              holder.txtName_WishP.setText(product.getProductName());
+              holder.txtPrice_WishP.setText(product.getProductPrice());
+              holder.txtLike_WishP.setText(product.getProductLike()+" người đã thích");
+              holder.chkLike_WL.isChecked();
+                break;
         }
 
         holder.setItemClickListener(new RecyclerViewItemClickListener() {
@@ -138,6 +140,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 txtLike_listProduct;
         Button btnAdd_listProduct;
 
+        //WishList
+        ImageView imvProduct_Wish;
+        TextView txtName_WishP, txtLike_WishP,txtPrice_WishP;
+        CheckBox chkLike_WL;
+
         // khai biến các view bên itemlayout của likeproduct
         //ImageView hinhanh
 
@@ -157,10 +164,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     txtLike_listProduct = itemView.findViewById(R.id.txtLike_listProduct);
                     btnAdd_listProduct = itemView.findViewById(R.id.btnAdd_listProduct);
                     break;
-//              case FAV:
+                case WISH:
+                    chkLike_WL=itemView.findViewById(R.id.chkLike_WL);
+                    imvProduct_Wish=itemView.findViewById(R.id.imvProduct_Wish);
+                    txtName_WishP=itemView.findViewById(R.id.txtName_WishP);
+                    txtLike_WishP=itemView.findViewById(R.id.txtLike_WishP);
+                    txtPrice_WishP=itemView.findViewById(R.id.txtPrice_WishP);
+
 //                bindingview các view bên itemlayout của likeproduct
 //                hinhanh = itemView.findnViewByID();
-//                break;
+                break;
             }
 
             itemView.setOnClickListener(this);

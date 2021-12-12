@@ -50,7 +50,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btnCongThuc_LikeList"
+                android:id="@+id/btnCongThuc_Wish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -60,7 +60,7 @@
                 android:textColor="@color/colorText"
                 android:backgroundTint="#FFFFFF"/>
             <Button
-                android:id="@+id/btnSanPham_LikeList"
+                android:id="@+id/btnSanPham_Wish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

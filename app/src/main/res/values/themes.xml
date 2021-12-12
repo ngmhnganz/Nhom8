@@ -56,7 +56,13 @@
     <style name="UserInfoTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="boxStrokeColor">@color/edt_selector</item>
     </style>
+
     <style name="UserInfoTextInputLayoutStyle.ExposedDropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
         <item name="boxStrokeColor">@color/edt_selector</item>
+    </style>
+
+    <style name="checked_wish" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:background">@drawable/checked_wish</item>
+        <item name="android:checkable">true</item>
     </style>
 </resources>

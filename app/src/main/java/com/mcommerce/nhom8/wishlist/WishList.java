@@ -15,7 +15,7 @@ import com.mcommerce.nhom8.R;
 
 public class WishList extends AppCompatActivity {
 
-    Button btnCongThuc_LikeList, btnSanPham_LikeList;
+    Button btnCongThuc_Wish, btnSanPham_Wish;
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     @Override
@@ -23,34 +23,37 @@ public class WishList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_wish_list);
         linkViews();
-//        addEvents();
+        addEvents();
         fragmentManager=getSupportFragmentManager();
     }
 
     private void linkViews() {
-        btnCongThuc_LikeList=findViewById(R.id.btnCongThuc_LikeList);
-        btnSanPham_LikeList=findViewById(R.id.btnSanPham_LikeList);
+        btnCongThuc_Wish =findViewById(R.id.btnCongThuc_Wish);
+        btnSanPham_Wish =findViewById(R.id.btnSanPham_Wish);
     }
 
-//    private void addEvents() {
-//        btnCongThuc_LikeList.setOnClickListener(myClick);
-//        btnSanPham_LikeList.setOnClickListener(myClick);
-//    }
-//    View.OnClickListener myClick=new View.OnClickListener(){
-//        @Override
-//        public void onClick(View view) {
-//            FragmentManager fragmentManager=getSupportFragmentManager();
-//            FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-//            Fragment fragment=null;
-//            if(view.getId()==R.id.btnCongThuc_LikeList){
-//                fragment=new Wishlist_Recipe();
-//            }else if(view.getId()==R.id.btnSanPham_LikeList){
-//                fragment=new Wishlist_Product();
-//            }
-//            if(fragment !=null){
-//                fragmentTransaction.replace(R.id.layoutContainer_LikeList,fragment);
-//                fragmentTransaction.commit();
-//            }
-//        }
-//    };
+    private void addEvents() {
+        btnCongThuc_Wish.setOnClickListener(myClick);
+        btnSanPham_Wish.setOnClickListener(myClick);
+    }
+    View.OnClickListener myClick=new View.OnClickListener(){
+        @Override
+        public void onClick(View view) {
+            FragmentManager fragmentManager=getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+            Fragment fragment=null;
+            if(view.getId()==R.id.btnCongThuc_Wish){
+                fragment=new Wishlist_Recipe();
+            }else if(view.getId()==R.id.btnSanPham_Wish){
+                fragment=new Wishlist_Product();
+                Bundle bundle=new Bundle();
+                bundle.putString("say","Hello");
+                fragment.setArguments(bundle);
+            }
+            if(fragment !=null){
+                fragmentTransaction.replace(R.id.layoutContainer_WishList,fragment);
+                fragmentTransaction.commit();
+            }
+        }
+    };
 }
