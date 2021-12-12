@@ -27,6 +27,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     public static final int CATEGORY = 1;
     public static final int PRODUCT =2;
+    public static final int WISH =3;
 
     private Context context;
     private List<Product> productList, productListBase;
@@ -52,7 +53,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             case PRODUCT:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_listproduct_layout,parent,false);
                 break;
-
+          case WISH:
+              view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_wish_list,parent,false);
+              break;
         }
 
         return new ProductViewHolder(view) ;
@@ -91,6 +94,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 holder.txtProductPrice_allproducts.setText(String.valueOf(product.getProductPrice()));
                 holder.cvitem_allproducts.setLayoutParams(marginValue(holder));
                 break;
+//          case WISH:
+//            holder.tx
+//            holder.txtName.setText(product.getProductName);
+//
+//            gán hình ảnh
+//            Glide.with(context).load(product.getProductImg()).into(holder.hinhanh);
+//                break;
         }
 
         holder.setItemClickListener(new RecyclerViewItemClickListener() {
@@ -119,14 +129,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         ImageView  imvHinh_allproducts;
         TextView    txtProductPrice_allproducts,
-                    txtProductName_allproducts;
+                txtProductName_allproducts;
         CardView    cvitem_allproducts;
 
         ImageView   imvProduct_listProduct;
         TextView    txtproductName_listProduct,
-                    txtProductPrice_listProduct,
-                    txtLike_listProduct;
+                txtProductPrice_listProduct,
+                txtLike_listProduct;
         Button btnAdd_listProduct;
+
+        // khai biến các view bên itemlayout của likeproduct
+        //ImageView hinhanh
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -144,6 +157,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     txtLike_listProduct = itemView.findViewById(R.id.txtLike_listProduct);
                     btnAdd_listProduct = itemView.findViewById(R.id.btnAdd_listProduct);
                     break;
+//              case FAV:
+//                bindingview các view bên itemlayout của likeproduct
+//                hinhanh = itemView.findnViewByID();
+//                break;
             }
 
             itemView.setOnClickListener(this);
