@@ -117,8 +117,10 @@ public class ConfirmOrderFragment extends Fragment {
                     mUser = userSnapshot.getValue(User.class);
                     cartList = (HashMap<String, HashMap<String, ?>>) mUser.getUserCart();
 
+                    String idFirstItem = cartList.keySet().toArray()[0].toString();
+                    String idProduct = String.valueOf(cartList.get(idFirstItem).get("id"));
                     if (cartList != null){
-                        productSnapshot = snapshot.child("NguyenLieu").child(cartList.keySet().toArray()[0].toString()).child("productImg");
+                        productSnapshot = snapshot.child("NguyenLieu").child(idProduct).child("productImg");
                         product.setProductImg(productSnapshot.getValue().toString());
                         loadUI();
                     }

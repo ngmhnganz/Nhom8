@@ -1,27 +1,70 @@
 package com.mcommerce.model;
 
-public class Recipe {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Recipe implements Parcelable {
+    private String recipeID;
+    private long recipeTime;
     private String recipeName;
-    private int recipeRation;
-    private int recipeLevel;
-    private int recipeLike;
-    private String recipeDesciption;
-    private int recipeImage;
-    private int recipeLikeImageHeart;
+    private long recipeRation;
+    private String recipeLevel;
+    private long recipeLike;
+    private String recipeDescription;
+    private String recipeImage;
+    private Map<String, HashMap<String,?>> recipeIngredient;
 
-    public int getRecipeLikeImageHeart() {
-        return recipeLikeImageHeart;
+    public Map<String, HashMap<String, ?>> getRecipeIngredient() {
+        return recipeIngredient;
     }
 
-    public void setRecipeLikeImageHeart(int recipeLikeImageHeart) {
-        this.recipeLikeImageHeart = recipeLikeImageHeart;
+    public void setRecipeIngredient(Map<String, HashMap<String, ?>> recipeIngredient) {
+        this.recipeIngredient = recipeIngredient;
     }
 
-    public Recipe(String recipeName, int recipeLike, int recipeImage, int recipeLikeImageHeart) {
-        this.recipeName = recipeName;
-        this.recipeLike = recipeLike;
-        this.recipeImage = recipeImage;
-        this.recipeLikeImageHeart = recipeLikeImageHeart;
+    protected Recipe(Parcel in) {
+        recipeID = in.readString();
+        recipeTime = in.readLong();
+        recipeName = in.readString();
+        recipeRation = in.readLong();
+        recipeLevel = in.readString();
+        recipeLike = in.readLong();
+        recipeDescription = in.readString();
+        recipeImage = in.readString();
+    }
+
+    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
+        @Override
+        public Recipe createFromParcel(Parcel in) {
+            return new Recipe(in);
+        }
+
+        @Override
+        public Recipe[] newArray(int size) {
+            return new Recipe[size];
+        }
+    };
+
+    public String getRecipeID() {
+        return recipeID;
+    }
+
+    public void setRecipeID(String recipeID) {
+        this.recipeID = recipeID;
+    }
+
+    public long getRecipeTime() {
+        return recipeTime;
+    }
+
+    public void setRecipeTime(long recipeTime) {
+        this.recipeTime = recipeTime;
+    }
+
+    public Recipe() {
     }
 
     public String getRecipeName() {
@@ -32,43 +75,60 @@ public class Recipe {
         this.recipeName = recipeName;
     }
 
-    public int getRecipeRation() {
+    public long getRecipeRation() {
         return recipeRation;
     }
 
-    public void setRecipeRation(int recipeRation) {
+    public void setRecipeRation(long recipeRation) {
         this.recipeRation = recipeRation;
     }
 
-    public int getRecipeLevel() {
+    public String getRecipeLevel() {
         return recipeLevel;
     }
 
-    public void setRecipeLevel(int recipeLevel) {
+    public void setRecipeLevel(String recipeLevel) {
         this.recipeLevel = recipeLevel;
     }
 
-    public int getRecipeLike() {
+    public long getRecipeLike() {
         return recipeLike;
     }
 
-    public void setRecipeLike(int recipeLike) {
+    public void setRecipeLike(long recipeLike) {
         this.recipeLike = recipeLike;
     }
 
-    public String getRecipeDesciption() {
-        return recipeDesciption;
+    public String getRecipeDescription() {
+        return recipeDescription;
     }
 
-    public void setRecipeDesciption(String recipeDesciption) {
-        this.recipeDesciption = recipeDesciption;
+    public void setRecipeDescription(String recipeDescription) {
+        this.recipeDescription = recipeDescription;
     }
 
-    public int getRecipeImage() {
+    public String getRecipeImage() {
         return recipeImage;
     }
 
-    public void setRecipeImage(int recipeImage) {
+    public void setRecipeImage(String recipeImage) {
         this.recipeImage = recipeImage;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(recipeID);
+        dest.writeLong(recipeTime);
+        dest.writeString(recipeName);
+        dest.writeLong(recipeRation);
+        dest.writeString(recipeLevel);
+        dest.writeLong(recipeLike);
+        dest.writeString(recipeDescription);
+        dest.writeString(recipeImage);
     }
 }

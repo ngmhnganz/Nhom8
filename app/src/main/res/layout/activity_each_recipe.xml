@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EachRecipeActivity"
+    tools:context=".recipe.EachRecipeActivity"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -136,16 +136,14 @@
                 android:orientation="vertical"
                 android:background="@drawable/each_recipe_image_corner_radius"
                 android:layout_marginTop="5dp">
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rcvRecipeMaterial_EachRecipe"
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chip_group"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:horizontalSpacing="10dp"
-                    android:verticalSpacing="12dp"
-
-                    app:layoutManager="com.google.android.flexbox.FlexboxLayoutManager"
-                    android:layout_marginTop="7dp"
-                    />
+                    app:chipSpacingHorizontal="5dp"
+                    app:chipSpacingVertical="5dp"
+                    android:layout_marginTop="7dp">
+                </com.google.android.material.chip.ChipGroup>
                 <Button
                     android:id="@+id/btnAddToCart_Recipe"
                     android:layout_height="wrap_content"

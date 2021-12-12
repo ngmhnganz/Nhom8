@@ -94,7 +94,6 @@ public class AllProductsActivity extends AppCompatActivity {
     private void initAdapter() {
         //region Lấy dữ liệu Sản Phẩm từ Fireabase về truyền cho adapter
 
-
         ProductAdapter nguyenLieuAdapter = new ProductAdapter();
         ProductAdapter comboAdapter = new ProductAdapter();
         ProductAdapter dungCuAdapter = new ProductAdapter();
@@ -105,7 +104,7 @@ public class AllProductsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
 
-                    Product p = getDataProductFromFirebase(dataSnapshot);
+                    Product p = dataSnapshot.getValue(Product.class);
                     switch (p.getProductType()){
                         case Product.COMBO:
                             listProductCB.add(p);
@@ -137,20 +136,6 @@ public class AllProductsActivity extends AppCompatActivity {
         });
         //endregion
 
-    }
-
-    private Product getDataProductFromFirebase(DataSnapshot dataSnapshot) {
-        Product product = new Product();
-        product.setProductImg(dataSnapshot.child("productImg").getValue().toString());
-        product.setProductLike( ((Long) dataSnapshot.child("productLike").getValue()).intValue() );
-        product.setProductDescription(dataSnapshot.child("productDescription").getValue().toString());
-        product.setProductDetail(dataSnapshot.child("productDetail").getValue().toString());
-        product.setProductName(dataSnapshot.child("productName").getValue().toString());
-        product.setProductPrice(((Long) dataSnapshot.child("productPrice").getValue()).intValue());
-        product.setProductQuantity(((Long) dataSnapshot.child("productQuantity").getValue()).intValue());
-        product.setProductID(dataSnapshot.child("productID").getValue().toString());
-        product.setProductType(dataSnapshot.child("productType").getValue().toString());
-        return product;
     }
 
     private void linkview() {

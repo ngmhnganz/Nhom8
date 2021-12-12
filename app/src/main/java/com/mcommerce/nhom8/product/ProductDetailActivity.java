@@ -102,7 +102,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private void loadData() {
-        ref.child(product.getProductID()).addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child(String.valueOf(product.getProductID())).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 long quantiy;
@@ -176,10 +176,11 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         btnAddProduct_productDetail.setOnClickListener(v -> {
             //nếu edt =0, gán nút = Thêm vào giỏ hàng, remove item khỏi firebase nếu có, btn có nội dung thêm vào giỏ hàng
+            int productID = (int) product.getProductID();
             if (edtQuantity_aProductDetail.getText().toString().equals("0")) {
                 btnText = "Thêm vào giỏ hàng";
                 btnAddProduct_productDetail.setText(btnText);
-                ref.child(product.getProductID()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                ref.child(String.valueOf(productID)).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(ProductDetailActivity.this,"Sản phẩm đã được xóa khỏi giỏ hàng",Toast.LENGTH_SHORT).show();
@@ -192,9 +193,10 @@ public class ProductDetailActivity extends AppCompatActivity {
                 // đổi từ "thêm vào" thành "cập nhật" ( nếu có)
                 // thông báo cho người dùng đã thành công
                 int quantity = Integer.parseInt(edtQuantity_aProductDetail.getText().toString());
-                ref.child(product.getProductID()).child("quantity").setValue(quantity);
-                ref.child(product.getProductID()).child("name").setValue(product.getProductName());
-                ref.child(product.getProductID()).child("price").setValue(product.getProductPrice());
+                ref.child("id"+productID).child("quantity").setValue(quantity);
+                ref.child("id"+productID).child("name").setValue(product.getProductName());
+                ref.child("id"+productID).child("id").setValue(productID);
+                ref.child("id"+productID).child("price").setValue(product.getProductPrice());
                 Toast.makeText(ProductDetailActivity.this, "Giỏ hàng của bạn đã được cập nhật", Toast.LENGTH_SHORT).show();
                 btnText = btnAddProduct_productDetail.getText().toString();
                 btnText = btnText.replace("Thêm vào giỏ hàng", "Cập nhật giỏ hàng");

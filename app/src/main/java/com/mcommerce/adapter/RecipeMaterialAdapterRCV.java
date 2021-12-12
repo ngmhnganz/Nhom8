@@ -1,33 +1,34 @@
 package com.mcommerce.adapter;
-
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.flexbox.FlexboxLayoutManager;
-import com.mcommerce.model.Product;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
+import com.google.android.material.chip.ChipGroup;
 import com.mcommerce.nhom8.R;
-import com.mcommerce.nhom8.SuggestRecipeActivity;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class RecipeMaterialAdapterRCV extends RecyclerView.Adapter<RecipeMaterialAdapterRCV.ViewHolder>{
 
-    Context context;
-    ArrayList<Product> materials;
+    private Context context;
+    private HashMap<String, HashMap<String,?>> ingredients;
+    private Chip chip;
+    private final ArrayList<String> ingredientKey;
+    private String id;
+    private ChipDrawable chipDrawable;
 
-    public RecipeMaterialAdapterRCV(Context context, ArrayList<Product> materials) {
+    public RecipeMaterialAdapterRCV(Context context, HashMap<String, HashMap<String,?>> ingredients) {
         this.context = context;
-        this.materials = materials;
+        this.ingredients = ingredients;
+        ingredientKey = new ArrayList<>(ingredients.keySet());
     }
     @NonNull
     @Override
@@ -40,8 +41,8 @@ public class RecipeMaterialAdapterRCV extends RecyclerView.Adapter<RecipeMateria
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        id = ingredientKey.get(position);
         //biding dữ liệu
-        holder.txtRecipeMaterialName.setText(materials.get(position).getProductName());
 //      selector cho checkbox đổi thành checkbox
 //
 //        //flexGrow works like the weight attribute in horizontal LinearLayouts
@@ -49,22 +50,35 @@ public class RecipeMaterialAdapterRCV extends RecyclerView.Adapter<RecipeMateria
 //        if(layoutParams instanceof FlexboxLayoutManager.LayoutParams){
 //            FlexboxLayoutManager.LayoutParams flexboxLp= (FlexboxLayoutManager.LayoutParams) holder.txtRecipeMaterialName.getLayoutParams();
 //            flexboxLp.setFlexGrow(1.0f);
-//        }
+
+        chip = new Chip(context);
+        chip.setText(ingredients.get(id).get("name").toString());
+        chipDrawable= ChipDrawable.createFromAttributes(context,
+                null,
+                0,
+                R.style.custom_chip);
+        if (ingredients.get(id).get("name").equals("Bột mì đa dụng")){
+            chip.setEnabled(false);
+        }
+        chip.setCheckedIconTint(ContextCompat.getColorStateList(context,R.color.white));
+        chip.setTextColor(ContextCompat.getColorStateList(context, R.color.chip_text_selector));
+        chip.setChipDrawable(chipDrawable);
+        holder.chipGroup.addView(chip);
+
+//     }
     }
 
     @Override
     public int getItemCount() {
-        return materials.size();
+        return ingredients.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView txtRecipeMaterialName;
-
+        ChipGroup chipGroup;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtRecipeMaterialName=itemView.findViewById(R.id.txtRecipeMaterial);
-
+            chipGroup = itemView.findViewById(R.id.chip_group);
         }
     }
 

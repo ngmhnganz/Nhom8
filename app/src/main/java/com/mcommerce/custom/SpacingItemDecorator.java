@@ -1,4 +1,4 @@
-package com.mcommerce.utils;
+package com.mcommerce.custom;
 
 import android.graphics.Rect;
 import android.view.View;

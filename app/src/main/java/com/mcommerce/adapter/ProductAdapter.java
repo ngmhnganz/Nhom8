@@ -1,5 +1,6 @@
 package com.mcommerce.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,17 +28,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     public static final int CATEGORY = 1;
     public static final int PRODUCT =2;
+    public static final int MATERIAL = 4;
 
-    private Context context;
-    private List<Product> productList, productListBase;
+    private Activity context;
+    private List<Product> productList;
     private int type;
 
-    public void setData(Context context, List<Product> list, int type)
+    public void setData(Activity context, List<Product> list, int type)
     {
         this.context = context;
         this.productList = list;
         this.type = type;
-        this.productListBase = list;
         notifyDataSetChanged();
     }
 
@@ -52,6 +53,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             case PRODUCT:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_listproduct_layout,parent,false);
                 break;
+
 
         }
 

@@ -23,15 +23,25 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.github.mmin18.widget.RealtimeBlurView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.BannerMainAdapter;
-import com.mcommerce.adapter.GoiYComboAdapter;
 import com.mcommerce.adapter.GoiYMonanAdapter;
+import com.mcommerce.adapter.ProductAdapter;
+import com.mcommerce.adapter.RecipeAdapter;
 import com.mcommerce.model.BannerMainModel;
-import com.mcommerce.model.GoiYComboModel;
 import com.mcommerce.model.GoiYMonanModel;
+import com.mcommerce.model.Product;
+import com.mcommerce.model.Recipe;
+import com.mcommerce.nhom8.MainActivity;
 import com.mcommerce.nhom8.order.CartActivity;
 import com.mcommerce.nhom8.product.AllProductsActivity;
 import com.mcommerce.nhom8.R;
+import com.mcommerce.nhom8.recipe.ListRecipeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +51,8 @@ public class HomeFragment extends Fragment {
     View view;
     private ViewPager vpgBannerMain;
     private List<BannerMainModel> bannerMainModelList;
-    private List<GoiYMonanModel> goiYMonanModelList;
-    private List<GoiYComboModel> goiYComboModelList;
+    private List<Recipe> goiYRecipeList = new ArrayList<>();
+    private List<Product> goiYComboList = new ArrayList<>();
     private ImageButton btnSanPham, btnCongThuc, btnGoiY;
     private RecyclerView rcvGoiYMonan, rcvGoiYCombo;
     private RealtimeBlurView blurView;
@@ -51,6 +61,7 @@ public class HomeFragment extends Fragment {
     private int dotscount;
     private ImageView[] dots;
     private ImageButton btnCard_main;
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
     @Nullable
     @Override
@@ -72,7 +83,10 @@ public class HomeFragment extends Fragment {
         btnGoiY = view.findViewById(R.id.btnGoiY_main);
 
         rcvGoiYMonan = view.findViewById(R.id.rcvGoiYMonAn_main);
+        rcvGoiYMonan.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+
         rcvGoiYCombo = view.findViewById(R.id.rcvGoiYCombo_main);
+        rcvGoiYCombo.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
 
         blurView = view.findViewById(R.id.blurview_LyGoiYMonan);
         btnCard_main = view.findViewById(R.id.btnCard_main);
@@ -92,47 +106,58 @@ public class HomeFragment extends Fragment {
 
         //region Gợi ý Món ăn
 
-        goiYMonanModelList = new ArrayList<>();
-        goiYMonanModelList.add(new GoiYMonanModel(R.drawable.suggest_monan, "Bánh bông lan trứng muối","Bánh bông lan chà mông chứng múi ăn với cà với cà với càv ới cà với cà với càv ới cà với cà với càv ới cà với cà ","20 phút"));
-        goiYMonanModelList.add(new GoiYMonanModel(R.drawable.suggest_monan, "Bánh bông lan trứng muối","Bánh bông lan chà mông chứng múi ăn với cà với cà với càv ới cà với cà với càv ới cà với cà với càv ới cà với cà ","30 phút"));
-        goiYMonanModelList.add(new GoiYMonanModel(R.drawable.suggest_monan, "Bánh bông lan trứng muối","Bánh bông lan chà mông chứng múi ăn với cà với cà với càv ới cà với cà với càv ới cà với cà với càv ới cà với cà ","nhiều phút"));
-
-        GoiYMonanAdapter goiYMonanAdapter = new GoiYMonanAdapter(goiYMonanModelList, (Activity) getContext());
-        rcvGoiYMonan.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        rcvGoiYMonan.setAdapter(goiYMonanAdapter);
-
+        Query queryCongThuc = ref.child("CongThuc").limitToLast(1);
+        queryCongThuc.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Recipe p = dataSnapshot.getValue(Recipe.class);
+                    goiYRecipeList.add(p);
+                }
+                RecipeAdapter adapter = new RecipeAdapter((MainActivity) getContext(), RecipeAdapter.SUGGEST,goiYRecipeList);
+                rcvGoiYMonan.setAdapter(adapter);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
         //endregion
 
         //region Gơi ý Combo
-
-        goiYComboModelList = new ArrayList<>();
-        goiYComboModelList.add(new GoiYComboModel(90000,R.drawable.suggest_monan, "Bánh tráng","3 người"));
-        goiYComboModelList.add(new GoiYComboModel(90000,R.drawable.suggest_monan, "Bánh tráng","3 người"));
-        goiYComboModelList.add(new GoiYComboModel(90000,R.drawable.suggest_monan, "Bánh tráng","3 người"));
-        goiYComboModelList.add(new GoiYComboModel(90000,R.drawable.suggest_monan, "Bánh tráng","3 người"));
-
-        GoiYComboAdapter goiYComboAdapter = new GoiYComboAdapter(goiYComboModelList, (Activity) getContext());
-        rcvGoiYCombo.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
-        rcvGoiYCombo.setAdapter(goiYComboAdapter);
-
+        Query queryCombo = ref.child("NguyenLieu").orderByChild("productType").equalTo(Product.COMBO).limitToLast(4);
+        queryCombo.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Product p = dataSnapshot.getValue(Product.class);
+                    goiYComboList.add(p);
+                }
+                ProductAdapter adapter = new ProductAdapter();
+                adapter.setData((MainActivity) getContext(),goiYComboList,ProductAdapter.CATEGORY);
+                rcvGoiYCombo.setAdapter(adapter);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
         //endregion
     }
 
     private void addEvent() {
         //region hiệu ứng touch cho icon Sản phẩm, Công thức, Gợi Ý
-        btnSanPham.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN ) {
-                    btnSanPham.setImageResource(R.drawable.ic_sanpham_pressed_main);
-
-                }
-                else if (motionEvent.getAction() == MotionEvent.ACTION_UP ) {
-                    btnSanPham.setImageResource(R.drawable.ic_sanpham_main);
-                }
-                return false;
-            }
-        });
+//        btnSanPham.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN ) {
+//                    btnSanPham.setImageResource(R.drawable.ic_sanpham_pressed_main);
+//
+//                }
+//                else if (motionEvent.getAction() == MotionEvent.ACTION_UP ) {
+//                    btnSanPham.setImageResource(R.drawable.ic_sanpham_main);
+//                }
+//                return false;
+//            }
+//        });
 
         btnSanPham.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,30 +167,13 @@ public class HomeFragment extends Fragment {
                 startActivity(intentMain);
             }
         });
-        btnCongThuc.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN ) {
-                    btnCongThuc.setImageResource(R.drawable.ic_congthuc_pressed_main);
-                }
-                else if (motionEvent.getAction() == MotionEvent.ACTION_UP ) {
-                    btnCongThuc.setImageResource(R.drawable.ic_congthuc_main);
-                }
-                return false;
-            }
-        });
 
-        btnGoiY.setOnTouchListener(new View.OnTouchListener() {
+        btnCongThuc.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN ) {
-                    btnGoiY.setImageResource(R.drawable.ic_goiy_pressed_main);
-                }
-                else if (motionEvent.getAction() == MotionEvent.ACTION_UP ) {
-                    btnGoiY.setImageResource(R.drawable.ic_goiy_main);
-
-                }
-                return false;
+            public void onClick(View view) {
+                Intent intentMain = new Intent(getContext() ,
+                        ListRecipeActivity.class);
+                startActivity(intentMain);
             }
         });
         //endregion
@@ -197,16 +205,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
-
             @Override
             public void onPageSelected(int position) {
                 for (int i = 0; i < dotscount; i++){
                     dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.nonactive_dot));
                 }
-
                 dots[position].setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.active_dot));
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
 

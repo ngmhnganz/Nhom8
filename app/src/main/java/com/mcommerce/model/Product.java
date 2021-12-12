@@ -11,7 +11,7 @@ public class Product implements Parcelable {
     private String productImg;
     private String productDescription;
     private String productDetail;
-    private String productID;
+    private long productID;
     private String productType;
     private String productshortName;
     private int productPrice;
@@ -23,7 +23,7 @@ public class Product implements Parcelable {
         productImg = in.readString();
         productDescription = in.readString();
         productDetail = in.readString();
-        productID = in.readString();
+        productID = in.readLong();
         productType = in.readString();
         productshortName = in.readString();
         productPrice = in.readInt();
@@ -51,7 +51,7 @@ public class Product implements Parcelable {
         this.productshortName = productshortName;
     }
 
-    public Product(String productName, String productImg, String productDescription, String productDetail, Integer productPrice, int productQuantity, Integer productLike, String productID, String productType) {
+    public Product(String productName, String productImg, String productDescription, String productDetail, Integer productPrice, int productQuantity, Integer productLike, long productID, String productType) {
         this.productName = productName;
         this.productImg = productImg;
         this.productDescription = productDescription;
@@ -71,11 +71,11 @@ public class Product implements Parcelable {
         this.productType = productType;
     }
 
-    public String getProductID() {
+    public long getProductID() {
         return productID;
     }
 
-    public void setProductID(String productID) {
+    public void setProductID(long productID) {
         this.productID = productID;
     }
 
@@ -149,7 +149,7 @@ public class Product implements Parcelable {
         dest.writeString(productImg);
         dest.writeString(productDescription);
         dest.writeString(productDetail);
-        dest.writeString(productID);
+        dest.writeLong(productID);
         dest.writeString(productType);
         dest.writeString(productshortName);
         dest.writeInt(productPrice);

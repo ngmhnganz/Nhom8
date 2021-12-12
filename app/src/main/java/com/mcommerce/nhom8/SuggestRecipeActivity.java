@@ -1,25 +1,21 @@
 package com.mcommerce.nhom8;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexWrap;
 import com.google.android.flexbox.FlexboxLayoutManager;
-import com.google.android.flexbox.JustifyContent;
 import com.mcommerce.adapter.RecipeMaterialAdapterRCV;
 import com.mcommerce.model.Product;
-import com.mcommerce.utils.SpacingItemDecorator;
+import com.mcommerce.custom.SpacingItemDecorator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SuggestRecipeActivity extends AppCompatActivity {
 
@@ -143,41 +139,41 @@ public class SuggestRecipeActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        materialsBot = new ArrayList<Product>();
-        materialsBot.add(new Product("Bột mì"));
-        materialsBot.add(new Product("Bột năng dẻo"));
-        materialsBot.add(new Product("Bột Cacao thơm"));
-        materialsBot.add(new Product("Bột nếp mlem"));
-        materialsBot.add(new Product("Bột matcha ngon quá trời quá đất"));
-
-        materialsSuaKem = new ArrayList<Product>();
-        materialsSuaKem.add(new Product("Sữa tươi"));
-        materialsSuaKem.add(new Product("Sữa đặc"));
-        materialsSuaKem.add(new Product("Sữa béo"));
-        materialsSuaKem.add(new Product("Sữa hạt"));
-        materialsSuaKem.add(new Product("Sữa chua"));
-        materialsSuaKem.add(new Product("Whipping"));
-        materialsSuaKem.add(new Product("Topping"));
-
-        materialsBo = new ArrayList<Product>();
-        materialsBo.add(new Product("Bơ lạt"));
-        materialsBo.add(new Product("Bơ mặn"));
-        materialsBo.add(new Product("Bơ thực vật"));
-
-        materialsKhac = new ArrayList<Product>();
-        materialsKhac.add(new Product("Men nở"));
-        materialsKhac.add(new Product("Baking soda"));
-        materialsKhac.add(new Product("Trứng gà"));
+//        materialsBot = new ArrayList<Product>();
+//        materialsBot.add(new Product("Bột mì"));
+//        materialsBot.add(new Product("Bột năng dẻo"));
+//        materialsBot.add(new Product("Bột Cacao thơm"));
+//        materialsBot.add(new Product("Bột nếp mlem"));
+//        materialsBot.add(new Product("Bột matcha ngon quá trời quá đất"));
+//
+//        materialsSuaKem = new ArrayList<Product>();
+//        materialsSuaKem.add(new Product("Sữa tươi"));
+//        materialsSuaKem.add(new Product("Sữa đặc"));
+//        materialsSuaKem.add(new Product("Sữa béo"));
+//        materialsSuaKem.add(new Product("Sữa hạt"));
+//        materialsSuaKem.add(new Product("Sữa chua"));
+//        materialsSuaKem.add(new Product("Whipping"));
+//        materialsSuaKem.add(new Product("Topping"));
+//
+//        materialsBo = new ArrayList<Product>();
+//        materialsBo.add(new Product("Bơ lạt"));
+//        materialsBo.add(new Product("Bơ mặn"));
+//        materialsBo.add(new Product("Bơ thực vật"));
+//
+//        materialsKhac = new ArrayList<Product>();
+//        materialsKhac.add(new Product("Men nở"));
+//        materialsKhac.add(new Product("Baking soda"));
+//        materialsKhac.add(new Product("Trứng gà"));
     }
 
     private void initAdapter() {
-        initAdapterfor(rcvBot_RecipeMaterial,materialsBot);
-        initAdapterfor(rcvSuaKem_RecipeMaterial,materialsSuaKem);
-        initAdapterfor(rcvBo_RecipeMaterial,materialsBo);
-        initAdapterfor(rcvKhac_RecipeMaterial,materialsKhac);
+//        initAdapterfor(rcvBot_RecipeMaterial,materialsBot);
+//        initAdapterfor(rcvSuaKem_RecipeMaterial,materialsSuaKem);
+//        initAdapterfor(rcvBo_RecipeMaterial,materialsBo);
+//        initAdapterfor(rcvKhac_RecipeMaterial,materialsKhac);
     }
 
-    private void initAdapterfor(RecyclerView recyclerView, ArrayList<Product> materials) {
+    private void initAdapterfor(RecyclerView recyclerView, HashMap<String, HashMap<String,?>> materials) {
         RecipeMaterialAdapterRCV adapter=new RecipeMaterialAdapterRCV(SuggestRecipeActivity.this,materials);
         recyclerView.setAdapter(adapter);
     }

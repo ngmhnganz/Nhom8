@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mcommerce.model.Product;
 import com.mcommerce.model.Recipe;
 import com.mcommerce.nhom8.R;
 
@@ -50,7 +49,7 @@ public class ListRecipeAdapter extends BaseAdapter {
             LayoutInflater inflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view=inflater.inflate(item_layout,null);
             holder.imvRecipeThumb=view.findViewById(R.id.imvRecipeThumb_ListRecipe);
-            holder.imvRecipeLike=view.findViewById(R.id.imv_recipe_like_ic_heart_listrecipe);
+            holder.imvRecipeLike=view.findViewById(R.id.imvLikeRecipe);
             holder.txtRecipeName=view.findViewById(R.id.txtRecipeName_ListRecipe);
             holder.txtRecipeLike=view.findViewById(R.id.txtRecipeLike_ListRecipe);
 
