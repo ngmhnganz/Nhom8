@@ -96,7 +96,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 holder.cvitem_allproducts.setLayoutParams(marginValue(holder));
                 break;
 
-          case WISH:
+            case WISH:
               Glide.with(context).load(product.getProductImg()).into(holder.imvProduct_Wish);
               holder.txtName_WishP.setText(product.getProductName());
               holder.txtPrice_WishP.setText(product.getProductPrice());
