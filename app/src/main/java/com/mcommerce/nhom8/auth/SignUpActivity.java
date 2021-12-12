@@ -49,6 +49,7 @@ public class SignUpActivity extends AppCompatActivity {
     private Button btnTiepTuc_aSignUp;
     private ProgressDialog progressDialog;
     private FirebaseAuth mAuth;
+    private String phone;
 
 
     @Override
