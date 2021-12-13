@@ -57,12 +57,10 @@ public class RecipeMaterialAdapterRCV extends RecyclerView.Adapter<RecipeMateria
                 null,
                 0,
                 R.style.custom_chip);
-        if (ingredients.get(id).get("name").equals("Bột mì đa dụng")){
-            chip.setEnabled(false);
-        }
         chip.setCheckedIconTint(ContextCompat.getColorStateList(context,R.color.white));
         chip.setTextColor(ContextCompat.getColorStateList(context, R.color.chip_text_selector));
         chip.setChipDrawable(chipDrawable);
+        chip.setEnsureMinTouchTargetSize(false);
         holder.chipGroup.addView(chip);
 
 //     }

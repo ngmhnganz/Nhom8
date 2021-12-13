@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,10 +39,13 @@ import com.mcommerce.model.GoiYMonanModel;
 import com.mcommerce.model.Product;
 import com.mcommerce.model.Recipe;
 import com.mcommerce.nhom8.MainActivity;
+import com.mcommerce.nhom8.SuggestRecipeActivity;
 import com.mcommerce.nhom8.order.CartActivity;
 import com.mcommerce.nhom8.product.AllProductsActivity;
 import com.mcommerce.nhom8.R;
+import com.mcommerce.nhom8.product.ListProductActivity;
 import com.mcommerce.nhom8.recipe.ListRecipeActivity;
+import com.mcommerce.util.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,17 +53,22 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     View view;
-    private ViewPager vpgBannerMain;
-    private List<BannerMainModel> bannerMainModelList;
-    private List<Recipe> goiYRecipeList = new ArrayList<>();
-    private List<Product> goiYComboList = new ArrayList<>();
-    private ImageButton btnSanPham, btnCongThuc, btnGoiY;
-    private RecyclerView rcvGoiYMonan, rcvGoiYCombo;
-    private RealtimeBlurView blurView;
-    private BannerMainAdapter bannerMainAdapter;
-    private LinearLayout llSliderDot;
-    private int dotscount;
-    private ImageView[] dots;
+    ViewPager vpgBannerMain;
+    List<BannerMainModel> bannerMainModelList;
+    List<Recipe> goiYRecipeList = new ArrayList<>();
+    List<Product> goiYComboList = new ArrayList<>();
+    TextView txtSeeMoreMonAn, txtSeeMoreCongThuc;
+
+    ImageButton btnSanPham, btnCongThuc, btnGoiY;
+    RecyclerView rcvGoiYMonan, rcvGoiYCombo;
+
+    RealtimeBlurView blurView;
+    BannerMainAdapter bannerMainAdapter;
+
+    LinearLayout llSliderDot;
+    int dotscount;
+    ImageView[] dots;
+
     private ImageButton btnCard_main;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
 
@@ -75,6 +84,9 @@ public class HomeFragment extends Fragment {
         return view;
     }
     private void linkview() {
+        txtSeeMoreMonAn = view.findViewById(R.id.txtSeeMoreMonAn);
+        txtSeeMoreCongThuc = view.findViewById(R.id.txtSeeMoreCongThuc);
+
         vpgBannerMain = view.findViewById(R.id.vpgBanner_main);
         llSliderDot = view.findViewById(R.id.llSliderDots_main);
 
@@ -144,20 +156,18 @@ public class HomeFragment extends Fragment {
     }
 
     private void addEvent() {
-        //region hiệu ứng touch cho icon Sản phẩm, Công thức, Gợi Ý
-//        btnSanPham.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN ) {
-//                    btnSanPham.setImageResource(R.drawable.ic_sanpham_pressed_main);
-//
-//                }
-//                else if (motionEvent.getAction() == MotionEvent.ACTION_UP ) {
-//                    btnSanPham.setImageResource(R.drawable.ic_sanpham_main);
-//                }
-//                return false;
-//            }
-//        });
+
+        txtSeeMoreMonAn.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext() ,
+                    ListProductActivity.class);
+            intent.putExtra(Constant.PRODUCT_LIST_TYPE, Product.COMBO);
+            startActivity(intent);
+        });
+        txtSeeMoreCongThuc.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext() ,
+                    ListRecipeActivity.class);
+            startActivity(intent);
+        });
 
         btnSanPham.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,6 +185,12 @@ public class HomeFragment extends Fragment {
                         ListRecipeActivity.class);
                 startActivity(intentMain);
             }
+        });
+
+        btnGoiY.setOnClickListener(v -> {
+            Intent intentMain = new Intent(getContext() ,
+                    SuggestRecipeActivity.class);
+            startActivity(intentMain);
         });
         //endregion
 
@@ -214,7 +230,6 @@ public class HomeFragment extends Fragment {
             }
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
         //endregion

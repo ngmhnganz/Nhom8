@@ -7,10 +7,12 @@ public class Product implements Parcelable {
     public static final String  NGUYEN_lIEU = "Nguyên liệu",
                                 DUNG_CU = "Dụng cụ",
                                 COMBO = "Combo";
+
     private String productName;
     private String productImg;
     private String productDescription;
     private String productDetail;
+    private String productLabel;
     private long productID;
     private String productType;
     private String productshortName;
@@ -26,6 +28,7 @@ public class Product implements Parcelable {
         productID = in.readLong();
         productType = in.readString();
         productshortName = in.readString();
+        productLabel = in.readString();
         productPrice = in.readInt();
         productQuantity = in.readInt();
         productLike = in.readInt();
@@ -51,16 +54,12 @@ public class Product implements Parcelable {
         this.productshortName = productshortName;
     }
 
-    public Product(String productName, String productImg, String productDescription, String productDetail, Integer productPrice, int productQuantity, Integer productLike, long productID, String productType) {
-        this.productName = productName;
-        this.productImg = productImg;
-        this.productDescription = productDescription;
-        this.productDetail = productDetail;
-        this.productPrice = productPrice;
-        this.productQuantity = productQuantity;
-        this.productLike = productLike;
-        this.productID = productID;
-        this.productType = productType;
+    public String getProductLabel() {
+        return productLabel;
+    }
+
+    public void setProductLabel(String productLabel) {
+        this.productLabel = productLabel;
     }
 
     public String getProductType() {
@@ -152,6 +151,7 @@ public class Product implements Parcelable {
         dest.writeLong(productID);
         dest.writeString(productType);
         dest.writeString(productshortName);
+        dest.writeString(productLabel);
         dest.writeInt(productPrice);
         dest.writeInt(productQuantity);
         dest.writeInt(productLike);

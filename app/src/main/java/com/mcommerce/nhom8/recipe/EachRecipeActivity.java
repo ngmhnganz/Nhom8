@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,9 +28,7 @@ import java.util.HashMap;
 
 public class EachRecipeActivity extends AppCompatActivity {
 
-    RecyclerView rcvRecipeMaterial;
-    RecipeMaterialAdapterRCV adapterRecipeMaterial;
-    HashMap<String, HashMap<String,?>> materials;
+    Button btnAddToCart_Recipe;
     ImageView imvDropDownMaterial;
     TextView txtPreparedMaterials_Recipe,txtRecipe_Info_recipe, txtRecipeName_recipe;
     LinearLayout llMaterialBuying;
@@ -48,7 +47,6 @@ public class EachRecipeActivity extends AppCompatActivity {
         getData();
         initAdapter();
         addEvents();
-        //setGridViewHeightBasedOnChildren( grvRecipeMaterial,3);
     }
 
 
@@ -68,6 +66,7 @@ public class EachRecipeActivity extends AppCompatActivity {
         txtPreparedMaterials_Recipe=findViewById(R.id.txtPreparedMaterials_Recipe);
         txtRecipe_Info_recipe=findViewById(R.id.txtRecipe_Info_recipe);
         txtRecipeName_recipe = findViewById(R.id.txtRecipeName_recipe);
+        btnAddToCart_Recipe = findViewById(R.id.btnAddToCart_Recipe);
     }
     private void getData() {
         Intent intent = getIntent();
@@ -96,6 +95,12 @@ public class EachRecipeActivity extends AppCompatActivity {
     private void addEvents() {
         imvDropDownMaterial.setOnClickListener(clickSetVisibility);
         txtPreparedMaterials_Recipe.setOnClickListener(clickSetVisibility);
+        btnAddToCart_Recipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //
+            }
+        });
 
 //        //khi click vào item trên rcv view => đồng thời đổi màu + lưu list sp người dùng chọn
 //        rcvRecipeMaterial.setOnItemClickListener
