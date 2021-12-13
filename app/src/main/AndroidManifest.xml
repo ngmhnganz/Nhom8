@@ -16,15 +16,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Nhom8">
-        <activity
-            android:name="com.mcommerce.fragment.Wishlist_Recipe"
-            android:exported="true" />
-        <activity
-            android:name="com.mcommerce.fragment.Wishlist_Product"
-            android:exported="true" />
-        <activity
-            android:name=".wishlist.WishList"
-            android:exported="true" />
+<!--        <activity-->
+<!--            android:name="com.mcommerce.fragment.Wishlist_Recipe"-->
+<!--            android:exported="true" />-->
+<!--        <activity-->
+<!--            android:name="com.mcommerce.fragment.Wishlist_Product"-->
+<!--            android:exported="true" />-->
+<!--        <activity-->
+<!--            android:name=".wishlist.WishList"-->
+<!--            android:exported="true" />-->
         <activity
             android:name=".setting.FillAddressActivity"
             android:exported="false" />

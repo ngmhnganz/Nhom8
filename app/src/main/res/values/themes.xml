@@ -62,8 +62,8 @@
     </style>
 
     <style name="checked_wish" parent="Widget.AppCompat.CompoundButton.CheckBox">
-        <item name="android:background">@drawable/checked_wish</item>
-        <item name="android:checkable">true</item>
+        <item name="buttonCompat">@drawable/checked_wish</item>
+        <item name="buttonTint">@color/colorPrimary</item>
     </style>
 
     <style name="custom_chip" parent="Widget.MaterialComponents.Chip.Filter">
