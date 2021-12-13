@@ -10,6 +10,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -48,11 +50,14 @@ public class ProductDetailActivity extends AppCompatActivity {
             btn_minus,
             btn_plus;
 
+    private CheckBox chkLike1, chkLike2;
+
     private Button btnAddProduct_productDetail;
 
     private Product product ;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("User/"+user.getUid()+"/userCart");
+    private DatabaseReference Likeref = FirebaseDatabase.getInstance().getReference("User/"+user.getUid()+"/userLikeProduct");
     private String btnText;
 
 
@@ -85,6 +90,8 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         btnAddProduct_productDetail = findViewById(R.id.btnAddProduct_productDetail);
         btnText = btnAddProduct_productDetail.getText().toString();
+        chkLike1 = findViewById(R.id.chkLike1);
+        chkLike2 = findViewById(R.id.chkLike2);
     }
 
     private void getData() {
@@ -102,7 +109,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private void loadData() {
-        ref.child(product.getProductID()).addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child("id"+product.getProductID()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 long quantiy;
@@ -113,6 +120,21 @@ public class ProductDetailActivity extends AppCompatActivity {
                     HashMap<String, Object> result = (HashMap<String, Object>) snapshot.getValue();
                     quantiy = (long) result.get("quantity");
                     edtQuantity_aProductDetail.setText(quantiy+"");
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(ProductDetailActivity.this, "Lỗi",Toast.LENGTH_SHORT);
+            }
+        });
+
+        Likeref.child("id"+product.getProductID()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // nếu khách hàng đã từng thêm món này vào cart
+                if (snapshot.getValue()!=null){
+                    // nội dung nút là cập nhật
+                   chkLike1.setChecked(true);
                 }
             }
             @Override
@@ -176,10 +198,11 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         btnAddProduct_productDetail.setOnClickListener(v -> {
             //nếu edt =0, gán nút = Thêm vào giỏ hàng, remove item khỏi firebase nếu có, btn có nội dung thêm vào giỏ hàng
+            int productID = (int) product.getProductID();
             if (edtQuantity_aProductDetail.getText().toString().equals("0")) {
                 btnText = "Thêm vào giỏ hàng";
                 btnAddProduct_productDetail.setText(btnText);
-                ref.child(product.getProductID()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                ref.child(String.valueOf(productID)).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(ProductDetailActivity.this,"Sản phẩm đã được xóa khỏi giỏ hàng",Toast.LENGTH_SHORT).show();
@@ -192,9 +215,10 @@ public class ProductDetailActivity extends AppCompatActivity {
                 // đổi từ "thêm vào" thành "cập nhật" ( nếu có)
                 // thông báo cho người dùng đã thành công
                 int quantity = Integer.parseInt(edtQuantity_aProductDetail.getText().toString());
-                ref.child(product.getProductID()).child("quantity").setValue(quantity);
-                ref.child(product.getProductID()).child("name").setValue(product.getProductName());
-                ref.child(product.getProductID()).child("price").setValue(product.getProductPrice());
+                ref.child("id"+productID).child("quantity").setValue(quantity);
+                ref.child("id"+productID).child("name").setValue(product.getProductName());
+                ref.child("id"+productID).child("id").setValue(productID);
+                ref.child("id"+productID).child("price").setValue(product.getProductPrice());
                 Toast.makeText(ProductDetailActivity.this, "Giỏ hàng của bạn đã được cập nhật", Toast.LENGTH_SHORT).show();
                 btnText = btnAddProduct_productDetail.getText().toString();
                 btnText = btnText.replace("Thêm vào giỏ hàng", "Cập nhật giỏ hàng");
@@ -206,6 +230,22 @@ public class ProductDetailActivity extends AppCompatActivity {
 
             }
 
+        });
+
+        chkLike1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                int productID = (int) product.getProductID();
+                if (isChecked) {
+                    Likeref.child("id"+productID).child("name").setValue(product.getProductName());
+                    Likeref.child("id"+productID).child("id").setValue(productID);
+                    Likeref.child("id"+productID).child("price").setValue(product.getProductPrice());
+                    Likeref.child("id"+productID).child("thumb").setValue(product.getProductImg());
+                }
+                else {
+                    Likeref.child("id"+productID).removeValue();
+                }
+            }
         });
 
     }

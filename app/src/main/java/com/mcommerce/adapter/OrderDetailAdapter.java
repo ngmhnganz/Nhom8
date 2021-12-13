@@ -19,9 +19,7 @@ public class OrderDetailAdapter  extends RecyclerView.Adapter<OrderDetailAdapter
     private Activity context;
     private HashMap<String,HashMap<String, ?>> itemsOrder;
     private final ArrayList<String> productIDs;
-
     private String itemID;
-
 
     public OrderDetailAdapter(Activity context, HashMap<String,HashMap<String, ?>> itemsOrder) {
         this.context = context;

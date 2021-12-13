@@ -89,7 +89,7 @@ public class ListProductActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Product p = getDataProductFromFirebase(dataSnapshot);
+                    Product p = dataSnapshot.getValue(Product.class);
                     products.add(p);
                 }
                 ProductAdapter adapter = new ProductAdapter();
@@ -103,19 +103,6 @@ public class ListProductActivity extends AppCompatActivity {
         //endregion
     }
 
-    private Product getDataProductFromFirebase(DataSnapshot dataSnapshot) {
-        product  = new Product();
-        product.setProductImg(dataSnapshot.child("productImg").getValue().toString());
-        product.setProductLike( ((Long) dataSnapshot.child("productLike").getValue()).intValue() );
-        product.setProductDescription(dataSnapshot.child("productDescription").getValue().toString());
-        product.setProductDetail(dataSnapshot.child("productDetail").getValue().toString());
-        product.setProductName(dataSnapshot.child("productName").getValue().toString());
-        product.setProductPrice(((Long) dataSnapshot.child("productPrice").getValue()).intValue());
-        product.setProductQuantity(((Long) dataSnapshot.child("productQuantity").getValue()).intValue());
-        product.setProductID(dataSnapshot.child("productID").getValue().toString());
-        product.setProductType(dataSnapshot.child("productType").getValue().toString());
-        return product;
-    }
 
     private void linkViews() {
         rcv_aListProduct=findViewById(R.id.rcv_aListProduct);

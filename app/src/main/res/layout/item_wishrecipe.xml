@@ -73,13 +73,13 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gilroy_bold"
                     android:paddingHorizontal="10dp"
-                    android:text="20 phút"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-
+                    android:paddingVertical="5dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:paddingVertical="5dp"/>
+
+                    android:text="20 phút"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
 
             </RelativeLayout>
 

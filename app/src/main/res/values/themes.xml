@@ -62,7 +62,23 @@
     </style>
 
     <style name="checked_wish" parent="Widget.AppCompat.CompoundButton.CheckBox">
-        <item name="android:background">@drawable/checked_wish</item>
-        <item name="android:checkable">true</item>
+        <item name="buttonCompat">@drawable/checked_wish</item>
+        <item name="buttonTint">@color/colorPrimary</item>
+    </style>
+
+    <style name="custom_chip" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipBackgroundColor">@color/chip_selector</item>
+        <item name="checkedIconTint">@color/white</item>
+    </style>
+
+    <style name="btn_san_pham" parent="Widget.AppCompat.ImageButton">
+        <item name="android:src">@drawable/btn_san_pham</item>
+    </style>
+    <style name="btn_cong_thuc" parent="Widget.AppCompat.ImageButton">
+        <item name="android:src">@drawable/btn_cong_thuc</item>
+    </style>
+
+    <style name="btn_goi_y" parent="Widget.AppCompat.ImageButton">
+        <item name="android:src">@drawable/btn_goi_y</item>
     </style>
 </resources>

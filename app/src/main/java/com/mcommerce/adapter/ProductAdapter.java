@@ -131,13 +131,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         ImageView  imvHinh_allproducts;
         TextView    txtProductPrice_allproducts,
-                txtProductName_allproducts;
+                    txtProductName_allproducts;
         CardView    cvitem_allproducts;
 
         ImageView   imvProduct_listProduct;
         TextView    txtproductName_listProduct,
-                txtProductPrice_listProduct,
-                txtLike_listProduct;
+                    txtProductPrice_listProduct,
+                    txtLike_listProduct;
         Button btnAdd_listProduct;
 
         //WishList

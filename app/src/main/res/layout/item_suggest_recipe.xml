@@ -46,7 +46,6 @@
 
                 app:srcCompat="@drawable/ic_launcher_background" />
 
-
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,28 +59,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:layout_alignTop="@+id/txtTime_WishR"
-                    android:layout_alignBottom="@+id/txtTime_WishR"
-                    android:layout_alignStart="@+id/txtTime_WishR"
-                    android:layout_alignLeft="@+id/txtTime_WishR"
-                    android:layout_alignEnd="@+id/txtTime_WishR"
-                    android:layout_alignRight="@+id/txtTime_WishR" />
+                    android:layout_alignStart="@+id/txtTimeMonan_LyGoiYMonan"
+                    android:layout_alignLeft="@+id/txtTimeMonan_LyGoiYMonan"
+                    android:layout_alignTop="@+id/txtTimeMonan_LyGoiYMonan"
+                    android:layout_alignEnd="@+id/txtTimeMonan_LyGoiYMonan"
+                    android:layout_alignRight="@+id/txtTimeMonan_LyGoiYMonan"
+                    android:layout_alignBottom="@+id/txtTimeMonan_LyGoiYMonan" />
 
                 <TextView
-                    android:id="@+id/txtTime_WishR"
+                    android:id="@+id/txtTimeMonan_LyGoiYMonan"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/gilroy_bold"
                     android:paddingHorizontal="10dp"
-                    android:text="20 phút"
-                    android:textColor="@color/white"
-                    android:textSize="14sp"
-
+                    android:paddingVertical="5dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-                    android:paddingVertical="5dp"/>
+
+                    android:text="20 phút"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
 
             </RelativeLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
