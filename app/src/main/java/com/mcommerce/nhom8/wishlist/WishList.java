@@ -23,7 +23,6 @@ public class WishList extends Fragment {
 
     View view;
     Button btnCongThuc_Wish, btnSanPham_Wish;
-    FragmentManager fragmentManager;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

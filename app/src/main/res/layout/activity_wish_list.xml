@@ -7,30 +7,38 @@
     tools:context=".wishlist.WishList"
     android:background="@color/white">
     // Đổi tên class - làm xong fix navigation bar
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/header"
+    <LinearLayout
+        android:id="@+id/lnheader"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#00FFFFFF"
-        android:outlineSpotShadowColor="#00FFFFFF"
-        android:outlineAmbientShadowColor="#00FFFFFF"
+        android:layout_height="80dp"
+        android:background="@drawable/header_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topBar_ComingOrder"
+        <ImageButton
+            android:id="@+id/btnBack_WL"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/header_main">
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/actionBarItemBackground"
+            android:src="@drawable/ic_left_arrow_24_white" />
 
-            <SearchView
-                android:id="@+id/search_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </com.google.android.material.appbar.MaterialToolbar>
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.51" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+        <ImageButton
+            android:id="@+id/btnCart_WL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+
+            android:background="?attr/actionBarItemBackground"
+            android:src="@drawable/ic_cart"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </LinearLayout>
 
     //BODY - Thanh trượt
     <LinearLayout
@@ -40,7 +48,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:layout_constraintTop_toBottomOf="@+id/lnheader"
         app:layout_constraintBottom_toTopOf="@+id/scv_LikeList">
 
         <LinearLayout
@@ -75,11 +83,10 @@
     <ScrollView
         android:id="@+id/scv_LikeList"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="600dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lnlNut_LikeList"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_likelist">
+        app:layout_constraintTop_toBottomOf="@+id/lnlNut_LikeList">
         <LinearLayout
             android:id="@+id/layoutContainer_WishList"
             android:layout_width="match_parent"
@@ -88,22 +95,5 @@
         </LinearLayout>
 
     </ScrollView>
-    //NAVIGATION BAR - Đổi hiển thị từ - trang chủ -> Yêu thích
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation_likelist"
-
-        android:background="@drawable/round_corner_image"
-        app:itemIconTint="@color/nav_item_selector"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-
-        app:itemTextAppearanceActive="@style/bottomNavigationText"
-
-        app:menu="@menu/bottom_navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
