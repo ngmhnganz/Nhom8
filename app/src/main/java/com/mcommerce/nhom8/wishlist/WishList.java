@@ -1,36 +1,47 @@
 package com.mcommerce.nhom8.wishlist;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.mcommerce.fragment.ComingOrderFragment;
+import com.mcommerce.fragment.HistoryOrderFragment;
 import com.mcommerce.fragment.Wishlist_Product;
 import com.mcommerce.fragment.Wishlist_Recipe;
 import com.mcommerce.nhom8.R;
 
-public class WishList extends AppCompatActivity {
+public class WishList extends Fragment {
 
+    View view;
     Button btnCongThuc_Wish, btnSanPham_Wish;
     FragmentManager fragmentManager;
-    FragmentTransaction fragmentTransaction;
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.activity_wish_list,container,false);
+        loadFragment(new Wishlist_Recipe());
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_wish_list);
         linkViews();
         addEvents();
-        fragmentManager=getSupportFragmentManager();
+        return null;
     }
 
     private void linkViews() {
-        btnCongThuc_Wish =findViewById(R.id.btnCongThuc_Wish);
-        btnSanPham_Wish =findViewById(R.id.btnSanPham_Wish);
-    }
+        btnCongThuc_Wish =view.findViewById(R.id.btnCongThuc_Wish);
+        btnSanPham_Wish =view.findViewById(R.id.btnSanPham_Wish);
+
+        btnCongThuc_Wish.setEnabled(false);
+        btnSanPham_Wish.setEnabled(true);
+        btnCongThuc_Wish.setBackgroundResource(R.drawable.button_underline);    }
 
     private void addEvents() {
         btnCongThuc_Wish.setOnClickListener(myClick);
@@ -39,21 +50,25 @@ public class WishList extends AppCompatActivity {
     View.OnClickListener myClick=new View.OnClickListener(){
         @Override
         public void onClick(View view) {
-            FragmentManager fragmentManager=getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
-            Fragment fragment=null;
             if(view.getId()==R.id.btnCongThuc_Wish){
-                fragment=new Wishlist_Recipe();
+                loadFragment(new HistoryOrderFragment());
+                btnCongThuc_Wish.setEnabled(false);
+                btnSanPham_Wish.setEnabled(true);
+                btnCongThuc_Wish.setBackgroundResource(R.drawable.button_underline);
+                btnSanPham_Wish.setBackgroundResource(R.color.white);
+
             }else if(view.getId()==R.id.btnSanPham_Wish){
-                fragment=new Wishlist_Product();
-                Bundle bundle=new Bundle();
-                bundle.putString("say","Hello");
-                fragment.setArguments(bundle);
-            }
-            if(fragment !=null){
-                fragmentTransaction.replace(R.id.layoutContainer_WishList,fragment);
-                fragmentTransaction.commit();
+                btnSanPham_Wish.setEnabled(false);
+                btnCongThuc_Wish.setEnabled(true);
+                btnSanPham_Wish.setBackgroundResource(R.drawable.button_underline);
+                btnCongThuc_Wish.setBackgroundResource(R.color.white);
             }
         }
     };
+    private void loadFragment(Fragment fragment) {
+        // load fragment
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.containerOrderLists_orderactivity, fragment);
+        transaction.commit();
+    }
 }
