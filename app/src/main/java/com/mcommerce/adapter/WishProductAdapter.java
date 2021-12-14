@@ -1,0 +1,91 @@
+package com.mcommerce.adapter;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.mcommerce.model.Product;
+import com.mcommerce.nhom8.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class WishProductAdapter extends  RecyclerView.Adapter<WishProductAdapter.WishViewHolder>{
+
+    private final Context context;
+    private final Map<String, HashMap<String,?>> wishList;
+    private final int item_layout;
+    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    List<String> wishIDs;
+
+    public WishProductAdapter(Context context, Map<String, HashMap<String, ?>> wishList, int item_layout) {
+        this.context = context;
+        this.wishList = wishList;
+        this.item_layout = item_layout;
+        wishIDs = new ArrayList<>(wishList.keySet());
+    }
+
+    @NonNull
+    @Override
+    public WishViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(item_layout, parent,false);
+        return new WishViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull WishViewHolder holder, int position) {
+        String key = wishIDs.get(position);
+        long productID = (long) wishList.get(key).get("id");
+        ref.child("NguyenLieu").child(String.valueOf(productID)).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Product product = snapshot.getValue(Product.class);
+                Glide.with(context).load(product.getProductImg()).into(holder.imvProduct_Wish);
+                holder.txtName_WishP.setText(product.getProductName());
+                holder.txtPrice_WishP.setText(product.getProductPrice()+" đ");
+                holder.txtLike_WishP.setText(product.getProductLike()+" người đã thích");
+                holder.chkLike_WL.setChecked(true);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    @Override
+    public int getItemCount() {
+        return wishList.size();
+    }
+
+    public class WishViewHolder extends RecyclerView.ViewHolder {
+        ImageView imvProduct_Wish;
+        TextView txtName_WishP, txtLike_WishP,txtPrice_WishP;
+        CheckBox chkLike_WL;
+
+        public WishViewHolder(@NonNull View itemView) {
+            super(itemView);
+            chkLike_WL=itemView.findViewById(R.id.chkLike_WL);
+            imvProduct_Wish=itemView.findViewById(R.id.imvProduct_Wish);
+            txtName_WishP=itemView.findViewById(R.id.txtName_WishP);
+            txtLike_WishP=itemView.findViewById(R.id.txtLike_WishP);
+            txtPrice_WishP=itemView.findViewById(R.id.txtPrice_WishP);
+        }
+    }
+}

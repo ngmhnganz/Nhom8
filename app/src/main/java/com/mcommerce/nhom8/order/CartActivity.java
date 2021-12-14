@@ -37,7 +37,7 @@ public class CartActivity extends AppCompatActivity {
     private Button btnPayment_aCart;
     private CartAdapter adapter;
     private ImageView imvCartEmpty_aCart;
-    private  FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private DatabaseReference myRef;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();

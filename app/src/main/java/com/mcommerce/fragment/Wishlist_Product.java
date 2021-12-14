@@ -2,74 +2,70 @@ package com.mcommerce.fragment;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.DialogInterface;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.mcommerce.adapter.OrderAdapter;
-import com.mcommerce.adapter.ProductAdapter;
-import com.mcommerce.model.Order;
-import com.mcommerce.model.Product;
-import com.mcommerce.nhom8.MainActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.mcommerce.adapter.WishProductAdapter;
 import com.mcommerce.nhom8.R;
-import com.mcommerce.nhom8.order.CartActivity;
-import com.mcommerce.nhom8.wishlist.WishList;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Wishlist_Product extends Fragment {
-    CheckBox chkLike_WL;
-    ImageView imvProduct_Wish;
-    TextView txtName_WishP, txtLike_WishP,txtPrice_WishP;
     RecyclerView rcv_wish_product;
     View view;
-    ProductAdapter adapter;
-    ArrayList<Product> productLists;
-
+    DatabaseReference LikeRef = FirebaseDatabase.getInstance().getReference();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View  view= inflater.inflate(R.layout.fragment_wishlist_product,container,false);
-        listViews();
-        addData();
-//        addEvents();
+        view = inflater.inflate(R.layout.fragment_wishlist_product,container,false);
+        linkViews();
+        loadData();
         return view;
     }
 
-    private void listViews() {
-        chkLike_WL=view.findViewById(R.id.chkLike_WL);
-        imvProduct_Wish=view.findViewById(R.id.imvProduct_Wish);
-        txtName_WishP=view.findViewById(R.id.imvProduct_Wish);
-        txtLike_WishP=view.findViewById(R.id.txtLike_WishP);
-        txtPrice_WishP=view.findViewById(R.id.txtPrice_WishP);
-        rcv_wish_product=view.findViewById(R.id.rcv_wish_product);
+    private void linkViews() {
+        rcv_wish_product = view.findViewById(R.id.rcv_wish_product);
+        rcv_wish_product.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
 
     }
-//Nạp data...
-    private void addData() {
-//        products=getResources().getStringArray(R.array.)
-//        adapter = new ProductAdapter(getContext(),R.layout.item_wishproduct,productLists ,ProductAdapter.WISH);
-//        rcv_wish_product.setAdapter(adapter);
+
+    //Nạp data...
+    private void loadData() {
+        if (user == null) {
+            return;
+        } else {
+            ProgressDialog progressDialog = new ProgressDialog(getContext());
+            progressDialog.show();
+            LikeRef.child("User").child(user.getUid()).child("userLikeProduct").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                   Map<String, HashMap<String,?>> wishList = (Map<String, HashMap<String, ?>>) snapshot.getValue();
+                   WishProductAdapter adapter = new WishProductAdapter(getContext(),wishList,R.layout.item_wishproduct);
+                   progressDialog.dismiss();
+                   rcv_wish_product.setAdapter(adapter);
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+        }
     }
-// xủ lý nút Tim
-//    private void addEvents() {
-//        chkLike_WL.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-//    }
+
 }

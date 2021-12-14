@@ -26,6 +26,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     public static final int RECIPE_ITEM = 0;
     public static final int SUGGEST = 1;
+    public static final int WISH=2;
+
     Context context;
     int type;
     List<Recipe> recipeList;
@@ -47,6 +49,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             case SUGGEST:{
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_suggest_recipe,parent,false);
                 break;
+            }
+            case WISH:{
+                view=LayoutInflater.from(parent.getContext()).inflate(R.layout.item_wishrecipe,parent,false);
             }
         }
 
@@ -72,6 +77,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 holder.txtTimeMonan_LyGoiYMonan.setText(recipe.getRecipeTime()+" phút");
                 Glide.with(context).load(recipe.getRecipeImage()).into(holder.imv_LyGoiMonan);
                 break;
+            }
+            case WISH:{
+
             }
         }
         holder.setItemClickListener(new RecyclerViewItemClickListener() {

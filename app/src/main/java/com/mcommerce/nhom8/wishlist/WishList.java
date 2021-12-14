@@ -27,20 +27,19 @@ public class WishList extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_wish_list,container,false);
-        loadFragment(new Wishlist_Recipe());
-        super.onCreate(savedInstanceState);
+        loadFragment(new Wishlist_Product());
         linkViews();
         addEvents();
-        return null;
+        return view;
     }
 
     private void linkViews() {
         btnCongThuc_Wish =view.findViewById(R.id.btnCongThuc_Wish);
         btnSanPham_Wish =view.findViewById(R.id.btnSanPham_Wish);
 
-        btnCongThuc_Wish.setEnabled(false);
-        btnSanPham_Wish.setEnabled(true);
-        btnCongThuc_Wish.setBackgroundResource(R.drawable.button_underline);    }
+        btnSanPham_Wish.setEnabled(false);
+        btnCongThuc_Wish.setEnabled(true);
+        btnSanPham_Wish.setBackgroundResource(R.drawable.button_underline);    }
 
     private void addEvents() {
         btnCongThuc_Wish.setOnClickListener(myClick);
@@ -49,25 +48,25 @@ public class WishList extends Fragment {
     View.OnClickListener myClick=new View.OnClickListener(){
         @Override
         public void onClick(View view) {
-            if(view.getId()==R.id.btnCongThuc_Wish){
-                loadFragment(new HistoryOrderFragment());
-                btnCongThuc_Wish.setEnabled(false);
-                btnSanPham_Wish.setEnabled(true);
-                btnCongThuc_Wish.setBackgroundResource(R.drawable.button_underline);
-                btnSanPham_Wish.setBackgroundResource(R.color.white);
-
-            }else if(view.getId()==R.id.btnSanPham_Wish){
+            if(view.getId()==R.id.btnSanPham_Wish) {
                 btnSanPham_Wish.setEnabled(false);
                 btnCongThuc_Wish.setEnabled(true);
                 btnSanPham_Wish.setBackgroundResource(R.drawable.button_underline);
                 btnCongThuc_Wish.setBackgroundResource(R.color.white);
+            }else if(view.getId()==R.id.btnCongThuc_Wish){
+                loadFragment(new Wishlist_Recipe());
+                btnCongThuc_Wish.setEnabled(false);
+                btnSanPham_Wish.setEnabled(true);
+                btnCongThuc_Wish.setBackgroundResource(R.drawable.button_underline);
+                btnSanPham_Wish.setBackgroundResource(R.color.white);
             }
+
         }
     };
     private void loadFragment(Fragment fragment) {
         // load fragment
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        transaction.replace(R.id.containerOrderLists_orderactivity, fragment);
+        transaction.replace(R.id.layoutContainer_WishList, fragment);
         transaction.commit();
     }
 }
