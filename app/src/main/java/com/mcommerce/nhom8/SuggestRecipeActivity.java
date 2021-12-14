@@ -3,6 +3,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,8 +19,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.model.Ingredient;
+import com.mcommerce.nhom8.recipe.ListRecipeActivity;
+import com.mcommerce.util.Constant;
 import com.mcommerce.util.Key;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class SuggestRecipeActivity extends AppCompatActivity {
 
@@ -33,6 +42,9 @@ public class SuggestRecipeActivity extends AppCompatActivity {
     Button btnSearch;
 
     HashMap<String, HashMap<String,?>> bots, suakems,bos,khacs;
+
+    List<Integer> filter;
+
     LinearLayout llBot_RecipeMaterial,
             llSua_RecipeMaterial,
             llBo_RecipeMaterial,
@@ -110,11 +122,14 @@ public class SuggestRecipeActivity extends AppCompatActivity {
         });
 
         btnSearch.setOnClickListener(v -> {
-            int[] result = null;
-//            chipBos.
-            if (chipBos.getCheckedChipIds()!= null){
-
-            }
+            filter = new ArrayList<>();
+            filter.addAll(chipBos.getCheckedChipIds());
+            filter.addAll(chipBots.getCheckedChipIds());
+            filter.addAll(chipKhacs.getCheckedChipIds());
+            filter.addAll(chipSuaKems.getCheckedChipIds());
+            Intent intent = new Intent(SuggestRecipeActivity.this, ListRecipeActivity.class);
+            intent.putIntegerArrayListExtra(Constant.FILTER_OPTION, (ArrayList<Integer>) filter);
+            startActivity(intent);
         });
     }
 
@@ -171,6 +186,7 @@ public class SuggestRecipeActivity extends AppCompatActivity {
         ChipDrawable chipDrawable;
         for (HashMap<String,?>  ingredient: materials.values()) {
             chip = new Chip(this);
+            chip.setId(  ( (Long)ingredient.get("id") ).intValue() );
             chip.setText(ingredient.get("name").toString());
 //            if (ingredient.get("name").equals("Bột mì")){
 //                chip.setEnabled(false);
