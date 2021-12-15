@@ -20,6 +20,7 @@ import com.mcommerce.nhom8.R;
 import com.mcommerce.util.Constant;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
@@ -29,10 +30,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     Context context;
     int type;
     List<Recipe> recipeList;
-    public RecipeAdapter(Context context, int type, List<Recipe> recipeList) {
+    List<Integer> filter;
+    public RecipeAdapter(Context context, int type, List<Recipe> recipeList, List<Integer> filter) {
         this.context = context;
         this.type = type;
         this.recipeList = recipeList;
+        this.filter = filter;
     }
 
     @NonNull
@@ -82,6 +85,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(Constant.SECLECTED_RECIPE, recipe);
                 bundle.putSerializable(Constant.ITEMS_INGREDIENT, (Serializable) recipe.getRecipeIngredient());
+                bundle.putIntegerArrayList(Constant.FILTER_OPTION, (ArrayList<Integer>) filter);
                 intent.putExtra(Constant.RECIPE_BUNDLE, bundle);
                 context.startActivity(intent);
             }

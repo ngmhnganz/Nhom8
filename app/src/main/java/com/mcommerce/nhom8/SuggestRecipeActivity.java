@@ -2,7 +2,6 @@ package com.mcommerce.nhom8;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,10 +23,8 @@ import com.mcommerce.util.Constant;
 import com.mcommerce.util.Key;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class SuggestRecipeActivity extends AppCompatActivity {
 
@@ -146,22 +143,14 @@ public class SuggestRecipeActivity extends AppCompatActivity {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     ingredient = dataSnapshot.getValue(Ingredient.class);
                     label = ingredient.getLabel();
-                    if (label.equals(Ingredient.LABEL_BOT))
-                    {
-                        bots.put(dataSnapshot.getKey(), (HashMap<String, ?>) dataSnapshot.getValue());
-                    }
-                    if (label.equals(Ingredient.LABEL_SUAKEM))
-                    {
-                        suakems.put(dataSnapshot.getKey(), (HashMap<String, ?>) dataSnapshot.getValue());
-                    }
-                    if (label.equals(Ingredient.LABEL_BO))
-                    {
-                        bos.put(dataSnapshot.getKey(), (HashMap<String, ?>) dataSnapshot.getValue());
-                    }
-                    if (label.equals(Ingredient.LABEL_KHAC))
-                    {
-                        khacs.put(dataSnapshot.getKey(), (HashMap<String, ?>) dataSnapshot.getValue());
-                    }
+                    if (label.equals(Ingredient.LABEL_BOT)) bots.put(dataSnapshot.getKey(), (HashMap<String, ?>) dataSnapshot.getValue());
+
+                    if (label.equals(Ingredient.LABEL_SUAKEM)) suakems.put(dataSnapshot.getKey(), (HashMap<String, ?>) dataSnapshot.getValue());
+
+                    if (label.equals(Ingredient.LABEL_BO)) bos.put(dataSnapshot.getKey(), (HashMap<String, ?>) dataSnapshot.getValue());
+
+                    if (label.equals(Ingredient.LABEL_KHAC)) khacs.put(dataSnapshot.getKey(), (HashMap<String, ?>) dataSnapshot.getValue());
+
                 }
                 initAdapter();
 
@@ -188,15 +177,12 @@ public class SuggestRecipeActivity extends AppCompatActivity {
             chip = new Chip(this);
             chip.setId(  ( (Long)ingredient.get("id") ).intValue() );
             chip.setText(ingredient.get("name").toString());
-//            if (ingredient.get("name").equals("Bột mì")){
-//                chip.setEnabled(false);
-//            }
             chipDrawable = ChipDrawable.createFromAttributes(this,
                     null,
                     0,
-                    R.style.custom_chip);
+                    R.style.unavailable_chip);
             chip.setCheckedIconTint(ContextCompat.getColorStateList(this,R.color.white));
-            chip.setTextColor(ContextCompat.getColorStateList(this, R.color.chip_text_selector));
+            chip.setTextColor(ContextCompat.getColorStateList(this, R.color.unavailable_chip_text_selector));
             chip.setChipDrawable(chipDrawable);
             chip.setEnsureMinTouchTargetSize(false);
             chipGroup.addView(chip);

@@ -69,8 +69,7 @@ public class ListRecipeActivity extends AppCompatActivity {
                         for (HashMap<String,?> value: recipe.getRecipeIngredient().values()) {
                             ingredients.add( ( (Long) value.get("id")).intValue() );
                         }
-                        if (check(ingredients)) { recipeList.add(recipe);
-                        }
+                        if (check(ingredients)) recipeList.add(recipe);
                     }
                 }
                 initAdapter();
@@ -82,7 +81,7 @@ public class ListRecipeActivity extends AppCompatActivity {
     }
 
     private void initAdapter() {
-        adapter = new RecipeAdapter(ListRecipeActivity.this,RecipeAdapter.RECIPE_ITEM,recipeList);
+        adapter = new RecipeAdapter(ListRecipeActivity.this,RecipeAdapter.RECIPE_ITEM,recipeList, filter);
         rcvListRecipe_Recipe.setAdapter(adapter);
     }
 

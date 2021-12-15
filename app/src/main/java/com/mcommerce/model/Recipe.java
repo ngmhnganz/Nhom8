@@ -14,6 +14,16 @@ public class Recipe implements Parcelable {
     private String recipeLevel;
     private long recipeLike;
     private String recipeDescription;
+    private String recipeShortDescription;
+
+    public String getRecipeShortDescription() {
+        return recipeShortDescription;
+    }
+
+    public void setRecipeShortDescription(String recipeShortDescription) {
+        this.recipeShortDescription = recipeShortDescription;
+    }
+
     private String recipeImage;
     private Map<String, HashMap<String,?>> recipeIngredient;
 
@@ -34,6 +44,7 @@ public class Recipe implements Parcelable {
         recipeLike = in.readLong();
         recipeDescription = in.readString();
         recipeImage = in.readString();
+        recipeShortDescription = in.readString();
     }
 
     public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
@@ -130,5 +141,6 @@ public class Recipe implements Parcelable {
         dest.writeLong(recipeLike);
         dest.writeString(recipeDescription);
         dest.writeString(recipeImage);
+        dest.writeString(recipeShortDescription);
     }
 }

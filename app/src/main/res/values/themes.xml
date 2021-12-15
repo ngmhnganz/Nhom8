@@ -61,19 +61,49 @@
         <item name="boxStrokeColor">@color/edt_selector</item>
     </style>
 
-    <style name="custom_chip" parent="Widget.MaterialComponents.Chip.Filter">
-        <item name="chipBackgroundColor">@color/chip_selector</item>
+    <style name="available_chip" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipBackgroundColor">@color/available_chip_selector</item>
+        <item name="checkedIconTint">@color/white</item>
+    </style>
+
+    <style name="unavailable_chip" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipBackgroundColor">@color/unavailable_chip_selector</item>
         <item name="checkedIconTint">@color/white</item>
     </style>
 
     <style name="btn_san_pham" parent="Widget.AppCompat.ImageButton">
         <item name="android:src">@drawable/btn_san_pham</item>
     </style>
+
     <style name="btn_cong_thuc" parent="Widget.AppCompat.ImageButton">
         <item name="android:src">@drawable/btn_cong_thuc</item>
     </style>
 
     <style name="btn_goi_y" parent="Widget.AppCompat.ImageButton">
         <item name="android:src">@drawable/btn_goi_y</item>
+    </style>
+
+    <style name="sfpro_medium_style" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/sfpro_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorSubText</item>
+    </style>
+
+    <style name="sfpro_bold_style" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/sfpro_bold</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorSubText</item>
+    </style>
+
+    <style name="step_title" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/gilroy_bold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorSub</item>
+    </style>
+
+    <style name="step_content" parent="TextAppearance.AppCompat">
+        <item name="android:fontFamily">@font/sfpro_medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorSubText</item>
     </style>
 </resources>

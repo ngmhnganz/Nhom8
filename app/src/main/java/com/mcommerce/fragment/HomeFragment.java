@@ -126,7 +126,7 @@ public class HomeFragment extends Fragment {
                     Recipe p = dataSnapshot.getValue(Recipe.class);
                     goiYRecipeList.add(p);
                 }
-                RecipeAdapter adapter = new RecipeAdapter((MainActivity) getContext(), RecipeAdapter.SUGGEST,goiYRecipeList);
+                RecipeAdapter adapter = new RecipeAdapter((MainActivity) getContext(), RecipeAdapter.SUGGEST,goiYRecipeList, null);
                 rcvGoiYMonan.setAdapter(adapter);
             }
             @Override
