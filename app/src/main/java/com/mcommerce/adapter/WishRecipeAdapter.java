@@ -32,15 +32,15 @@ public class WishRecipeAdapter extends  RecyclerView.Adapter<WishRecipeAdapter.W
     private final Context context;
     private final Map<String, HashMap<String,?>> wishListR;
     private final int item_layout;
-    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference Likeref = FirebaseDatabase.getInstance().getReference();
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    List<String> wishIDs;
+    List<String> wishID;
 
     public WishRecipeAdapter(Context context, Map<String, HashMap<String, ?>> wishList, int item_layout) {
         this.context = context;
         this.wishListR = wishList;
         this.item_layout = item_layout;
-        wishIDs = new ArrayList<>(wishList.keySet());
+        wishID = new ArrayList<>(wishList.keySet());
     }
 
     @NonNull
@@ -52,9 +52,9 @@ public class WishRecipeAdapter extends  RecyclerView.Adapter<WishRecipeAdapter.W
 
     @Override
     public void onBindViewHolder(@NonNull WishViewHolder holder, int position) {
-        String key = wishIDs.get(position);
+        String key = wishID.get(position);
         String recipeID = (String) wishListR.get(key).get("id");
-        ref.child("NguyenLieu").child(String.valueOf(recipeID)).addListenerForSingleValueEvent(new ValueEventListener() {
+        Likeref.child("CongThuc").child(String.valueOf(recipeID)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Recipe recipe = snapshot.getValue(Recipe.class);
@@ -67,9 +67,9 @@ public class WishRecipeAdapter extends  RecyclerView.Adapter<WishRecipeAdapter.W
                     @Override
                     public void onClick(View view) {
                         if (holder.chkLike_WL.isChecked()==false){
-                            ref.child("User").child(user.getUid()).child("userLikeProduct").child(wishIDs.get(holder.getBindingAdapterPosition())).removeValue();
-                            wishListR.remove(wishIDs.get(holder.getBindingAdapterPosition()));
-                            wishIDs.remove(wishIDs.get(holder.getBindingAdapterPosition()));
+                            Likeref.child("User").child(user.getUid()).child("userLikeProduct").child(wishID.get(holder.getBindingAdapterPosition())).removeValue();
+                            wishListR.remove(wishID.get(holder.getBindingAdapterPosition()));
+                            wishID.remove(wishID.get(holder.getBindingAdapterPosition()));
                             notifyItemRemoved(holder.getBindingAdapterPosition());
                         }
 

@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.WishProductAdapter;
+import com.mcommerce.adapter.WishRecipeAdapter;
 import com.mcommerce.nhom8.R;
 
 import java.util.HashMap;
@@ -55,8 +56,8 @@ public class Wishlist_Recipe extends Fragment {
             LikeRef.child("User").child(user.getUid()).child("userLikeProduct").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Map<String, HashMap<String,?>> wishList = (Map<String, HashMap<String, ?>>) snapshot.getValue();
-                    WishProductAdapter adapter = new WishProductAdapter(getContext(),wishList,R.layout.item_wishrecipe);
+                    Map<String, HashMap<String,?>> wishListR = (Map<String, HashMap<String, ?>>) snapshot.getValue();
+                    WishRecipeAdapter adapter = new WishRecipeAdapter(getContext(),wishListR,R.layout.item_wishrecipe);
                     progressDialog.dismiss();
                     rcv_WishR.setAdapter(adapter);
                 }
