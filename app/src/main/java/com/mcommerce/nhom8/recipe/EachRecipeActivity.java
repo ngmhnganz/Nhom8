@@ -46,7 +46,7 @@ public class EachRecipeActivity extends AppCompatActivity {
     ImageButton btnBack,btnCart;
     TextView txtPreparedMaterials_Recipe,txtRecipe_Info_recipe, txtRecipeName_recipe;
     LinearLayout llMaterialBuying;
-    CheckBox chkLike,chkLike_WL;
+    CheckBox chkLike,chkLike_WL,chkLike1;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private DatabaseReference Likeref = FirebaseDatabase.getInstance().getReference("User/"+user.getUid()+"/userLikeProduct");
@@ -88,6 +88,7 @@ public class EachRecipeActivity extends AppCompatActivity {
         btnCart=findViewById(R.id.btnCart);
         chkLike=findViewById(R.id.chkLike);
         chkLike_WL=findViewById(R.id.chkLike);
+        chkLike1=findViewById(R.id.chkLike1);
     }
     private void getData() {
         Intent intent = getIntent();
