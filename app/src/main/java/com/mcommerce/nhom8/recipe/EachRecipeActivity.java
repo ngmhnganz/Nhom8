@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.RecipeMaterialAdapterRCV;
 import com.mcommerce.model.Recipe;
 import com.mcommerce.nhom8.R;
+import com.mcommerce.nhom8.order.CartActivity;
 import com.mcommerce.nhom8.product.ProductDetailActivity;
 import com.mcommerce.util.Constant;
 import com.mcommerce.custom.SpacingItemDecorator;
@@ -41,6 +43,7 @@ public class EachRecipeActivity extends AppCompatActivity {
 
     Button btnAddToCart_Recipe;
     ImageView imvDropDownMaterial;
+    ImageButton btnBack,btnCart;
     TextView txtPreparedMaterials_Recipe,txtRecipe_Info_recipe, txtRecipeName_recipe;
     LinearLayout llMaterialBuying;
     CheckBox chkLike,chkLike_WL;
@@ -81,6 +84,8 @@ public class EachRecipeActivity extends AppCompatActivity {
         txtRecipe_Info_recipe=findViewById(R.id.txtRecipe_Info_recipe);
         txtRecipeName_recipe = findViewById(R.id.txtRecipeName_recipe);
         btnAddToCart_Recipe = findViewById(R.id.btnAddToCart_Recipe);
+        btnBack=findViewById(R.id.btnBack);
+        btnCart=findViewById(R.id.btnCart);
         chkLike=findViewById(R.id.chkLike);
         chkLike_WL=findViewById(R.id.chkLike);
     }
@@ -131,6 +136,13 @@ public class EachRecipeActivity extends AppCompatActivity {
                 //
             }
         });
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 startActivity(new Intent(EachRecipeActivity.this, CartActivity.class));
+            }
+        });
+
 
 //        //khi click vào item trên rcv view => đồng thời đổi màu + lưu list sp người dùng chọn
 //        rcvRecipeMaterial.setOnItemClickListener
@@ -148,6 +160,12 @@ public class EachRecipeActivity extends AppCompatActivity {
                     else {
                         Likeref.child("id"+recipeIDs).removeValue();
                 }
+            }
+        });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

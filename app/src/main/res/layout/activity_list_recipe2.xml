@@ -34,12 +34,13 @@
             />
 
         <ImageButton
-            android:id="@+id/btnCart_aListProduct"
+            android:id="@+id/btnCart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="?attr/actionBarItemBackground"
-            android:src="@drawable/ic_add_shopping_cart_24"/>
+            android:src="@drawable/ic_cart"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 

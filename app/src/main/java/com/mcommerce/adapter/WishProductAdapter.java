@@ -1,6 +1,8 @@
 package com.mcommerce.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +21,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mcommerce.interfaces.RecyclerViewItemClickListener;
 import com.mcommerce.model.Product;
 import com.mcommerce.nhom8.R;
+import com.mcommerce.nhom8.product.ProductDetailActivity;
+import com.mcommerce.util.Constant;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,6 +80,16 @@ public class WishProductAdapter extends  RecyclerView.Adapter<WishProductAdapter
 
                     }
                 });
+                holder.setItemClickListener(new RecyclerViewItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+                        Intent intent = new Intent(context, ProductDetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable(Constant.SELECTED_PRODUCTED,product);
+                        intent.putExtra(Constant.PRODUCT_BUNDLE, bundle);
+                        context.startActivity(intent);
+                    }
+                });
             }
 
             @Override
@@ -89,10 +104,11 @@ public class WishProductAdapter extends  RecyclerView.Adapter<WishProductAdapter
         return wishList.size();
     }
 
-    public class WishViewHolder extends RecyclerView.ViewHolder {
+    public class WishViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView imvProduct_Wish;
         TextView txtName_WishP, txtLike_WishP,txtPrice_WishP;
         CheckBox chkLike_WL;
+        private RecyclerViewItemClickListener itemClickListener;
 
         public WishViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -101,6 +117,15 @@ public class WishProductAdapter extends  RecyclerView.Adapter<WishProductAdapter
             txtName_WishP=itemView.findViewById(R.id.txtName_WishP);
             txtLike_WishP=itemView.findViewById(R.id.txtLike_WishP);
             txtPrice_WishP=itemView.findViewById(R.id.txtPrice_WishP);
+        }
+
+        public void setItemClickListener(RecyclerViewItemClickListener itemClickListener) {
+            this.itemClickListener = itemClickListener;
+        }
+
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onClick(v,getAdapterPosition());
         }
     }
 }

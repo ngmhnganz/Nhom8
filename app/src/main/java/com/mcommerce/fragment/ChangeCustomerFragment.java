@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -29,6 +30,7 @@ public class ChangeCustomerFragment extends Fragment {
     View view;
     TextView txtChooseAddress, txtAddress, txtCustomerName, txtCustomerPhone;
     Button btnXong;
+    ImageButton btnBack;
     ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -70,6 +72,7 @@ public class ChangeCustomerFragment extends Fragment {
 
         txtCustomerName = view.findViewById(R.id.txtCustomerName);
         txtCustomerPhone = view.findViewById(R.id.txtCustomerPhone);
+        btnBack=view.findViewById(R.id.btnBack);
     }
 
     private void addEvent() {
@@ -93,6 +96,7 @@ public class ChangeCustomerFragment extends Fragment {
                 fragmentManager.beginTransaction().replace(R.id.layoutContainer, confirmOrderFragment).commit();
             }
         });
+
     }
 
     private boolean checkValidatePhone(String phone) {

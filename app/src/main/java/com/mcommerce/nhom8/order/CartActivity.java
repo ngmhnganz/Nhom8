@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ public class CartActivity extends AppCompatActivity {
     private TextView txtDeleteAll_aCart;
     private RecyclerView rcv_aCart;
     private Button btnPayment_aCart;
+    private ImageButton btnBack;
     private CartAdapter adapter;
     private ImageView imvCartEmpty_aCart;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -57,6 +59,7 @@ public class CartActivity extends AppCompatActivity {
         btnPayment_aCart = findViewById(R.id.btnPayment_aCart);
         txtDeleteAll_aCart = findViewById(R.id.txtDeleteAll_aCart);
         imvCartEmpty_aCart= findViewById(R.id.imvCartEmpty_aCart);
+        btnBack=findViewById(R.id.btnBack);
     }
 
     private void loadData() {
@@ -118,5 +121,12 @@ public class CartActivity extends AppCompatActivity {
                 builder.create().show();
             }
         });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 }
