@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.mcommerce.model.Product;
+import com.mcommerce.model.Recipe;
 import com.mcommerce.nhom8.R;
 
 import java.util.ArrayList;
@@ -27,18 +27,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class WishProductAdapter extends  RecyclerView.Adapter<WishProductAdapter.WishViewHolder>{
+public class WishRecipeAdapter extends  RecyclerView.Adapter<WishRecipeAdapter.WishViewHolder>{
 
     private final Context context;
-    private final Map<String, HashMap<String,?>> wishList;
+    private final Map<String, HashMap<String,?>> wishListR;
     private final int item_layout;
     private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     List<String> wishIDs;
 
-    public WishProductAdapter(Context context, Map<String, HashMap<String, ?>> wishList, int item_layout) {
+    public WishRecipeAdapter(Context context, Map<String, HashMap<String, ?>> wishList, int item_layout) {
         this.context = context;
-        this.wishList = wishList;
+        this.wishListR = wishList;
         this.item_layout = item_layout;
         wishIDs = new ArrayList<>(wishList.keySet());
     }
@@ -53,22 +53,22 @@ public class WishProductAdapter extends  RecyclerView.Adapter<WishProductAdapter
     @Override
     public void onBindViewHolder(@NonNull WishViewHolder holder, int position) {
         String key = wishIDs.get(position);
-        long productID = (long) wishList.get(key).get("id");
-        ref.child("NguyenLieu").child(String.valueOf(productID)).addListenerForSingleValueEvent(new ValueEventListener() {
+        String recipeID = (String) wishListR.get(key).get("id");
+        ref.child("NguyenLieu").child(String.valueOf(recipeID)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Product product = snapshot.getValue(Product.class);
-                Glide.with(context).load(product.getProductImg()).into(holder.imvProduct_Wish);
-                holder.txtName_WishP.setText(product.getProductName());
-                holder.txtPrice_WishP.setText(product.getProductPrice()+" đ");
-                holder.txtLike_WishP.setText(product.getProductLike()+" người đã thích");
+                Recipe recipe = snapshot.getValue(Recipe.class);
+                Glide.with(context).load(recipe.getRecipeImage()).into(holder.imv_WishR);
+                holder.txtName_WishR.setText(recipe.getRecipeName());
+                holder.txtDes_WishR.setText(recipe.getRecipeDescription());
+                holder.txtTime_WishR.setText(recipe.getRecipeTime()+" phút");
                 holder.chkLike_WL.setChecked(true);
                 holder.chkLike_WL.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (holder.chkLike_WL.isChecked()==false){
                             ref.child("User").child(user.getUid()).child("userLikeProduct").child(wishIDs.get(holder.getBindingAdapterPosition())).removeValue();
-                            wishList.remove(wishIDs.get(holder.getBindingAdapterPosition()));
+                            wishListR.remove(wishIDs.get(holder.getBindingAdapterPosition()));
                             wishIDs.remove(wishIDs.get(holder.getBindingAdapterPosition()));
                             notifyItemRemoved(holder.getBindingAdapterPosition());
                         }
@@ -86,21 +86,22 @@ public class WishProductAdapter extends  RecyclerView.Adapter<WishProductAdapter
 
     @Override
     public int getItemCount() {
-        return wishList.size();
+        return wishListR.size();
     }
 
     public class WishViewHolder extends RecyclerView.ViewHolder {
-        ImageView imvProduct_Wish;
-        TextView txtName_WishP, txtLike_WishP,txtPrice_WishP;
+        ImageView imv_WishR;
+        TextView txtName_WishR, txtTime_WishR,txtDes_WishR;
         CheckBox chkLike_WL;
 
         public WishViewHolder(@NonNull View itemView) {
             super(itemView);
             chkLike_WL=itemView.findViewById(R.id.chkLike_WL);
-            imvProduct_Wish=itemView.findViewById(R.id.imvProduct_Wish);
-            txtName_WishP=itemView.findViewById(R.id.txtName_WishP);
-            txtLike_WishP=itemView.findViewById(R.id.txtLike_WishP);
-            txtPrice_WishP=itemView.findViewById(R.id.txtPrice_WishP);
+            imv_WishR=itemView.findViewById(R.id.imv_WishR);
+            txtName_WishR =itemView.findViewById(R.id.txtName_WishR);
+            txtTime_WishR =itemView.findViewById(R.id.txtTime_WishR);
+            txtDes_WishR=itemView.findViewById(R.id.txtDes_WishR);
         }
     }
 }
+
