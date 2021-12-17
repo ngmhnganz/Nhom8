@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/2021-2022/6.CN_Android/Nhom8_real/app/src/main/res/layout/activity_sign_up.xml" value="0.1" />
+        <entry key="..\:/2021-2022/6.CN_Android/Nhom8_real/app/src/main/res/layout/item_listproduct_layout.xml" value="0.11778115501519756" />
+        <entry key="..\:/2021-2022/6.CN_Android/Nhom8_real/app/src/main/res/layout/layout_history_order_item.xml" value="0.11778115501519756" />
         <entry key="..\:/HocKy 5/HocAndroid/BaiGiang/Nhom8/app/src/main/res/layout/activity_main.xml" value="0.24351851851851852" />
         <entry key="..\:/HocKy 5/HocAndroid/BaiGiang/Nhom8/app/src/main/res/layout/banner_main_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/HocKy 5/HocAndroid/BaiGiang/Nhom8/app/src/main/res/layout/goi_y_combo_layout.xml" value="0.536" />
@@ -27,6 +30,7 @@
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/drawable/button_stroke_default_enabled.xml" value="0.3880208333333333" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/drawable/button_stroke_default_focused.xml" value="0.3880208333333333" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/drawable/button_stroke_text_color.xml" value="0.3880208333333333" />
+        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/drawable/chiptesst.xml" value="0.3880208333333333" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/drawable/custom_imagebutton_main.xml" value="0.4036458333333333" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/drawable/ic_congthuc_pressed_main.xml" value="0.3394871794871795" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/drawable/ic_glass.xml" value="0.3453125" />
@@ -53,9 +57,10 @@
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/drawable/text_background.xml" value="0.3453125" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/activity_all_products.xml" value="0.2703804347826087" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/activity_cart.xml" value="0.33" />
-        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/activity_each_recipe.xml" value="0.17407407407407408" />
+        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/activity_each_recipe.xml" value="0.33" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/activity_fill_address.xml" value="0.30625" />
-        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/activity_list_product.xml" value="0.1" />
+        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/activity_list_product.xml" value="0.2" />
+        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/activity_list_recipe.xml" value="0.36770833333333336" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/activity_login.xml" value="0.1884498480243161" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/activity_order.xml" value="0.2545289855072464" />
@@ -64,7 +69,8 @@
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/activity_payment2.xml" value="0.30625" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/activity_product_detail.xml" value="0.25" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
-        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/activity_user_info.xml" value="0.1" />
+        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/activity_suggest_recipe.xml" value="0.36770833333333336" />
+        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/activity_user_info.xml" value="0.266304347826087" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/banner_main.xml" value="0.1" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/banner_main_layout.xml" value="0.33" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/bottom_sheet_choose_ava.xml" value="0.33" />
@@ -74,7 +80,7 @@
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_history_order.xml" value="0.25" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_history_order2.xml" value="0.36141304347826086" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_home.xml" value="0.26358695652173914" />
-        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_order.xml" value="0.15625" />
+        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_order.xml" value="0.33" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_order_done_detail.xml" value="0.22" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_user.xml" value="0.20224719101123595" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/goi_y_combo_layout.xml" value="0.67" />
@@ -82,6 +88,8 @@
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/item_listproduct_layout.xml" value="0.33" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/item_product_allproducts_layout.xml" value="0.25" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/item_product_orderdetail_layout.xml" value="0.33" />
+        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/item_recipe_listrecipe_layout.xml" value="0.36770833333333336" />
+        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/item_recipe_material_layout.xml" value="0.371875" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/layout_banner_main.xml" value="0.1" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/layout_cart_item.xml" value="0.33" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/layout_coming_order_item.xml" value="0.1884498480243161" />
