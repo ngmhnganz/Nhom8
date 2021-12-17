@@ -4,9 +4,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
-public class OrderModel implements Parcelable {
+public class Order implements Parcelable {
+
+    public static final String CASH = "Tiền mặt";
 
     public static final int THANH_CONG = 0;
     public static final int DA_HUY = 1;
@@ -21,62 +23,100 @@ public class OrderModel implements Parcelable {
                     addOrder,
                     paymentOrder,
                     imgOrder,
-                    statusStringOrder;
-    private int     priceOrder,
-                    statusOrder,
+                    statusStringOrder,
+                    uidOrder,
+                    customerName,
+                    customerPhone;
+    private long    priceOrder,
                     discountOrder,
-                    shippingFeeOrder;
-    private long dateLongOder;
-    private HashMap<String,Integer> itemOrder;
+                    shippingFeeOrder,
+                    rewardOrder,
+                    totalOrder;
+    private int statusOrder;
+    private long dateLongOrder;
+    private Map<String, HashMap<String,?>> itemOrder;
 
 
-    protected OrderModel(Parcel in) {
+    protected Order(Parcel in) {
         idOrder = in.readString();
         dateOrder = in.readString();
         addOrder = in.readString();
         paymentOrder = in.readString();
         imgOrder = in.readString();
-        priceOrder = in.readInt();
+        priceOrder = in.readLong();
         statusOrder = in.readInt();
-        dateLongOder = in.readLong();
-        discountOrder = in.readInt();
-        shippingFeeOrder = in.readInt();
+        dateLongOrder = in.readLong();
+        discountOrder = in.readLong();
+        shippingFeeOrder = in.readLong();
         statusStringOrder = in.readString();
+        uidOrder = in.readString();
+        customerName = in.readString();
+        customerPhone = in.readString();
+        rewardOrder = in.readLong();
+        totalOrder = in.readLong();
     }
 
-    public static final Creator<OrderModel> CREATOR = new Creator<OrderModel>() {
+    public static final Creator<Order> CREATOR = new Creator<Order>() {
         @Override
-        public OrderModel createFromParcel(Parcel in) {
-            return new OrderModel(in);
+        public Order createFromParcel(Parcel in) {
+            return new Order(in);
         }
 
         @Override
-        public OrderModel[] newArray(int size) {
-            return new OrderModel[size];
+        public Order[] newArray(int size) {
+            return new Order[size];
         }
     };
 
 
     //region Constructor
-    public OrderModel(String idOrder, String dateOrder, String addOrder, String paymentOrder, HashMap<String,Integer> itemOrder, int priceOrder, int statusOrder, int discountOrder, int shippingFeeOrder) {
-        this.idOrder = idOrder;
-        this.dateOrder = dateOrder;
-        this.addOrder = addOrder;
-        this.paymentOrder = paymentOrder;
-        this.itemOrder = itemOrder;
-        this.priceOrder = priceOrder;
-        this.statusOrder = statusOrder;
-        this.discountOrder = discountOrder;
-        this.shippingFeeOrder = shippingFeeOrder;
-
-    }
-    public OrderModel() {
+    public Order() {
     }
 
     //endregion
 
     //region Getter và Setter
 
+
+    public long getTotalOrder() {
+        return totalOrder;
+    }
+
+    public void setTotalOrder(long totalOrder) {
+        this.totalOrder = totalOrder;
+    }
+
+    public long getRewardOrder() {
+        return rewardOrder;
+    }
+
+    public void setRewardOrder(long rewardOrder) {
+        this.rewardOrder = rewardOrder;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public String getCustomerPhone() {
+        return customerPhone;
+    }
+
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
+    }
+
+    public String getUidOrder() {
+        return uidOrder;
+    }
+
+    public void setUidOrder(String uidOrder) {
+        this.uidOrder = uidOrder;
+    }
 
     public void setStatusStringOrder(String statusStringOrder) {
         this.statusStringOrder = statusStringOrder;
@@ -87,28 +127,28 @@ public class OrderModel implements Parcelable {
         return statusStringOrder;
     }
 
-    public int getShippingFeeOrder() {
+    public long getShippingFeeOrder() {
         return shippingFeeOrder;
     }
 
-    public void setShippingFeeOrder(int shippingFeeOrder) {
+    public void setShippingFeeOrder(long shippingFeeOrder) {
         this.shippingFeeOrder = shippingFeeOrder;
     }
 
-    public int getDiscountOrder() {
+    public long getDiscountOrder() {
         return discountOrder;
     }
 
-    public void setDiscountOrder(int discountOrder) {
+    public void setDiscountOrder(long discountOrder) {
         this.discountOrder = discountOrder;
     }
 
-    public long getDateLongOder() {
-        return dateLongOder;
+    public long getDateLongOrder() {
+        return dateLongOrder;
     }
 
-    public void setDateLongOder(long dateLongOder) {
-        this.dateLongOder = dateLongOder;
+    public void setDateLongOrder(long dateLongOrder) {
+        this.dateLongOrder = dateLongOrder;
     }
 
     public String getImgOrder() {
@@ -152,31 +192,28 @@ public class OrderModel implements Parcelable {
         this.paymentOrder = paymentOrder;
     }
 
-    public HashMap<String,Integer> getItemOrder() {
+    public Map<String, HashMap<String,?>> getItemOrder() {
         return itemOrder;
     }
 
-    public void setItemOrder(HashMap<String,Integer> itemOrder) {
+    public void setItemOrder(Map<String, HashMap<String,?>> itemOrder) {
         this.itemOrder = itemOrder;
     }
 
-    public int getPriceOrder() {
+    public long getPriceOrder() {
         return priceOrder;
     }
 
-    public void setPriceOrder(int priceOrder) {
+    public void setPriceOrder(long priceOrder) {
         this.priceOrder = priceOrder;
     }
 
     public int getStatusOrder() {
-
         return statusOrder;
     }
 
     public void setStatusOrder(int statusOrder) {
         this.statusOrder = statusOrder;
-
-
     }
 
 
@@ -194,11 +231,16 @@ public class OrderModel implements Parcelable {
         parcel.writeString(addOrder);
         parcel.writeString(paymentOrder);
         parcel.writeString(imgOrder);
-        parcel.writeInt(priceOrder);
+        parcel.writeLong(priceOrder);
         parcel.writeInt(statusOrder);
-        parcel.writeLong(dateLongOder);
-        parcel.writeInt(discountOrder);
-        parcel.writeInt(shippingFeeOrder);
+        parcel.writeLong(dateLongOrder);
+        parcel.writeLong(discountOrder);
+        parcel.writeLong(shippingFeeOrder);
         parcel.writeString(statusStringOrder);
+        parcel.writeString(uidOrder);
+        parcel.writeString(customerPhone);
+        parcel.writeString(customerName);
+        parcel.writeLong(rewardOrder);
+        parcel.writeLong(totalOrder);
     }
 }

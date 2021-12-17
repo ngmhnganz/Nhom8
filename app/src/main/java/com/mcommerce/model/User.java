@@ -1,20 +1,24 @@
 package com.mcommerce.model;
 
-public class User {
-    private String userID = null;
-    private String userName = null;
-    private String userBirthday = null;
-    private String userGender = null;
-    private String userPhone = null;
-    private String userEmail = null;
-    private String userOrder = null;
-    private String userDefaultAddress = null;
+import java.util.HashMap;
+import java.util.Map;
 
-    public String getUserOrder() {
+public class User {
+    private String userID;
+    private String userName;
+    private String userBirthday;
+    private String userGender;
+    private long userPoint;
+
+    private String userAddress;
+    private Map<String, HashMap<String, ?>> userCart;
+    private Map<String, HashMap<String, ?>> userOrder;
+
+    public Map<String, HashMap<String, ?>> getUserOrder() {
         return userOrder;
     }
 
-    public void setUserOrder(String userOrder) {
+    public void setUserOrder(Map<String, HashMap<String, ?>> userOrder) {
         this.userOrder = userOrder;
     }
 
@@ -42,28 +46,20 @@ public class User {
         this.userGender = userGender;
     }
 
-    public String getUserPhone() {
-        return userPhone;
+    public String getUserAddress() {
+        return userAddress;
     }
 
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
     }
 
-    public String getUserEmail() {
-        return userEmail;
+    public long getUserPoint() {
+        return userPoint;
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
-    public String getUserDefaultAddress() {
-        return userDefaultAddress;
-    }
-
-    public void setUserDefaultAddress(String userDefaultAddress) {
-        this.userDefaultAddress = userDefaultAddress;
+    public void setUserPoint(long userPoint) {
+        this.userPoint = userPoint;
     }
 
     public String getUserID() {
@@ -74,6 +70,15 @@ public class User {
         this.userID = userID;
     }
 
+    public Map<String, HashMap<String, ?>> getUserCart() {
+        return userCart;
+    }
+
+    public void setUserCart(Map<String, HashMap<String, ?>> userCart) {
+        this.userCart = userCart;
+    }
+
     public User() {
     }
+
 }

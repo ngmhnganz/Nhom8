@@ -2,9 +2,9 @@ package com.mcommerce.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.OrderAdapter;
-import com.mcommerce.model.OrderModel;
+import com.mcommerce.model.Order;
 import com.mcommerce.nhom8.MainActivity;
 import com.mcommerce.nhom8.R;
 
@@ -36,12 +36,16 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
 public class HistoryOrderFragment extends Fragment {
 
     TextView txtDate_fragmentHistoryOrder;
     RecyclerView rcv_fragmentHistoryOrder;
     MaterialDatePicker materialDatePicker;
+    ImageView imvSearchEmpty;
+    ArrayList<Order> orderLists;
 
     private View view;
     private OrderAdapter adapter;
@@ -51,6 +55,7 @@ public class HistoryOrderFragment extends Fragment {
 
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private DatabaseReference myRef = firebaseDatabase.getReference();
+    private static FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Nullable
     @Override
@@ -67,18 +72,15 @@ public class HistoryOrderFragment extends Fragment {
     }
 
     private void initAdapter() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
 
         }
-
         //region Lấy dữ liệu Order từ Firebase
-        Query query = myRef.child("DonHang").orderByChild("statusOrder").startAt(OrderModel.THANH_CONG).endAt(OrderModel.DA_HUY);
+        Query query = myRef.child("User/"+user.getUid()+"/userOrder").orderByChild("statusOrder").startAt(Order.THANH_CONG).endAt(Order.DA_HUY);
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                ArrayList<OrderModel> orderLists = new ArrayList<>();
+                orderLists = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                    orderLists.add(setData(dataSnapshot));
                 };
@@ -94,9 +96,10 @@ public class HistoryOrderFragment extends Fragment {
         //endregion
     }
 
-    private OrderModel setData (DataSnapshot dataSnapshot){
+    private Order setData (DataSnapshot dataSnapshot){
 
-        OrderModel order = new OrderModel();
+        Order order = new Order();
+        order = dataSnapshot.getValue(Order.class);
 
         order.setStatusOrder(((Long) dataSnapshot.child("statusOrder").getValue()).intValue());
         switch (order.getStatusOrder()){
@@ -122,19 +125,6 @@ public class HistoryOrderFragment extends Fragment {
                 order.setStatusStringOrder("Đơn hàng đang được vận chuyển");
                 break;
         }
-        order.setPriceOrder(((Long) dataSnapshot.child("priceOrder").getValue()).intValue());
-        order.setDateOrder(dataSnapshot.child("dateOrder").getValue().toString());
-        order.setIdOrder(dataSnapshot.child("idOrder").getValue().toString());
-        order.setPaymentOrder(dataSnapshot.child("paymentOrder").getValue().toString());
-        order.setAddOrder(dataSnapshot.child("addOrder").getValue().toString());
-        order.setImgOrder(dataSnapshot.child("imgOrder").getValue().toString());
-        order.setDateLongOder((Long) dataSnapshot.child("dateLongOder").getValue());
-        order.setDiscountOrder(((Long) dataSnapshot.child("discountOrder").getValue()).intValue());
-        order.setShippingFeeOrder(((Long) dataSnapshot.child("shippingFeeOrder").getValue()).intValue());
-
-        HashMap<String,Integer> alt = (HashMap<String, Integer>) dataSnapshot.child("itemOrder").getValue();
-        order.setItemOrder(alt);
-
         return order;
     }
 
@@ -155,26 +145,45 @@ public class HistoryOrderFragment extends Fragment {
                         startDate = selection.first;
                         endDate=selection.second;
 
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                         txtDate_fragmentHistoryOrder.setText(simpleDateFormat.format(new Timestamp(startDate))+ " - " + simpleDateFormat.format(new Timestamp(endDate)));
 
-                        Query query = myRef.child("DonHang").orderByChild("dateLongOder").startAt(startDate).endAt(endDate);
-                        query.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                ArrayList<OrderModel> orderLists = new ArrayList<>();
-                                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                                    orderLists.add(setData(dataSnapshot));
-                                };
-                                adapter = new OrderAdapter(getContext(),R.layout.layout_history_order_item,orderLists, OrderAdapter.HISTORY_ITEM);
+                        if (orderLists!=null){
+                            ArrayList<Order> newList = new ArrayList<>();
+                            for (Order order: orderLists) {
+                                if (order.getDateLongOrder()>=startDate && order.getDateLongOrder()<=endDate){
+                                    newList.add(order);
+                                }
+                            }
+                            if (newList.size()!=0) {
+                                adapter = new OrderAdapter(getContext(),R.layout.layout_history_order_item,newList, OrderAdapter.HISTORY_ITEM);
                                 rcv_fragmentHistoryOrder.setAdapter(adapter);
+                                imvSearchEmpty.setVisibility(View.GONE);
+                                rcv_fragmentHistoryOrder.setVisibility(View.VISIBLE);
+                                adapter.notifyDataSetChanged();
+                            } else {
+                                rcv_fragmentHistoryOrder.setVisibility(View.GONE);
+                                imvSearchEmpty.setVisibility(View.VISIBLE);
                             }
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Toast.makeText(getContext(),"Có lỗi",Toast.LENGTH_SHORT).show();
+                        }
 
-                            }
-                        });
+//                        Query query = myRef.child("DonHang").orderByChild("dateLongOder").startAt(startDate).endAt(endDate);
+//                        query.addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                ArrayList<Order> orderLists = new ArrayList<>();
+//                                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+//                                    orderLists.add(setData(dataSnapshot));
+//                                };
+//                                adapter = new OrderAdapter(getContext(),R.layout.layout_history_order_item,orderLists, OrderAdapter.HISTORY_ITEM);
+//                                rcv_fragmentHistoryOrder.setAdapter(adapter);
+//                            }
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//                                Toast.makeText(getContext(),"Có lỗi",Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                        });
                     }
                 });
             }
@@ -185,7 +194,7 @@ public class HistoryOrderFragment extends Fragment {
 
     private void linkview() {
         txtDate_fragmentHistoryOrder = view.findViewById(R.id.txtDate_fragmentHistoryOrder);
-
+        imvSearchEmpty = view.findViewById(R.id.imvSearchEmpty);
         rcv_fragmentHistoryOrder = view.findViewById(R.id.lv_fragmentHistoryOrder);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(view.getContext(),DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(view.getContext(),R.drawable.divider));
@@ -193,50 +202,3 @@ public class HistoryOrderFragment extends Fragment {
         rcv_fragmentHistoryOrder.addItemDecoration(dividerItemDecoration);
     }
 }
-
-
-/*
-private void initAdapter() {
-        ArrayList<Category> listCategory = new ArrayList<>();
-        ArrayList<Product> listProduct = new ArrayList<>();
-
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference myref = firebaseDatabase.getReference();
-
-        CategoryAdapter categoryAdapter = new CategoryAdapter(this);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
-        rcvCategory_allproducts.setLayoutManager(linearLayoutManager);
-
-        Query query = myref.child("NguyenLieu");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Product product = new Product();
-                    product.setProductImg(dataSnapshot.child("productImg").getValue().toString());
-                    product.setProductLike(dataSnapshot.child("productLike").getValue().toString());
-                    product.setProductDescription(dataSnapshot.child("productDescription").getValue().toString());
-                    product.setProductDetail(dataSnapshot.child("productDetail").getValue().toString());
-                    product.setProductName(dataSnapshot.child("productName").getValue().toString());
-                    product.setProductPrice(dataSnapshot.child("productPrice").getValue().toString());
-                    product.setProductQuantity(dataSnapshot.child("productQuantity").getValue().toString());
-                    listProduct.add(product);
-                };
-
-                listCategory.add(new Category("Dụng cụ","Xem tất cả",listProduct));
-                listCategory.add(new Category("Nguyên liệu","Xem tất cả",listProduct));
-                listCategory.add(new Category("Combo","Xem tất cả",listProduct));
-
-                categoryAdapter.setData(listCategory);
-                rcvCategory_allproducts.setAdapter(categoryAdapter);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-
-    }
-*/

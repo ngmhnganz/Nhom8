@@ -251,8 +251,6 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                     user.updateProfile(profileChangeRequest);
                     User mUser = new User();
                     mUser.setUserID(user.getUid());
-                    mUser.setUserName(name);
-                    mUser.setUserPhone(phone);
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                     databaseReference.child("User").child(mUser.getUserID()).setValue(mUser);
                     AuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(verifyID,strOTP);

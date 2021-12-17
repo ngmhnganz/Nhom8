@@ -16,6 +16,12 @@ import com.mcommerce.fragment.UserFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static String SELECTED_FRAGMENT = "Selected Fragment";
+    public static final int HOME_FRAGMENT = 1;
+    public static final int LIKE_FRAGMENT = 2;
+    public static final int ORDER_FRAGMENT = 3;
+    public static final int USER_FRAGMENT = 4;
+
     private BottomNavigationView bottomNavigation;
     private Fragment fragment;
 
@@ -51,13 +57,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initData() {
+        int intentFragment = 0;
+        if (getIntent().getExtras() != null){
+            intentFragment = getIntent().getExtras().getInt(SELECTED_FRAGMENT);
+        }
 
+        switch (intentFragment){
+            case HOME_FRAGMENT:
+                loadFragment(new HomeFragment());
+                bottomNavigation.setSelectedItemId(R.id.menu_home);
+                break;
+            case LIKE_FRAGMENT:
+//
+                break;
+            case ORDER_FRAGMENT:
+                loadFragment(new OrderFragment());
+                bottomNavigation.setSelectedItemId(R.id.menu_order);
+                break;
+            case USER_FRAGMENT:
+                loadFragment(new UserFragment());
+                bottomNavigation.setSelectedItemId(R.id.menu_person);
+                break;
+            case 0:
+                loadFragment(new HomeFragment());
+        }
     }
 
     private void linkview() {
 
         bottomNavigation = findViewById(R.id.bottom_navigation);
-        loadFragment(new HomeFragment());
     }
 
     private void loadFragment(Fragment fragment) {

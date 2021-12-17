@@ -29,7 +29,8 @@ import com.mcommerce.adapter.GoiYMonanAdapter;
 import com.mcommerce.model.BannerMainModel;
 import com.mcommerce.model.GoiYComboModel;
 import com.mcommerce.model.GoiYMonanModel;
-import com.mcommerce.nhom8.AllProductsActivity;
+import com.mcommerce.nhom8.order.CartActivity;
+import com.mcommerce.nhom8.product.AllProductsActivity;
 import com.mcommerce.nhom8.R;
 
 import java.util.ArrayList;
@@ -49,6 +50,7 @@ public class HomeFragment extends Fragment {
     private LinearLayout llSliderDot;
     private int dotscount;
     private ImageView[] dots;
+    private ImageButton btnCard_main;
 
     @Nullable
     @Override
@@ -73,6 +75,7 @@ public class HomeFragment extends Fragment {
         rcvGoiYCombo = view.findViewById(R.id.rcvGoiYCombo_main);
 
         blurView = view.findViewById(R.id.blurview_LyGoiYMonan);
+        btnCard_main = view.findViewById(R.id.btnCard_main);
 
     }
 
@@ -166,6 +169,13 @@ public class HomeFragment extends Fragment {
             }
         });
         //endregion
+
+        btnCard_main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), CartActivity.class));
+            }
+        });
 
         //region dot cho viewPage
         dotscount = bannerMainAdapter.getCount();

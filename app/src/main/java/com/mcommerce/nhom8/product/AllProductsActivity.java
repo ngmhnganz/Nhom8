@@ -1,4 +1,4 @@
-package com.mcommerce.nhom8;
+package com.mcommerce.nhom8.product;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +18,8 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.ProductAdapter;
 import com.mcommerce.model.Product;
+import com.mcommerce.nhom8.R;
+import com.mcommerce.nhom8.order.CartActivity;
 import com.mcommerce.util.Constant;
 
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class AllProductsActivity extends AppCompatActivity {
                         txtMoreNL_allproducts,
                         txtMoreCB_allproducts;
 
-    ImageButton btnBack_allproducts;
+    private ImageButton btnBack_allproducts, btnCart_allproducts;
     private ArrayList<Product> listProductNL = new ArrayList<>();
     private ArrayList<Product> listProductDC = new ArrayList<>();
     private ArrayList<Product> listProductCB = new ArrayList<>();
@@ -57,6 +59,12 @@ public class AllProductsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        btnCart_allproducts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AllProductsActivity.this, CartActivity.class));
             }
         });
     }
@@ -155,5 +163,6 @@ public class AllProductsActivity extends AppCompatActivity {
         txtMoreCB_allproducts = findViewById(R.id.txtMoreCB_allproducts);
 
         btnBack_allproducts = findViewById(R.id.btnBack_allproducts);
+        btnCart_allproducts = findViewById(R.id.btnCart_allproducts);
     }
 }

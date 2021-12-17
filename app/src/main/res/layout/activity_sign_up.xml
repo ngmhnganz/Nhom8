@@ -112,7 +112,7 @@
                 android:hint="Nhập số điện thoại"
                 app:hintTextAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:hintTextColor="@color/colorText"
-
+                app:prefixText="+84"
                 android:paddingTop="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText

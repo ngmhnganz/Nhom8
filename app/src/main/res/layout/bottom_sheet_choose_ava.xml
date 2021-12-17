@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_corner_image">
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thay đổi ảnh đại diện"
+        android:textSize="18sp"
+        android:fontFamily="@font/sfpro_bold"
+        android:textColor="@color/colorText"
+        android:padding="10dp"/>
+
+    <TextView
+        android:id="@+id/txtGallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chọn từ bộ sưu tập"
+        android:drawableLeft="@drawable/ic_image_storage"
+        android:drawableRight="@drawable/ic_right_arrow_24"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:textColor="@color/colorText"
+        android:fontFamily="@font/sfpro_medium"
+        android:background="@drawable/bottom_sheet_selector"/>
+
+    <TextView
+        android:id="@+id/txtCamera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mở camera"
+        android:drawableLeft="@drawable/ic_camera"
+        android:drawableRight="@drawable/ic_right_arrow_24"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:padding="10dp"
+        android:textColor="@color/colorText"
+        android:fontFamily="@font/sfpro_medium"
+        android:background="@drawable/bottom_sheet_selector"/>
+</LinearLayout>

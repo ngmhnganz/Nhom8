@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".OrderDetailActivity"
+    tools:context=".order.OrderDetailActivity"
     android:background="@color/white">
 
     <LinearLayout
@@ -77,39 +77,21 @@
                     android:paddingHorizontal="20dp"
                     android:paddingVertical="10dp">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
 
-                        <ImageView
-                            android:id="@+id/imv_doc"
-                            android:layout_width="20dp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
+                    <TextView
+                        android:id="@+id/txtID_aOrderDetail"
 
+                        android:drawableLeft="@drawable/ic_document"
+                        android:drawablePadding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
 
-                            android:layout_marginRight="5dp"
-                            android:src="@drawable/ic_document" />
+                        android:fontFamily="@font/gilroy_bold"
+                        android:gravity="start"
 
-                        <TextView
-                            android:id="@+id/txtID_aOrderDetail"
-
-
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-
-                            android:layout_alignParentRight="true"
-                            android:layout_toRightOf="@+id/imv_doc"
-
-                            android:fontFamily="@font/gilroy_bold"
-                            android:gravity="start"
-
-                            android:text="Mã đơn hàng #15102021-12652"
-                            android:textColor="@color/colorText"
-                            android:textSize="16sp" />
-                    </RelativeLayout>
-
+                        android:text="Mã đơn hàng #15102021-12652"
+                        android:textColor="@color/colorText"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txtDate_aOrderDetail"
@@ -134,41 +116,23 @@
                     android:orientation="vertical"
 
                     android:paddingHorizontal="20dp"
-                    android:paddingVertical="10dp"
-                    android:weightSum="10">
+                    android:paddingVertical="10dp">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/theodoidonhang"
 
-                        <ImageView
-                            android:id="@+id/imv_rs_package"
-                            android:layout_width="20dp"
-                            android:layout_height="wrap_content"
-
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="5dp"
-
-                            android:src="@drawable/ic_resource_package" />
-
-                        <TextView
-                            android:id="@+id/theodoidonhang"
+                        android:drawableLeft="@drawable/ic_resource_package"
+                        android:drawablePadding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
 
 
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
+                        android:fontFamily="@font/gilroy_bold"
+                        android:gravity="start"
 
-                            android:layout_alignParentRight="true"
-                            android:layout_toRightOf="@+id/imv_rs_package"
-
-                            android:fontFamily="@font/gilroy_bold"
-                            android:gravity="start"
-
-                            android:text="Theo dõi đơn hàng"
-                            android:textColor="@color/colorText"
-                            android:textSize="16sp" />
-                    </RelativeLayout>
+                        android:text="Theo dõi đơn hàng"
+                        android:textColor="@color/colorText"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txtStatus_aOrderDetail"
@@ -194,37 +158,20 @@
 
                     android:paddingVertical="10dp">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/diachinguoinhan"
 
-                        <ImageView
-                            android:id="@+id/imv_location"
-                            android:layout_width="20dp"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="5dp"
+                        android:drawableLeft="@drawable/ic_location"
+                        android:drawablePadding="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
 
-                            android:src="@drawable/ic_location" />
+                        android:fontFamily="@font/gilroy_bold"
+                        android:gravity="start"
 
-                        <TextView
-                            android:id="@+id/diachinguoinhan"
-
-
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-
-                            android:layout_alignParentRight="true"
-                            android:layout_toRightOf="@+id/imv_location"
-
-                            android:fontFamily="@font/gilroy_bold"
-                            android:gravity="start"
-
-                            android:text="Địa chỉ người nhận"
-                            android:textColor="@color/colorText"
-                            android:textSize="16sp" />
-                    </RelativeLayout>
+                        android:text="Địa chỉ người nhận"
+                        android:textColor="@color/colorText"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txtCustomerName_aOrderDetail"
@@ -273,37 +220,21 @@
 
                 android:paddingVertical="10dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/giohangcuaban"
 
-                    <ImageView
-                        android:id="@+id/imv_cart"
-                        android:layout_width="20dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-                        android:src="@drawable/ic_giohang" />
+                    android:drawableLeft="@drawable/ic_giohang"
+                    android:drawablePadding="5dp"
 
-                    <TextView
-                        android:id="@+id/giohangcuaban"
+                    android:fontFamily="@font/gilroy_bold"
+                    android:gravity="start"
 
-
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-
-                        android:layout_alignParentRight="true"
-                        android:layout_toRightOf="@+id/imv_cart"
-
-                        android:fontFamily="@font/gilroy_bold"
-                        android:gravity="start"
-
-                        android:text="Giỏ hàng"
-                        android:textColor="@color/colorText"
-                        android:textSize="16sp" />
-                </RelativeLayout>
+                    android:text="Giỏ hàng"
+                    android:textColor="@color/colorText"
+                    android:textSize="16sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcvListProduct_aOrderDetail"
@@ -353,7 +284,7 @@
                         android:textColor="@color/colorText" />
 
                     <TextView
-                        android:id="@+id/txtSubtotal_aOrderDetail"
+                        android:id="@+id/txtPrice_aOrderDetail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 
@@ -383,6 +314,36 @@
 
                     <TextView
                         android:id="@+id/txtShippingFee_aOrderDetail"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="3"
+
+                        android:fontFamily="@font/sfpro_medium"
+                        android:gravity="end"
+                        android:text="15.000 đ"
+                        android:textColor="@color/colorText" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:id="@+id/llTitleDiscount_aOrderDetail"
+                    android:visibility="gone"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="7"
+                        android:fontFamily="@font/sfpro_medium"
+                        android:text="Khuyến mãi"
+                        android:textColor="@color/colorText" />
+
+                    <TextView
+                        android:id="@+id/txtDiscount_aOrderDetail"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
 

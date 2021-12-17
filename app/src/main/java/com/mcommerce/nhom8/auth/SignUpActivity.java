@@ -49,6 +49,7 @@ public class SignUpActivity extends AppCompatActivity {
     private Button btnTiepTuc_aSignUp;
     private ProgressDialog progressDialog;
     private FirebaseAuth mAuth;
+    private String phone;
 
 
     @Override
@@ -126,6 +127,7 @@ public class SignUpActivity extends AppCompatActivity {
                     }
                 } else {
                     inpPhone_aSignUp.setErrorEnabled(false);
+                    phone =inpPhone_aSignUp.toString().trim();
                 }
             }
 
@@ -237,7 +239,12 @@ public class SignUpActivity extends AppCompatActivity {
 
                                 }
                             });*/
-                            sendOTP(inpPhone_aSignUp.getEditText().getText().toString().trim());
+                            phone= inpPhone_aSignUp.getEditText().getText().toString();
+                            if (phone.startsWith("0")) {
+                                phone = phone.substring(1,phone.length());
+                            }
+                            phone = "+84"+phone;
+                            sendOTP(phone);
                         }
                     }
                 });
@@ -259,7 +266,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private boolean checkValidatePhone(String phone) {
-        String regex = "^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$";
+        String regex = "^(0|84|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$";
         return phone.matches(regex);
     }
 
@@ -295,6 +302,7 @@ public class SignUpActivity extends AppCompatActivity {
                             public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
                                 String email = inpEmail_aSignUp.getEditText().getText().toString().trim();
                                 String password = inpMatKhau_aSignUp.getEditText().getText().toString().trim();
+
                                 String name = inpHoTen_aSignUp.getEditText().getText().toString();
                                 createUserWithEmail(email, password, phone, name, phoneAuthCredential);
                             }
@@ -319,7 +327,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void openVerifyOTPActivity(String verifyID) {
         Intent intent = new Intent(SignUpActivity.this, VerifyPhoneActivity.class);
-        intent.putExtra(Constant.PHONE,inpPhone_aSignUp.getEditText().getText().toString().trim());
+        intent.putExtra(Constant.PHONE,phone);
         intent.putExtra(Constant.NAME, inpHoTen_aSignUp.getEditText().getText().toString().trim());
         intent.putExtra(Constant.EMAIL, inpEmail_aSignUp.getEditText().getText().toString().trim());
         intent.putExtra(Constant.PASSWORD, inpMatKhau_aSignUp.getEditText().getText().toString().trim());
@@ -337,7 +345,7 @@ public class SignUpActivity extends AppCompatActivity {
                             FirebaseUser user = task.getResult().getUser();
                             startActivity(new Intent(SignUpActivity.this, MainActivity.class));
                         } else {
-                            Toast.makeText(SignUpActivity.this, "Xác minh không thành công",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, "Liên kết số điện thoại không thành công",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -352,9 +360,7 @@ public class SignUpActivity extends AppCompatActivity {
                     UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
                     user.updateProfile(profileChangeRequest);
                     User mUser = new User();
-                    mUser.setUserName(user.getDisplayName());
                     mUser.setUserID(user.getUid());
-                    mUser.setUserPhone(phone);
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                     databaseReference.child("User").child(mUser.getUserID()).setValue(mUser);
                     linktoEmailPassword(phoneAuthCredential);

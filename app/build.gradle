@@ -63,7 +63,11 @@ dependencies {
 
     implementation 'com.google.android.material:material:<version>'
     implementation platform('com.google.firebase:firebase-bom:29.0.0')
+    //firebase auth dăng nhậo
     implementation 'com.google.firebase:firebase-auth'
+
+    //cắt hình ảnh
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 
 
 }

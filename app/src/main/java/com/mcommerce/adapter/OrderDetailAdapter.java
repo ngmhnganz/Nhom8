@@ -8,29 +8,25 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.mcommerce.model.Product;
 import com.mcommerce.nhom8.R;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class OrderDetailAdapter  extends RecyclerView.Adapter<OrderDetailAdapter.OrderDetailViewHolder> {
     private Activity context;
-    private HashMap<String,Integer> itemsOrder;
-    private DatabaseReference myRef;
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private String[] key;
+    private HashMap<String,HashMap<String, ?>> itemsOrder;
+    private final ArrayList<String> productIDs;
+
+    private String itemID;
 
 
-    public OrderDetailAdapter(Activity context, HashMap<String,Integer> itemsOrder) {
+    public OrderDetailAdapter(Activity context, HashMap<String,HashMap<String, ?>> itemsOrder) {
         this.context = context;
         this.itemsOrder = itemsOrder;
-        key = this.itemsOrder.keySet().toArray(new String[itemsOrder.size()]);
+        productIDs = new ArrayList<>(itemsOrder.keySet());
     }
 
 
@@ -43,25 +39,13 @@ public class OrderDetailAdapter  extends RecyclerView.Adapter<OrderDetailAdapter
 
     @Override
     public void onBindViewHolder(@NonNull OrderDetailViewHolder holder, int position) {
-        myRef = firebaseDatabase.getReference().child("NguyenLieu");
-        String itemID = key[position];
-        int itemQ =  Integer.parseInt(String.valueOf(itemsOrder.get(key[position])));
-        myRef.child(itemID).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Product product = new Product();
-                product.setProductName(snapshot.child("productName").getValue().toString());
-                product.setProductPrice(((Long) snapshot.child("productPrice").getValue()).intValue());
-                holder.txtProductName_orderdetail.setText(product.getProductName());
-                holder.txtProductPrice_orderdetail.setText(String.valueOf(product.getProductPrice()*itemQ)+" đ");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
-
-        holder.txtProductQuantity_orderdetail.setText(itemQ+"x");
+        itemID = productIDs.get(position);
+        long price, quantity;
+        price = (long) itemsOrder.get(itemID).get("price");
+        quantity = (long) itemsOrder.get(itemID).get("quantity");
+        holder.txtProductName_orderdetail.setText(itemsOrder.get(itemID).get("name").toString());
+        holder.txtProductPrice_orderdetail.setText(price*quantity+ " đ");
+        holder.txtProductQuantity_orderdetail.setText(quantity+"x");
     }
 
 
@@ -76,9 +60,9 @@ public class OrderDetailAdapter  extends RecyclerView.Adapter<OrderDetailAdapter
                     txtProductPrice_orderdetail;
         public OrderDetailViewHolder(View view) {
             super(view);
-            txtProductQuantity_orderdetail = view.findViewById(R.id.txtProductQuantity_orderdetail);
-            txtProductName_orderdetail = view.findViewById(R.id.txtProductName_orderdetail);
-            txtProductPrice_orderdetail = view.findViewById(R.id.txtProductPrice_orderdetail);
+            txtProductQuantity_orderdetail = view.findViewById(R.id.txtProductQuantity);
+            txtProductName_orderdetail = view.findViewById(R.id.txtProductName);
+            txtProductPrice_orderdetail = view.findViewById(R.id.txtProductPrice);
         }
     }
 }
