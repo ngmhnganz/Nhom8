@@ -16,7 +16,7 @@ public class Product implements Parcelable {
     private long productID;
     private String productType;
     private String productshortName;
-    private int productPrice;
+    private long productPrice;
     private int productQuantity;
     private int productLike;
 
@@ -29,7 +29,7 @@ public class Product implements Parcelable {
         productType = in.readString();
         productshortName = in.readString();
         productLabel = in.readString();
-        productPrice = in.readInt();
+        productPrice = in.readLong();
         productQuantity = in.readInt();
         productLike = in.readInt();
     }
@@ -110,11 +110,11 @@ public class Product implements Parcelable {
         this.productDetail = productDetail;
     }
 
-    public int getProductPrice() {
+    public long getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(int productPrice) {
+    public void setProductPrice(long productPrice) {
         this.productPrice = productPrice;
     }
 
@@ -152,7 +152,7 @@ public class Product implements Parcelable {
         dest.writeString(productType);
         dest.writeString(productshortName);
         dest.writeString(productLabel);
-        dest.writeInt(productPrice);
+        dest.writeLong(productPrice);
         dest.writeInt(productQuantity);
         dest.writeInt(productLike);
     }

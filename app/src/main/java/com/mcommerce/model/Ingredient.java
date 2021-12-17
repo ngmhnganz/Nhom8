@@ -5,10 +5,10 @@ public class Ingredient {
     public static final String LABEL_SUAKEM ="Sữa-Kem";
     public static final String LABEL_BO ="Bơ";
     public static final String LABEL_KHAC ="Khác";
-    private int id;
+    private long id;
     private String name, label;
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -20,7 +20,7 @@ public class Ingredient {
         this.label = label;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -34,4 +34,5 @@ public class Ingredient {
 
     public Ingredient() {
     }
+
 }

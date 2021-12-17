@@ -12,13 +12,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.mcommerce.model.Recipe;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.util.Constant;
@@ -39,6 +43,7 @@ public class EachRecipeActivity extends AppCompatActivity {
     ChipGroup chipGroup;
     ChipDrawable chipDrawable;
     List<Integer> filter;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
     @Override
@@ -82,7 +87,13 @@ public class EachRecipeActivity extends AppCompatActivity {
         btnAddToCart_Recipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //
+                for (int productID: chipGroup.getCheckedChipIds()) {
+                    ref.child("User").child(user.getUid()).child("userCart").child("id"+productID).child("quantity").setValue(ServerValue.increment(1));
+                    ref.child("User").child(user.getUid()).child("userCart").child("id"+productID).child("name").setValue(recipeIngredient.get("id"+productID).get("name"));
+                    ref.child("User").child(user.getUid()).child("userCart").child("id"+productID).child("id").setValue(productID);
+                    ref.child("User").child(user.getUid()).child("userCart").child("id"+productID).child("price").setValue(recipeIngredient.get("id"+productID).get("price"));
+                    Toast.makeText(EachRecipeActivity.this, "Thêm hàng thành công",Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

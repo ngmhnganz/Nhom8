@@ -44,6 +44,7 @@ public class ListRecipeActivity extends AppCompatActivity {
     private void getData() {
         Intent intent = getIntent();
         filter = intent.getIntegerArrayListExtra(Constant.FILTER_OPTION);
+        System.out.println("đây nè list "+filter.toString());
         if (filter!=null) Collections.sort(filter);
     }
 

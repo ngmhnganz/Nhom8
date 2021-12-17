@@ -39,7 +39,7 @@
             android:name=".recipe.ListRecipeActivity"
             android:exported="true"/>
         <activity
-            android:name=".SuggestRecipeActivity"
+            android:name=".recipe.SuggestRecipeActivity"
             android:exported="true"/>
         <activity
             android:name=".recipe.EachRecipeActivity"

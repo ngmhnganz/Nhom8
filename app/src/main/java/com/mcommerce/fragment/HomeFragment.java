@@ -1,11 +1,9 @@
 package com.mcommerce.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -31,15 +29,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.BannerMainAdapter;
-import com.mcommerce.adapter.GoiYMonanAdapter;
 import com.mcommerce.adapter.ProductAdapter;
 import com.mcommerce.adapter.RecipeAdapter;
 import com.mcommerce.model.BannerMainModel;
-import com.mcommerce.model.GoiYMonanModel;
 import com.mcommerce.model.Product;
 import com.mcommerce.model.Recipe;
 import com.mcommerce.nhom8.MainActivity;
-import com.mcommerce.nhom8.SuggestRecipeActivity;
+import com.mcommerce.nhom8.recipe.SuggestRecipeActivity;
 import com.mcommerce.nhom8.order.CartActivity;
 import com.mcommerce.nhom8.product.AllProductsActivity;
 import com.mcommerce.nhom8.R;

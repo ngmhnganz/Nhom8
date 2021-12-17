@@ -15,6 +15,8 @@ public class Recipe implements Parcelable {
     private long recipeLike;
     private String recipeDescription;
     private String recipeShortDescription;
+    private String recipeImage;
+    private Map<String, HashMap<String,?>> recipeIngredient;
 
     public String getRecipeShortDescription() {
         return recipeShortDescription;
@@ -23,9 +25,6 @@ public class Recipe implements Parcelable {
     public void setRecipeShortDescription(String recipeShortDescription) {
         this.recipeShortDescription = recipeShortDescription;
     }
-
-    private String recipeImage;
-    private Map<String, HashMap<String,?>> recipeIngredient;
 
     public Map<String, HashMap<String, ?>> getRecipeIngredient() {
         return recipeIngredient;
