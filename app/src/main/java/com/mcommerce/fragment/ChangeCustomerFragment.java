@@ -96,6 +96,12 @@ public class ChangeCustomerFragment extends Fragment {
                 fragmentManager.beginTransaction().replace(R.id.layoutContainer, confirmOrderFragment).commit();
             }
         });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
 
     }
 

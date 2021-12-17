@@ -1,5 +1,6 @@
 package com.mcommerce.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +16,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.mcommerce.nhom8.R;
+import com.mcommerce.nhom8.order.CartActivity;
 
 public class OrderFragment extends Fragment {
 
     private View view;
     private Button btnComingOrder, btnHistoryOder;
+    private ImageButton btnCart_orderactivity;
     private ImageButton  btnCart;
 
     @Nullable
@@ -37,6 +40,13 @@ public class OrderFragment extends Fragment {
     private void addEvent() {
         btnHistoryOder.setOnClickListener(myClick);
         btnComingOrder.setOnClickListener(myClick);
+        btnCart_orderactivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), CartActivity.class));
+            }
+        });
+
     }
 
     private void initData() {
@@ -46,7 +56,7 @@ public class OrderFragment extends Fragment {
         btnCart = view.findViewById(R.id.btnCart_orderactivity);
         btnComingOrder = view.findViewById(R.id.btnComingOrder_orderactivity);
         btnHistoryOder = view.findViewById(R.id.btnHistoryOrder_orderactivity);
-
+        btnCart_orderactivity=view.findViewById(R.id.btnCart_orderactivity);
         btnComingOrder.setEnabled(false);
         btnHistoryOder.setEnabled(true);
         btnComingOrder.setBackgroundResource(R.drawable.button_underline);

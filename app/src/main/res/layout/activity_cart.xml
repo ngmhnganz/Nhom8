@@ -34,6 +34,7 @@
             android:textSize="20sp"
             android:layout_gravity="center"/>
         <ImageButton
+            android:clickable="false"
             android:id="@+id/btnCart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

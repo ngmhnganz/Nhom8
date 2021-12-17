@@ -4,13 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mcommerce.fragment.PolicyFragement"
+    tools:context=".setting.Policy"
     android:orientation="vertical">
-
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-
         android:layout_height="80dp"
         android:background="@drawable/header_main"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +35,7 @@
             android:textSize="20sp" />
 
         <ImageButton
-            android:id="@+id/btnCart_orderactivity"
+            android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -50,7 +48,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="15dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -66,7 +65,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:fontFamily="@font/sfpro_regular"
-            android:textSize="10sp" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -99,7 +98,7 @@
             android:layout_marginRight="30dp"
             android:fontFamily="@font/sfpro_regular"
 
-            android:textSize="10sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     //part 2
@@ -122,7 +121,6 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:fontFamily="@font/sfpro_regular"
-
-            android:textSize="10sp" />
+            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

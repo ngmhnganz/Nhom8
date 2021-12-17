@@ -63,6 +63,7 @@ public class EachRecipeActivity extends AppCompatActivity {
         linkViews();
         getData();
         initAdapter();
+        loadData();
         addEvents();
     }
 
@@ -90,6 +91,7 @@ public class EachRecipeActivity extends AppCompatActivity {
         chkLike_WL=findViewById(R.id.chkLike);
         chkLike1=findViewById(R.id.chkLike1);
     }
+
     private void getData() {
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra(Constant.RECIPE_BUNDLE);
@@ -112,22 +114,8 @@ public class EachRecipeActivity extends AppCompatActivity {
             chip.setEnsureMinTouchTargetSize(false);
             chipGroup.addView(chip);
         }
-        Likeref.child("id"+recipe.getRecipeID()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // nếu khách hàng đã từng thêm món này vào cart
-                if (snapshot.getValue()!=null){
-                    // nội dung nút là cập nhật
-                    chkLike.setChecked(true);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(EachRecipeActivity.this, "Lỗi",Toast.LENGTH_SHORT);
-            }
-        });
-    }
 
+    }
     private void addEvents() {
         imvDropDownMaterial.setOnClickListener(clickSetVisibility);
         txtPreparedMaterials_Recipe.setOnClickListener(clickSetVisibility);
@@ -186,5 +174,20 @@ public class EachRecipeActivity extends AppCompatActivity {
 
     private void initAdapter() {
 
+    }
+
+    private void loadData() {
+        Likeref.child("id"+recipe.getRecipeID()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.getValue()!=null){
+                    chkLike.setChecked(true);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(EachRecipeActivity.this, "Lỗi",Toast.LENGTH_SHORT);
+            }
+        });
     }
 }

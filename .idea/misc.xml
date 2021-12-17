@@ -3,23 +3,29 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/drawable/ic_empty.xml" value="0.24479166666666666" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/activity_all_products.xml" value="0.22916666666666666" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/activity_cart.xml" value="0.27447916666666666" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/activity_each_recipe.xml" value="0.176" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/activity_list_product.xml" value="0.13179347826086957" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/activity_list_recipe2.xml" value="0.2203125" />
+        <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/activity_login.xml" value="0.22395833333333334" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/activity_order_detail.xml" value="0.2203125" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/activity_payment.xml" value="0.22916666666666666" />
+        <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/activity_policy.xml" value="0.22552083333333334" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/activity_policy_fragement.xml" value="0.22916666666666666" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/activity_product_detail.xml" value="0.11474164133738601" />
+        <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/activity_reset_password.xml" value="0.22395833333333334" />
+        <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/activity_sign_up.xml" value="0.22395833333333334" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/activity_user_info.xml" value="0.22916666666666666" />
-        <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/activity_wish_list.xml" value="0.2" />
+        <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/activity_verify_phone.xml" value="0.22395833333333334" />
+        <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/activity_wish_list.xml" value="0.264" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/fragment_change_customer.xml" value="0.16979166666666667" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/fragment_coming_order.xml" value="0.22864583333333333" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/fragment_confirm_order.xml" value="0.16979166666666667" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/fragment_history_order.xml" value="0.13179347826086957" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/fragment_home.xml" value="0.22916666666666666" />
-        <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/fragment_order.xml" value="0.13179347826086957" />
+        <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/fragment_order.xml" value="0.2" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/fragment_policy.xml" value="0.2" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/fragment_user.xml" value="0.16979166666666667" />
         <entry key="..\:/3.Mobile/Doan/Nhom8/app/src/main/res/layout/fragment_wishlist_product.xml" value="0.1334853090172239" />

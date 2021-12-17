@@ -238,8 +238,6 @@ public class ConfirmOrderFragment extends Fragment {
             public void onClick(View view) {
                 getActivity().finish();
             }
-
-
         });
 
     }

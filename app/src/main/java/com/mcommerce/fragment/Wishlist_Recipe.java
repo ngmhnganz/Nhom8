@@ -30,7 +30,6 @@ import java.util.Map;
 public class Wishlist_Recipe extends Fragment {
     RecyclerView rcv_WishR;
     View view;
-
     ImageView imvEmptyList;
     DatabaseReference LikeRef = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();

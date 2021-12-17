@@ -11,6 +11,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ public class SignUpActivity extends AppCompatActivity {
             inpMatKhau_aSignUp,
             inpPhone_aSignUp,
             inpNhapLaiMatKhau_aSignUp;
+    private ImageButton btnBack_aSignUp;
     private Button btnTiepTuc_aSignUp;
     private ProgressDialog progressDialog;
     private FirebaseAuth mAuth;
@@ -78,7 +80,7 @@ public class SignUpActivity extends AppCompatActivity {
         inpPhone_aSignUp =findViewById(R.id.inpPhone_aSignUp);
 
         btnTiepTuc_aSignUp =findViewById(R.id.btnTiepTuc_aSignUp);
-
+        btnBack_aSignUp=findViewById(R.id.btnBack_aSignUp);
         progressDialog = new ProgressDialog(this);
     }
 
@@ -256,6 +258,12 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
+            }
+        });
+        btnBack_aSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

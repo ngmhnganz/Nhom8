@@ -131,9 +131,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         Likeref.child("id"+product.getProductID()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // nếu khách hàng đã từng thêm món này vào cart
                 if (snapshot.getValue()!=null){
-                    // nội dung nút là cập nhật
                    chkLike1.setChecked(true);
                 }
             }
