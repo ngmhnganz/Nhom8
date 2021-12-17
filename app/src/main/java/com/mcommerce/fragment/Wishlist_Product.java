@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,6 +28,7 @@ import java.util.Map;
 
 public class Wishlist_Product extends Fragment {
     RecyclerView rcv_wish_product;
+    ImageView imvEmptyList;
     View view;
     DatabaseReference LikeRef = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -42,6 +44,7 @@ public class Wishlist_Product extends Fragment {
     private void linkViews() {
         rcv_wish_product = view.findViewById(R.id.rcv_wish_product);
         rcv_wish_product.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
+        imvEmptyList=view.findViewById(R.id.imvEmptyList);
 
     }
 
@@ -55,10 +58,15 @@ public class Wishlist_Product extends Fragment {
             LikeRef.child("User").child(user.getUid()).child("userLikeProduct").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                   Map<String, HashMap<String,?>> wishList = (Map<String, HashMap<String, ?>>) snapshot.getValue();
-                   WishProductAdapter adapter = new WishProductAdapter(getContext(),wishList,R.layout.item_wishproduct);
-                   progressDialog.dismiss();
-                   rcv_wish_product.setAdapter(adapter);
+                    if (snapshot.getValue()!=null) {
+                        imvEmptyList.setVisibility(View.GONE);
+                        Map<String, HashMap<String, ?>> wishList = (Map<String, HashMap<String, ?>>) snapshot.getValue();
+                        WishProductAdapter adapter = new WishProductAdapter(getContext(), wishList, R.layout.item_wishproduct);
+                        rcv_wish_product.setAdapter(adapter);
+                    }else{
+                        imvEmptyList.setVisibility(View.VISIBLE);
+                    }
+                    progressDialog.dismiss();
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {

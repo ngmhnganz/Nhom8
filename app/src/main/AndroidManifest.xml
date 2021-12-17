@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mcommerce.nhom8">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Từ sdk 29, muốn có quyền thì cần request user cho phép -->
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Từ sdk 29, muốn có quyền thì cần request user cho phép -->
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,15 +15,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Nhom8">
-<!--        <activity-->
-<!--            android:name="com.mcommerce.fragment.Wishlist_Recipe"-->
-<!--            android:exported="true" />-->
-<!--        <activity-->
-<!--            android:name="com.mcommerce.fragment.Wishlist_Product"-->
-<!--            android:exported="true" />-->
-<!--        <activity-->
-<!--            android:name=".wishlist.WishList"-->
-<!--            android:exported="true" />-->
+        <activity
+            android:name="com.mcommerce.fragment.PolicyFragement"
+            android:exported="true" />
+        <!-- <activity -->
+        <!-- android:name="com.mcommerce.fragment.Wishlist_Recipe" -->
+        <!-- android:exported="true" /> -->
+        <!-- <activity -->
+        <!-- android:name="com.mcommerce.fragment.Wishlist_Product" -->
+        <!-- android:exported="true" /> -->
+        <!-- <activity -->
+        <!-- android:name=".wishlist.WishList" -->
+        <!-- android:exported="true" /> -->
         <activity
             android:name=".setting.FillAddressActivity"
             android:exported="false" />
@@ -45,13 +47,13 @@
             android:exported="true" />
         <activity
             android:name=".recipe.ListRecipeActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".SuggestRecipeActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".recipe.EachRecipeActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".SplashScreenActivity"
             android:exported="true">

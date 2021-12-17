@@ -49,7 +49,7 @@ public class EachRecipeActivity extends AppCompatActivity {
     CheckBox chkLike,chkLike_WL,chkLike1;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private DatabaseReference Likeref = FirebaseDatabase.getInstance().getReference("User/"+user.getUid()+"/userLikeProduct");
+    private DatabaseReference Likeref = FirebaseDatabase.getInstance().getReference("User/"+user.getUid()+"/userLikeRecipe");
     Recipe recipe = new Recipe();
     Chip chip;
     ChipGroup chipGroup;

@@ -1,6 +1,8 @@
 package com.mcommerce.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +21,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mcommerce.interfaces.RecyclerViewItemClickListener;
 import com.mcommerce.model.Recipe;
 import com.mcommerce.nhom8.R;
+import com.mcommerce.nhom8.product.ProductDetailActivity;
+import com.mcommerce.nhom8.recipe.EachRecipeActivity;
+import com.mcommerce.util.Constant;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,12 +73,22 @@ public class WishRecipeAdapter extends  RecyclerView.Adapter<WishRecipeAdapter.W
                     @Override
                     public void onClick(View view) {
                         if (holder.chkLike_WL.isChecked()==false){
-                            Likeref.child("User").child(user.getUid()).child("userLikeProduct").child(wishID.get(holder.getBindingAdapterPosition())).removeValue();
+                            Likeref.child("User").child(user.getUid()).child("userLikeRecipe").child(wishID.get(holder.getBindingAdapterPosition())).removeValue();
                             wishListR.remove(wishID.get(holder.getBindingAdapterPosition()));
                             wishID.remove(wishID.get(holder.getBindingAdapterPosition()));
                             notifyItemRemoved(holder.getBindingAdapterPosition());
                         }
 
+                    }
+                });
+                holder.setItemClickListener(new RecyclerViewItemClickListener() {
+                    @Override
+                    public void onClick(View view, int position) {
+                        Intent intent = new Intent(context, EachRecipeActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable(Constant.SECLECTED_RECIPE,recipe);
+                        intent.putExtra(Constant.RECIPE_BUNDLE, bundle);
+                        context.startActivity(intent);
                     }
                 });
             }
@@ -89,10 +105,11 @@ public class WishRecipeAdapter extends  RecyclerView.Adapter<WishRecipeAdapter.W
         return wishListR.size();
     }
 
-    public class WishViewHolder extends RecyclerView.ViewHolder {
+    public class WishViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView imv_WishR;
         TextView txtName_WishR, txtTime_WishR,txtDes_WishR;
         CheckBox chkLike_WL;
+        private RecyclerViewItemClickListener itemClickListener;
 
         public WishViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -101,6 +118,14 @@ public class WishRecipeAdapter extends  RecyclerView.Adapter<WishRecipeAdapter.W
             txtName_WishR =itemView.findViewById(R.id.txtName_WishR);
             txtTime_WishR =itemView.findViewById(R.id.txtTime_WishR);
             txtDes_WishR=itemView.findViewById(R.id.txtDes_WishR);
+            itemView.setOnClickListener(this);
+        }
+        public void setItemClickListener(RecyclerViewItemClickListener itemClickListener) {
+            this.itemClickListener = itemClickListener;
+        }
+        @Override
+        public void onClick(View v) {
+            itemClickListener.onClick(v,getAdapterPosition());
         }
     }
 }

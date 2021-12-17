@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/btnBack_orderactivity"
+            android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

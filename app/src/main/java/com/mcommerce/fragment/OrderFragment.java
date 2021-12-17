@@ -20,7 +20,7 @@ public class OrderFragment extends Fragment {
 
     private View view;
     private Button btnComingOrder, btnHistoryOder;
-    private ImageButton btnBack, btnCart;
+    private ImageButton  btnCart;
 
     @Nullable
     @Override
@@ -43,7 +43,6 @@ public class OrderFragment extends Fragment {
     }
 
     private void linkview() {
-        btnBack = view.findViewById(R.id.btnBack_orderactivity);
         btnCart = view.findViewById(R.id.btnCart_orderactivity);
         btnComingOrder = view.findViewById(R.id.btnComingOrder_orderactivity);
         btnHistoryOder = view.findViewById(R.id.btnHistoryOrder_orderactivity);

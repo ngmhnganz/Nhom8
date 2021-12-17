@@ -80,6 +80,7 @@ public class WishProductAdapter extends  RecyclerView.Adapter<WishProductAdapter
 
                     }
                 });
+
                 holder.setItemClickListener(new RecyclerViewItemClickListener() {
                     @Override
                     public void onClick(View view, int position) {
@@ -117,6 +118,7 @@ public class WishProductAdapter extends  RecyclerView.Adapter<WishProductAdapter
             txtName_WishP=itemView.findViewById(R.id.txtName_WishP);
             txtLike_WishP=itemView.findViewById(R.id.txtLike_WishP);
             txtPrice_WishP=itemView.findViewById(R.id.txtPrice_WishP);
+            itemView.setOnClickListener(this);
         }
 
         public void setItemClickListener(RecyclerViewItemClickListener itemClickListener) {

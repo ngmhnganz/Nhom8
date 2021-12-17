@@ -236,7 +236,7 @@ public class ConfirmOrderFragment extends Fragment {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                getActivity().finish();
             }
 
 
