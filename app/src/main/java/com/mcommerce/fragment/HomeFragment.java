@@ -22,6 +22,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.github.mmin18.widget.RealtimeBlurView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,7 +55,7 @@ public class HomeFragment extends Fragment {
     List<BannerMainModel> bannerMainModelList;
     List<Recipe> goiYRecipeList = new ArrayList<>();
     List<Product> goiYComboList = new ArrayList<>();
-    TextView txtSeeMoreMonAn, txtSeeMoreCongThuc;
+    TextView txtSeeMoreMonAn, txtSeeMoreCongThuc, txtWelcome;
 
     ImageButton btnSanPham, btnCongThuc, btnGoiY;
     RecyclerView rcvGoiYMonan, rcvGoiYCombo;
@@ -67,6 +69,7 @@ public class HomeFragment extends Fragment {
 
     private ImageButton btnCard_main;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Nullable
     @Override
@@ -99,9 +102,18 @@ public class HomeFragment extends Fragment {
         blurView = view.findViewById(R.id.blurview_LyGoiYMonan);
         btnCard_main = view.findViewById(R.id.btnCard_main);
 
+        txtWelcome = view.findViewById(R.id.txtWelcome);
+
     }
 
     private void initData() {
+
+        if (user == null){
+            txtWelcome.setText("Chào mừng bạn!");
+        } else {
+            txtWelcome.setText("Chào "+user.getDisplayName()+"!");
+        }
+
         //region Banner
         bannerMainModelList = new ArrayList<>();
         bannerMainModelList.add(new BannerMainModel(R.drawable.mot,"1"));

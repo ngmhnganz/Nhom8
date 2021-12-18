@@ -73,6 +73,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         txtDiscount_aOrderDetail.setText(order.getDiscountOrder()+" đ");
         txtTotal_aOrderDetail.setText(order.getTotalOrder()+" đ");
         txtBeforeDiscount_aOrderDetail.setText(order.getTotalOrder()+order.getDiscountOrder()+" đ");
+        txtStatus_aOrderDetail.setText(order.getStatusStringOrder());
 
 
         if (order.getDiscountOrder()!=0L){

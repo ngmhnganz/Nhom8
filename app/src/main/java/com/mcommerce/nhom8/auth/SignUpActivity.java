@@ -11,10 +11,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
@@ -46,6 +48,7 @@ public class SignUpActivity extends AppCompatActivity {
             inpMatKhau_aSignUp,
             inpPhone_aSignUp,
             inpNhapLaiMatKhau_aSignUp;
+    private CheckBox chkAccept;
     private Button btnTiepTuc_aSignUp;
     private ProgressDialog progressDialog;
     private FirebaseAuth mAuth;
@@ -78,6 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
         inpPhone_aSignUp =findViewById(R.id.inpPhone_aSignUp);
 
         btnTiepTuc_aSignUp =findViewById(R.id.btnTiepTuc_aSignUp);
+        chkAccept = findViewById(R.id.chkAccept);
 
         progressDialog = new ProgressDialog(this);
     }
@@ -204,6 +208,21 @@ public class SignUpActivity extends AppCompatActivity {
                 if (inpNhapLaiMatKhau_aSignUp.getEditText().getText().toString().isEmpty()){
                     InvalidInput("vui lòng nhập lại mật khẩu", inpNhapLaiMatKhau_aSignUp);
                     valid = false;
+                } else {
+                    String password = inpMatKhau_aSignUp.getEditText().getText().toString();
+                    String passwordAgain = inpNhapLaiMatKhau_aSignUp.getEditText().getText().toString();
+                        if (!password.equals(passwordAgain)){
+                            InvalidInput("Mật khẩu không đúng", inpNhapLaiMatKhau_aSignUp);
+                            valid = false;
+                        }
+                        else {
+                            inpNhapLaiMatKhau_aSignUp.setErrorEnabled(false);
+                        }
+                }
+
+                if (!chkAccept.isChecked()){
+                    Toast.makeText(SignUpActivity.this,"Để đăng ký, ban cần chấp nhận các điều khoản", Toast.LENGTH_SHORT).show();
+                    valid = false;
                 }
 
                 if (!valid) {
@@ -216,29 +235,11 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onCheck(boolean isRegistered) {
                         progressDialog.show();
                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("User");
-                        Query query = reference.orderByChild("userPhone").equalTo(inpPhone_aSignUp.getEditText().getText().toString().trim());
-
                         if (isRegistered) {
                             InvalidInput("Email này đã được sử dụng để đăng ký", inpEmail_aSignUp);
                             progressDialog.dismiss();
                             return;
                         } else {
-                            /*query.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists()) {
-                                        InvalidInput("Số điện thoại này đã được sử dụng để đăng ký", inpPhone_aSignUp);
-                                        progressDialog.dismiss();
-                                    } else {
-                                        progressDialog.dismiss();
-                                        sendOTP(inpPhone_aSignUp.getEditText().getText().toString().trim());
-                                    }
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });*/
                             phone= inpPhone_aSignUp.getEditText().getText().toString();
                             if (phone.startsWith("0")) {
                                 phone = phone.substring(1,phone.length());
@@ -318,7 +319,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 openVerifyOTPActivity(s);
                             }
 
-                        })          // OnVerificationStateChangedCallbacks
+                        })
                         .build();
         progressDialog.dismiss();
         PhoneAuthProvider.verifyPhoneNumber(options);
@@ -336,7 +337,8 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void linktoEmailPassword(AuthCredential credential){
-        mAuth.getCurrentUser().linkWithCredential(credential)
+        mAuth.getCurrentUser()
+                .linkWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -347,6 +349,12 @@ public class SignUpActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(SignUpActivity.this, "Liên kết số điện thoại không thành công",Toast.LENGTH_SHORT).show();
                         }
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(SignUpActivity.this, "Đã có lỗi xảy ra",Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -364,19 +372,8 @@ public class SignUpActivity extends AppCompatActivity {
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                     databaseReference.child("User").child(mUser.getUserID()).setValue(mUser);
                     linktoEmailPassword(phoneAuthCredential);
-                    startActivity(new Intent(SignUpActivity.this,MainActivity.class));
                 }
             }
         });
     }
-
-/*
-    UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
-                            user.updateProfile(profileChangeRequest);
-    User mUser = new User();
-                            mUser.setUserName(user.getDisplayName());
-                            mUser.setUserID(user.getUid());
-                            mUser.setUserPhone(phone);
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                            databaseReference.child("User").child(mUser.getUserID()).setValue(mUser);*/
 }
