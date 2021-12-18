@@ -7,7 +7,7 @@ plugins {
 android {
     signingConfigs {
         project_config {
-            storeFile file('N:\\M-Commerce\\Projects\\keystore\\text_keystore.jks')
+            storeFile file('../app/text_keystore.jks')
             storePassword '123HuTieu'
             keyAlias 'Nhom8'
             keyPassword '123HuTieu'
