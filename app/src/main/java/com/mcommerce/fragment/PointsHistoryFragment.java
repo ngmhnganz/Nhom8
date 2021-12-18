@@ -26,11 +26,17 @@ public class PointsHistoryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_point_history,container,false);
 
+        linkdata();
+
         return view;
     }
 
     public PointsHistoryFragment(RecyclerView rcv_PointsHistory, PointsHistoryAdapter adapter) {
         this.rcv_PointsHistory = rcv_PointsHistory;
         this.adapter = adapter;
+    }
+
+    private void linkdata() {
+        rcv_PointsHistory = view.findViewById(R.id.rcv_fragmentComingOrder);
     }
 }

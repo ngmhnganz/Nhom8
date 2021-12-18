@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,21 +27,22 @@ public class UserFragment extends Fragment {
 
     private View view;
     private LinearLayout llSupport_fmuser,
-                llSetting_fmuser,
-                llChinhSach_fmuser,
-                llPoint_fmuser,
-                llUserInfo_fmuser;
-    private TextView    txtUserName_fmuser,
-                txtUserPoint_fmuser;
+            llSetting_fmuser,
+            llChinhSach_fmuser,
+            llPoint_fmuser,
+            llUserInfo_fmuser;
+    private TextView txtUserName_fmuser,
+            txtUserPoint_fmuser;
 
     private ImageView imv_fmuser;
     private Button btnLogout_fmuser;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.fragment_user,container,false);
+        view = inflater.inflate(R.layout.fragment_user, container, false);
         linkview();
         loadUserInfo();
         addEvent();
@@ -85,8 +87,7 @@ public class UserFragment extends Fragment {
 
         if (user == null) {
             btnLogout_fmuser.setOnClickListener(signin);
-        }
-        else {
+        } else {
             btnLogout_fmuser.setOnClickListener(logout);
         }
     }
@@ -111,18 +112,24 @@ public class UserFragment extends Fragment {
     View.OnClickListener pointsHistory = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (v.getId() == R.id.llPoint_fmuser){
-                startActivity(new Intent(getActivity(), PointsHistoryFragment.class));
-            }
+//            if (v.getId() == R.id.llPoint_fmuser){
+//                startActivity(new Intent(getActivity(), PointsHistoryFragment.class));
+//            }
+//        }
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+            transaction.replace(R.id.lv_fragmentHistoryOrder, getParentFragment());
+            transaction.commit();
         }
     };
 
-    View.OnClickListener goToContentActivity = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (v.getId() == R.id.llUserInfo_fmuser){
-                startActivity(new Intent(getActivity(), UserInfoActivity.class));
+
+
+        View.OnClickListener goToContentActivity = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getId() == R.id.llUserInfo_fmuser) {
+                    startActivity(new Intent(getActivity(), UserInfoActivity.class));
+                }
             }
-        }
-    };
+        };
 }
