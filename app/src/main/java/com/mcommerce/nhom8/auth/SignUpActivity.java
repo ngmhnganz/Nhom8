@@ -172,6 +172,7 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                         else {
                             inpNhapLaiMatKhau_aSignUp.setErrorEnabled(false);
+                            valid = true;
                         }
                 }
 
