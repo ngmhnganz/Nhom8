@@ -164,28 +164,6 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        inpNhapLaiMatKhau_aSignUp.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String password = inpMatKhau_aSignUp.getEditText().getText().toString();
-                if (s != null) {
-                    if (!password.equals(s.toString())){
-                        InvalidInput("Mật khẩu không đúng", inpNhapLaiMatKhau_aSignUp);
-                    }
-                    else {
-                        inpNhapLaiMatKhau_aSignUp.setErrorEnabled(false);
-                    }
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-
         btnTiepTuc_aSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
