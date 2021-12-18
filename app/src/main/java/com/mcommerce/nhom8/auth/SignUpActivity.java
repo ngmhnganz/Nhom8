@@ -141,29 +141,6 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        inpMatKhau_aSignUp.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s != null) {
-                    if (!checkValidatePassword(s.toString())) {
-                        InvalidInput("Mật khẩu phải có ít nhất một ký tự số, 1 ký tự hoa, 1 ký tự thường và 1 ký tự đặc biệc thuộc @,#,$,%,!",inpMatKhau_aSignUp);
-                    } else {
-                        inpMatKhau_aSignUp.setErrorEnabled(false);
-                    }
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
         btnTiepTuc_aSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -247,11 +224,6 @@ public class SignUpActivity extends AppCompatActivity {
     private boolean checkValidatePhone(String phone) {
         String regex = "^(0|84|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$";
         return phone.matches(regex);
-    }
-
-    private boolean checkValidatePassword(String password){
-        String regex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20}$";
-        return password.matches(regex);
     }
 
     private boolean checkValidateEmail(String email) {
