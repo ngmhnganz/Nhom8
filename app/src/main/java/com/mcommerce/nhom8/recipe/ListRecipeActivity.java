@@ -1,5 +1,4 @@
 package com.mcommerce.nhom8.recipe;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -8,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,12 +18,10 @@ import com.mcommerce.nhom8.R;
 import com.mcommerce.util.Constant;
 import com.mcommerce.util.Key;
 import com.mcommerce.nhom8.order.CartActivity;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
 public class ListRecipeActivity extends AppCompatActivity {
 
     RecyclerView rcvListRecipe_Recipe;
@@ -48,18 +44,8 @@ public class ListRecipeActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
-        btnBack_aListProduct.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-        btnCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ListRecipeActivity.this, CartActivity.class));
-            }
-        });
+        btnBack_aListProduct.setOnClickListener(view -> finish());
+        btnCart.setOnClickListener(v -> startActivity(new Intent(ListRecipeActivity.this, CartActivity.class)));
 
     }
 

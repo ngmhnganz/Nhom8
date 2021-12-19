@@ -122,7 +122,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProductDetailActivity.this, "Lỗi",Toast.LENGTH_SHORT);
+                Toast.makeText(ProductDetailActivity.this, "Lỗi",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -135,25 +135,15 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProductDetailActivity.this, "Lỗi",Toast.LENGTH_SHORT);
+                Toast.makeText(ProductDetailActivity.this, "Lỗi",Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void addEvent() {
-        btnBack_productDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        btnBack_productDetail.setOnClickListener(v -> finish());
 
-        btnBackOuter_productDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        btnBackOuter_productDetail.setOnClickListener(v -> finish());
 
         edtQuantity_aProductDetail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -188,8 +178,6 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         if (user == null) {
             return;
-        } else {
-
         }
 
         btnAddProduct_productDetail.setOnClickListener(v -> {
@@ -198,12 +186,8 @@ public class ProductDetailActivity extends AppCompatActivity {
             if (edtQuantity_aProductDetail.getText().toString().equals("0")) {
                 btnText = "Thêm vào giỏ hàng";
                 btnAddProduct_productDetail.setText(btnText);
-                ref.child(String.valueOf(productID)).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(ProductDetailActivity.this,"Sản phẩm đã được xóa khỏi giỏ hàng",Toast.LENGTH_SHORT).show();
-                    }
-                });
+                ref.child(String.valueOf(productID)).removeValue().addOnSuccessListener(unused ->
+                        Toast.makeText(ProductDetailActivity.this,"Sản phẩm đã được xóa khỏi giỏ hàng",Toast.LENGTH_SHORT).show());
 
 
             } else {
@@ -228,19 +212,16 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         });
 
-        chkLike1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                int productID = (int) product.getProductID();
-                if (isChecked) {
-                    Likeref.child("id"+productID).child("name").setValue(product.getProductName());
-                    Likeref.child("id"+productID).child("id").setValue(productID);
-                    Likeref.child("id"+productID).child("price").setValue(product.getProductPrice());
-                    Likeref.child("id"+productID).child("thumb").setValue(product.getProductImg());
-                }
-                else {
-                    Likeref.child("id"+productID).removeValue();
-                }
+        chkLike1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            int productID = (int) product.getProductID();
+            if (isChecked) {
+                Likeref.child("id"+productID).child("name").setValue(product.getProductName());
+                Likeref.child("id"+productID).child("id").setValue(productID);
+                Likeref.child("id"+productID).child("price").setValue(product.getProductPrice());
+                Likeref.child("id"+productID).child("thumb").setValue(product.getProductImg());
+            }
+            else {
+                Likeref.child("id"+productID).removeValue();
             }
         });
 
