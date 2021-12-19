@@ -7,8 +7,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,7 +15,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.RecipeAdapter;
-import com.mcommerce.model.Product;
 import com.mcommerce.model.Recipe;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.util.Constant;

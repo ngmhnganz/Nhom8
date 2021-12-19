@@ -2,8 +2,6 @@ package com.mcommerce.nhom8.recipe;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -19,10 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.flexbox.FlexWrap;
-import com.google.android.flexbox.FlexboxLayoutManager;
-import com.google.android.flexbox.JustifyContent;
-import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
@@ -57,15 +51,16 @@ public class EachRecipeActivity extends AppCompatActivity {
     LinearLayout llMaterialBuying;
     CheckBox chkLike,chkLike_WL,chkLike1;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private DatabaseReference Likeref = FirebaseDatabase.getInstance().getReference("User/"+user.getUid()+"/userLikeRecipe");
+
     Recipe recipe = new Recipe();
     HashMap<String,HashMap<String,?>> recipeIngredient;
     Chip chip;
     ChipGroup chipGroup;
     ChipDrawable chipDrawable;
     List<Integer> filter;
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private DatabaseReference Likeref = FirebaseDatabase.getInstance().getReference("User/"+user.getUid()+"/userLikeRecipe");
 
 
     @Override
@@ -74,7 +69,6 @@ public class EachRecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_each_recipe);
         linkViews();
         getData();
-        initAdapter();
         addEvents();
     }
 
@@ -207,11 +201,11 @@ public class EachRecipeActivity extends AppCompatActivity {
         int s =0, e;
         for (int i=0; i<lengths.length; i++) {
             e = s + lengths[i];
-            if (i % 2 == 0) {
-                info.setSpan(new TextAppearanceSpan(this, R.style.sfpro_medium_style), s, e, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            } else {
-                info.setSpan(new TextAppearanceSpan(this, R.style.sfpro_bold_style), s, e, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            }
+//            if (i % 2 == 0) {
+//                info.setSpan(new TextAppearanceSpan(this, R.style.sfpro_medium_style), s, e, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            } else {
+//                info.setSpan(new TextAppearanceSpan(this, R.style.sfpro_bold_style), s, e, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            }
             s = e;
         }
         txtRecipe_Info_recipe.setText(info);
@@ -228,8 +222,8 @@ public class EachRecipeActivity extends AppCompatActivity {
             e2 = e + step_content.length();
             content = step+step_content;
             instruction.append(content);
-            instruction.setSpan(new TextAppearanceSpan(this, R.style.step_title), s, e, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            instruction.setSpan(new TextAppearanceSpan(this, R.style.step_content), e, e2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            instruction.setSpan(new TextAppearanceSpan(this, R.style.step_title), s, e, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            instruction.setSpan(new TextAppearanceSpan(this, R.style.step_content), e, e2, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             s = e2;
         }
         txtDescription.setText(instruction);
