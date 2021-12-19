@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "327404550023-t1c3qm4suhl2a2boll88cfonqg8b1plp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mcommerce.nhom8",
+            "certificate_hash": "2e2b09e24e38a2ab6ea7e48962ffad05ec8c674b"
+          }
+        },
+        {
           "client_id": "327404550023-rft6btq6lav532n15f0hgfbu834gud70.apps.googleusercontent.com",
           "client_type": 3
         }
