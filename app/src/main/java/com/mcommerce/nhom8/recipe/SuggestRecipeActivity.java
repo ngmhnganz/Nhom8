@@ -4,19 +4,14 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ScrollView;
 import android.widget.SearchView;
-
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.google.android.material.chip.ChipGroup;
@@ -24,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.SearchIngredientResultAdapter;
 import com.mcommerce.model.Ingredient;
@@ -31,11 +27,8 @@ import com.mcommerce.model.Product;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.util.Constant;
 import com.mcommerce.util.Key;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 public class SuggestRecipeActivity extends AppCompatActivity {
 
@@ -56,7 +49,6 @@ public class SuggestRecipeActivity extends AppCompatActivity {
     ListView lvResult;
     SearchIngredientResultAdapter adapter;
 
-//    HashMap<String, HashMap<String,?>> bots, suakems,bos,khacs;
     List<Ingredient> bots, suakems, bos, khacs, results, total;
 
     List<Integer> filter = new ArrayList<>();
@@ -66,6 +58,7 @@ public class SuggestRecipeActivity extends AppCompatActivity {
             llBo_RecipeMaterial,
             llKhac_RecipeMaterial;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    Query query = ref.child(Key.PRODUCT).orderByChild(Product.Type).equalTo(Product.NGUYEN_lIEU);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,14 +179,19 @@ public class SuggestRecipeActivity extends AppCompatActivity {
         suakems = new ArrayList<>();
         khacs = new ArrayList<>();
         total = new ArrayList<>();
-        ref.child(Key.INGREDIENT).addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Ingredient ingredient;
-                String label;
+                String label, name, shortname;
+                long id;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    ingredient = dataSnapshot.getValue(Ingredient.class);
-                    label = ingredient.getLabel();
+                    label = dataSnapshot.child(Product.Label).getValue().toString();
+                    id = (long) dataSnapshot.child(Product.ID).getValue();
+                    name = dataSnapshot.child(Product.Name).getValue().toString();
+                    shortname = dataSnapshot.child(Product.ShortName).getValue().toString();
+                    ingredient = new Ingredient(id, name, label, shortname);
+
                     if (label.equals(Ingredient.LABEL_BOT)) bots.add(ingredient);
                     if (label.equals(Ingredient.LABEL_SUAKEM)) suakems.add(ingredient);
                     if (label.equals(Ingredient.LABEL_BO)) bos.add(ingredient);
@@ -223,7 +221,7 @@ public class SuggestRecipeActivity extends AppCompatActivity {
         for (Ingredient  ingredient: materials) {
             chip = new Chip(this);
             chip.setId((int) ingredient.getId());
-            chip.setText(ingredient.getName());
+            chip.setText(ingredient.getShortname());
             chipDrawable = ChipDrawable.createFromAttributes(this,
                     null,
                     0,
@@ -254,7 +252,7 @@ public class SuggestRecipeActivity extends AppCompatActivity {
         ChipDrawable chipDrawable;
         chip = new Chip(this);
         chip.setId((int) ingredient.getId());
-        chip.setText(ingredient.getName());
+        chip.setText(ingredient.getShortname());
         chip.setCheckable(false);
         chipDrawable = ChipDrawable.createFromAttributes(this,
                 null,

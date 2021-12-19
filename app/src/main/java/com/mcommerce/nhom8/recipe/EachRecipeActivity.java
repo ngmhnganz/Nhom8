@@ -1,7 +1,6 @@
 package com.mcommerce.nhom8.recipe;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -13,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
@@ -24,9 +22,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
 import com.mcommerce.model.Recipe;
+import com.mcommerce.model.User;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.util.Constant;
-
+import com.mcommerce.util.Key;
 import java.util.HashMap;
 import java.util.List;
 
@@ -84,16 +83,13 @@ public class EachRecipeActivity extends AppCompatActivity {
     private void addEvents() {
         imvDropDownMaterial.setOnClickListener(clickSetVisibility);
         txtPreparedMaterials_Recipe.setOnClickListener(clickSetVisibility);
-        btnAddToCart_Recipe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (int productID: chipGroup.getCheckedChipIds()) {
-                    ref.child("User").child(user.getUid()).child("userCart").child("id"+productID).child("quantity").setValue(ServerValue.increment(1));
-                    ref.child("User").child(user.getUid()).child("userCart").child("id"+productID).child("name").setValue(recipeIngredient.get("id"+productID).get("name"));
-                    ref.child("User").child(user.getUid()).child("userCart").child("id"+productID).child("id").setValue(productID);
-                    ref.child("User").child(user.getUid()).child("userCart").child("id"+productID).child("price").setValue(recipeIngredient.get("id"+productID).get("price"));
-                    Toast.makeText(EachRecipeActivity.this, "Thêm hàng thành công",Toast.LENGTH_SHORT).show();
-                }
+        btnAddToCart_Recipe.setOnClickListener(v -> {
+            for (int productID: chipGroup.getCheckedChipIds()) {
+                ref.child(Key.USER).child(user.getUid()).child(User.Cart).child("id"+productID).child("quantity").setValue(ServerValue.increment(1));
+                ref.child(Key.USER).child(user.getUid()).child(User.Cart).child("id"+productID).child("name").setValue(recipeIngredient.get("id"+productID).get("name"));
+                ref.child(Key.USER).child(user.getUid()).child(User.Cart).child("id"+productID).child("id").setValue(productID);
+                ref.child(Key.USER).child(user.getUid()).child(User.Cart).child("id"+productID).child("price").setValue(recipeIngredient.get("id"+productID).get("price"));
+                Toast.makeText(EachRecipeActivity.this, "Thêm hàng thành công",Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -101,7 +97,7 @@ public class EachRecipeActivity extends AppCompatActivity {
      View.OnClickListener clickSetVisibility=new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            if(llMaterialBuying.getVisibility()==view.VISIBLE){
+            if(llMaterialBuying.getVisibility()==View.VISIBLE){
                 llMaterialBuying.setVisibility(View.GONE);
                 imvDropDownMaterial.setImageResource(R.drawable.ic_arrow_down_24);
             }else {
@@ -148,7 +144,7 @@ public class EachRecipeActivity extends AppCompatActivity {
                 thoigian + thoigian_content +
                 mucdo + mucdo_content );
         int[] lengths = new int[]{khauphan.length(), khauphan_content.length(), thoigian.length(), thoigian_content.length(), mucdo.length(), mucdo_content.length()};
-        int s =0, e=0;
+        int s =0, e;
         for (int i=0; i<lengths.length; i++) {
             e = s + lengths[i];
             if (i % 2 == 0) {
@@ -164,8 +160,8 @@ public class EachRecipeActivity extends AppCompatActivity {
         String[] steps = recipe.getRecipeDescription().split("#");
         String step, step_content;
         SpannableStringBuilder instruction = new SpannableStringBuilder();
-        String content= "";
-        s =0; int e2 = 0;
+        String content;
+        s =0; int e2;
         for (int i =0; i<steps.length; i=i+2){
             step = steps[i]; step_content = steps[i+1]+"\n";
             e = s+ step.length();

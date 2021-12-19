@@ -1,10 +1,8 @@
 package com.mcommerce.nhom8.recipe;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import com.google.firebase.database.DataSnapshot;
@@ -16,7 +14,7 @@ import com.mcommerce.adapter.RecipeAdapter;
 import com.mcommerce.model.Recipe;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.util.Constant;
-
+import com.mcommerce.util.Key;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -44,7 +42,6 @@ public class ListRecipeActivity extends AppCompatActivity {
     private void getData() {
         Intent intent = getIntent();
         filter = intent.getIntegerArrayListExtra(Constant.FILTER_OPTION);
-        System.out.println("đây nè list "+filter.toString());
         if (filter!=null) Collections.sort(filter);
     }
 
@@ -55,7 +52,7 @@ public class ListRecipeActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        ref.child("CongThuc").addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child(Key.RECIPE).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<Integer> ingredients;

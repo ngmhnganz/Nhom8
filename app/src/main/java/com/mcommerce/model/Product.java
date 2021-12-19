@@ -7,6 +7,11 @@ public class Product implements Parcelable {
     public static final String  NGUYEN_lIEU = "Nguyên liệu",
                                 DUNG_CU = "Dụng cụ",
                                 COMBO = "Combo";
+    public static final String Label = "productLabel";
+    public static final String Name = "productName";
+    public static final String ShortName = "productShortName";
+    public static final String ID = "productID";
+    public static final String Type = "productType";
 
     private String productName;
     private String productImg;

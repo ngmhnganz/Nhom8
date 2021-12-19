@@ -6,7 +6,15 @@ public class Ingredient {
     public static final String LABEL_BO ="Bơ";
     public static final String LABEL_KHAC ="Khác";
     private long id;
-    private String name, label;
+    private String name, label, shortname;
+
+    public String getShortname() {
+        return shortname;
+    }
+
+    public void setShortname(String shortname) {
+        this.shortname = shortname;
+    }
 
     public void setId(long id) {
         this.id = id;
@@ -35,4 +43,10 @@ public class Ingredient {
     public Ingredient() {
     }
 
+    public Ingredient(long id, String name, String label, String shortname) {
+        this.id = id;
+        this.name = name;
+        this.shortname = shortname;
+        this.label = label;
+    }
 }
