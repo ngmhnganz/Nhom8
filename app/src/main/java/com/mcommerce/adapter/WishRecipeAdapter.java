@@ -28,6 +28,7 @@ import com.mcommerce.nhom8.product.ProductDetailActivity;
 import com.mcommerce.nhom8.recipe.EachRecipeActivity;
 import com.mcommerce.util.Constant;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -78,7 +79,6 @@ public class WishRecipeAdapter extends  RecyclerView.Adapter<WishRecipeAdapter.W
                             wishID.remove(wishID.get(holder.getBindingAdapterPosition()));
                             notifyItemRemoved(holder.getBindingAdapterPosition());
                         }
-
                     }
                 });
                 holder.setItemClickListener(new RecyclerViewItemClickListener() {
@@ -88,6 +88,7 @@ public class WishRecipeAdapter extends  RecyclerView.Adapter<WishRecipeAdapter.W
                         Bundle bundle = new Bundle();
                         bundle.putParcelable(Constant.SECLECTED_RECIPE,recipe);
                         intent.putExtra(Constant.RECIPE_BUNDLE, bundle);
+                        bundle.putSerializable(Constant.ITEMS_INGREDIENT, (Serializable) recipe.getRecipeIngredient());
                         context.startActivity(intent);
                     }
                 });

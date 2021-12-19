@@ -60,6 +60,7 @@ public class WishList extends Fragment {
         @Override
         public void onClick(View view) {
             if(view.getId()==R.id.btnSanPham_Wish) {
+                loadFragment(new Wishlist_Product());
                 btnSanPham_Wish.setEnabled(false);
                 btnCongThuc_Wish.setEnabled(true);
                 btnSanPham_Wish.setBackgroundResource(R.drawable.button_underline);

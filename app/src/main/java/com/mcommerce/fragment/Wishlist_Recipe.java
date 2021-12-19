@@ -76,4 +76,10 @@ public class Wishlist_Recipe extends Fragment {
             });
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+    }
 }

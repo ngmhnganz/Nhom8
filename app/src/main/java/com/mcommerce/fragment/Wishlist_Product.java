@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class Wishlist_Product extends Fragment {
     RecyclerView rcv_wish_product;
-    ImageView imvEmptyList;
+    ImageView imvProductEmptyList;
     View view;
     DatabaseReference LikeRef = FirebaseDatabase.getInstance().getReference();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -44,7 +44,7 @@ public class Wishlist_Product extends Fragment {
     private void linkViews() {
         rcv_wish_product = view.findViewById(R.id.rcv_wish_product);
         rcv_wish_product.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
-        imvEmptyList=view.findViewById(R.id.imvEmptyList);
+        imvProductEmptyList=view.findViewById(R.id.imvProductEmptyList);
 
     }
 
@@ -59,12 +59,12 @@ public class Wishlist_Product extends Fragment {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.getValue()!=null) {
-                        imvEmptyList.setVisibility(View.GONE);
+                        imvProductEmptyList.setVisibility(View.GONE);
                         Map<String, HashMap<String, ?>> wishList = (Map<String, HashMap<String, ?>>) snapshot.getValue();
                         WishProductAdapter adapter = new WishProductAdapter(getContext(), wishList, R.layout.item_wishproduct);
                         rcv_wish_product.setAdapter(adapter);
                     }else{
-                        imvEmptyList.setVisibility(View.VISIBLE);
+                        imvProductEmptyList.setVisibility(View.VISIBLE);
                     }
                     progressDialog.dismiss();
                 }
@@ -76,4 +76,9 @@ public class Wishlist_Product extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+    }
 }
