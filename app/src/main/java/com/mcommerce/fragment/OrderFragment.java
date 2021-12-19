@@ -7,39 +7,56 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.mcommerce.nhom8.R;
+import com.mcommerce.nhom8.auth.LoginActivity;
 import com.mcommerce.nhom8.order.CartActivity;
 
 public class OrderFragment extends Fragment {
 
     private View view;
+    private TextView txtDangNhap;
     private Button btnComingOrder, btnHistoryOder;
     private ImageButton btnCart_orderactivity;
-    private ImageButton  btnCart;
+    private ImageButton btnBack, btnCart;
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_order,container,false);
-
-        loadFragment(new ComingOrderFragment());
         linkview();
-        initData();
+
+        if (user != null){
+            loadFragment(new ComingOrderFragment());
+            txtDangNhap.setVisibility(View.GONE);
+        }
+        else {
+            txtDangNhap.setVisibility(View.VISIBLE);
+        }
+
         addEvent();
         return view;
     }
 
     private void addEvent() {
-        btnHistoryOder.setOnClickListener(myClick);
-        btnComingOrder.setOnClickListener(myClick);
+        if (user!= null){
+            btnHistoryOder.setOnClickListener(myClick);
+            btnComingOrder.setOnClickListener(myClick);
+        }
+        txtDangNhap.setOnClickListener(v ->  {
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            getActivity().startActivity(intent);
+            getActivity().finish();
+        });
         btnCart_orderactivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +77,8 @@ public class OrderFragment extends Fragment {
         btnComingOrder.setEnabled(false);
         btnHistoryOder.setEnabled(true);
         btnComingOrder.setBackgroundResource(R.drawable.button_underline);
+
+        txtDangNhap = view.findViewById(R.id.txtDangNhap);
     }
 
     View.OnClickListener myClick = new View.OnClickListener() {

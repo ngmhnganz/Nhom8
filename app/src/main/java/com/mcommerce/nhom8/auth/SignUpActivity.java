@@ -11,11 +11,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
@@ -47,7 +48,7 @@ public class SignUpActivity extends AppCompatActivity {
             inpMatKhau_aSignUp,
             inpPhone_aSignUp,
             inpNhapLaiMatKhau_aSignUp;
-    private ImageButton btnBack_aSignUp;
+    private CheckBox chkAccept;
     private Button btnTiepTuc_aSignUp;
     private ProgressDialog progressDialog;
     private FirebaseAuth mAuth;
@@ -80,7 +81,8 @@ public class SignUpActivity extends AppCompatActivity {
         inpPhone_aSignUp =findViewById(R.id.inpPhone_aSignUp);
 
         btnTiepTuc_aSignUp =findViewById(R.id.btnTiepTuc_aSignUp);
-        btnBack_aSignUp=findViewById(R.id.btnBack_aSignUp);
+        chkAccept = findViewById(R.id.chkAccept);
+
         progressDialog = new ProgressDialog(this);
     }
 
@@ -139,51 +141,6 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        inpMatKhau_aSignUp.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s != null) {
-                    if (!checkValidatePassword(s.toString())) {
-                        InvalidInput("Mật khẩu phải có ít nhất một ký tự số, 1 ký tự hoa, 1 ký tự thường và 1 ký tự đặc biệc thuộc @,#,$,%,!",inpMatKhau_aSignUp);
-                    } else {
-                        inpMatKhau_aSignUp.setErrorEnabled(false);
-                    }
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        inpNhapLaiMatKhau_aSignUp.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String password = inpMatKhau_aSignUp.getEditText().getText().toString();
-                if (s != null) {
-                    if (!password.equals(s.toString())){
-                        InvalidInput("Mật khẩu không đúng", inpNhapLaiMatKhau_aSignUp);
-                    }
-                    else {
-                        inpNhapLaiMatKhau_aSignUp.setErrorEnabled(false);
-                    }
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-
         btnTiepTuc_aSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,6 +163,22 @@ public class SignUpActivity extends AppCompatActivity {
                 if (inpNhapLaiMatKhau_aSignUp.getEditText().getText().toString().isEmpty()){
                     InvalidInput("vui lòng nhập lại mật khẩu", inpNhapLaiMatKhau_aSignUp);
                     valid = false;
+                } else {
+                    String password = inpMatKhau_aSignUp.getEditText().getText().toString();
+                    String passwordAgain = inpNhapLaiMatKhau_aSignUp.getEditText().getText().toString();
+                        if (!password.equals(passwordAgain)){
+                            InvalidInput("Mật khẩu không đúng", inpNhapLaiMatKhau_aSignUp);
+                            valid = false;
+                        }
+                        else {
+                            inpNhapLaiMatKhau_aSignUp.setErrorEnabled(false);
+                            valid = true;
+                        }
+                }
+
+                if (!chkAccept.isChecked()){
+                    Toast.makeText(SignUpActivity.this,"Để đăng ký, ban cần chấp nhận các điều khoản", Toast.LENGTH_SHORT).show();
+                    valid = false;
                 }
 
                 if (!valid) {
@@ -218,29 +191,11 @@ public class SignUpActivity extends AppCompatActivity {
                     public void onCheck(boolean isRegistered) {
                         progressDialog.show();
                         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("User");
-                        Query query = reference.orderByChild("userPhone").equalTo(inpPhone_aSignUp.getEditText().getText().toString().trim());
-
                         if (isRegistered) {
                             InvalidInput("Email này đã được sử dụng để đăng ký", inpEmail_aSignUp);
                             progressDialog.dismiss();
                             return;
                         } else {
-                            /*query.addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.exists()) {
-                                        InvalidInput("Số điện thoại này đã được sử dụng để đăng ký", inpPhone_aSignUp);
-                                        progressDialog.dismiss();
-                                    } else {
-                                        progressDialog.dismiss();
-                                        sendOTP(inpPhone_aSignUp.getEditText().getText().toString().trim());
-                                    }
-                                }
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });*/
                             phone= inpPhone_aSignUp.getEditText().getText().toString();
                             if (phone.startsWith("0")) {
                                 phone = phone.substring(1,phone.length());
@@ -260,12 +215,6 @@ public class SignUpActivity extends AppCompatActivity {
                 startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
             }
         });
-        btnBack_aSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
     }
 
     private void InvalidInput(String text, TextInputLayout input) {
@@ -276,11 +225,6 @@ public class SignUpActivity extends AppCompatActivity {
     private boolean checkValidatePhone(String phone) {
         String regex = "^(0|84|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$";
         return phone.matches(regex);
-    }
-
-    private boolean checkValidatePassword(String password){
-        String regex = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{8,20}$";
-        return password.matches(regex);
     }
 
     private boolean checkValidateEmail(String email) {
@@ -326,7 +270,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 openVerifyOTPActivity(s);
                             }
 
-                        })          // OnVerificationStateChangedCallbacks
+                        })
                         .build();
         progressDialog.dismiss();
         PhoneAuthProvider.verifyPhoneNumber(options);
@@ -344,7 +288,8 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void linktoEmailPassword(AuthCredential credential){
-        mAuth.getCurrentUser().linkWithCredential(credential)
+        mAuth.getCurrentUser()
+                .linkWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -355,6 +300,12 @@ public class SignUpActivity extends AppCompatActivity {
                         } else {
                             Toast.makeText(SignUpActivity.this, "Liên kết số điện thoại không thành công",Toast.LENGTH_SHORT).show();
                         }
+                    }
+                })
+                .addOnFailureListener(this, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(SignUpActivity.this, "Đã có lỗi xảy ra",Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -372,19 +323,8 @@ public class SignUpActivity extends AppCompatActivity {
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
                     databaseReference.child("User").child(mUser.getUserID()).setValue(mUser);
                     linktoEmailPassword(phoneAuthCredential);
-                    startActivity(new Intent(SignUpActivity.this,MainActivity.class));
                 }
             }
         });
     }
-
-/*
-    UserProfileChangeRequest profileChangeRequest = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
-                            user.updateProfile(profileChangeRequest);
-    User mUser = new User();
-                            mUser.setUserName(user.getDisplayName());
-                            mUser.setUserID(user.getUid());
-                            mUser.setUserPhone(phone);
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                            databaseReference.child("User").child(mUser.getUserID()).setValue(mUser);*/
 }

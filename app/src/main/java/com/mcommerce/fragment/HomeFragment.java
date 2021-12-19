@@ -1,11 +1,9 @@
 package com.mcommerce.fragment;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -24,6 +22,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.github.mmin18.widget.RealtimeBlurView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,15 +31,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.BannerMainAdapter;
-import com.mcommerce.adapter.GoiYMonanAdapter;
 import com.mcommerce.adapter.ProductAdapter;
 import com.mcommerce.adapter.RecipeAdapter;
 import com.mcommerce.model.BannerMainModel;
-import com.mcommerce.model.GoiYMonanModel;
 import com.mcommerce.model.Product;
 import com.mcommerce.model.Recipe;
 import com.mcommerce.nhom8.MainActivity;
-import com.mcommerce.nhom8.SuggestRecipeActivity;
+import com.mcommerce.nhom8.recipe.SuggestRecipeActivity;
 import com.mcommerce.nhom8.order.CartActivity;
 import com.mcommerce.nhom8.product.AllProductsActivity;
 import com.mcommerce.nhom8.R;
@@ -57,7 +55,7 @@ public class HomeFragment extends Fragment {
     List<BannerMainModel> bannerMainModelList;
     List<Recipe> goiYRecipeList = new ArrayList<>();
     List<Product> goiYComboList = new ArrayList<>();
-    TextView txtSeeMoreMonAn, txtSeeMoreCongThuc;
+    TextView txtSeeMoreMonAn, txtSeeMoreCongThuc, txtWelcome;
 
     ImageButton btnSanPham, btnCongThuc, btnGoiY;
     RecyclerView rcvGoiYMonan, rcvGoiYCombo;
@@ -71,6 +69,7 @@ public class HomeFragment extends Fragment {
 
     private ImageButton btnCard_main;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Nullable
     @Override
@@ -103,9 +102,18 @@ public class HomeFragment extends Fragment {
         blurView = view.findViewById(R.id.blurview_LyGoiYMonan);
         btnCard_main = view.findViewById(R.id.btnCard_main);
 
+        txtWelcome = view.findViewById(R.id.txtWelcome);
+
     }
 
     private void initData() {
+
+        if (user == null){
+            txtWelcome.setText("Chào mừng bạn!");
+        } else {
+            txtWelcome.setText("Chào "+user.getDisplayName()+"!");
+        }
+
         //region Banner
         bannerMainModelList = new ArrayList<>();
         bannerMainModelList.add(new BannerMainModel(R.drawable.mot,"1"));
@@ -126,7 +134,7 @@ public class HomeFragment extends Fragment {
                     Recipe p = dataSnapshot.getValue(Recipe.class);
                     goiYRecipeList.add(p);
                 }
-                RecipeAdapter adapter = new RecipeAdapter((MainActivity) getContext(), RecipeAdapter.SUGGEST,goiYRecipeList);
+                RecipeAdapter adapter = new RecipeAdapter((MainActivity) getContext(), RecipeAdapter.SUGGEST,goiYRecipeList, null);
                 rcvGoiYMonan.setAdapter(adapter);
             }
             @Override

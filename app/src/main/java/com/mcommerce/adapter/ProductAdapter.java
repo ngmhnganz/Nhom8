@@ -1,13 +1,12 @@
 package com.mcommerce.adapter;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,17 +27,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     public static final int CATEGORY = 1;
     public static final int PRODUCT =2;
+    public static final int MATERIAL = 4;
 
-    private Context context;
-    private List<Product> productList, productListBase;
+    private Activity context;
+    private List<Product> productList;
     private int type;
 
-    public void setData(Context context, List<Product> list, int type)
+    public void setData(Activity context, List<Product> list, int type)
     {
         this.context = context;
         this.productList = list;
         this.type = type;
-        this.productListBase = list;
         notifyDataSetChanged();
     }
 
@@ -53,6 +52,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             case PRODUCT:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_listproduct_layout,parent,false);
                 break;
+
+
         }
 
         return new ProductViewHolder(view) ;
@@ -127,10 +128,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     txtProductPrice_listProduct,
                     txtLike_listProduct;
         Button btnAdd_listProduct;
-
-
-        // khai biến các view bên itemlayout của likeproduct
-        //ImageView hinhanh
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);

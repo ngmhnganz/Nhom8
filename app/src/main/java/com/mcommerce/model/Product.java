@@ -7,6 +7,11 @@ public class Product implements Parcelable {
     public static final String  NGUYEN_lIEU = "Nguyên liệu",
                                 DUNG_CU = "Dụng cụ",
                                 COMBO = "Combo";
+    public static final String Label = "productLabel";
+    public static final String Name = "productName";
+    public static final String ShortName = "productShortName";
+    public static final String ID = "productID";
+    public static final String Type = "productType";
 
     private String productName;
     private String productImg;
@@ -16,7 +21,7 @@ public class Product implements Parcelable {
     private long productID;
     private String productType;
     private String productshortName;
-    private int productPrice;
+    private long productPrice;
     private int productQuantity;
     private int productLike;
 
@@ -29,7 +34,7 @@ public class Product implements Parcelable {
         productType = in.readString();
         productshortName = in.readString();
         productLabel = in.readString();
-        productPrice = in.readInt();
+        productPrice = in.readLong();
         productQuantity = in.readInt();
         productLike = in.readInt();
     }
@@ -110,11 +115,11 @@ public class Product implements Parcelable {
         this.productDetail = productDetail;
     }
 
-    public int getProductPrice() {
+    public long getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(int productPrice) {
+    public void setProductPrice(long productPrice) {
         this.productPrice = productPrice;
     }
 
@@ -152,7 +157,7 @@ public class Product implements Parcelable {
         dest.writeString(productType);
         dest.writeString(productshortName);
         dest.writeString(productLabel);
-        dest.writeInt(productPrice);
+        dest.writeLong(productPrice);
         dest.writeInt(productQuantity);
         dest.writeInt(productLike);
     }

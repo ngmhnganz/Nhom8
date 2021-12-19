@@ -1,7 +1,6 @@
 package com.mcommerce.nhom8.product;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -26,7 +25,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.model.Product;
 import com.mcommerce.nhom8.R;
@@ -124,7 +122,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProductDetailActivity.this, "Lỗi",Toast.LENGTH_SHORT);
+                Toast.makeText(ProductDetailActivity.this, "Lỗi",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -137,25 +135,15 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(ProductDetailActivity.this, "Lỗi",Toast.LENGTH_SHORT);
+                Toast.makeText(ProductDetailActivity.this, "Lỗi",Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void addEvent() {
-        btnBack_productDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        btnBack_productDetail.setOnClickListener(v -> finish());
 
-        btnBackOuter_productDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        btnBackOuter_productDetail.setOnClickListener(v -> finish());
 
         edtQuantity_aProductDetail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -170,7 +158,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 else {
                     btn_minus.setEnabled(true);
                 }
-                int unitPrice = product.getProductPrice();
+                long unitPrice = product.getProductPrice();
                 int quantity = Integer.parseInt(edtQuantity_aProductDetail.getText().toString());
                 btnAddProduct_productDetail.setText(btnText+"- "+unitPrice*quantity+" đ");
             }
@@ -190,8 +178,6 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         if (user == null) {
             return;
-        } else {
-
         }
 
         btnAddProduct_productDetail.setOnClickListener(v -> {
@@ -200,19 +186,15 @@ public class ProductDetailActivity extends AppCompatActivity {
             if (edtQuantity_aProductDetail.getText().toString().equals("0")) {
                 btnText = "Thêm vào giỏ hàng";
                 btnAddProduct_productDetail.setText(btnText);
-                ref.child(String.valueOf(productID)).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(ProductDetailActivity.this,"Sản phẩm đã được xóa khỏi giỏ hàng",Toast.LENGTH_SHORT).show();
-                    }
-                });
+                ref.child(String.valueOf(productID)).removeValue().addOnSuccessListener(unused ->
+                        Toast.makeText(ProductDetailActivity.this,"Sản phẩm đã được xóa khỏi giỏ hàng",Toast.LENGTH_SHORT).show());
 
 
             } else {
                 // nếu thêm vào giỏ hàng thành công
                 // đổi từ "thêm vào" thành "cập nhật" ( nếu có)
                 // thông báo cho người dùng đã thành công
-                int quantity = Integer.parseInt(edtQuantity_aProductDetail.getText().toString());
+                long quantity = Long.parseLong(edtQuantity_aProductDetail.getText().toString());
                 ref.child("id"+productID).child("quantity").setValue(quantity);
                 ref.child("id"+productID).child("name").setValue(product.getProductName());
                 ref.child("id"+productID).child("id").setValue(productID);
@@ -230,19 +212,16 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         });
 
-        chkLike1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                int productID = (int) product.getProductID();
-                if (isChecked) {
-                    Likeref.child("id"+productID).child("name").setValue(product.getProductName());
-                    Likeref.child("id"+productID).child("id").setValue(productID);
-                    Likeref.child("id"+productID).child("price").setValue(product.getProductPrice());
-                    Likeref.child("id"+productID).child("thumb").setValue(product.getProductImg());
-                }
-                else {
-                    Likeref.child("id"+productID).removeValue();
-                }
+        chkLike1.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            int productID = (int) product.getProductID();
+            if (isChecked) {
+                Likeref.child("id"+productID).child("name").setValue(product.getProductName());
+                Likeref.child("id"+productID).child("id").setValue(productID);
+                Likeref.child("id"+productID).child("price").setValue(product.getProductPrice());
+                Likeref.child("id"+productID).child("thumb").setValue(product.getProductImg());
+            }
+            else {
+                Likeref.child("id"+productID).removeValue();
             }
         });
 

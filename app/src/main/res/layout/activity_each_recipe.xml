@@ -49,7 +49,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:fillViewport="true"
         android:paddingHorizontal="15dp">
 
@@ -73,9 +73,8 @@
                 android:id="@+id/txtRecipe_Info_recipe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
                 android:gravity="center"
-                android:text="Khẩu phần: 2 người Thời gian: 30 phút Mức độ: Dễ"
+                android:layout_marginBottom="10dp"
                 />
 
             <androidx.cardview.widget.CardView
@@ -84,6 +83,7 @@
                 app:cardCornerRadius="20dp">
 
                 <ImageView
+                    android:id="@+id/imvRecipe"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
@@ -110,11 +110,13 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/txtShortRecipe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
                 android:text="Bánh cheesecake là sự kết hợp hoàn hảo của vị béo ngậy ở nhân kem phô mai, hòa cùng hương thơm và vị trái cây tự nhiên."
                 android:fontFamily="@font/sfpro_regular"/>
+
             <LinearLayout
                 android:id="@+id/llMaterialLable"
                 android:layout_width="match_parent"
@@ -178,17 +180,17 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:textSize="20dp"
                 android:fontFamily="@font/sfpro_regular"
                 android:text="Hướng dẫn cách làm"
                 />
             <TextView
+                android:id="@+id/txtDescription"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:textSize="16dp"
                 android:fontFamily="@font/sfpro_regular"
-                android:text="@string/testContent"
                 />
 
         </TableLayout>
