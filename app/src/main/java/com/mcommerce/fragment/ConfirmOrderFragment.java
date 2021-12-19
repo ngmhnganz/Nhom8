@@ -1,11 +1,13 @@
 package com.mcommerce.fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -30,6 +32,8 @@ import com.mcommerce.model.Product;
 import com.mcommerce.model.User;
 import com.mcommerce.nhom8.MainActivity;
 import com.mcommerce.nhom8.R;
+import com.mcommerce.nhom8.order.CartActivity;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -52,6 +56,7 @@ public class ConfirmOrderFragment extends Fragment {
             txtAddress,
             txtPhone,
             txtChangeInfo;
+    ImageButton btnBack;
     RecyclerView rcv;
     Switch swUsePoint;
     RadioButton radCash;
@@ -103,6 +108,7 @@ public class ConfirmOrderFragment extends Fragment {
         txtTotal  = view.findViewById(R.id.txtTotal);
         radCash = view.findViewById(R.id.radCash);
         btnPayment = view.findViewById(R.id.btnPayment);
+        btnBack=view.findViewById(R.id.btnBack);
     }
 
     private void loadData() {
@@ -227,6 +233,13 @@ public class ConfirmOrderFragment extends Fragment {
 
         txtChangeInfo.setOnClickListener(editInfomation);
 
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
+
     }
 
     View.OnClickListener editInfomation = new View.OnClickListener() {
@@ -246,7 +259,8 @@ public class ConfirmOrderFragment extends Fragment {
         }
     };
 
-    private void createrOrder() {
+
+        private void createrOrder() {
         Order order = new Order();
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());

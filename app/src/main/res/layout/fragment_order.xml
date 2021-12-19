@@ -17,12 +17,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:id="@+id/btnBack_orderactivity"
+            android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="?attr/actionBarItemBackground"
-            android:src="@drawable/ic_left_arrow_24_white" />
+           />
 
         <TextView
             android:layout_width="match_parent"
@@ -40,7 +40,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-
             android:background="?attr/actionBarItemBackground"
             android:src="@drawable/ic_cart"
             tools:ignore="SpeakableTextPresentCheck" />
@@ -96,13 +95,10 @@
 
                 <android.widget.Button
                     android:id="@+id/btnComingOrder_orderactivity"
-
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-
                     android:background="@color/white"
-
                     android:fontFamily="@font/sfpro_medium"
                     android:text="Đang đến"
                     android:textAllCaps="false"

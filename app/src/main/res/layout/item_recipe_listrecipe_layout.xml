@@ -43,12 +43,11 @@
             android:maxLines="2"
             android:ellipsize="end"/>
 
-        <ImageView
-            android:id="@+id/imvLikeRecipe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_heart"
-            android:layout_gravity="center"/>
+        <CheckBox
+            android:id="@+id/chkLike1"
+            style="@style/checked_wish"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
     </LinearLayout>
 
     <TextView

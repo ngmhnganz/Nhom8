@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.nhom8.auth.LoginActivity;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.nhom8.auth.UserInfoActivity;
+import com.mcommerce.nhom8.setting.Policy;
 
 public class UserFragment extends Fragment {
 
@@ -107,13 +108,14 @@ public class UserFragment extends Fragment {
     private void addEvent() {
 
         llUserInfo_fmuser.setOnClickListener(goToContentActivity);
-
+        llChinhSach_fmuser.setOnClickListener(Policy);
         if (user == null) {
             btnLogout_fmuser.setOnClickListener(signin);
         }
         else {
             btnLogout_fmuser.setOnClickListener(logout);
         }
+
     }
 
     View.OnClickListener logout = new View.OnClickListener() {
@@ -138,6 +140,14 @@ public class UserFragment extends Fragment {
         public void onClick(View v) {
             if (v.getId() == R.id.llUserInfo_fmuser){
                 startActivity(new Intent(getActivity(), UserInfoActivity.class));
+            }
+        }
+    };
+    View.OnClickListener Policy=new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            if (view.getId() == R.id.llChinhSach_fmuser) {
+                startActivity(new Intent(getActivity(),Policy.class));
             }
         }
     };

@@ -34,12 +34,12 @@
             android:textColor="@color/white"
             android:textSize="20sp" />
         <ImageButton
-            android:visibility="invisible"
+            android:clickable="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-
-            android:background="?attr/actionBarItemBackground" />
+            android:background="?attr/actionBarItemBackground"
+            tools:ignore="SpeakableTextPresentCheck"/>
 
     </LinearLayout>
 

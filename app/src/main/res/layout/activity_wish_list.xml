@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    // Đổi tên class - làm xong fix navigation bar
+    <LinearLayout
+        android:id="@+id/lnheader"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/header_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <ImageButton
+            android:clickable="false"
+            android:id="@+id/btnBack_WL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/actionBarItemBackground" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.51"
+            android:fontFamily="@font/gilroy_bold"
+            android:gravity="center"
+            android:text="YÊU THÍCH"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+
+        <ImageButton
+            android:id="@+id/btnCart_WL"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/actionBarItemBackground"
+            android:src="@drawable/ic_cart"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </LinearLayout>
+
+    //BODY - Thanh trượt
+    <LinearLayout
+        android:id="@+id/lnlNut_LikeList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lnheader"
+        app:layout_constraintBottom_toTopOf="@+id/scv_LikeList">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:orientation="horizontal">
+
+            <android.widget.Button
+                android:id="@+id/btnCongThuc_Wish"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Công Thức"
+                android:fontFamily="@font/sfpro_medium"
+                android:textAllCaps="false"
+                android:textColor="@color/colorSubText"
+                android:background="@color/white"/>
+            <android.widget.Button
+                android:id="@+id/btnSanPham_Wish"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Sản phẩm"
+                android:textColor="@color/colorSubText"
+                android:fontFamily="@font/sfpro_medium"
+                android:textAllCaps="false"
+                android:background="@color/white"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scv_LikeList"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lnlNut_LikeList">
+
+        <LinearLayout
+            android:id="@+id/layoutContainer_WishList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"></LinearLayout>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

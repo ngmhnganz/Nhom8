@@ -18,12 +18,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.nhom8.auth.LoginActivity;
+import com.mcommerce.nhom8.order.CartActivity;
 
 public class OrderFragment extends Fragment {
 
     private View view;
     private TextView txtDangNhap;
     private Button btnComingOrder, btnHistoryOder;
+    private ImageButton btnCart_orderactivity;
     private ImageButton btnBack, btnCart;
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -55,14 +57,23 @@ public class OrderFragment extends Fragment {
             getActivity().startActivity(intent);
             getActivity().finish();
         });
+        btnCart_orderactivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), CartActivity.class));
+            }
+        });
+
+    }
+
+    private void initData() {
     }
 
     private void linkview() {
-        btnBack = view.findViewById(R.id.btnBack_orderactivity);
         btnCart = view.findViewById(R.id.btnCart_orderactivity);
         btnComingOrder = view.findViewById(R.id.btnComingOrder_orderactivity);
         btnHistoryOder = view.findViewById(R.id.btnHistoryOrder_orderactivity);
-
+        btnCart_orderactivity=view.findViewById(R.id.btnCart_orderactivity);
         btnComingOrder.setEnabled(false);
         btnHistoryOder.setEnabled(true);
         btnComingOrder.setBackgroundResource(R.drawable.button_underline);

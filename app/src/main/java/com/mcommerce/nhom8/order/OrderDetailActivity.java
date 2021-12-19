@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,6 +38,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                         txtStatus_aOrderDetail;
     private Button      btnSupport_aOrderDetail,
                         btnReOrder_aOrderDetail;
+    private ImageButton btnBack_orderactivity;
     LinearLayout llTitleDiscount_aOrderDetail;
 
     private RecyclerView rcvListProduct_aOrderDetail;
@@ -52,6 +54,17 @@ public class OrderDetailActivity extends AppCompatActivity {
 
         linkview();
         getData();
+        addEvents();
+    }
+
+    private void addEvents() {
+        btnBack_orderactivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     private void getData() {
@@ -118,5 +131,6 @@ public class OrderDetailActivity extends AppCompatActivity {
         rcvListProduct_aOrderDetail = findViewById(R.id.rcvListProduct_aOrderDetail);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this,RecyclerView.VERTICAL,false);
         rcvListProduct_aOrderDetail.setLayoutManager(linearLayoutManager);
+        btnBack_orderactivity=findViewById(R.id.btnBack_orderactivity);
     }
 }

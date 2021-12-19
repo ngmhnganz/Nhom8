@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:src="@drawable/ic_left_arrow_24_white"
             android:background="?attr/actionBarItemBackground" />
 
         <TextView
@@ -36,11 +37,11 @@
             android:textSize="20sp" />
 
         <ImageButton
+            android:clickable="false"
             android:id="@+id/btnCart_aSignUp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-
             android:background="?attr/actionBarItemBackground" />
     </LinearLayout>
 

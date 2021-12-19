@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -15,15 +17,16 @@ import com.mcommerce.model.Recipe;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.util.Constant;
 import com.mcommerce.util.Key;
+import com.mcommerce.nhom8.order.CartActivity;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
 public class ListRecipeActivity extends AppCompatActivity {
 
     RecyclerView rcvListRecipe_Recipe;
     RecipeAdapter adapter;
+    ImageButton btnBack_aListProduct, btnCart;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     Recipe recipe;
     List<Recipe> recipeList;
@@ -37,6 +40,13 @@ public class ListRecipeActivity extends AppCompatActivity {
         linkViews();
         getData();
         initData();
+        addEvents();
+    }
+
+    private void addEvents() {
+        btnBack_aListProduct.setOnClickListener(view -> finish());
+        btnCart.setOnClickListener(v -> startActivity(new Intent(ListRecipeActivity.this, CartActivity.class)));
+
     }
 
     private void getData() {
@@ -48,7 +58,8 @@ public class ListRecipeActivity extends AppCompatActivity {
     private void linkViews() {
         rcvListRecipe_Recipe =findViewById(R.id.rcvListRecipe_Recipe);
         rcvListRecipe_Recipe.setLayoutManager(new GridLayoutManager(this, 2));
-
+        btnBack_aListProduct=findViewById(R.id.btnBack_aListProduct);
+        btnCart=findViewById(R.id.btnCart);
     }
 
     private void initData() {
@@ -72,8 +83,10 @@ public class ListRecipeActivity extends AppCompatActivity {
                 }
                 initAdapter();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

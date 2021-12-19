@@ -48,7 +48,7 @@ public class GoiYMonanAdapter extends RecyclerView.Adapter<GoiYMonanAdapter.View
             imv = itemView.findViewById(R.id.imv_LyGoiMonan);
             txtTen = itemView.findViewById(R.id.txtTenMonan_LyGoiYMonan);
             txtDes = itemView.findViewById(R.id.txtDesMonan_LyGoiYMonan);
-            txtTime = itemView.findViewById(R.id.txtTimeMonan_LyGoiYMonan);
+            txtTime = itemView.findViewById(R.id.txtTime_WishR);
 
         }
 

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -49,9 +50,9 @@ public class ListRecipeAdapter extends BaseAdapter {
             LayoutInflater inflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view=inflater.inflate(item_layout,null);
             holder.imvRecipeThumb=view.findViewById(R.id.imvRecipeThumb_ListRecipe);
-            holder.imvRecipeLike=view.findViewById(R.id.imvLikeRecipe);
             holder.txtRecipeName=view.findViewById(R.id.txtRecipeName_ListRecipe);
             holder.txtRecipeLike=view.findViewById(R.id.txtRecipeLike_ListRecipe);
+            holder.chkLike1=view.findViewById(R.id.chkLike1);
 
             view.setTag(holder);
         }else {
@@ -63,6 +64,7 @@ public class ListRecipeAdapter extends BaseAdapter {
 
     public static class ViewHolder{
         TextView txtRecipeName,txtRecipeLike;
-        ImageView imvRecipeThumb,imvRecipeLike;
+        ImageView imvRecipeThumb;
+        CheckBox chkLike1;
     }
 }

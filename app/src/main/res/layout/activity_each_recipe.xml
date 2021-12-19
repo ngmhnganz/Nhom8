@@ -7,30 +7,45 @@
     tools:context=".recipe.EachRecipeActivity"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
+    <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:background="@drawable/header_main"
-
-        android:outlineAmbientShadowColor="#00FFFFFF"
-        android:outlineSpotShadowColor="#00FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar_Recipe"
+        <ImageButton
+            android:id="@+id/btnBack"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#00FFFFFF"
-            app:navigationIcon="@drawable/ic_left_arrow_24_white"
-            app:title="CÔNG THỨC"
-            app:titleTextColor="@color/white"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/actionBarItemBackground"
+            android:src="@drawable/ic_left_arrow_24_white" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.51"
+
+            android:fontFamily="@font/gilroy_bold"
+            android:gravity="center"
+            android:text="CÔNG THỨC"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/btnCart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/actionBarItemBackground"
+            android:src="@drawable/ic_cart"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+    </LinearLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -79,18 +94,19 @@
                 android:orientation="horizontal"
                 android:weightSum="10"
                 android:layout_marginTop="10dp">
+
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="364dp"
                     android:layout_height="wrap_content"
-                    android:text="Giới thiệu"
-                    android:textSize="20sp"
+                    android:layout_weight="10"
                     android:fontFamily="@font/sfpro_medium"
-                    android:layout_weight="10"/>
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_heart"
-                    android:layout_gravity="center"/>
+                    android:text="Giới thiệu"
+                    android:textSize="20sp" />
+                <CheckBox
+                    android:id="@+id/chkLike"
+                    style="@style/checked_wish"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
             </LinearLayout>
 
             <TextView
