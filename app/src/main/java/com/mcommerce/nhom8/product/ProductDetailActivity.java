@@ -1,7 +1,6 @@
 package com.mcommerce.nhom8.product;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -26,7 +25,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.model.Product;
 import com.mcommerce.nhom8.R;
@@ -170,7 +168,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 else {
                     btn_minus.setEnabled(true);
                 }
-                int unitPrice = product.getProductPrice();
+                long unitPrice = product.getProductPrice();
                 int quantity = Integer.parseInt(edtQuantity_aProductDetail.getText().toString());
                 btnAddProduct_productDetail.setText(btnText+"- "+unitPrice*quantity+" đ");
             }
@@ -212,7 +210,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 // nếu thêm vào giỏ hàng thành công
                 // đổi từ "thêm vào" thành "cập nhật" ( nếu có)
                 // thông báo cho người dùng đã thành công
-                int quantity = Integer.parseInt(edtQuantity_aProductDetail.getText().toString());
+                long quantity = Long.parseLong(edtQuantity_aProductDetail.getText().toString());
                 ref.child("id"+productID).child("quantity").setValue(quantity);
                 ref.child("id"+productID).child("name").setValue(product.getProductName());
                 ref.child("id"+productID).child("id").setValue(productID);

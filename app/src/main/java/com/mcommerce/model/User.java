@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class User {
+    public  static final String Cart = "userCart";
     private String userID;
     private String userName;
     private String userBirthday;

@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.mcommerce.nhom8">
 
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- Từ sdk 29, muốn có quyền thì cần request user cho phép -->
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Từ sdk 29, muốn có quyền thì cần request user cho phép -->
+    <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -49,8 +50,8 @@
             android:name=".recipe.ListRecipeActivity"
             android:exported="true" />
         <activity
-            android:name=".SuggestRecipeActivity"
-            android:exported="true" />
+            android:name=".recipe.SuggestRecipeActivity"
+            android:exported="true"/>
         <activity
             android:name=".recipe.EachRecipeActivity"
             android:exported="true" />

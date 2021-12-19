@@ -14,7 +14,6 @@ import com.google.android.material.chip.ChipGroup;
 import com.mcommerce.nhom8.R;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class RecipeMaterialAdapterRCV extends RecyclerView.Adapter<RecipeMaterialAdapterRCV.ViewHolder>{
 
@@ -56,9 +55,9 @@ public class RecipeMaterialAdapterRCV extends RecyclerView.Adapter<RecipeMateria
         chipDrawable= ChipDrawable.createFromAttributes(context,
                 null,
                 0,
-                R.style.custom_chip);
+                R.style.available_chip);
         chip.setCheckedIconTint(ContextCompat.getColorStateList(context,R.color.white));
-        chip.setTextColor(ContextCompat.getColorStateList(context, R.color.chip_text_selector));
+        chip.setTextColor(ContextCompat.getColorStateList(context, R.color.available_chip_text_selector));
         chip.setChipDrawable(chipDrawable);
         chip.setEnsureMinTouchTargetSize(false);
         holder.chipGroup.addView(chip);
