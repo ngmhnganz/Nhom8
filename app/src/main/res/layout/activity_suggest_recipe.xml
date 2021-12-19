@@ -80,17 +80,20 @@
         app:chipSpacingHorizontal="5dp"
         app:chipSpacingVertical="5dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lvResult"/>
+        app:layout_constraintTop_toBottomOf="@+id/lvResult">
+
+
+    </com.google.android.material.chip.ChipGroup>
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:fillViewport="true"
-        android:paddingTop="20dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lvResult">
+        app:layout_constraintTop_toBottomOf="@+id/resultChipCGroup"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -98,241 +101,246 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/llMaterialLable_Bot"
+                android:id="@+id/llFilter"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="10dp"
-                android:background="@drawable/background_suggestrecipe"
-                android:orientation="vertical"
-                android:paddingHorizontal="15dp">
+                android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/llMaterialLable_Bot"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="100">
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/background_suggestrecipe"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="15dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="97"
-                        android:fontFamily="@font/sfpro_bold"
-                        android:paddingVertical="5dp"
-                        android:text="Bột"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="20dp" />
-
-                    <ImageView
-                        android:id="@+id/imvDropDownBot_SuggestRecipe"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic__arrow_up_24" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/llBot_RecipeMaterial"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <View
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorSecondBackground" />
-
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/chipBots"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingVertical="15dp"
-                        app:chipSpacingHorizontal="5dp"
-                        app:chipSpacingVertical="5dp" />
+                        android:weightSum="100">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="97"
+                            android:fontFamily="@font/sfpro_bold"
+                            android:paddingVertical="5dp"
+                            android:text="Bột"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="20dp" />
+
+                        <ImageView
+                            android:id="@+id/imvDropDownBot_SuggestRecipe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic__arrow_up_24" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llBot_RecipeMaterial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorSecondBackground" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chipBots"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="15dp"
+                            app:chipSpacingHorizontal="5dp"
+                            app:chipSpacingVertical="5dp" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/llMaterialLable_SuaKem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/background_suggestrecipe"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="97"
+                            android:fontFamily="@font/sfpro_bold"
+                            android:paddingVertical="5dp"
+                            android:text="Sữa - Kem"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="20dp" />
+
+                        <ImageView
+                            android:id="@+id/imvDropDownSuaKem_SuggestRecipe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic__arrow_up_24" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llSuaKem_RecipeMaterial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorSecondBackground" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chipSuaKems"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="15dp"
+                            app:chipSpacingHorizontal="5dp"
+                            app:chipSpacingVertical="5dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llMaterialLable_Bo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/background_suggestrecipe"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="97"
+                            android:fontFamily="@font/sfpro_bold"
+                            android:paddingVertical="5dp"
+                            android:text="Bơ"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="20dp" />
+
+                        <ImageView
+                            android:id="@+id/imvDropDownBo_SuggestRecipe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic__arrow_up_24" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llBo_RecipeMaterial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorSecondBackground" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chipBos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="15dp"
+                            app:chipSpacingHorizontal="5dp"
+                            app:chipSpacingVertical="5dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llMaterialLable_Khac"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/background_suggestrecipe"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="97"
+                            android:fontFamily="@font/sfpro_bold"
+                            android:paddingVertical="5dp"
+                            android:text="Khác"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="20dp" />
+
+                        <ImageView
+                            android:id="@+id/imvDropDownKhac_SuggestRecipe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic__arrow_up_24" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llKhac_RecipeMaterial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorSecondBackground" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chipKhacs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="15dp"
+                            app:chipSpacingHorizontal="5dp"
+                            app:chipSpacingVertical="5dp" />
+                    </LinearLayout>
+                </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/llMaterialLable_SuaKem"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/btnSearch"
+                style="@style/button_default"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="10dp"
-                android:background="@drawable/background_suggestrecipe"
-                android:orientation="vertical"
-                android:paddingHorizontal="15dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="100">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="97"
-                        android:fontFamily="@font/sfpro_bold"
-                        android:paddingVertical="5dp"
-                        android:text="Sữa - Kem"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="20dp" />
-
-                    <ImageView
-                        android:id="@+id/imvDropDownSuaKem_SuggestRecipe"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic__arrow_up_24" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/llSuaKem_RecipeMaterial"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorSecondBackground" />
-
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/chipSuaKems"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="15dp"
-                        app:chipSpacingHorizontal="5dp"
-                        app:chipSpacingVertical="5dp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llMaterialLable_Bo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="10dp"
-                android:background="@drawable/background_suggestrecipe"
-                android:orientation="vertical"
-                android:paddingHorizontal="15dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="100">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="97"
-                        android:fontFamily="@font/sfpro_bold"
-                        android:paddingVertical="5dp"
-                        android:text="Bơ"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="20dp" />
-
-                    <ImageView
-                        android:id="@+id/imvDropDownBo_SuggestRecipe"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic__arrow_up_24" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/llBo_RecipeMaterial"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorSecondBackground" />
-
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/chipBos"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="15dp"
-                        app:chipSpacingHorizontal="5dp"
-                        app:chipSpacingVertical="5dp" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llMaterialLable_Khac"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="10dp"
-                android:background="@drawable/background_suggestrecipe"
-                android:orientation="vertical"
-                android:paddingHorizontal="15dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:weightSum="100">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="97"
-                        android:fontFamily="@font/sfpro_bold"
-                        android:paddingVertical="5dp"
-                        android:text="Khác"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="20dp" />
-
-                    <ImageView
-                        android:id="@+id/imvDropDownKhac_SuggestRecipe"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic__arrow_up_24" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/llKhac_RecipeMaterial"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/colorSecondBackground" />
-
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/chipKhacs"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingVertical="15dp"
-                        app:chipSpacingHorizontal="5dp"
-                        app:chipSpacingVertical="5dp" />
-                </LinearLayout>
-            </LinearLayout>
+                android:layout_gravity="center"
+                android:layout_margin="40dp"
+                android:layout_marginStart="122dp"
+                android:layout_marginEnd="80dp"
+                android:text="Tìm kiếm" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <Button
-        android:id="@+id/btnSearch"
-        style="@style/button_default"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="40dp"
-        android:layout_marginStart="122dp"
-        android:layout_marginEnd="80dp"
-        android:text="Tìm kiếm"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

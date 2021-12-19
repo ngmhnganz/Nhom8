@@ -3,7 +3,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.core.widget.NestedScrollView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -44,8 +43,6 @@ public class SuggestRecipeActivity extends AppCompatActivity {
     Button btnSearch;
     SearchView searchView;
 
-    NestedScrollView scrollView;
-
     ListView lvResult;
     SearchIngredientResultAdapter adapter;
 
@@ -56,7 +53,8 @@ public class SuggestRecipeActivity extends AppCompatActivity {
     LinearLayout llBot_RecipeMaterial,
             llSua_RecipeMaterial,
             llBo_RecipeMaterial,
-            llKhac_RecipeMaterial;
+            llKhac_RecipeMaterial,
+            llFilter;
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     Query query = ref.child(Key.PRODUCT).orderByChild(Product.Type).equalTo(Product.NGUYEN_lIEU);
 
@@ -86,8 +84,7 @@ public class SuggestRecipeActivity extends AppCompatActivity {
         imvDropDownBo_SuggestRecipe = findViewById(R.id.imvDropDownBo_SuggestRecipe);
         imvDropDownKhac_SuggestRecipe = findViewById(R.id.imvDropDownKhac_SuggestRecipe);
         searchView = findViewById(R.id.searchView);
-
-        scrollView = findViewById(R.id.scrollView);
+        llFilter = findViewById(R.id.llFilter);
 
         btnSearch = findViewById(R.id.btnSearch);
         lvResult = findViewById(R.id.lvResult);
@@ -141,10 +138,10 @@ public class SuggestRecipeActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 results = new ArrayList<>();
-                scrollView.setVisibility(View.GONE);
+                llFilter.setVisibility(View.GONE);
                 resultChipCGroup.setVisibility(View.VISIBLE);
                 for (Ingredient ingredient: total){
-                    if (ingredient.getName().toLowerCase().contains(newText.toLowerCase()))
+                    if (ingredient.getShortname().toLowerCase().contains(newText.toLowerCase()))
                         results.add(ingredient);
                 }
                 adapter = new SearchIngredientResultAdapter(results,SuggestRecipeActivity.this);
@@ -248,35 +245,42 @@ public class SuggestRecipeActivity extends AppCompatActivity {
     }
 
     private void inputCHip (ChipGroup chipGroup, Ingredient ingredient, @Nullable Chip chipFilter) {
-        Chip chip;
+        Chip chipEntry = new Chip(this);
         ChipDrawable chipDrawable;
-        chip = new Chip(this);
-        chip.setId((int) ingredient.getId());
-        chip.setText(ingredient.getShortname());
-        chip.setCheckable(false);
+        chipEntry.setId((int) ingredient.getId());
+        chipEntry.setText(ingredient.getShortname());
         chipDrawable = ChipDrawable.createFromAttributes(this,
                 null,
                 0,
                 R.style.input_chip);
-        chip.setCloseIconTint(ContextCompat.getColorStateList(this,R.color.white));
-        chip.setTextColor(ContextCompat.getColorStateList(this, R.color.available_chip_text_selector));
-        chip.setChipDrawable(chipDrawable);
-        chip.setEnsureMinTouchTargetSize(false);
-        chip.setOnCloseIconClickListener(v -> {
-            chipGroup.removeView(v);
-            filter.remove((Integer) (int) ingredient.getId());
-            System.out.println("đây nè "+filter.toString());
-        });
+        chipEntry.setCloseIconTint(ContextCompat.getColorStateList(this,R.color.white));
+        chipEntry.setTextColor(ContextCompat.getColorStateList(this, R.color.available_chip_text_selector));
+        chipEntry.setChipDrawable(chipDrawable);
+        chipEntry.setEnsureMinTouchTargetSize(false);
+
         if (chipFilter!=null)
             chipFilter.setOnCheckedChangeListener(((buttonView, isChecked) -> {
                 if (!isChecked) {
-                    chipGroup.removeView(chip);
+                    chipGroup.removeView(chipEntry);
                     filter.remove((Integer) (int) ingredient.getId());
                     System.out.println("đây nè "+filter.toString());
+                } else {
+                    filter.add((int) ingredient.getId());
+                    System.out.println("đây nè "+filter.toString());
+                    chipGroup.addView(chipEntry);
                 }
 
             }));
-        chipGroup.addView(chip);
+        chipGroup.addView(chipEntry);
+
+        chipEntry.setOnCloseIconClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filter.remove((Integer) (int) ingredient.getId());
+                chipGroup.removeView(v);
+                System.out.println("đây nè "+filter.toString());
+            }
+        });
     }
 
 }

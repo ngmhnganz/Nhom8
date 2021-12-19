@@ -53,7 +53,7 @@ public class SearchIngredientResultAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.txt.setText(ingredientList.get(position).getName());
+        holder.txt.setText(ingredientList.get(position).getShortname());
         return convertView;
 
     }
