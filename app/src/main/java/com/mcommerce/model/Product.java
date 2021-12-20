@@ -7,14 +7,21 @@ public class Product implements Parcelable {
     public static final String  NGUYEN_lIEU = "Nguyên liệu",
                                 DUNG_CU = "Dụng cụ",
                                 COMBO = "Combo";
+    public static final String Label = "productLabel";
+    public static final String Name = "productName";
+    public static final String ShortName = "productShortName";
+    public static final String ID = "productID";
+    public static final String Type = "productType";
+
     private String productName;
     private String productImg;
     private String productDescription;
     private String productDetail;
-    private String productID;
+    private String productLabel;
+    private long productID;
     private String productType;
     private String productshortName;
-    private int productPrice;
+    private long productPrice;
     private int productQuantity;
     private int productLike;
 
@@ -23,10 +30,11 @@ public class Product implements Parcelable {
         productImg = in.readString();
         productDescription = in.readString();
         productDetail = in.readString();
-        productID = in.readString();
+        productID = in.readLong();
         productType = in.readString();
         productshortName = in.readString();
-        productPrice = in.readInt();
+        productLabel = in.readString();
+        productPrice = in.readLong();
         productQuantity = in.readInt();
         productLike = in.readInt();
     }
@@ -51,16 +59,12 @@ public class Product implements Parcelable {
         this.productshortName = productshortName;
     }
 
-    public Product(String productName, String productImg, String productDescription, String productDetail, Integer productPrice, int productQuantity, Integer productLike, String productID, String productType) {
-        this.productName = productName;
-        this.productImg = productImg;
-        this.productDescription = productDescription;
-        this.productDetail = productDetail;
-        this.productPrice = productPrice;
-        this.productQuantity = productQuantity;
-        this.productLike = productLike;
-        this.productID = productID;
-        this.productType = productType;
+    public String getProductLabel() {
+        return productLabel;
+    }
+
+    public void setProductLabel(String productLabel) {
+        this.productLabel = productLabel;
     }
 
     public String getProductType() {
@@ -71,11 +75,11 @@ public class Product implements Parcelable {
         this.productType = productType;
     }
 
-    public String getProductID() {
+    public long getProductID() {
         return productID;
     }
 
-    public void setProductID(String productID) {
+    public void setProductID(long productID) {
         this.productID = productID;
     }
 
@@ -111,11 +115,11 @@ public class Product implements Parcelable {
         this.productDetail = productDetail;
     }
 
-    public int getProductPrice() {
+    public long getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(int productPrice) {
+    public void setProductPrice(long productPrice) {
         this.productPrice = productPrice;
     }
 
@@ -149,10 +153,11 @@ public class Product implements Parcelable {
         dest.writeString(productImg);
         dest.writeString(productDescription);
         dest.writeString(productDetail);
-        dest.writeString(productID);
+        dest.writeLong(productID);
         dest.writeString(productType);
         dest.writeString(productshortName);
-        dest.writeInt(productPrice);
+        dest.writeString(productLabel);
+        dest.writeLong(productPrice);
         dest.writeInt(productQuantity);
         dest.writeInt(productLike);
     }

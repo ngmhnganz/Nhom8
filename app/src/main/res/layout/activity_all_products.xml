@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    tools:context=".AllProductsActivity">
+    tools:context=".product.AllProductsActivity">
 
     <LinearLayout
         android:id="@+id/layoutAppBar_allproducts"
@@ -41,126 +41,133 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-
+            android:src="@drawable/ic_cart"
             android:background="?attr/actionBarItemBackground" />
 
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-
-        android:orientation="vertical"
-
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layoutAppBar_allproducts">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sfpro_medium"
-                android:paddingHorizontal="20dp"
-                android:text="Nguyên liệu"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/txtMoreNL_allproducts"
+            android:orientation="vertical">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                android:clickable="true"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:paddingHorizontal="20dp"
+                    android:text="Nguyên liệu"
+                    android:textColor="@color/colorText"
+                    android:textSize="20sp" />
 
-                android:fontFamily="@font/gilroy_medium"
-                android:gravity="end"
-                android:paddingHorizontal="20dp"
-                android:text="Xem thêm"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/txtMoreNL_allproducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcvNguyenLieu_allproducts"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                    android:clickable="true"
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                    android:fontFamily="@font/gilroy_medium"
+                    android:gravity="end"
+                    android:paddingHorizontal="20dp"
+                    android:text="Xem thêm"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sfpro_medium"
-                android:paddingHorizontal="20dp"
-                android:text="Combo"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvNguyenLieu_allproducts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/txtMoreCB_allproducts"
-
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                android:clickable="true"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:paddingHorizontal="20dp"
+                    android:text="Combo"
+                    android:textColor="@color/colorText"
+                    android:textSize="20sp" />
 
-                android:fontFamily="@font/gilroy_medium"
-                android:gravity="end"
-                android:paddingHorizontal="20dp"
-                android:text="Xem thêm"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/txtMoreCB_allproducts"
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcvCombo_allproducts"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                    android:clickable="true"
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/sfpro_medium"
-                android:paddingHorizontal="20dp"
-                android:text="Dụng cụ"
-                android:textColor="@color/colorText"
-                android:textSize="20sp" />
+                    android:fontFamily="@font/gilroy_medium"
+                    android:gravity="end"
+                    android:paddingHorizontal="20dp"
+                    android:text="Xem thêm"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/txtMoreDC_allproducts"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvCombo_allproducts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                android:clickable="true"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:paddingHorizontal="20dp"
+                    android:text="Dụng cụ"
+                    android:textColor="@color/colorText"
+                    android:textSize="20sp" />
 
-                android:fontFamily="@font/gilroy_medium"
-                android:gravity="end"
-                android:paddingHorizontal="20dp"
-                android:text="Xem thêm"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
+                <TextView
+                    android:id="@+id/txtMoreDC_allproducts"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:clickable="true"
+
+                    android:fontFamily="@font/gilroy_medium"
+                    android:gravity="end"
+                    android:paddingHorizontal="20dp"
+                    android:text="Xem thêm"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcvDungCu_allproducts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcvDungCu_allproducts"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+    </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

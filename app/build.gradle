@@ -7,7 +7,7 @@ plugins {
 android {
     signingConfigs {
         project_config {
-            storeFile file('N:\\M-Commerce\\Projects\\keystore\\text_keystore.jks')
+            storeFile file('../app/text_keystore.jks')
             storePassword '123HuTieu'
             keyAlias 'Nhom8'
             keyPassword '123HuTieu'
@@ -29,6 +29,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.project_config
         }
     }
     compileOptions {
@@ -63,7 +64,14 @@ dependencies {
 
     implementation 'com.google.android.material:material:<version>'
     implementation platform('com.google.firebase:firebase-bom:29.0.0')
+    //firebase auth dăng nhậo
     implementation 'com.google.firebase:firebase-auth'
+
+    //cắt hình ảnh
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+
+    //start using FlexboxLayout out of the box/ added the alpha version (with the RecyclerView integration)
+    implementation 'com.google.android:flexbox:2.0.1'
 
 
     //PreferenceScreen

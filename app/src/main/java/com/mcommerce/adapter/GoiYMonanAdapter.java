@@ -34,7 +34,7 @@ public class GoiYMonanAdapter extends RecyclerView.Adapter<GoiYMonanAdapter.View
     @Override
     public GoiYMonanAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.layout_goi_y_monan_,parent,false);
+        View view = layoutInflater.inflate(R.layout.item_suggest_recipe,parent,false);
         return new ViewHolder(view);
     }
 
@@ -48,7 +48,7 @@ public class GoiYMonanAdapter extends RecyclerView.Adapter<GoiYMonanAdapter.View
             imv = itemView.findViewById(R.id.imv_LyGoiMonan);
             txtTen = itemView.findViewById(R.id.txtTenMonan_LyGoiYMonan);
             txtDes = itemView.findViewById(R.id.txtDesMonan_LyGoiYMonan);
-            txtTime = itemView.findViewById(R.id.txtTimeMonan_LyGoiYMonan);
+            txtTime = itemView.findViewById(R.id.txtTime_WishR);
 
         }
 
