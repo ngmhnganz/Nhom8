@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mcommerce.nhom8">
+    package="com.mcommerce.nhom8" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -10,13 +10,16 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Nhom8">
+        android:theme="@style/Theme.Nhom8" >
         <activity
-            android:name=".SettingsActivity"
-            android:exported="true">
+            android:name=".auth.PointHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".setting.SettingsActivity"
+            android:exported="true" >
         </activity>
         <activity
-            android:name=".setting.Policy"
+            android:name=".setting.PolicyActivity"
             android:exported="true" />
         <activity
             android:name=".setting.FillAddressActivity"
@@ -41,13 +44,13 @@
             android:exported="true" />
         <activity
             android:name=".recipe.SuggestRecipeActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".recipe.EachRecipeActivity"
             android:exported="true" />
         <activity
             android:name=".SplashScreenActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,7 +59,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".auth.SignUpActivity"
             android:exported="true" />

@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class User {
     public  static final String Cart = "userCart";
+    public  static final String Order = "userOrder";
     private String userID;
     private String userName;
     private String userBirthday;

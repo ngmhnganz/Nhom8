@@ -8,6 +8,8 @@ import java.util.Map;
 
 public class Order implements Parcelable {
 
+
+
     public static final String CASH = "Tiền mặt";
 
     public static final int THANH_CONG = 0;

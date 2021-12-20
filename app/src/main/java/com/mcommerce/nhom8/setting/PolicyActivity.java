@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.mcommerce.nhom8.R;
 
-public class Policy extends AppCompatActivity {
+public class PolicyActivity extends AppCompatActivity {
     TextView txtDoiTra, txtShip1,txtShip2;
     ImageButton btnBack;
     @Override

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,8 +28,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.nhom8.auth.LoginActivity;
 import com.mcommerce.nhom8.R;
+import com.mcommerce.nhom8.auth.PointHistoryActivity;
 import com.mcommerce.nhom8.auth.UserInfoActivity;
-import com.mcommerce.nhom8.setting.Policy;
+import com.mcommerce.nhom8.setting.PolicyActivity;
+import com.mcommerce.nhom8.setting.SettingsActivity;
 
 public class UserFragment extends Fragment {
 
@@ -110,8 +111,9 @@ public class UserFragment extends Fragment {
     private void addEvent() {
 
         llUserInfo_fmuser.setOnClickListener(goToContentActivity);
-        llPoint_fmuser.setOnClickListener(pointsHistory);
-//        llSetting_fmuser.setOnClickListener(settingActivity);
+        llPoint_fmuser.setOnClickListener(goToContentActivity);
+        llChinhSach_fmuser.setOnClickListener(goToContentActivity);
+        llSetting_fmuser.setOnClickListener(goToContentActivity);
 
         if (user == null) {
             btnLogout_fmuser.setOnClickListener(signin);
@@ -121,21 +123,15 @@ public class UserFragment extends Fragment {
         }
     }
 
-    View.OnClickListener logout = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(getActivity(), LoginActivity.class));
-            getActivity().finish();
-        }
+    View.OnClickListener logout = v -> {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getActivity(), LoginActivity.class));
+        getActivity().finish();
     };
 
-    View.OnClickListener signin = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            startActivity(new Intent(getActivity(), LoginActivity.class));
-            getActivity().finish();
-        }
+    View.OnClickListener signin = v -> {
+        startActivity(new Intent(getActivity(), LoginActivity.class));
+        getActivity().finish();
     };
 
     View.OnClickListener goToContentActivity = new View.OnClickListener() {
@@ -144,13 +140,14 @@ public class UserFragment extends Fragment {
             if (v.getId() == R.id.llUserInfo_fmuser){
                 startActivity(new Intent(getActivity(), UserInfoActivity.class));
             }
-        }
-    };
-    View.OnClickListener Policy=new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            if (view.getId() == R.id.llChinhSach_fmuser) {
-                startActivity(new Intent(getActivity(),Policy.class));
+            if (v.getId() == R.id.llChinhSach_fmuser) {
+                startActivity(new Intent(getActivity(), PolicyActivity.class));
+            }
+            if (v.getId() == R.id.llPoint_fmuser) {
+                startActivity(new Intent(getActivity(), PointHistoryActivity.class));
+            }
+            if (v.getId() == R.id.llSetting_fmuser) {
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
             }
         }
     };
@@ -160,17 +157,5 @@ public class UserFragment extends Fragment {
         super.onResume();
         loadUserInfo();
     }
-    View.OnClickListener pointsHistory = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-//            if (v.getId() == R.id.llPoint_fmuser){
-//                startActivity(new Intent(getActivity(), PointsHistoryFragment.class));
-//            }
-//        }
-            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-            transaction.replace(R.id.lv_fragmentHistoryOrder, getParentFragment());
-            transaction.commit();
-        }
-    };
 
 }

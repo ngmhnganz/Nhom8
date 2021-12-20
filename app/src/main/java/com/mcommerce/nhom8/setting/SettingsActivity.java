@@ -1,4 +1,4 @@
-package com.mcommerce.nhom8;
+package com.mcommerce.nhom8.setting;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
 
+import com.mcommerce.nhom8.R;
+
 public class SettingsActivity extends AppCompatActivity {
     private SwitchPreference darkModeSwitch;
     private Object Preference;
@@ -22,11 +24,6 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_activity);
-
-//        FragmentTransaction fragmentTransaction=getFragmentManager().beginTransaction();
-//        Preference = new Preference(this);
-//        fragmentTransaction.replace(android.R.id.content,getPreferences());
-//        fragmentTransaction.commit();
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
@@ -50,18 +47,15 @@ public class SettingsActivity extends AppCompatActivity {
             SwitchPreference sw_night = (SwitchPreference) findPreference("NIGHT");
             boolean isChecked = sharedPreferences.getBoolean("NIGHT", false);
 
-            sw_night.setOnPreferenceChangeListener(new androidx.preference.Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(androidx.preference.Preference preference, Object newValue) {
-                    if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                        sw_night.setChecked(false);
-                    }else {
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                        sw_night.setChecked(true);
-                        }
-                        return false;
-                }
+            sw_night.setOnPreferenceChangeListener((preference, newValue) -> {
+                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    sw_night.setChecked(false);
+                }else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    sw_night.setChecked(true);
+                    }
+                    return false;
             });
 
             //List LANGUAGE
@@ -77,8 +71,6 @@ public class SettingsActivity extends AppCompatActivity {
             LP.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(androidx.preference.Preference preference, Object newValue) {
-
-
                     return false;
                 }
             });

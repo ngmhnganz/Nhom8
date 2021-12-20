@@ -25,7 +25,7 @@ import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHolder> {
 
-    public static final int HISTORY_ITEM = 1, COMING_ITEM = 0;
+    public static final int HISTORY_ITEM = 1, COMING_ITEM = 0, POINT = 2;
 
     private Context context;
     private int item_layout,
@@ -126,6 +126,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                         break;
                 }
                 break;
+            case POINT:
+                holder.txtID_iPointsHistory.setText(order.getIdOrder());
+                holder.txtDate_iPointsHistory.setText(order.getDateOrder());
+                holder.txtPoints_iPointsHistory.setText(order.getRewardOrder()+"");
+                break;
         }
 
         holder.setItemClickListener(new RecyclerViewItemClickListener() {
@@ -166,7 +171,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                     txtAddress_iComingOrder,
                     txtPrice_iComingOrder,
                     txtAmount_iComingOrder,
-                    txtPayment_iComingOrder;
+                    txtPayment_iComingOrder,
+                    txtDate_iPointsHistory,
+                    txtID_iPointsHistory,
+                    txtPoints_iPointsHistory;
         ImageView   imv_iComingOrder;
 
         private RecyclerViewItemClickListener itemClickListener;
@@ -201,6 +209,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                     imvStatus_iHistoryOrder = itemView.findViewById(R.id.imvStatus_iHistoryOrder);
 
                     btnDatLai_iHistoryOrder = itemView.findViewById(R.id.btnDatLai_iHistoryOrder);
+                    itemView.setOnClickListener(this);
+                    break;
+                case POINT:
+                    txtDate_iPointsHistory = itemView.findViewById(R.id.txtDate_iPointsHistory);
+                    txtID_iPointsHistory = itemView.findViewById(R.id.txtID_iPointsHistory);
+                    txtPoints_iPointsHistory = itemView.findViewById(R.id.txtPoints_iPointsHistory);
                     itemView.setOnClickListener(this);
                     break;
             }

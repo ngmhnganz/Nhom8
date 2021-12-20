@@ -31,12 +31,7 @@ public class PointsHistoryFragment extends Fragment {
         return view;
     }
 
-    public PointsHistoryFragment(RecyclerView rcv_PointsHistory, PointsHistoryAdapter adapter) {
-        this.rcv_PointsHistory = rcv_PointsHistory;
-        this.adapter = adapter;
-    }
-
     private void linkdata() {
-        rcv_PointsHistory = view.findViewById(R.id.rcv_fragmentComingOrder);
+
     }
 }
