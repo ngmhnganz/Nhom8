@@ -1,5 +1,6 @@
 package com.mcommerce.fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -95,9 +96,11 @@ public class HomeFragment extends Fragment {
 
         rcvGoiYMonan = view.findViewById(R.id.rcvGoiYMonAn_main);
         rcvGoiYMonan.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        rcvGoiYMonan.setAdapter(new RecipeAdapter(getContext(), RecipeAdapter.SUGGEST,null, null));
 
         rcvGoiYCombo = view.findViewById(R.id.rcvGoiYCombo_main);
         rcvGoiYCombo.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        rcvGoiYCombo.setAdapter(new RecipeAdapter(getContext(), RecipeAdapter.RECIPE_ITEM,null, null));
 
         blurView = view.findViewById(R.id.blurview_LyGoiYMonan);
         btnCard_main = view.findViewById(R.id.btnCard_main);
@@ -152,8 +155,7 @@ public class HomeFragment extends Fragment {
                     Product p = dataSnapshot.getValue(Product.class);
                     goiYComboList.add(p);
                 }
-                ProductAdapter adapter = new ProductAdapter();
-                adapter.setData((MainActivity) getContext(),goiYComboList,ProductAdapter.CATEGORY);
+                ProductAdapter adapter = new ProductAdapter((Activity) getContext(),goiYComboList,ProductAdapter.CATEGORY);
                 rcvGoiYCombo.setAdapter(adapter);
             }
             @Override

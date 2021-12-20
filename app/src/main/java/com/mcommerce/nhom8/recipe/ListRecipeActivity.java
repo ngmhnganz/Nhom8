@@ -58,6 +58,8 @@ public class ListRecipeActivity extends AppCompatActivity {
     private void linkViews() {
         rcvListRecipe_Recipe =findViewById(R.id.rcvListRecipe_Recipe);
         rcvListRecipe_Recipe.setLayoutManager(new GridLayoutManager(this, 2));
+        rcvListRecipe_Recipe.setAdapter(new RecipeAdapter(ListRecipeActivity.this,RecipeAdapter.RECIPE_ITEM,null, filter));
+
         btnBack_aListProduct=findViewById(R.id.btnBack_aListProduct);
         btnCart=findViewById(R.id.btnCart);
     }

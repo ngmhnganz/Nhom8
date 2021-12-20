@@ -56,17 +56,20 @@ public class Wishlist_Recipe extends Fragment {
         } else {
             ProgressDialog progressDialog = new ProgressDialog(getContext());
             progressDialog.show();
+
             LikeRef.child("User").child(user.getUid()).child("userLikeRecipe").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    WishRecipeAdapter adapter = null;
                     if (snapshot.getValue()!=null){
                         imvEmptyList.setVisibility(View.GONE);
                         Map<String, HashMap<String,?>> wishListR = (Map<String, HashMap<String, ?>>) snapshot.getValue();
-                        WishRecipeAdapter adapter = new WishRecipeAdapter(getContext(),wishListR,R.layout.item_wishrecipe);
-                        rcv_WishR.setAdapter(adapter);
+                        adapter = new WishRecipeAdapter(getContext(),wishListR,R.layout.item_wishrecipe);
+
                     } else{
                         imvEmptyList.setVisibility(View.VISIBLE);
                     }
+                    rcv_WishR.setAdapter(adapter);
                     progressDialog.dismiss();
                 }
                 @Override

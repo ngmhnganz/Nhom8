@@ -61,10 +61,10 @@ public class EachRecipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_each_recipe);
-        linkViews();
-        initUI();
-        loadData();
         getData();
+        linkViews();
+        loadData();
+        initUI();
         addEvents();
     }
 

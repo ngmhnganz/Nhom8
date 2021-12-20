@@ -42,9 +42,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-
-                app:srcCompat="@drawable/ic_launcher_background" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -75,8 +73,7 @@
                     android:paddingVertical="5dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
-
-                    android:text="20 phút"
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 
@@ -91,18 +88,20 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/sfpro_bold"
-            android:text="TextView"
+            android:text=""
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/txtDesMonan_LyGoiYMonan"
+            android:maxLines="2"
+            android:ellipsize="end"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
             android:layout_marginBottom="10dp"
             android:fontFamily="@font/sfpro_medium"
-            android:text="TextView"
+            android:text=""
             android:textColor="@color/colorSubText"
             android:textSize="12sp" />
     </LinearLayout>

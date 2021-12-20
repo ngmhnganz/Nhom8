@@ -58,14 +58,16 @@ public class Wishlist_Product extends Fragment {
             LikeRef.child("User").child(user.getUid()).child("userLikeProduct").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    WishProductAdapter adapter = null;
                     if (snapshot.getValue()!=null) {
                         imvProductEmptyList.setVisibility(View.GONE);
                         Map<String, HashMap<String, ?>> wishList = (Map<String, HashMap<String, ?>>) snapshot.getValue();
-                        WishProductAdapter adapter = new WishProductAdapter(getContext(), wishList, R.layout.item_wishproduct);
-                        rcv_wish_product.setAdapter(adapter);
+                        adapter = new WishProductAdapter(getContext(), wishList, R.layout.item_wishproduct);
+
                     }else{
                         imvProductEmptyList.setVisibility(View.VISIBLE);
                     }
+                    rcv_wish_product.setAdapter(adapter);
                     progressDialog.dismiss();
                 }
                 @Override

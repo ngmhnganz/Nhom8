@@ -1,6 +1,7 @@
 package com.mcommerce.adapter;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,17 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.mcommerce.interfaces.RecyclerViewItemClickListener;
 import com.mcommerce.model.Recipe;
 import com.mcommerce.nhom8.recipe.EachRecipeActivity;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.util.Constant;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +25,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     public static final int RECIPE_ITEM = 0;
     public static final int SUGGEST = 1;
-    public static final int WISH=2;
 
     Context context;
     int type;
@@ -53,57 +50,70 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_suggest_recipe,parent,false);
                 break;
             }
-            case WISH:{
-                view=LayoutInflater.from(parent.getContext()).inflate(R.layout.item_wishrecipe,parent,false);
-            }
         }
-
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Recipe recipe = recipeList.get(position);
-        if (recipe == null) {
-            return;
-        }
-        switch (type){
-            case RECIPE_ITEM:{
-                holder.txtRecipeLike.setText(recipe.getRecipeLike()+" người thích");
-                holder.txtRecipeName.setText(recipe.getRecipeName());
-                Glide.with(context).load(recipe.getRecipeImage()).into(holder.imvRecipeThumb);
-                break;
-            }
-            case SUGGEST:{
-                holder.txtTenMonan_LyGoiYMonan.setText(recipe.getRecipeName());
-                holder.txtDesMonan_LyGoiYMonan.setText(recipe.getRecipeDescription());
-                holder.txtTimeMonan_LyGoiYMonan.setText(recipe.getRecipeTime()+" phút");
-                Glide.with(context).load(recipe.getRecipeImage()).into(holder.imv_LyGoiMonan);
-                break;
-            }
-            case WISH:{
+        if (recipeList == null) {
+            AnimationDrawable animationDrawable;
+            switch (type){
+                case RECIPE_ITEM:{
+                    holder.imvRecipeThumb.setBackgroundResource(R.drawable.loading_gradient);
+                    animationDrawable = (AnimationDrawable) holder.imvRecipeThumb.getBackground();
+                    animationDrawable.setEnterFadeDuration(500);
+                    animationDrawable.setExitFadeDuration(500);
+                    animationDrawable.start();
+                    break;
+                }
+                case SUGGEST:{
+                    holder.imv_LyGoiMonan.setBackgroundResource(R.drawable.loading_gradient);
+                    animationDrawable = (AnimationDrawable) holder.imv_LyGoiMonan.getBackground();
+                    animationDrawable.setEnterFadeDuration(500);
+                    animationDrawable.setExitFadeDuration(500);
+                    animationDrawable.start();
+                    break;
+                }
 
             }
-        }
-        holder.setItemClickListener(new RecyclerViewItemClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                Intent intent = new Intent(context, EachRecipeActivity.class);
-                Log.d("Onclick","ăn sự kiện");
-                Bundle bundle = new Bundle();
-                bundle.putParcelable(Constant.SECLECTED_RECIPE, recipe);
-                bundle.putSerializable(Constant.ITEMS_INGREDIENT, (Serializable) recipe.getRecipeIngredient());
-                bundle.putIntegerArrayList(Constant.FILTER_OPTION, (ArrayList<Integer>) filter);
-                intent.putExtra(Constant.RECIPE_BUNDLE, bundle);
-                context.startActivity(intent);
-            }
-        });
+        } else {
+            Recipe recipe = recipeList.get(position);
+            switch (type){
+                case RECIPE_ITEM:{
+                    holder.txtRecipeLike.setText(recipe.getRecipeLike()+" người thích");
+                    holder.txtRecipeName.setText(recipe.getRecipeName());
+                    Glide.with(context).load(recipe.getRecipeImage()).into(holder.imvRecipeThumb);
+                    break;
+                }
+                case SUGGEST:{
+                    holder.txtTenMonan_LyGoiYMonan.setText(recipe.getRecipeName());
+                    holder.txtDesMonan_LyGoiYMonan.setText(recipe.getRecipeShortDescription());
+                    holder.txtTimeMonan_LyGoiYMonan.setText(recipe.getRecipeTime()+" phút");
+                    Glide.with(context).load(recipe.getRecipeImage()).into(holder.imv_LyGoiMonan);
+                    break;
+                }
 
+            }
+            holder.setItemClickListener(new RecyclerViewItemClickListener() {
+                @Override
+                public void onClick(View view, int position) {
+                    Intent intent = new Intent(context, EachRecipeActivity.class);
+                    Log.d("Onclick","ăn sự kiện");
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(Constant.SECLECTED_RECIPE, recipe);
+                    bundle.putSerializable(Constant.ITEMS_INGREDIENT, (Serializable) recipe.getRecipeIngredient());
+                    bundle.putIntegerArrayList(Constant.FILTER_OPTION, (ArrayList<Integer>) filter);
+                    intent.putExtra(Constant.RECIPE_BUNDLE, bundle);
+                    context.startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return recipeList.size();
+        return (recipeList)==null? 1 : recipeList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -118,11 +128,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             switch (type) {
                 case RECIPE_ITEM:{
                     txtRecipeName = itemView.findViewById(R.id.txtRecipeName_ListRecipe);
                     txtRecipeLike = itemView.findViewById(R.id.txtRecipeLike_ListRecipe);
                     imvRecipeThumb = itemView.findViewById(R.id.imvRecipeThumb_ListRecipe);
+
                     break;
                 }
                 case SUGGEST:{
