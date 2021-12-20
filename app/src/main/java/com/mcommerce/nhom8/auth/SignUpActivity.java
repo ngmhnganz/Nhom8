@@ -37,6 +37,7 @@ import com.mcommerce.model.User;
 import com.mcommerce.nhom8.MainActivity;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.util.Constant;
+import com.mcommerce.util.Key;
 
 import java.util.concurrent.TimeUnit;
 
@@ -322,7 +323,7 @@ public class SignUpActivity extends AppCompatActivity {
                     User mUser = new User();
                     mUser.setUserID(user.getUid());
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-                    databaseReference.child("User").child(mUser.getUserID()).setValue(mUser);
+                    databaseReference.child(Key.USER).child(mUser.getUserID()).setValue(mUser);
                     linktoEmailPassword(phoneAuthCredential);
                 }
             }

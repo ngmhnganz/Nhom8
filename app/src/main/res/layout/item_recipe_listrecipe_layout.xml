@@ -42,12 +42,6 @@
             android:textSize="18sp"
             android:maxLines="2"
             android:ellipsize="end"/>
-
-        <CheckBox
-            android:id="@+id/chkLike1"
-            style="@style/checked_wish"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
     </LinearLayout>
 
     <TextView

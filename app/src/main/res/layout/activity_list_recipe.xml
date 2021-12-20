@@ -34,21 +34,21 @@
             />
 
         <ImageButton
-            android:id="@+id/btnCart_aListProduct"
+            android:id="@+id/btnCart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="?attr/actionBarItemBackground"
-            android:src="@drawable/ic_add_shopping_cart_24"/>
+            android:src="@drawable/ic_cart"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
-    <GridView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcvListRecipe_Recipe"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:numColumns="2"
-        android:verticalSpacing="20dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
