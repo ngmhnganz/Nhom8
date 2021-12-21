@@ -43,18 +43,12 @@
                 />
 
         </TableRow>
-        <!-- Data -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/rcv_PointsHistory">
-
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-
     </TableLayout>
 
-
-
+    <!-- Data -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rcv_PointsHistory">
+    </androidx.recyclerview.widget.RecyclerView>
 </LinearLayout>

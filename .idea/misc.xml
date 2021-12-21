@@ -86,6 +86,7 @@
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/banner_main.xml" value="0.1" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/banner_main_layout.xml" value="0.33" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/bottom_sheet_choose_ava.xml" value="0.33" />
+        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/diaglog_comming_soon.xml" value="0.34193840579710144" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_change_customer.xml" value="0.30625" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_coming_order.xml" value="0.15625" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_confirm_order.xml" value="0.30625" />
@@ -109,7 +110,7 @@
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/item_wishrecipe.xml" value="0.21965579710144928" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/layout_banner_main.xml" value="0.1" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/layout_cart_item.xml" value="0.33" />
-        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/layout_coming_order_item.xml" value="0.1884498480243161" />
+        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/layout_coming_order_item.xml" value="0.25" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/layout_gender_item.xml" value="0.1" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/layout_goi_y_combo.xml" value="0.3555253623188406" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/layout_goi_y_monan_.xml" value="0.358695652173913" />

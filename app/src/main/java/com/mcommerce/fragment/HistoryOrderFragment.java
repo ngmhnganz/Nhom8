@@ -53,8 +53,7 @@ public class HistoryOrderFragment extends Fragment {
     long startDate, endDate;
     private LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
 
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = firebaseDatabase.getReference();
+    private DatabaseReference myRef;
     private static FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Nullable
@@ -71,29 +70,33 @@ public class HistoryOrderFragment extends Fragment {
 
     }
 
+    ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+            orderLists = new ArrayList<>();
+            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                orderLists.add(setData(dataSnapshot));
+            };
+            adapter = new OrderAdapter(getContext(),R.layout.layout_history_order_item,orderLists, OrderAdapter.HISTORY_ITEM);
+            rcv_fragmentHistoryOrder.setAdapter(adapter);
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
+
     private void initAdapter() {
         if (user == null) {
 
+        } else {
+            //region Lấy dữ liệu Order từ Firebase
+            myRef = FirebaseDatabase.getInstance().getReference("User/"+user.getUid()+"/userOrder");
+            myRef.orderByChild("statusOrder").startAt(Order.THANH_CONG).endAt(Order.DA_HUY).addValueEventListener(valueEventListener);
+            //endregion
         }
-        //region Lấy dữ liệu Order từ Firebase
-        Query query = myRef.child("User/"+user.getUid()+"/userOrder").orderByChild("statusOrder").startAt(Order.THANH_CONG).endAt(Order.DA_HUY);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                orderLists = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                   orderLists.add(setData(dataSnapshot));
-                };
-                adapter = new OrderAdapter(getContext(),R.layout.layout_history_order_item,orderLists, OrderAdapter.HISTORY_ITEM);
-                rcv_fragmentHistoryOrder.setAdapter(adapter);
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        //endregion
     }
 
     private Order setData (DataSnapshot dataSnapshot){
@@ -166,24 +169,6 @@ public class HistoryOrderFragment extends Fragment {
                                 imvSearchEmpty.setVisibility(View.VISIBLE);
                             }
                         }
-
-//                        Query query = myRef.child("DonHang").orderByChild("dateLongOder").startAt(startDate).endAt(endDate);
-//                        query.addValueEventListener(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                ArrayList<Order> orderLists = new ArrayList<>();
-//                                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-//                                    orderLists.add(setData(dataSnapshot));
-//                                };
-//                                adapter = new OrderAdapter(getContext(),R.layout.layout_history_order_item,orderLists, OrderAdapter.HISTORY_ITEM);
-//                                rcv_fragmentHistoryOrder.setAdapter(adapter);
-//                            }
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError error) {
-//                                Toast.makeText(getContext(),"Có lỗi",Toast.LENGTH_SHORT).show();
-//
-//                            }
-//                        });
                     }
                 });
             }
@@ -200,5 +185,11 @@ public class HistoryOrderFragment extends Fragment {
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(view.getContext(),R.drawable.divider));
         rcv_fragmentHistoryOrder.setLayoutManager(linearLayoutManager);
         rcv_fragmentHistoryOrder.addItemDecoration(dividerItemDecoration);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        myRef.removeEventListener(valueEventListener);
     }
 }

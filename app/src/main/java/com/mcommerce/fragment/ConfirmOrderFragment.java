@@ -1,6 +1,9 @@
 package com.mcommerce.fragment;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -226,6 +229,18 @@ public class ConfirmOrderFragment extends Fragment {
             } else {
                 if (radCash.isChecked()){
                     createrOrder();
+                } else {
+                    Dialog commingsoon = new Dialog(getContext());
+                    commingsoon.setContentView(R.layout.diaglog_comming_soon);
+                    commingsoon.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    Button btnOk=commingsoon.findViewById(R.id.btnOK);
+
+                    btnOk.setOnClickListener(l -> {
+                        commingsoon.dismiss();
+                        radCash.setChecked(true);
+                    });
+
+                    commingsoon.show();
                 }
             }
         });

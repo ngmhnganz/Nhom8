@@ -25,7 +25,6 @@ import java.util.List;
 public class PointHistoryActivity extends AppCompatActivity {
 
     RecyclerView rcv_PointsHistory;
-    PointsHistoryAdapter adapter;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Key.USER+"/"+user.getUid()+"/"+ User.Order);
 
@@ -33,33 +32,43 @@ public class PointHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_point_history);
-
         linkview();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        System.out.println("Cycle START");
+
         getData();
     }
 
     private void linkview() {
         rcv_PointsHistory = findViewById(R.id.rcv_PointsHistory);
-        rcv_PointsHistory.setLayoutManager(new LinearLayoutManager(PointHistoryActivity.this, LinearLayoutManager.HORIZONTAL,false));
+        rcv_PointsHistory.setLayoutManager(new LinearLayoutManager(PointHistoryActivity.this, LinearLayoutManager.VERTICAL,false));
     }
+
 
     private void getData() {
-        ref.orderByChild("rewardOrder").startAt(1).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<Order> orderList = new ArrayList<>();
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    Order order = dataSnapshot.getValue(Order.class);
-                    orderList.add(order);
-                }
-                OrderAdapter adapter = new OrderAdapter(PointHistoryActivity.this, R.layout.item_points_history, orderList,OrderAdapter.POINT);
-                rcv_PointsHistory.setAdapter(adapter);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        ref.addListenerForSingleValueEvent(valueEventListener);
     }
+
+    ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+            List<Order> orderList = new ArrayList<>();
+            for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                Order order = dataSnapshot.getValue(Order.class);
+                orderList.add(order);
+            }
+            OrderAdapter adapter = new OrderAdapter(PointHistoryActivity.this, R.layout.item_points_history, orderList,OrderAdapter.POINT);
+            rcv_PointsHistory.setAdapter(adapter);
+            System.out.println("Cycle listening");
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+        }
+    };
+
 }
