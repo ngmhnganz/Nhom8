@@ -13,7 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.mcommerce.fragment.HomeFragment;
 import com.mcommerce.fragment.OrderFragment;
 import com.mcommerce.fragment.UserFragment;
-import com.mcommerce.nhom8.wishlist.WishListFragment;
+import com.mcommerce.nhom8.wishlist.WishList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                     loadFragment(fragment);
                     return true;
                 case  (R.id.menu_favorite):
-                    fragment = new WishListFragment();
+                    fragment = new WishList();
                     loadFragment(fragment);
                     return true;
             }

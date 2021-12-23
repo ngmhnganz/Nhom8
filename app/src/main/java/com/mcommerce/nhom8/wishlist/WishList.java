@@ -18,7 +18,7 @@ import com.mcommerce.fragment.Wishlist_RecipeFragment;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.nhom8.order.CartActivity;
 
-public class WishListFragment extends Fragment {
+public class WishList extends Fragment {
 
     View view;
     Button btnCongThuc_Wish, btnSanPham_Wish;
