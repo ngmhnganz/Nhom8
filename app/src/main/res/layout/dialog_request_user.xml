@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Oh no!"
+        android:textSize="28sp"
+        android:layout_margin="20sp"
+        android:textColor="@color/colorDarkPrimary"
+        android:fontFamily="@font/gilroy_bold"
+        android:gravity="center"/>
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:srcCompat="@drawable/ic_signinplease" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/gilroy_medium"
+        android:textSize="16sp"
+        android:textColor="@color/colorSubText"
+        android:text="Để thực hiện, bạn cần đăng nhập"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginVertical="20sp">
+
+        <android.widget.Button
+            android:layout_weight="1"
+            android:id="@+id/btnDangNhap"
+            style="@style/button_stroke_default"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+
+            android:layout_marginHorizontal="20dp"
+            android:layout_gravity="end"
+            android:fontFamily="@font/sfpro_medium"
+            android:text="Đăng nhập"
+
+            android:textColor="@drawable/button_stroke_text_color"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <android.widget.Button
+            android:layout_weight="1"
+            android:id="@+id/btnDong"
+            style="@style/button_stroke_default"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="20dp"
+
+            android:layout_gravity="end"
+            android:fontFamily="@font/sfpro_medium"
+            android:text="Đóng"
+
+            android:textColor="@drawable/button_stroke_text_color"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
+
+</LinearLayout>
