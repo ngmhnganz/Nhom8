@@ -12,7 +12,6 @@
 
         android:scaleType="fitCenter"
 
-        android:src="@drawable/ic_launcher_background"
         android:background="@color/colorSecondBackground">
 
     </ImageView>
