@@ -101,35 +101,21 @@ public class CartActivity extends AppCompatActivity {
         btnPayment_aCart.setOnClickListener(v -> {
             startActivity(new Intent(CartActivity.this, PaymentActivity.class));
         });
-        txtDeleteAll_aCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
-                builder.setMessage("Các sản phẩm sẽ bị xóa khỏi giỏ hàng của bạn");
-                builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-                builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        myRef = firebaseDatabase.getReference().child(Key.USER).child(user.getUid()).child(User.Cart);
-                        myRef.child(user.getUid()).child(User.Cart).removeValue();
-                        adapter = null;
-                        imvCartEmpty_aCart.setVisibility(View.VISIBLE);
-                        rcv_aCart.setAdapter(adapter);
-                    }
-                });
-                builder.create().show();
-            }
+        txtDeleteAll_aCart.setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+            builder.setMessage("Các sản phẩm sẽ bị xóa khỏi giỏ hàng của bạn");
+            builder.setNegativeButton("Hủy", (dialog, which) -> {
+            });
+            builder.setPositiveButton("Xóa", (dialog, which) -> {
+                myRef = firebaseDatabase.getReference().child(Key.USER).child(user.getUid()).child(User.Cart);
+                myRef.child(user.getUid()).child(User.Cart).removeValue();
+                adapter = null;
+                imvCartEmpty_aCart.setVisibility(View.VISIBLE);
+                rcv_aCart.setAdapter(adapter);
+            });
+            builder.create().show();
         });
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        btnBack.setOnClickListener(v -> finish());
 
     }
 }
