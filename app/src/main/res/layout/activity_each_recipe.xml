@@ -131,6 +131,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
                     android:textSize="20sp"
+                    android:text="Danh sách nguyên liệu"
                     android:fontFamily="@font/sfpro_medium"
                     />
 
