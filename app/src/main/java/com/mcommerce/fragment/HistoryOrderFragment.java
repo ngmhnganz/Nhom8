@@ -112,21 +112,6 @@ public class HistoryOrderFragment extends Fragment {
             case 1 :
                 order.setStatusStringOrder("Đã hủy đơn hàng");
                 break;
-            case 2 :
-                order.setStatusStringOrder("Đặt hàng thành công");
-                break;
-            case 3 :
-                order.setStatusStringOrder("Đơn hàng đã được xác nhận");
-                break;
-            case 4 :
-                order.setStatusStringOrder("Đơn hàng đang được chuẩn bị");
-                break;
-            case 5 :
-                order.setStatusStringOrder("Đơn hàng đã được đóng gói");
-                break;
-            case 6 :
-                order.setStatusStringOrder("Đơn hàng đang được vận chuyển");
-                break;
         }
         return order;
     }

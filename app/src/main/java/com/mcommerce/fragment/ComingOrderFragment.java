@@ -93,11 +93,20 @@ public class ComingOrderFragment extends Fragment {
         Order order = new Order();
         order = dataSnapshot.getValue(Order.class);
         switch (order.getStatusOrder()){
-            case 0 :
-                order.setStatusStringOrder("Giao hàng thành công");
+            case 2 :
+                order.setStatusStringOrder("Đặt hàng thành công");
                 break;
-            case 1 :
-                order.setStatusStringOrder("Đã hủy đơn hàng");
+            case 3 :
+                order.setStatusStringOrder("Đơn hàng đã được xác nhận");
+                break;
+            case 4 :
+                order.setStatusStringOrder("Đơn hàng đang được chuẩn bị");
+                break;
+            case 5 :
+                order.setStatusStringOrder("Đơn hàng đã được đóng gói");
+                break;
+            case 6 :
+                order.setStatusStringOrder("Đơn hàng đang được vận chuyển");
                 break;
         }
         return order;

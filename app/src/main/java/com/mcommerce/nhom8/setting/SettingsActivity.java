@@ -1,6 +1,7 @@
 package com.mcommerce.nhom8.setting;
 
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
@@ -64,7 +65,8 @@ public class SettingsActivity extends AppCompatActivity {
             String language = sharedPreferences.getString("LANGUAGE", "false");
             if ("1".equals(language)){
 
-            }else if ("2".equals(language)){
+            }
+            else if ("2".equals(language)){
 
             }
 
@@ -74,7 +76,6 @@ public class SettingsActivity extends AppCompatActivity {
                     return false;
                 }
             });
-
         }
 
     }

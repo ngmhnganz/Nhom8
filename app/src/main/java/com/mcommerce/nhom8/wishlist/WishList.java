@@ -2,9 +2,7 @@ package com.mcommerce.nhom8.wishlist;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
@@ -15,10 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.mcommerce.fragment.ComingOrderFragment;
-import com.mcommerce.fragment.HistoryOrderFragment;
-import com.mcommerce.fragment.Wishlist_Product;
-import com.mcommerce.fragment.Wishlist_Recipe;
+import com.mcommerce.fragment.Wishlist_ProductFragment;
+import com.mcommerce.fragment.Wishlist_RecipeFragment;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.nhom8.order.CartActivity;
 
@@ -31,7 +27,7 @@ public class WishList extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_wish_list,container,false);
-        loadFragment(new Wishlist_Product());
+        loadFragment(new Wishlist_ProductFragment());
         linkViews();
         addEvents();
         return view;
@@ -60,13 +56,13 @@ public class WishList extends Fragment {
         @Override
         public void onClick(View view) {
             if(view.getId()==R.id.btnSanPham_Wish) {
-                loadFragment(new Wishlist_Product());
+                loadFragment(new Wishlist_ProductFragment());
                 btnSanPham_Wish.setEnabled(false);
                 btnCongThuc_Wish.setEnabled(true);
                 btnSanPham_Wish.setBackgroundResource(R.drawable.button_underline);
                 btnCongThuc_Wish.setBackgroundResource(R.color.white);
             }else if(view.getId()==R.id.btnCongThuc_Wish){
-                loadFragment(new Wishlist_Recipe());
+                loadFragment(new Wishlist_RecipeFragment());
                 btnCongThuc_Wish.setEnabled(false);
                 btnSanPham_Wish.setEnabled(true);
                 btnCongThuc_Wish.setBackgroundResource(R.drawable.button_underline);

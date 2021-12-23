@@ -26,8 +26,7 @@ public class OrderFragment extends Fragment {
     private TextView txtDangNhap;
     private Button btnComingOrder, btnHistoryOder;
     private ImageButton btnCart_orderactivity;
-    private ImageButton btnBack, btnCart;
-    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Nullable
     @Override
@@ -57,20 +56,11 @@ public class OrderFragment extends Fragment {
             getActivity().startActivity(intent);
             getActivity().finish();
         });
-        btnCart_orderactivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), CartActivity.class));
-            }
-        });
+        btnCart_orderactivity.setOnClickListener(v -> startActivity(new Intent(getContext(), CartActivity.class)));
 
-    }
-
-    private void initData() {
     }
 
     private void linkview() {
-        btnCart = view.findViewById(R.id.btnCart_orderactivity);
         btnComingOrder = view.findViewById(R.id.btnComingOrder_orderactivity);
         btnHistoryOder = view.findViewById(R.id.btnHistoryOrder_orderactivity);
         btnCart_orderactivity=view.findViewById(R.id.btnCart_orderactivity);

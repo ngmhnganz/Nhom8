@@ -45,9 +45,6 @@ public class OrderDetailActivity extends AppCompatActivity {
     LinearLayout llTitleDiscount_aOrderDetail;
 
     private RecyclerView rcvListProduct_aOrderDetail;
-
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef;
     //endregion
 
     @Override
@@ -80,6 +77,10 @@ public class OrderDetailActivity extends AppCompatActivity {
 
             commingsoon.show();
         });
+
+        btnReOrder_aOrderDetail.setOnClickListener(v -> {
+
+        });
     }
 
     private void getData() {
@@ -93,9 +94,6 @@ public class OrderDetailActivity extends AppCompatActivity {
         txtCustomerName_aOrderDetail.setText(order.getCustomerName());
         txtCustomerPhone_aOrderDetail.setText(order.getCustomerPhone());
         txtCustomerAddress_aOrderDetail.setText(order.getAddOrder());
-//        long ship, discount, total, subtotal;
-//        ship = order.getShippingFeeOrder();  discount = order.getDiscountOrder(); total = order.getPriceOrder();
-//        subtotal = total - ship + discount;
         txtPrice_aOrderDetail.setText(order.getPriceOrder()+" đ");
         txtShippingFee_aOrderDetail.setText(order.getShippingFeeOrder()+" đ");
         txtDiscount_aOrderDetail.setText(order.getDiscountOrder()+" đ");

@@ -14,12 +14,10 @@
         <PreferenceCategory android:title="Thông báo">
             <SwitchPreferenceCompat
                 android:key="TrungNoti"
-                android:summary="Nhận thông báo từ Trứng"
-                />
+                android:summary="Nhận thông báo từ Trứng"/>
             <SwitchPreferenceCompat
                 android:key="DiscountNoti"
-                android:summary="Nhận thông báo giảm giá"
-                />
+                android:summary="Nhận thông báo giảm giá" />
         </PreferenceCategory>
 
         <PreferenceCategory android:title="Ngôn ngữ">
