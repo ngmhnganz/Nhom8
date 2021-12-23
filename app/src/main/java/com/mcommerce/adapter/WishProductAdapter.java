@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,12 +21,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.interfaces.RecyclerViewItemClickListener;
 import com.mcommerce.model.Product;
+import com.mcommerce.model.User;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.nhom8.product.ProductDetailActivity;
 import com.mcommerce.util.Constant;
+import com.mcommerce.util.Key;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,7 +63,8 @@ public class WishProductAdapter extends  RecyclerView.Adapter<WishProductAdapter
     public void onBindViewHolder(@NonNull WishViewHolder holder, int position) {
         String key = wishIDs.get(position);
         long productID = (long) wishList.get(key).get("id");
-        ref.child("NguyenLieu").child(String.valueOf(productID)).addListenerForSingleValueEvent(new ValueEventListener() {
+        long selectedID;
+        ref.child(Key.PRODUCT).child(String.valueOf(productID)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Product product = snapshot.getValue(Product.class);
@@ -68,16 +73,16 @@ public class WishProductAdapter extends  RecyclerView.Adapter<WishProductAdapter
                 holder.txtPrice_WishP.setText(product.getProductPrice()+" đ");
                 holder.txtLike_WishP.setText(product.getProductLike()+" người đã thích");
                 holder.chkLike_WL.setChecked(true);
-                holder.chkLike_WL.setOnClickListener(new View.OnClickListener() {
+                holder.chkLike_WL.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                     @Override
-                    public void onClick(View view) {
-                        if (holder.chkLike_WL.isChecked()==false){
-                            ref.child("User").child(user.getUid()).child("userLikeProduct").child(wishIDs.get(holder.getBindingAdapterPosition())).removeValue();
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (!isChecked) {
+                            ref.child(Key.USER).child(user.getUid()).child(User.LikeProduct).child(wishIDs.get(holder.getBindingAdapterPosition())).removeValue();
                             wishList.remove(wishIDs.get(holder.getBindingAdapterPosition()));
                             wishIDs.remove(wishIDs.get(holder.getBindingAdapterPosition()));
+                            ref.child(Key.PRODUCT).child(wishIDs.get(holder.getBindingAdapterPosition())).child(Product.Like).setValue(ServerValue.increment(-1));
                             notifyItemRemoved(holder.getBindingAdapterPosition());
                         }
-
                     }
                 });
 

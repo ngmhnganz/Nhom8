@@ -12,6 +12,7 @@ public class Product implements Parcelable {
     public static final String ShortName = "productShortName";
     public static final String ID = "productID";
     public static final String Type = "productType";
+    public static final String Like = "productLike";
 
     private String productName;
     private String productImg;

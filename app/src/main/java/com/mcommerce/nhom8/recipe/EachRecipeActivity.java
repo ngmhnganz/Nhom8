@@ -37,7 +37,6 @@ import com.mcommerce.model.User;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.nhom8.auth.LoginActivity;
 import com.mcommerce.nhom8.order.CartActivity;
-import com.mcommerce.nhom8.product.ProductDetailActivity;
 import com.mcommerce.util.Constant;
 import com.mcommerce.util.Key;
 import java.util.HashMap;
@@ -51,7 +50,7 @@ public class EachRecipeActivity extends AppCompatActivity {
     TextView txtPreparedMaterials_Recipe,txtRecipe_Info_recipe, txtRecipeName_recipe, txtShortRecipe, txtDescription;
     LinearLayout llMaterialBuying;
     CheckBox chkLike,chkLike1;
-    DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference();
 
     Recipe recipe = new Recipe();
     HashMap<String,HashMap<String,?>> recipeIngredient;
@@ -61,7 +60,7 @@ public class EachRecipeActivity extends AppCompatActivity {
     List<Integer> filter;
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private DatabaseReference Likeref;
+    private DatabaseReference Likeref, recipeRef;
 
 
     @Override
@@ -130,25 +129,29 @@ public class EachRecipeActivity extends AppCompatActivity {
 
         if (user != null){
             btnAddToCart_Recipe.setOnClickListener(v -> {
+                cartRef = FirebaseDatabase.getInstance().getReference(Key.USER+"/"+user.getUid()+"/"+User.Cart);
                 for (int productID: chipGroup.getCheckedChipIds()) {
-                    ref.child(Key.USER).child(user.getUid()).child(User.Cart).child("id"+productID).child("quantity").setValue(ServerValue.increment(1));
-                    ref.child(Key.USER).child(user.getUid()).child(User.Cart).child("id"+productID).child("name").setValue(recipeIngredient.get("id"+productID).get("name"));
-                    ref.child(Key.USER).child(user.getUid()).child(User.Cart).child("id"+productID).child("id").setValue(productID);
-                    ref.child(Key.USER).child(user.getUid()).child(User.Cart).child("id"+productID).child("price").setValue(recipeIngredient.get("id"+productID).get("price"));
+                    cartRef.child("id"+productID).child("quantity").setValue(ServerValue.increment(1));
+                    cartRef.child("id"+productID).child("name").setValue(recipeIngredient.get("id"+productID).get("name"));
+                    cartRef.child("id"+productID).child("id").setValue(productID);
+                    cartRef.child("id"+productID).child("price").setValue(recipeIngredient.get("id"+productID).get("price"));
                     Toast.makeText(EachRecipeActivity.this, "Thêm hàng thành công",Toast.LENGTH_SHORT).show();
                 }
             });
             chkLike.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 String recipeIDs = recipe.getRecipeID();
+                recipeRef = FirebaseDatabase.getInstance().getReference(Key.RECIPE+"/"+recipeIDs+"/"+Recipe.Like);
                 if (isChecked) {
                     Likeref.child("id"+recipeIDs).child("name").setValue(recipe.getRecipeName());
                     Likeref.child("id"+recipeIDs).child("id").setValue(recipeIDs);
                     Likeref.child("id"+recipeIDs).child("des").setValue(recipe.getRecipeDescription());
                     Likeref.child("id"+recipeIDs).child("thumb").setValue(recipe.getRecipeImage());
                     Likeref.child("id"+recipeIDs).child("time").setValue(recipe.getRecipeTime());
+                    recipeRef.setValue(ServerValue.increment(1));
                 }
                 else {
                     Likeref.child("id"+recipeIDs).removeValue();
+                    recipeRef.setValue(ServerValue.increment(-1));
                 }
             });
         }

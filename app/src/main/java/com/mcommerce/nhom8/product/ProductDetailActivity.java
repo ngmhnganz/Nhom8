@@ -24,11 +24,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.model.Product;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.nhom8.auth.LoginActivity;
 import com.mcommerce.util.Constant;
+import com.mcommerce.util.Key;
+
 import java.util.HashMap;
 
 public class ProductDetailActivity extends AppCompatActivity {
@@ -53,7 +56,7 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     private Product product ;
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private DatabaseReference ref, Likeref;
+    private DatabaseReference cartRef, Likeref, productRef;
     private String btnText;
 
 
@@ -106,9 +109,9 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     private void loadData() {
         if (user != null){
-            ref = FirebaseDatabase.getInstance().getReference("User/"+user.getUid()+"/userCart");
+            cartRef = FirebaseDatabase.getInstance().getReference("User/"+user.getUid()+"/userCart");
             Likeref = FirebaseDatabase.getInstance().getReference("User/"+user.getUid()+"/userLikeProduct");
-            ref.child("id"+product.getProductID()).addListenerForSingleValueEvent(new ValueEventListener() {
+            cartRef.child("id"+product.getProductID()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     long quantiy;
@@ -151,7 +154,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             if (edtQuantity_aProductDetail.getText().toString().equals("0")) {
                 btnText = "Thêm vào giỏ hàng";
                 btnAddProduct_productDetail.setText(btnText);
-                ref.child(String.valueOf(productID)).removeValue().addOnSuccessListener(unused ->
+                cartRef.child(String.valueOf(productID)).removeValue().addOnSuccessListener(unused ->
                         Toast.makeText(ProductDetailActivity.this,"Sản phẩm đã được xóa khỏi giỏ hàng",Toast.LENGTH_SHORT).show());
 
             } else {
@@ -159,10 +162,10 @@ public class ProductDetailActivity extends AppCompatActivity {
                 // đổi từ "thêm vào" thành "cập nhật" ( nếu có)
                 // thông báo cho người dùng đã thành công
                 long quantity = Long.parseLong(edtQuantity_aProductDetail.getText().toString());
-                ref.child("id"+productID).child("quantity").setValue(quantity);
-                ref.child("id"+productID).child("name").setValue(product.getProductName());
-                ref.child("id"+productID).child("id").setValue(productID);
-                ref.child("id"+productID).child("price").setValue(product.getProductPrice());
+                cartRef.child("id"+productID).child("quantity").setValue(quantity);
+                cartRef.child("id"+productID).child("name").setValue(product.getProductName());
+                cartRef.child("id"+productID).child("id").setValue(productID);
+                cartRef.child("id"+productID).child("price").setValue(product.getProductPrice());
                 Toast.makeText(ProductDetailActivity.this, "Giỏ hàng của bạn đã được cập nhật", Toast.LENGTH_SHORT).show();
                 btnText = btnAddProduct_productDetail.getText().toString();
                 btnText = btnText.replace("Thêm vào giỏ hàng", "Cập nhật giỏ hàng");
@@ -179,14 +182,18 @@ public class ProductDetailActivity extends AppCompatActivity {
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
             int productID = (int) product.getProductID();
+            productRef = FirebaseDatabase.getInstance().getReference(Key.PRODUCT+"/"+productID+"/"+Product.Like);
             if (isChecked) {
+
                 Likeref.child("id"+productID).child("name").setValue(product.getProductName());
                 Likeref.child("id"+productID).child("id").setValue(productID);
                 Likeref.child("id"+productID).child("price").setValue(product.getProductPrice());
                 Likeref.child("id"+productID).child("thumb").setValue(product.getProductImg());
+                productRef.setValue(ServerValue.increment(1));
             }
             else {
                 Likeref.child("id"+productID).removeValue();
+                productRef.setValue(ServerValue.increment(-1));
             }
         }
     };

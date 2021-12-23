@@ -79,7 +79,8 @@
                 android:id="@+id/btnAdd_listProduct"
                 style="@style/btn_increase"
                 android:layout_width="30dp"
-                android:layout_height="30dp" />        </LinearLayout>
+                android:layout_height="30dp" />
+        </LinearLayout>
 
     </LinearLayout>
 
