@@ -26,8 +26,7 @@
                 android:defaultValue="Vietnamese"
                 android:key="LANGUAGE"
                 android:entries="@array/items_name"
-                android:entryValues="@array/items_value.
-3"
+                android:entryValues="@array/items_value"
                 />
         </PreferenceCategory>
 

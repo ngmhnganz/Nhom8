@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -41,6 +42,7 @@ public class SuggestRecipeActivity extends AppCompatActivity {
             imvDropDownBo_SuggestRecipe,
             imvDropDownKhac_SuggestRecipe;
     Button btnSearch;
+    ImageButton btnBack_allproducts;
     SearchView searchView;
 
     ListView lvResult;
@@ -88,6 +90,8 @@ public class SuggestRecipeActivity extends AppCompatActivity {
 
         btnSearch = findViewById(R.id.btnSearch);
         lvResult = findViewById(R.id.lvResult);
+
+        btnBack_allproducts = findViewById(R.id.btnBack_allproducts);
     }
 
     private void addEvents() {
@@ -168,6 +172,7 @@ public class SuggestRecipeActivity extends AppCompatActivity {
             intent.putIntegerArrayListExtra(Constant.FILTER_OPTION, (ArrayList<Integer>) filter);
             startActivity(intent);
         });
+        btnBack_allproducts.setOnClickListener(v ->finish());
     }
 
     private void initData() {

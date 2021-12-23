@@ -119,7 +119,7 @@ public class ConfirmOrderFragment extends Fragment {
         progressDialog.show();
         if (user!=null) {
             ref = firebaseDatabase.getReference();
-            ref.addValueEventListener(new ValueEventListener() {
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     userSnapshot = snapshot.child("User").child(user.getUid());

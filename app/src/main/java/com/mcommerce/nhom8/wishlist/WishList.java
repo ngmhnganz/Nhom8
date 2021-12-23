@@ -12,10 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.mcommerce.fragment.Wishlist_ProductFragment;
 import com.mcommerce.fragment.Wishlist_RecipeFragment;
 import com.mcommerce.nhom8.R;
+import com.mcommerce.nhom8.auth.LoginActivity;
 import com.mcommerce.nhom8.order.CartActivity;
 
 public class WishList extends Fragment {
@@ -23,6 +27,8 @@ public class WishList extends Fragment {
     View view;
     Button btnCongThuc_Wish, btnSanPham_Wish;
     ImageButton btnCart_WL;
+    TextView txtDangNhap;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,17 +45,24 @@ public class WishList extends Fragment {
         btnCart_WL=view.findViewById(R.id.btnCart_WL);
         btnSanPham_Wish.setEnabled(false);
         btnCongThuc_Wish.setEnabled(true);
-        btnSanPham_Wish.setBackgroundResource(R.drawable.button_underline);    }
+        btnSanPham_Wish.setBackgroundResource(R.drawable.button_underline);
+        txtDangNhap = view.findViewById(R.id.txtDangNhap);
+    }
 
     private void addEvents() {
-        btnCongThuc_Wish.setOnClickListener(myClick);
-        btnSanPham_Wish.setOnClickListener(myClick);
-        btnCart_WL.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getContext(), CartActivity.class));
-            }
-        });
+        if (user != null){
+            btnCongThuc_Wish.setOnClickListener(myClick);
+            btnSanPham_Wish.setOnClickListener(myClick);
+            btnCart_WL.setOnClickListener(v -> startActivity(new Intent(getContext(), CartActivity.class)));
+        }
+        else {
+            txtDangNhap.setVisibility(View.VISIBLE);
+            txtDangNhap.setOnClickListener(v -> {
+                startActivity(new Intent(getContext(), LoginActivity.class));
+                getActivity().finish();
+            });
+        }
+
 
     }
     View.OnClickListener myClick=new View.OnClickListener(){

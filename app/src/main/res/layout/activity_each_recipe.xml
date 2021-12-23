@@ -51,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fillViewport="true"
-        android:paddingHorizontal="15dp">
+        android:paddingHorizontal="20dp">
 
         <TableLayout
             android:layout_width="match_parent"
@@ -89,108 +89,138 @@
                     android:scaleType="centerCrop" />
 
             </androidx.cardview.widget.CardView>
-            <LinearLayout
-                android:orientation="horizontal"
-                android:weightSum="10"
-                android:layout_marginTop="10dp">
 
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:background="@drawable/round_corner_image"
+                android:outlineSpotShadowColor="@color/colorSecondBackgroundShadow"
+                android:outlineAmbientShadowColor="@color/colorSecondBackgroundShadow">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/sfpro_bold"
+                        android:textColor="@color/colorText"
+                        android:text="Giới thiệu"
+                        android:textSize="20sp" />
+
+                    <CheckBox
+                        android:id="@+id/chkLike"
+                        style="@style/checked_wish"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp" />
+                </LinearLayout>
                 <TextView
-                    android:layout_width="364dp"
+                    android:id="@+id/txtShortRecipe"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="10"
-                    android:fontFamily="@font/sfpro_medium"
-                    android:text="Giới thiệu"
-                    android:textSize="20sp" />
-                <CheckBox
-                    android:id="@+id/chkLike"
-                    style="@style/checked_wish"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp" />
+                    android:textSize="16sp"
+                    android:text="Bánh cheesecake là sự kết hợp hoàn hảo của vị béo ngậy ở nhân kem phô mai, hòa cùng hương thơm và vị trái cây tự nhiên."
+                    android:fontFamily="@font/gilroy_medium"
+                    android:textColor="@color/colorSubText"/>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/txtShortRecipe"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="Bánh cheesecake là sự kết hợp hoàn hảo của vị béo ngậy ở nhân kem phô mai, hòa cùng hương thơm và vị trái cây tự nhiên."
-                android:fontFamily="@font/sfpro_regular"/>
+
 
             <LinearLayout
-                android:id="@+id/llMaterialLable"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="10"
-                android:background="@drawable/each_recipe_image_corner_radius"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:id="@+id/txtPreparedMaterials_Recipe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="8"
-                    android:textSize="20sp"
-                    android:text="Danh sách nguyên liệu"
-                    android:fontFamily="@font/sfpro_medium"
-                    />
-
-                <ImageView
-                    android:id="@+id/imvDropDownMaterial"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="2"
-                    android:src="@drawable/ic_arrow_down_24" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/llMaterialBuying"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@drawable/each_recipe_image_corner_radius"
-                android:layout_marginTop="5dp">
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/chip_group"
+                android:outlineSpotShadowColor="@color/colorSecondBackgroundShadow"
+                android:outlineAmbientShadowColor="@color/colorSecondBackgroundShadow"
+                android:layout_marginVertical="20dp"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:id="@+id/llMaterialLable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:chipSpacingHorizontal="5dp"
-                    app:chipSpacingVertical="5dp"
-                    android:layout_marginTop="7dp">
-                </com.google.android.material.chip.ChipGroup>
-                <Button
-                    android:id="@+id/btnAddToCart_Recipe"
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:text="Thêm vào giỏ hàng"
-                    android:fontFamily="@font/gilroy_medium"
-                    android:drawableLeft="@drawable/ic_add_shopping_cart_24"
-                    android:drawablePadding="5dp"
-                    android:background="@drawable/background_pressed_material"
-                    android:textColor="@android:color/white"
-                    android:layout_gravity="center"
-                    android:textSize="12dp"
-                    />
+
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:id="@+id/txtPreparedMaterials_Recipe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="8"
+                        android:fontFamily="@font/sfpro_bold"
+                        android:textColor="@color/colorText"
+                        android:text="Danh sách nguyên liệu"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:id="@+id/imvDropDownMaterial"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="2"
+                        android:src="@drawable/ic_arrow_down_24" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llMaterialBuying"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chip_group"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="10dp"
+                        app:chipSpacingHorizontal="5dp"
+                        app:chipSpacingVertical="5dp">
+
+                    </com.google.android.material.chip.ChipGroup>
+                    <Button
+                        style="@style/button_default"
+                        android:id="@+id/btnAddToCart_Recipe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_add_shopping_cart_24"
+                        android:drawablePadding="5dp"
+                        android:fontFamily="@font/gilroy_medium"
+                        android:text="Thêm vào giỏ hàng"
+                        android:textColor="@android:color/white"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
             </LinearLayout>
 
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:background="@drawable/round_corner_image"
+                android:outlineSpotShadowColor="@color/colorSecondBackgroundShadow"
+                android:outlineAmbientShadowColor="@color/colorSecondBackgroundShadow">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:fontFamily="@font/sfpro_regular"
-                android:text="Hướng dẫn cách làm"
-                />
-            <TextView
-                android:id="@+id/txtDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="16dp"
-                android:fontFamily="@font/sfpro_regular"
-                />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/sfpro_bold"
+                    android:textColor="@color/colorText"
+                    android:text="Hướng dẫn cách làm"
+                    />
+                <TextView
+                    android:id="@+id/txtDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:fontFamily="@font/sfpro_regular" />
+            </LinearLayout>
+
 
         </TableLayout>
     </ScrollView>

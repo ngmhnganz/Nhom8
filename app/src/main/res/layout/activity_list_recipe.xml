@@ -30,7 +30,10 @@
             android:layout_height="38dp"
             android:layout_weight="0.51"
             android:layout_gravity="center"
-            android:background="@drawable/background_suggestrecipe"
+            android:background="@drawable/round_corner_image"
+            android:iconifiedByDefault="false"
+            android:queryBackground="@null"
+            android:queryHint="Nhập nguyên liệu bạn muốn tìm"
             />
 
         <ImageButton

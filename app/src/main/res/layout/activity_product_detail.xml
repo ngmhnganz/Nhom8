@@ -126,33 +126,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:paddingHorizontal="20dp"
-
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/txtName_productDetail"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
-                android:layout_weight="1"
-
                 android:fontFamily="@font/sfpro_bold"
-                android:text="Tên Sản Phẩm"
-                android:textColor="#3F414E"
-                android:textSize="24sp" />
+                android:text=""
+                android:textColor="@color/colorText"
+                android:textSize="24sp"
+                android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/txtPrice_productDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:layout_weight="1"
                 android:fontFamily="@font/sfpro_bold"
-
                 android:gravity="end"
-                android:text="Giá"
+                android:text="90000"
                 android:textColor="@color/colorPrimary"
                 android:textSize="24sp" />
         </LinearLayout>
@@ -191,7 +184,6 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/sfpro_medium"
-            android:text="Cream of tartar thực chất là một nguyên liệu có dạng bột, chúng không phải là chất gây nở nhưng lại có tác dụng giúp cho quá trình nở của bánh tốt hơn. Cream of tartar có màu trắng và có độ mịn tốt, đây là sản phẩm được kết tinh trong quá trình lên men khi làm rượuCream of tartar thực chất là một nguyên liệu có dạng bột, chúng không phải là chất gây nở nhưng lại có tác dụng giúp cho quá trình nở của bánh tốt hơn. "
             android:textColor="@color/colorSubText"
             android:textSize="14sp" />
 
@@ -214,7 +206,6 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:fontFamily="@font/sfpro_medium"
-            android:text="Cách bảo quản: đối với bột Cream of Tartar cũng giống như bột Baking Soda hay bột Baking Powder: Để trong hộp kín tại nơi thoáng mát, nếu mua số lượng lớn bạn có thể chia ra cất vào ngăn mát tủ lạnh, sẽ hạn chế được thời gian hỏng."
             android:textColor="@color/colorSubText"
             android:textSize="14sp" />
 

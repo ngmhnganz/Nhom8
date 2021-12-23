@@ -125,7 +125,7 @@ public class CartActivity extends AppCompatActivity {
                 builder.setNegativeButton("Hủy", (dialog, which) -> {});
                 builder.setPositiveButton("Xóa", (dialog, which) -> {
                     myRef = firebaseDatabase.getReference().child(Key.USER).child(user.getUid()).child(User.Cart);
-                    myRef.child(user.getUid()).child(User.Cart).removeValue();
+                    myRef.removeValue();
                     adapter = null;
                     imvCartEmpty_aCart.setVisibility(View.VISIBLE);
                     rcv_aCart.setAdapter(adapter);
