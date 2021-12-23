@@ -1,12 +1,17 @@
 package com.mcommerce.nhom8.setting;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.FragmentTransaction;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.ListPreference;
@@ -16,6 +21,8 @@ import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
 
 import com.mcommerce.nhom8.R;
+import com.mcommerce.nhom8.auth.LoginActivity;
+import com.mcommerce.nhom8.recipe.EachRecipeActivity;
 
 public class SettingsActivity extends AppCompatActivity {
     private SwitchPreference darkModeSwitch;
@@ -49,14 +56,8 @@ public class SettingsActivity extends AppCompatActivity {
             boolean isChecked = sharedPreferences.getBoolean("NIGHT", false);
 
             sw_night.setOnPreferenceChangeListener((preference, newValue) -> {
-                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    sw_night.setChecked(false);
-                }else {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    sw_night.setChecked(true);
-                    }
-                    return false;
+                openRequestDialog();
+                return false;
             });
 
             //List LANGUAGE
@@ -69,13 +70,21 @@ public class SettingsActivity extends AppCompatActivity {
             else if ("2".equals(language)){
 
             }
-
             LP.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(androidx.preference.Preference preference, Object newValue) {
+                    openRequestDialog();
                     return false;
                 }
             });
+        }
+        private void openRequestDialog() {
+            Dialog commingsoon = new Dialog(getContext());
+            commingsoon.setContentView(R.layout.diaglog_comming_soon);
+            commingsoon.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            Button btnOK=commingsoon.findViewById(R.id.btnOK);
+            btnOK.setOnClickListener(l -> commingsoon.dismiss());
+            commingsoon.show();
         }
 
     }
