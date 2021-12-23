@@ -29,6 +29,7 @@ import com.mcommerce.nhom8.auth.LoginActivity;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.nhom8.auth.PointHistoryActivity;
 import com.mcommerce.nhom8.auth.UserInfoActivity;
+import com.mcommerce.nhom8.product.ProductDetailActivity;
 import com.mcommerce.nhom8.setting.PolicyActivity;
 import com.mcommerce.nhom8.setting.SettingsActivity;
 
@@ -108,19 +109,20 @@ public class UserFragment extends Fragment {
     }
 
     private void addEvent() {
-
-        llUserInfo_fmuser.setOnClickListener(goToContentActivity);
-        llPoint_fmuser.setOnClickListener(goToContentActivity);
-        llChinhSach_fmuser.setOnClickListener(goToContentActivity);
-        llSetting_fmuser.setOnClickListener(goToContentActivity);
-        llSupport_fmuser.setOnClickListener(goToContentActivity);
-
         if (user == null) {
             btnLogout_fmuser.setOnClickListener(signin);
+            llUserInfo_fmuser.setOnClickListener(yeuCauDangNhap);
+            llPoint_fmuser.setOnClickListener(yeuCauDangNhap);
+            llChinhSach_fmuser.setOnClickListener(yeuCauDangNhap);
         }
         else {
             btnLogout_fmuser.setOnClickListener(logout);
+            llUserInfo_fmuser.setOnClickListener(goToContentActivity);
+            llPoint_fmuser.setOnClickListener(goToContentActivity);
+            llChinhSach_fmuser.setOnClickListener(goToContentActivity);
         }
+        llSetting_fmuser.setOnClickListener(goToContentActivity);
+        llSupport_fmuser.setOnClickListener(goToContentActivity);
     }
 
     View.OnClickListener logout = v -> {
@@ -157,6 +159,24 @@ public class UserFragment extends Fragment {
         }
     };
 
+    View.OnClickListener yeuCauDangNhap = v -> {
+        yeuCauDangNhap();
+    };
+
+    private void yeuCauDangNhap() {
+        Dialog requestUser = new Dialog(getContext());
+        requestUser.setContentView(R.layout.dialog_request_user);
+        requestUser.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Button btnDangNhap=requestUser.findViewById(R.id.btnDangNhap);
+        Button btnDong=requestUser.findViewById(R.id.btnDong);
+
+        btnDong.setOnClickListener(l -> requestUser.dismiss());
+        btnDangNhap.setOnClickListener(l -> {
+            startActivity(new Intent(getContext(), LoginActivity.class));
+            getActivity().finish();
+        });
+        requestUser.show();
+    }
     @Override
     public void onResume() {
         super.onResume();

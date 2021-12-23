@@ -26,7 +26,7 @@ public class PointHistoryActivity extends AppCompatActivity {
 
     RecyclerView rcv_PointsHistory;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Key.USER+"/"+user.getUid()+"/"+ User.Order);
+    DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,6 @@ public class PointHistoryActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         System.out.println("Cycle START");
-
         getData();
     }
 
@@ -50,7 +49,10 @@ public class PointHistoryActivity extends AppCompatActivity {
 
 
     private void getData() {
-        ref.addListenerForSingleValueEvent(valueEventListener);
+        if (user != null ){
+            ref = FirebaseDatabase.getInstance().getReference(Key.USER+"/"+user.getUid()+"/"+ User.Order);
+            ref.addListenerForSingleValueEvent(valueEventListener);
+        }
     }
 
     ValueEventListener valueEventListener = new ValueEventListener() {
