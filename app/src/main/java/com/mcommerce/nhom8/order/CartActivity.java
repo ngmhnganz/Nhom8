@@ -114,6 +114,7 @@ public class CartActivity extends AppCompatActivity {
                 builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        myRef = firebaseDatabase.getReference().child(Key.USER).child(user.getUid()).child(User.Cart);
                         myRef.child(user.getUid()).child(User.Cart).removeValue();
                         adapter = null;
                         imvCartEmpty_aCart.setVisibility(View.VISIBLE);
