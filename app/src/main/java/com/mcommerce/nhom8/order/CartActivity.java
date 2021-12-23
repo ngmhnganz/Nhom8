@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,8 +24,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.CartAdapter;
+import com.mcommerce.model.User;
 import com.mcommerce.nhom8.R;
+import com.mcommerce.util.Key;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -34,9 +38,10 @@ public class CartActivity extends AppCompatActivity {
     private TextView txtDeleteAll_aCart;
     private RecyclerView rcv_aCart;
     private Button btnPayment_aCart;
+    private ImageButton btnBack;
     private CartAdapter adapter;
     private ImageView imvCartEmpty_aCart;
-    private  FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     private DatabaseReference myRef;
     private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -56,6 +61,7 @@ public class CartActivity extends AppCompatActivity {
         btnPayment_aCart = findViewById(R.id.btnPayment_aCart);
         txtDeleteAll_aCart = findViewById(R.id.txtDeleteAll_aCart);
         imvCartEmpty_aCart= findViewById(R.id.imvCartEmpty_aCart);
+        btnBack=findViewById(R.id.btnBack);
     }
 
     private void loadData() {
@@ -65,7 +71,7 @@ public class CartActivity extends AppCompatActivity {
         } else {
             ProgressDialog progressDialog = new ProgressDialog(CartActivity.this);
             progressDialog.show();
-            myRef = firebaseDatabase.getReference().child("User").child(user.getUid()).child("userCart");
+            myRef = firebaseDatabase.getReference().child(Key.USER).child(user.getUid()).child(User.Cart);
             myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -108,7 +114,7 @@ public class CartActivity extends AppCompatActivity {
                 builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        myRef.child(user.getUid()).child("userCart").removeValue();
+                        myRef.child(user.getUid()).child(User.Cart).removeValue();
                         adapter = null;
                         imvCartEmpty_aCart.setVisibility(View.VISIBLE);
                         rcv_aCart.setAdapter(adapter);
@@ -117,5 +123,12 @@ public class CartActivity extends AppCompatActivity {
                 builder.create().show();
             }
         });
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 }

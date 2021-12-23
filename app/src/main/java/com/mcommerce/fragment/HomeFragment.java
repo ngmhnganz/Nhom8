@@ -5,12 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,15 +23,28 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.github.mmin18.widget.RealtimeBlurView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.BannerMainAdapter;
-import com.mcommerce.adapter.GoiYComboAdapter;
-import com.mcommerce.adapter.GoiYMonanAdapter;
+import com.mcommerce.adapter.ProductAdapter;
+import com.mcommerce.adapter.RecipeAdapter;
 import com.mcommerce.model.BannerMainModel;
-import com.mcommerce.model.GoiYComboModel;
-import com.mcommerce.model.GoiYMonanModel;
+import com.mcommerce.model.Product;
+import com.mcommerce.model.Recipe;
+import com.mcommerce.nhom8.MainActivity;
+import com.mcommerce.nhom8.recipe.SuggestRecipeActivity;
 import com.mcommerce.nhom8.order.CartActivity;
 import com.mcommerce.nhom8.product.AllProductsActivity;
 import com.mcommerce.nhom8.R;
+import com.mcommerce.nhom8.product.ListProductActivity;
+import com.mcommerce.nhom8.recipe.ListRecipeActivity;
+import com.mcommerce.util.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,18 +52,25 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     View view;
-    private ViewPager vpgBannerMain;
-    private List<BannerMainModel> bannerMainModelList;
-    private List<GoiYMonanModel> goiYMonanModelList;
-    private List<GoiYComboModel> goiYComboModelList;
-    private ImageButton btnSanPham, btnCongThuc, btnGoiY;
-    private RecyclerView rcvGoiYMonan, rcvGoiYCombo;
-    private RealtimeBlurView blurView;
-    private BannerMainAdapter bannerMainAdapter;
-    private LinearLayout llSliderDot;
-    private int dotscount;
-    private ImageView[] dots;
+    ViewPager vpgBannerMain;
+    List<BannerMainModel> bannerMainModelList;
+    List<Recipe> goiYRecipeList = new ArrayList<>();
+    List<Product> goiYComboList = new ArrayList<>();
+    TextView txtSeeMoreMonAn, txtSeeMoreCongThuc, txtWelcome;
+
+    ImageButton btnSanPham, btnCongThuc, btnGoiY;
+    RecyclerView rcvGoiYMonan, rcvGoiYCombo;
+
+    RealtimeBlurView blurView;
+    BannerMainAdapter bannerMainAdapter;
+
+    LinearLayout llSliderDot;
+    int dotscount;
+    ImageView[] dots;
+
     private ImageButton btnCard_main;
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Nullable
     @Override
@@ -64,6 +84,9 @@ public class HomeFragment extends Fragment {
         return view;
     }
     private void linkview() {
+        txtSeeMoreMonAn = view.findViewById(R.id.txtSeeMoreMonAn);
+        txtSeeMoreCongThuc = view.findViewById(R.id.txtSeeMoreCongThuc);
+
         vpgBannerMain = view.findViewById(R.id.vpgBanner_main);
         llSliderDot = view.findViewById(R.id.llSliderDots_main);
 
@@ -72,14 +95,28 @@ public class HomeFragment extends Fragment {
         btnGoiY = view.findViewById(R.id.btnGoiY_main);
 
         rcvGoiYMonan = view.findViewById(R.id.rcvGoiYMonAn_main);
+        rcvGoiYMonan.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        rcvGoiYMonan.setAdapter(new RecipeAdapter(getContext(), RecipeAdapter.SUGGEST,null, null));
+
         rcvGoiYCombo = view.findViewById(R.id.rcvGoiYCombo_main);
+        rcvGoiYCombo.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        rcvGoiYCombo.setAdapter(new RecipeAdapter(getContext(), RecipeAdapter.RECIPE_ITEM,null, null));
 
         blurView = view.findViewById(R.id.blurview_LyGoiYMonan);
         btnCard_main = view.findViewById(R.id.btnCard_main);
 
+        txtWelcome = view.findViewById(R.id.txtWelcome);
+
     }
 
     private void initData() {
+
+        if (user == null){
+            txtWelcome.setText("Chào mừng bạn!");
+        } else {
+            txtWelcome.setText("Chào "+user.getDisplayName()+"!");
+        }
+
         //region Banner
         bannerMainModelList = new ArrayList<>();
         bannerMainModelList.add(new BannerMainModel(R.drawable.mot,"1"));
@@ -92,46 +129,54 @@ public class HomeFragment extends Fragment {
 
         //region Gợi ý Món ăn
 
-        goiYMonanModelList = new ArrayList<>();
-        goiYMonanModelList.add(new GoiYMonanModel(R.drawable.suggest_monan, "Bánh bông lan trứng muối","Bánh bông lan chà mông chứng múi ăn với cà với cà với càv ới cà với cà với càv ới cà với cà với càv ới cà với cà ","20 phút"));
-        goiYMonanModelList.add(new GoiYMonanModel(R.drawable.suggest_monan, "Bánh bông lan trứng muối","Bánh bông lan chà mông chứng múi ăn với cà với cà với càv ới cà với cà với càv ới cà với cà với càv ới cà với cà ","30 phút"));
-        goiYMonanModelList.add(new GoiYMonanModel(R.drawable.suggest_monan, "Bánh bông lan trứng muối","Bánh bông lan chà mông chứng múi ăn với cà với cà với càv ới cà với cà với càv ới cà với cà với càv ới cà với cà ","nhiều phút"));
-
-        GoiYMonanAdapter goiYMonanAdapter = new GoiYMonanAdapter(goiYMonanModelList, (Activity) getContext());
-        rcvGoiYMonan.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        rcvGoiYMonan.setAdapter(goiYMonanAdapter);
-
+        Query queryCongThuc = ref.child("CongThuc").limitToLast(1);
+        queryCongThuc.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Recipe p = dataSnapshot.getValue(Recipe.class);
+                    goiYRecipeList.add(p);
+                }
+                RecipeAdapter adapter = new RecipeAdapter((MainActivity) getContext(), RecipeAdapter.SUGGEST,goiYRecipeList, null);
+                rcvGoiYMonan.setAdapter(adapter);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
         //endregion
 
         //region Gơi ý Combo
-
-        goiYComboModelList = new ArrayList<>();
-        goiYComboModelList.add(new GoiYComboModel(90000,R.drawable.suggest_monan, "Bánh tráng","3 người"));
-        goiYComboModelList.add(new GoiYComboModel(90000,R.drawable.suggest_monan, "Bánh tráng","3 người"));
-        goiYComboModelList.add(new GoiYComboModel(90000,R.drawable.suggest_monan, "Bánh tráng","3 người"));
-        goiYComboModelList.add(new GoiYComboModel(90000,R.drawable.suggest_monan, "Bánh tráng","3 người"));
-
-        GoiYComboAdapter goiYComboAdapter = new GoiYComboAdapter(goiYComboModelList, (Activity) getContext());
-        rcvGoiYCombo.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
-        rcvGoiYCombo.setAdapter(goiYComboAdapter);
-
+        Query queryCombo = ref.child("NguyenLieu").orderByChild("productType").equalTo(Product.COMBO).limitToLast(4);
+        queryCombo.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    Product p = dataSnapshot.getValue(Product.class);
+                    goiYComboList.add(p);
+                }
+                ProductAdapter adapter = new ProductAdapter((Activity) getContext(),goiYComboList,ProductAdapter.CATEGORY);
+                rcvGoiYCombo.setAdapter(adapter);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
         //endregion
     }
 
     private void addEvent() {
-        //region hiệu ứng touch cho icon Sản phẩm, Công thức, Gợi Ý
-        btnSanPham.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN ) {
-                    btnSanPham.setImageResource(R.drawable.ic_sanpham_pressed_main);
 
-                }
-                else if (motionEvent.getAction() == MotionEvent.ACTION_UP ) {
-                    btnSanPham.setImageResource(R.drawable.ic_sanpham_main);
-                }
-                return false;
-            }
+        txtSeeMoreMonAn.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext() ,
+                    ListProductActivity.class);
+            intent.putExtra(Constant.PRODUCT_LIST_TYPE, Product.COMBO);
+            startActivity(intent);
+        });
+        txtSeeMoreCongThuc.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext() ,
+                    ListRecipeActivity.class);
+            startActivity(intent);
         });
 
         btnSanPham.setOnClickListener(new View.OnClickListener() {
@@ -142,31 +187,20 @@ public class HomeFragment extends Fragment {
                 startActivity(intentMain);
             }
         });
-        btnCongThuc.setOnTouchListener(new View.OnTouchListener() {
+
+        btnCongThuc.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN ) {
-                    btnCongThuc.setImageResource(R.drawable.ic_congthuc_pressed_main);
-                }
-                else if (motionEvent.getAction() == MotionEvent.ACTION_UP ) {
-                    btnCongThuc.setImageResource(R.drawable.ic_congthuc_main);
-                }
-                return false;
+            public void onClick(View view) {
+                Intent intentMain = new Intent(getContext() ,
+                        ListRecipeActivity.class);
+                startActivity(intentMain);
             }
         });
 
-        btnGoiY.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN ) {
-                    btnGoiY.setImageResource(R.drawable.ic_goiy_pressed_main);
-                }
-                else if (motionEvent.getAction() == MotionEvent.ACTION_UP ) {
-                    btnGoiY.setImageResource(R.drawable.ic_goiy_main);
-
-                }
-                return false;
-            }
+        btnGoiY.setOnClickListener(v -> {
+            Intent intentMain = new Intent(getContext() ,
+                    SuggestRecipeActivity.class);
+            startActivity(intentMain);
         });
         //endregion
 
@@ -197,19 +231,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
-
             @Override
             public void onPageSelected(int position) {
                 for (int i = 0; i < dotscount; i++){
                     dots[i].setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.nonactive_dot));
                 }
-
                 dots[position].setImageDrawable(ContextCompat.getDrawable(getContext(),R.drawable.active_dot));
             }
-
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
         //endregion

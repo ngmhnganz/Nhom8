@@ -20,17 +20,21 @@
         android:orientation="vertical"
         android:background="@color/white">
 
-
-        <ImageView
-            android:id="@+id/imvHinh_allproducts"
-
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="130dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="0dp"
+            app:cardPreventCornerOverlap="true">
 
-            android:scaleType="centerInside"
+            <ImageView
+                android:id="@+id/imvHinh_allproducts"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:background="@drawable/round_corner_background_image"/>
+        </androidx.cardview.widget.CardView>
 
-            app:srcCompat="@drawable/botcacao"
-            android:background="@drawable/round_corner_background_image"/>
 
 
         <TextView
@@ -38,8 +42,6 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
-            android:text="TextView"
 
             android:textColor="@color/colorText"
             android:fontFamily="@font/gilroy_medium"
@@ -55,7 +57,6 @@
             android:id="@+id/txtProductPrice_allproducts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
             android:textColor="@color/colorPrimary"
             android:fontFamily="@font/gilroy_bold"
             android:paddingHorizontal="20dp"

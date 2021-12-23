@@ -1,11 +1,16 @@
 package com.mcommerce.fragment;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -30,6 +35,8 @@ import com.mcommerce.model.Product;
 import com.mcommerce.model.User;
 import com.mcommerce.nhom8.MainActivity;
 import com.mcommerce.nhom8.R;
+import com.mcommerce.nhom8.order.CartActivity;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -52,6 +59,7 @@ public class ConfirmOrderFragment extends Fragment {
             txtAddress,
             txtPhone,
             txtChangeInfo;
+    ImageButton btnBack;
     RecyclerView rcv;
     Switch swUsePoint;
     RadioButton radCash;
@@ -103,6 +111,7 @@ public class ConfirmOrderFragment extends Fragment {
         txtTotal  = view.findViewById(R.id.txtTotal);
         radCash = view.findViewById(R.id.radCash);
         btnPayment = view.findViewById(R.id.btnPayment);
+        btnBack=view.findViewById(R.id.btnBack);
     }
 
     private void loadData() {
@@ -117,8 +126,10 @@ public class ConfirmOrderFragment extends Fragment {
                     mUser = userSnapshot.getValue(User.class);
                     cartList = (HashMap<String, HashMap<String, ?>>) mUser.getUserCart();
 
+                    String idFirstItem = cartList.keySet().toArray()[0].toString();
+                    String idProduct = String.valueOf(cartList.get(idFirstItem).get("id"));
                     if (cartList != null){
-                        productSnapshot = snapshot.child("NguyenLieu").child(cartList.keySet().toArray()[0].toString()).child("productImg");
+                        productSnapshot = snapshot.child("NguyenLieu").child(idProduct).child("productImg");
                         product.setProductImg(productSnapshot.getValue().toString());
                         loadUI();
                     }
@@ -218,12 +229,31 @@ public class ConfirmOrderFragment extends Fragment {
             } else {
                 if (radCash.isChecked()){
                     createrOrder();
+                } else {
+                    Dialog commingsoon = new Dialog(getContext());
+                    commingsoon.setContentView(R.layout.diaglog_comming_soon);
+                    commingsoon.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    Button btnOk=commingsoon.findViewById(R.id.btnOK);
+
+                    btnOk.setOnClickListener(l -> {
+                        commingsoon.dismiss();
+                        radCash.setChecked(true);
+                    });
+
+                    commingsoon.show();
                 }
             }
         });
         txtAddress.setOnClickListener(editInfomation);
 
         txtChangeInfo.setOnClickListener(editInfomation);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getActivity().finish();
+            }
+        });
 
     }
 
@@ -244,7 +274,8 @@ public class ConfirmOrderFragment extends Fragment {
         }
     };
 
-    private void createrOrder() {
+
+        private void createrOrder() {
         Order order = new Order();
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());

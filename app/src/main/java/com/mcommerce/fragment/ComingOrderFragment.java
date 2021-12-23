@@ -23,7 +23,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.OrderAdapter;
 import com.mcommerce.model.Order;
+import com.mcommerce.model.User;
 import com.mcommerce.nhom8.R;
+import com.mcommerce.util.Key;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,9 +38,9 @@ public class ComingOrderFragment extends Fragment {
 
     private OrderAdapter adapter;
     private LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
-    private FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference myRef = firebaseDatabase.getReference();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private DatabaseReference myRef;
+
 
     @Nullable
     @Override
@@ -46,37 +48,43 @@ public class ComingOrderFragment extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_coming_order,container,false);
 
-        linkdata();
+        linkView();
         initData();
-
         return view;
+
     }
+
+    ValueEventListener valueEventListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+            ArrayList<Order> orderLists = new ArrayList<>();
+            for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                orderLists.add(setData(dataSnapshot));
+            };
+            adapter = new OrderAdapter(getContext(),R.layout.layout_coming_order_item,orderLists, OrderAdapter.COMING_ITEM);
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(view.getContext(),DividerItemDecoration.VERTICAL);
+            dividerItemDecoration.setDrawable(ContextCompat.getDrawable(view.getContext(),R.drawable.divider));
+            rcv_fragmentComingOrder.setAdapter(adapter);
+            rcv_fragmentComingOrder.addItemDecoration(dividerItemDecoration);
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
 
     private void initData() {
-        Query query = myRef.child("User/"+user.getUid()+"/userOrder").orderByChild("statusOrder").startAt(Order.DAT_HANG_THANH_CONG).endAt(Order.VAN_CHUYEN);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                ArrayList<Order> orderLists = new ArrayList<>();
-                for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    orderLists.add(setData(dataSnapshot));
-                };
-                adapter = new OrderAdapter(getContext(),R.layout.layout_coming_order_item,orderLists, OrderAdapter.COMING_ITEM);
-                DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(view.getContext(),DividerItemDecoration.VERTICAL);
-                dividerItemDecoration.setDrawable(ContextCompat.getDrawable(view.getContext(),R.drawable.divider));
-                rcv_fragmentComingOrder.setAdapter(adapter);
-                rcv_fragmentComingOrder.addItemDecoration(dividerItemDecoration);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        if (user != null){
+            myRef = FirebaseDatabase.getInstance().getReference(Key.USER +"/"+user.getUid()+"/"+ User.Order);
+            myRef.orderByChild("statusOrder").startAt(Order.DAT_HANG_THANH_CONG).endAt(Order.VAN_CHUYEN).addValueEventListener(valueEventListener);
+        }
     }
 
-    private void linkdata() {
+
+
+    private void linkView() {
         rcv_fragmentComingOrder = view.findViewById(R.id.rcv_fragmentComingOrder);
         rcv_fragmentComingOrder.setLayoutManager(linearLayoutManager);
     }
@@ -84,15 +92,29 @@ public class ComingOrderFragment extends Fragment {
     private Order setData (DataSnapshot dataSnapshot){
         Order order = new Order();
         order = dataSnapshot.getValue(Order.class);
-//        order.setStatusOrder((int) dataSnapshot.child("statusOrder").getValue());
         switch (order.getStatusOrder()){
-            case 0 :
-                order.setStatusStringOrder("Giao hàng thành công");
+            case 2 :
+                order.setStatusStringOrder("Đặt hàng thành công");
                 break;
-            case 1 :
-                order.setStatusStringOrder("Đã hủy đơn hàng");
+            case 3 :
+                order.setStatusStringOrder("Đơn hàng đã được xác nhận");
+                break;
+            case 4 :
+                order.setStatusStringOrder("Đơn hàng đang được chuẩn bị");
+                break;
+            case 5 :
+                order.setStatusStringOrder("Đơn hàng đã được đóng gói");
+                break;
+            case 6 :
+                order.setStatusStringOrder("Đơn hàng đang được vận chuyển");
                 break;
         }
         return order;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        myRef.removeEventListener(valueEventListener);
     }
 }

@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.mcommerce.nhom8">
+    package="com.mcommerce.nhom8" >
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Từ sdk 29, muốn có quyền thì cần request user cho phép -->
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -15,7 +10,17 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Nhom8">
+        android:theme="@style/Theme.Nhom8" >
+        <activity
+            android:name=".auth.PointHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".setting.SettingsActivity"
+            android:exported="true" >
+        </activity>
+        <activity
+            android:name=".setting.PolicyActivity"
+            android:exported="true" />
         <activity
             android:name=".setting.FillAddressActivity"
             android:exported="false" />
@@ -35,8 +40,17 @@
             android:name=".auth.UserInfoActivity"
             android:exported="true" />
         <activity
+            android:name=".recipe.ListRecipeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".recipe.SuggestRecipeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".recipe.EachRecipeActivity"
+            android:exported="true" />
+        <activity
             android:name=".SplashScreenActivity"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

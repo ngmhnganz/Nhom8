@@ -36,7 +36,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     private DatabaseReference myRef;
     private final FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     private final ArrayList<String> productIDs;
-    private String itemID;
+    private long itemID;
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     public CartAdapter(Context context, Map<String, HashMap<String,?>> cartList, int item_layout) {
@@ -45,26 +45,25 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         this.item_layout = item_layout;
         productIDs = new ArrayList<>(cartList.keySet());
     }
-
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(item_layout,parent,false);
         return new CartViewHolder(view) ;
     }
-
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         myRef = firebaseDatabase.getReference();
-        itemID = productIDs.get(position);
-        long itemQ = (long) cartList.get(itemID).get("quantity");
+        String index = productIDs.get(position);
+        itemID = (long) cartList.get(index).get("id");
+        long itemQ = (long) cartList.get(index).get("quantity");
         switch (item_layout) {
             case R.layout.layout_cart_item: {
-                myRef.child("NguyenLieu").child(itemID).addListenerForSingleValueEvent(new ValueEventListener() {
+                myRef.child("NguyenLieu").child(String.valueOf(itemID)).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         holder.txtSanPham_lyCart.setText(snapshot.child("productName").getValue().toString());
-                        holder.txtAmount_lyCart.setText(( (Long)snapshot.child("productPrice").getValue() ).intValue()*itemQ+"VND");
+                        holder.txtAmount_lyCart.setText(( (long)snapshot.child("productPrice").getValue() )*itemQ+"VND");
                         holder.txtQuantity_lyCart.setText(itemQ+"");
                         Glide.with(context).load(snapshot.child("productImg").getValue().toString()).into(holder.imv_lyCart);
 
@@ -92,7 +91,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                                     });
                                     builder.create().show();
                                 } else {
-
                                     holder.btn_decrease_lyCart.setEnabled(true);
                                     long quantity = Long.parseLong(holder.txtQuantity_lyCart.getText().toString());
                                     holder.txtAmount_lyCart.setText( (Long)snapshot.child("productPrice").getValue()*quantity+"VND");
@@ -124,9 +122,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 break;
             }
             case R.layout.item_product_orderdetail_layout:{
-                holder.txtProductName.setText(cartList.get(itemID).get("name").toString());
-                holder.txtProductPrice.setText(cartList.get(itemID).get("price").toString());
-                holder.txtProductQuantity.setText(cartList.get(itemID).get("quantity").toString());
+                holder.txtProductName.setText(cartList.get(index).get("name").toString());
+                holder.txtProductPrice.setText(cartList.get(index).get("price").toString());
+                holder.txtProductQuantity.setText(cartList.get(index).get("quantity").toString());
                 break;
             }
         }

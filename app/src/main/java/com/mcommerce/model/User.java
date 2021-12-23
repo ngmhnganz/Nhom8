@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class User {
+    public  static final String Cart = "userCart";
+    public  static final String Order = "userOrder";
     private String userID;
     private String userName;
     private String userBirthday;
@@ -12,6 +14,8 @@ public class User {
 
     private String userAddress;
     private Map<String, HashMap<String, ?>> userCart;
+    private Map<String, HashMap<String, ?>> userLikeProduct;
+    private Map<String, HashMap<String, ?>> userLikeRecipe;
     private Map<String, HashMap<String, ?>> userOrder;
 
     public Map<String, HashMap<String, ?>> getUserOrder() {
@@ -20,6 +24,22 @@ public class User {
 
     public void setUserOrder(Map<String, HashMap<String, ?>> userOrder) {
         this.userOrder = userOrder;
+    }
+
+    public Map<String, HashMap<String, ?>> getUserLikeProduct() {
+        return userLikeProduct;
+    }
+
+    public void setUserLikeProduct(Map<String, HashMap<String, ?>> userLikeProduct) {
+        this.userLikeProduct = userLikeProduct;
+    }
+
+    public Map<String, HashMap<String, ?>> getUserLikeRecipe() {
+        return userLikeRecipe;
+    }
+
+    public void setUserLikeRecipe(Map<String, HashMap<String, ?>> userLikeRecipe) {
+        this.userLikeRecipe = userLikeRecipe;
     }
 
     public String getUserName() {

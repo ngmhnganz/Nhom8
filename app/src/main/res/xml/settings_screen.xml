@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+        android:title="Cài đặt">
+
+        <PreferenceCategory android:title="Chế độ tối">
+            <SwitchPreference
+                android:key="NIGHT"
+                android:summaryOff="Đã tắt chế độ tối"
+                android:summaryOn="Đã bật chế độ tối"
+                android:defaultValue="false"
+                />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="Thông báo">
+            <SwitchPreferenceCompat
+                android:key="TrungNoti"
+                android:summary="Nhận thông báo từ Trứng"/>
+            <SwitchPreferenceCompat
+                android:key="DiscountNoti"
+                android:summary="Nhận thông báo giảm giá" />
+        </PreferenceCategory>
+
+        <PreferenceCategory android:title="Ngôn ngữ">
+            <ListPreference
+                android:title="Chọn ngôn ngữ"
+                android:defaultValue="Vietnamese"
+                android:key="LANGUAGE"
+                android:entries="@array/items_name"
+                android:entryValues="@array/items_value"
+                />
+        </PreferenceCategory>
+
+</PreferenceScreen>

@@ -41,6 +41,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         topAnim= AnimationUtils.loadAnimation(this,R.anim.top_animation);
         image = findViewById(R.id.imgLogo);
         image.setAnimation(topAnim);
+        //Anim cho Linear Layout  chữ + Hình font đại :v
     }
 
     private void nextActivity() {

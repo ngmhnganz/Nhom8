@@ -2,20 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:padding="15dp">
 
-    <ImageView
-        android:id="@+id/imvProduct_listProduct"
+    <androidx.cardview.widget.CardView
         android:layout_width="100dp"
         android:layout_height="100dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="0dp"
+        app:cardPreventCornerOverlap="true">
+        <ImageView
+            android:id="@+id/imvProduct_listProduct"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
-        android:scaleType="fitCenter"
+            android:scaleType="fitCenter"
+            android:background="@color/colorLightSub"/>
+    </androidx.cardview.widget.CardView>
 
-        android:src="@drawable/ic_launcher_background"
-        android:background="@color/colorSecondBackground">
-
-    </ImageView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,14 +28,15 @@
         android:orientation="vertical">
 
         <TextView
+
             android:id="@+id/txtproductName_listProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
 
-            android:text="Tên nguyên liệu"
+            android:text=""
             android:textColor="@color/colorText"
             android:fontFamily="@font/gilroy_medium"
 
@@ -43,10 +49,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
 
-            android:text="500 anh em đã thích"
+            android:text=""
 
             android:fontFamily="@font/sfpro_regular"
             android:textColor="@color/colorSubText"
@@ -62,8 +68,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:layout_marginLeft="10dp"
-                android:text="24000 đ"
+                android:layout_marginStart="10dp"
+                android:text=""
                 android:textColor="@color/colorPrimary"
                 android:fontFamily="@font/sfpro_bold"
 
@@ -73,8 +79,7 @@
                 android:id="@+id/btnAdd_listProduct"
                 style="@style/btn_increase"
                 android:layout_width="30dp"
-                android:layout_height="30dp" />
-        </LinearLayout>
+                android:layout_height="30dp" />        </LinearLayout>
 
     </LinearLayout>
 

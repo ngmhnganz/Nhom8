@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/txtWelcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/sfpro_black"
@@ -38,7 +38,6 @@
         android:id="@+id/scrollView2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +47,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
             android:orientation="vertical">
 
             <LinearLayout
@@ -84,10 +82,11 @@
                 <ImageButton
                     android:id="@+id/btnSanPham_main"
                     android:layout_width="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/imagebutton_main"
-                    app:srcCompat="@drawable/ic_sanpham_main"
+                    android:background="@null"
+                    style="@style/btn_san_pham"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
@@ -95,8 +94,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/imagebutton_main"
-                    app:srcCompat="@drawable/ic_congthuc_main"
+                    android:background="@null"
+                    style="@style/btn_cong_thuc"
                     tools:ignore="SpeakableTextPresentCheck" />
 
                 <ImageButton
@@ -104,8 +103,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@drawable/imagebutton_main"
-                    app:srcCompat="@drawable/ic_goiy_main"
+                    android:background="@null"
+                    style="@style/btn_goi_y"
                     tools:ignore="SpeakableTextPresentCheck" />
 
             </LinearLayout>
@@ -128,7 +127,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/txtSeeMoreCongThuc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
@@ -163,7 +162,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/textView9"
+                    android:id="@+id/txtSeeMoreMonAn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/sfpro_medium"

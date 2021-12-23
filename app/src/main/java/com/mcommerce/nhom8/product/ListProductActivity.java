@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 
@@ -69,8 +68,7 @@ public class ListProductActivity extends AppCompatActivity {
                         list.add(product);
                     }
                 }
-                ProductAdapter productAdapter = new ProductAdapter();
-                productAdapter.setData(ListProductActivity.this,list,ProductAdapter.PRODUCT);
+                ProductAdapter productAdapter = new ProductAdapter(ListProductActivity.this,list,ProductAdapter.PRODUCT);
                 rcv_aListProduct.setAdapter(productAdapter);
                 return true;
             }
@@ -89,11 +87,10 @@ public class ListProductActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    Product p = getDataProductFromFirebase(dataSnapshot);
+                    Product p = dataSnapshot.getValue(Product.class);
                     products.add(p);
                 }
-                ProductAdapter adapter = new ProductAdapter();
-                adapter.setData(ListProductActivity.this,products,ProductAdapter.PRODUCT);
+                ProductAdapter adapter = new ProductAdapter(ListProductActivity.this,products,ProductAdapter.PRODUCT);
                 rcv_aListProduct.setAdapter(adapter);
             }
             @Override
@@ -103,25 +100,13 @@ public class ListProductActivity extends AppCompatActivity {
         //endregion
     }
 
-    private Product getDataProductFromFirebase(DataSnapshot dataSnapshot) {
-        product  = new Product();
-        product.setProductImg(dataSnapshot.child("productImg").getValue().toString());
-        product.setProductLike( ((Long) dataSnapshot.child("productLike").getValue()).intValue() );
-        product.setProductDescription(dataSnapshot.child("productDescription").getValue().toString());
-        product.setProductDetail(dataSnapshot.child("productDetail").getValue().toString());
-        product.setProductName(dataSnapshot.child("productName").getValue().toString());
-        product.setProductPrice(((Long) dataSnapshot.child("productPrice").getValue()).intValue());
-        product.setProductQuantity(((Long) dataSnapshot.child("productQuantity").getValue()).intValue());
-        product.setProductID(dataSnapshot.child("productID").getValue().toString());
-        product.setProductType(dataSnapshot.child("productType").getValue().toString());
-        return product;
-    }
 
     private void linkViews() {
         rcv_aListProduct=findViewById(R.id.rcv_aListProduct);
         btnBack_aListProduct = findViewById(R.id.btnBack_aListProduct);
         searchView_aListProduct = findViewById(R.id.searchView_aListProduct);
         rcv_aListProduct.setLayoutManager(new LinearLayoutManager(ListProductActivity.this, LinearLayoutManager.VERTICAL,false));
+        rcv_aListProduct.setAdapter(new ProductAdapter(ListProductActivity.this,null,ProductAdapter.PRODUCT));
     }
 
 }

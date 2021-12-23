@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".recipe.SuggestRecipeActivity"
+    android:background="@color/colorSecondBackground">
+
+    <LinearLayout
+        android:id="@+id/layoutAppBar_allproducts"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@drawable/header_main"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBack_allproducts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="?attr/actionBarItemBackground"
+            android:src="@drawable/ic_left_arrow_24_white" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.51"
+
+            android:fontFamily="@font/gilroy_bold"
+            android:gravity="center"
+            android:text="GỢI Ý CÔNG THỨC"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <ImageButton
+            android:id="@+id/btnCart_allproducts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_cart"
+            android:background="?attr/actionBarItemBackground" />
+
+    </LinearLayout>
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/round_corner_image"
+        android:iconifiedByDefault="false"
+        android:queryBackground="@null"
+        android:queryHint="Nhập nguyên liệu bạn muốn tìm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutAppBar_allproducts" />
+
+    <ListView
+        android:id="@+id/lvResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"/>
+
+    <com.google.android.material.chip.ChipGroup
+        android:layout_marginHorizontal="20dp"
+        android:id="@+id/resultChipCGroup"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+
+        android:layout_height="wrap_content"
+        android:paddingVertical="15dp"
+        app:chipSpacingHorizontal="5dp"
+        app:chipSpacingVertical="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lvResult">
+
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resultChipCGroup"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llFilter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/llMaterialLable_Bot"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/background_suggestrecipe"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="97"
+                            android:fontFamily="@font/sfpro_bold"
+                            android:paddingVertical="5dp"
+                            android:text="Bột"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="20dp" />
+
+                        <ImageView
+                            android:id="@+id/imvDropDownBot_SuggestRecipe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic__arrow_up_24" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llBot_RecipeMaterial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorSecondBackground" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chipBots"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="15dp"
+                            app:chipSpacingHorizontal="5dp"
+                            app:chipSpacingVertical="5dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llMaterialLable_SuaKem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/background_suggestrecipe"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="97"
+                            android:fontFamily="@font/sfpro_bold"
+                            android:paddingVertical="5dp"
+                            android:text="Sữa - Kem"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="20dp" />
+
+                        <ImageView
+                            android:id="@+id/imvDropDownSuaKem_SuggestRecipe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic__arrow_up_24" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llSuaKem_RecipeMaterial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorSecondBackground" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chipSuaKems"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="15dp"
+                            app:chipSpacingHorizontal="5dp"
+                            app:chipSpacingVertical="5dp" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llMaterialLable_Bo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/background_suggestrecipe"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="97"
+                            android:fontFamily="@font/sfpro_bold"
+                            android:paddingVertical="5dp"
+                            android:text="Bơ"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="20dp" />
+
+                        <ImageView
+                            android:id="@+id/imvDropDownBo_SuggestRecipe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic__arrow_up_24" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llBo_RecipeMaterial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorSecondBackground" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chipBos"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="15dp"
+                            app:chipSpacingHorizontal="5dp"
+                            app:chipSpacingVertical="5dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llMaterialLable_Khac"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="10dp"
+                    android:background="@drawable/background_suggestrecipe"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="15dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="100">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="97"
+                            android:fontFamily="@font/sfpro_bold"
+                            android:paddingVertical="5dp"
+                            android:text="Khác"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="20dp" />
+
+                        <ImageView
+                            android:id="@+id/imvDropDownKhac_SuggestRecipe"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic__arrow_up_24" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/llKhac_RecipeMaterial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/colorSecondBackground" />
+
+                        <com.google.android.material.chip.ChipGroup
+                            android:id="@+id/chipKhacs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="15dp"
+                            app:chipSpacingHorizontal="5dp"
+                            app:chipSpacingVertical="5dp" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnSearch"
+                style="@style/button_default"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="40dp"
+                android:layout_marginStart="122dp"
+                android:layout_marginEnd="80dp"
+                android:text="Tìm kiếm" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

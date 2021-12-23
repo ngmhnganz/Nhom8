@@ -22,13 +22,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:src="@drawable/ic_left_arrow_24_white"
             android:background="?attr/actionBarItemBackground" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="0.51"
-
             android:fontFamily="@font/gilroy_bold"
             android:gravity="center"
             android:text="ĐĂNG KÝ TÀI KHOẢN"
@@ -36,11 +36,11 @@
             android:textSize="20sp" />
 
         <ImageButton
+            android:clickable="false"
             android:id="@+id/btnCart_aSignUp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-
             android:background="?attr/actionBarItemBackground" />
     </LinearLayout>
 
@@ -224,7 +224,7 @@
                     android:gravity="center">
 
                     <CheckBox
-                        android:id="@+id/chk_"
+                        android:id="@+id/chkAccept"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
