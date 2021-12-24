@@ -1,19 +1,17 @@
 package com.mcommerce.nhom8.setting;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import android.app.FragmentTransaction;
-import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatDelegate;
+import android.widget.Button;
+import android.widget.ImageButton;
+
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -21,18 +19,19 @@ import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
 
 import com.mcommerce.nhom8.R;
-import com.mcommerce.nhom8.auth.LoginActivity;
-import com.mcommerce.nhom8.recipe.EachRecipeActivity;
 
 public class SettingsActivity extends AppCompatActivity {
     private SwitchPreference darkModeSwitch;
     private Object Preference;
 
+    ImageButton btnBack;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings_activity);
+        setContentView(R.layout.activity_setting);
 
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> finish());
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()

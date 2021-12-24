@@ -63,7 +63,6 @@ public class WishList extends Fragment {
             });
         }
 
-
     }
     View.OnClickListener myClick=new View.OnClickListener(){
         @Override

@@ -38,8 +38,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
 
     private Context context;
     private int item_layout,
-                type,
-                amount;
+                type;
+    long amount;
     private String s;
     private List<Order> orderList;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -70,7 +70,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
 
                     for (String i :  order.getItemOrder().keySet()) {
                         s = String.valueOf(order.getItemOrder().get(i).get("quantity"));
-                        amount += Integer.parseInt(s);
+                        amount += Long.parseLong(s);
                     }
                     holder.txtPrice_iComingOrder.setText(""+order.getTotalOrder() +"đ");
 
@@ -115,11 +115,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                     break;
 
                 case HISTORY_ITEM:
-                    amount =0;
+                    amount =0L;
 
                     for (String i :  order.getItemOrder().keySet()) {
                         s = String.valueOf(order.getItemOrder().get(i).get("quantity"));
-                        amount += Integer.parseInt(s);
+                        amount += Long.parseLong(s);
                     }
 
                     holder.txtPrice_iHistoryOrder.setText(""+order.getTotalOrder() +"đ");

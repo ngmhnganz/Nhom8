@@ -78,9 +78,9 @@ public class WishRecipeAdapter extends  RecyclerView.Adapter<WishRecipeAdapter.W
                     public void onClick(View view) {
                         if (!holder.chkLike_WL.isChecked()){
                             ref.child(Key.USER).child(user.getUid()).child(User.LikeRecipe).child(wishID.get(holder.getBindingAdapterPosition())).removeValue();
+                            ref.child(Key.RECIPE).child(wishID.get(holder.getBindingAdapterPosition())).child(Recipe.Like).setValue(ServerValue.increment(-1));
                             wishListR.remove(wishID.get(holder.getBindingAdapterPosition()));
                             wishID.remove(wishID.get(holder.getBindingAdapterPosition()));
-                            ref.child(Key.RECIPE).child(wishID.get(holder.getBindingAdapterPosition())).child(Recipe.Like).setValue(ServerValue.increment(-1));
                             notifyItemRemoved(holder.getBindingAdapterPosition());
                         }
                     }

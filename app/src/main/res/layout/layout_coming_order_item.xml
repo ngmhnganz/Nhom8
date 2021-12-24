@@ -82,16 +82,18 @@
                         android:id="@+id/txtPrice_iComingOrder"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
-                        android:text="Giá"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:text="fffffffffff"
                         android:textColor="@color/colorPrimary"
                         android:fontFamily="@font/sfpro_bold" />
                     <TextView
                         android:id="@+id/txtAmount_iComingOrder"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
-                        android:text="Giá"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:text="ffffffffffffffffff"
                         android:textColor="@color/colorSubText"
                         android:fontFamily="@font/sfpro_regular" />
                     <TextView
@@ -99,7 +101,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="Giá"
+                        android:text="Gdsddđiá"
                         android:textColor="@color/colorSubText"
                         android:fontFamily="@font/sfpro_regular" />
 

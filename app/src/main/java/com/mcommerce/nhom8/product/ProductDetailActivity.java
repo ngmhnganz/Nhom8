@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,9 +48,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     private EditText edtQuantity_aProductDetail;
 
     private ImageButton btnBack_productDetail,
-            btnBackOuter_productDetail,
-            btn_minus,
-            btn_plus;
+            btnBackOuter_productDetail;
+    private Button btn_minus, btn_plus;
 
     private CheckBox chkLike1, chkLike2;
 
@@ -58,6 +59,8 @@ public class ProductDetailActivity extends AppCompatActivity {
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private DatabaseReference cartRef, Likeref, productRef;
     private String btnText;
+    long unitPrice, quantity;
+
 
 
     @Override
@@ -154,8 +157,15 @@ public class ProductDetailActivity extends AppCompatActivity {
             if (edtQuantity_aProductDetail.getText().toString().equals("0")) {
                 btnText = "Thêm vào giỏ hàng";
                 btnAddProduct_productDetail.setText(btnText);
-                cartRef.child(String.valueOf(productID)).removeValue().addOnSuccessListener(unused ->
-                        Toast.makeText(ProductDetailActivity.this,"Sản phẩm đã được xóa khỏi giỏ hàng",Toast.LENGTH_SHORT).show());
+                cartRef.child("id"+product.getProductID()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful())
+                            Toast.makeText(ProductDetailActivity.this,"Sản phẩm đã được xóa khỏi giỏ hàng",Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(ProductDetailActivity.this,"Chọn số lượng đã",Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             } else {
                 // nếu thêm vào giỏ hàng thành công
@@ -216,6 +226,7 @@ public class ProductDetailActivity extends AppCompatActivity {
     }
 
     private void addEvent() {
+
         btnBack_productDetail.setOnClickListener(v -> finish());
 
         btnBackOuter_productDetail.setOnClickListener(v -> finish());
@@ -227,10 +238,24 @@ public class ProductDetailActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                btn_minus.setEnabled(!edtQuantity_aProductDetail.getText().toString().equals("0"));
-                long unitPrice = product.getProductPrice();
-                int quantity = Integer.parseInt(edtQuantity_aProductDetail.getText().toString());
-                btnAddProduct_productDetail.setText(btnText+"- "+unitPrice*quantity+" đ");
+                if (!edtQuantity_aProductDetail.getText().toString().equals("0") && !edtQuantity_aProductDetail.getText().toString().isEmpty()) {
+                    btn_minus.setEnabled(true);
+                    btnAddProduct_productDetail.setEnabled(true);
+                    unitPrice = product.getProductPrice();
+                    if (s.toString().length() <= 10){
+                        quantity = Long.parseLong(edtQuantity_aProductDetail.getText().toString());
+                        btnAddProduct_productDetail.setText(btnText+"- "+unitPrice*quantity+" đ");
+                    }
+                }
+                else if (s.toString().isEmpty()){
+                    btnAddProduct_productDetail.setEnabled(false);
+                    btnAddProduct_productDetail.setText(btnText);
+                }
+                else {
+                    btn_minus.setEnabled(false);
+                    btnAddProduct_productDetail.setEnabled(true);
+                    btnAddProduct_productDetail.setText(btnText);
+                }
             }
 
             @Override
@@ -239,9 +264,18 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         });
 
-        btn_minus.setOnClickListener(v -> edtQuantity_aProductDetail.setText((Integer.parseInt((edtQuantity_aProductDetail.getText().toString()))-1)+""));
+        btn_minus.setOnClickListener(v -> {
+            if (!edtQuantity_aProductDetail.getText().toString().isEmpty()){
+                edtQuantity_aProductDetail.setText((Long.parseLong((edtQuantity_aProductDetail.getText().toString()))-1)+"");
+            }
+        });
 
-        btn_plus.setOnClickListener(v -> edtQuantity_aProductDetail.setText((Integer.parseInt((edtQuantity_aProductDetail.getText().toString()))+1)+""));
+        btn_plus.setOnClickListener(v -> {
+            if (!edtQuantity_aProductDetail.getText().toString().isEmpty()){
+                if (!edtQuantity_aProductDetail.getText().toString().equals("9999999999"))
+                    edtQuantity_aProductDetail.setText((Long.parseLong((edtQuantity_aProductDetail.getText().toString()))+1)+"");
+            }
+        });
 
         if (user != null) {
             btnAddProduct_productDetail.setOnClickListener(xuLyGioHang);

@@ -63,7 +63,7 @@ public class WishProductAdapter extends  RecyclerView.Adapter<WishProductAdapter
     public void onBindViewHolder(@NonNull WishViewHolder holder, int position) {
         String key = wishIDs.get(position);
         long productID = (long) wishList.get(key).get("id");
-        long selectedID;
+
         ref.child(Key.PRODUCT).child(String.valueOf(productID)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -73,16 +73,15 @@ public class WishProductAdapter extends  RecyclerView.Adapter<WishProductAdapter
                 holder.txtPrice_WishP.setText(product.getProductPrice()+" đ");
                 holder.txtLike_WishP.setText(product.getProductLike()+" người đã thích");
                 holder.chkLike_WL.setChecked(true);
-                holder.chkLike_WL.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (!isChecked) {
-                            ref.child(Key.USER).child(user.getUid()).child(User.LikeProduct).child(wishIDs.get(holder.getBindingAdapterPosition())).removeValue();
-                            wishList.remove(wishIDs.get(holder.getBindingAdapterPosition()));
-                            wishIDs.remove(wishIDs.get(holder.getBindingAdapterPosition()));
-                            ref.child(Key.PRODUCT).child(wishIDs.get(holder.getBindingAdapterPosition())).child(Product.Like).setValue(ServerValue.increment(-1));
-                            notifyItemRemoved(holder.getBindingAdapterPosition());
-                        }
+                holder.chkLike_WL.setOnClickListener(v -> {
+                    {
+                        String keySelected = wishIDs.get(holder.getBindingAdapterPosition());
+                        ref.child(Key.USER).child(user.getUid()).child(User.LikeProduct).child(wishIDs.get(holder.getBindingAdapterPosition())).removeValue();
+                        ref.child(Key.PRODUCT).child(String.valueOf(wishList.get(keySelected).get("id"))).child(Product.Like).setValue(ServerValue.increment(-1));
+                        wishList.remove(wishIDs.get(holder.getBindingAdapterPosition()));
+                        wishIDs.remove(wishIDs.get(holder.getBindingAdapterPosition()));
+                        notifyItemRemoved(holder.getBindingAdapterPosition());
+
                     }
                 });
 

@@ -1,5 +1,6 @@
 package com.mcommerce.adapter;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -88,6 +89,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                                         cartList.remove(productIDs.get(holder.getBindingAdapterPosition()));
                                         productIDs.remove(productIDs.get(holder.getBindingAdapterPosition()));
                                         notifyItemRemoved(holder.getBindingAdapterPosition());
+                                    });
+
+                                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                                        @Override
+                                        public void onCancel(DialogInterface dialog) {
+                                            holder.txtAmount_lyCart.setText(( (long)snapshot.child("productPrice").getValue() )*itemQ+"VND");
+                                            holder.txtQuantity_lyCart.setText(itemQ+"");
+                                        }
                                     });
                                     builder.create().show();
                                 } else {
