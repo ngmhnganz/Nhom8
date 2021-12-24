@@ -165,29 +165,31 @@ public class EachRecipeActivity extends AppCompatActivity {
     private void initUI() {
         txtRecipeName_recipe.setText("Công thức làm "+recipe.getRecipeName());
         Glide.with(EachRecipeActivity.this).load(recipe.getRecipeImage()).into(imvRecipe);
-        for (HashMap<String,?>  ingredient: recipeIngredient.values()) {
-            chip = new Chip(this);
-            chip.setText(ingredient.get("name").toString());
-            chip.setId(  ( (Long)ingredient.get("id") ).intValue() );
+        if (recipeIngredient!=null){
+            for (HashMap<String,?>  ingredient: recipeIngredient.values()) {
+                chip = new Chip(this);
+                chip.setText(ingredient.get("name").toString());
+                chip.setId(  ( (Long)ingredient.get("id") ).intValue() );
 
-            if (filter!= null && filter.contains(chip.getId())){
-                chipDrawable= ChipDrawable.createFromAttributes(this,
-                        null,
-                        0,
-                        R.style.available_chip);
-                chip.setTextColor(ContextCompat.getColorStateList(this, R.color.available_chip_text_selector));
-            } else {
-                chipDrawable= ChipDrawable.createFromAttributes(this,
-                        null,
-                        0,
-                        R.style.unavailable_chip);
-                chip.setTextColor(ContextCompat.getColorStateList(this, R.color.unavailable_chip_text_selector));
+                if (filter!= null && filter.contains(chip.getId())){
+                    chipDrawable= ChipDrawable.createFromAttributes(this,
+                            null,
+                            0,
+                            R.style.available_chip);
+                    chip.setTextColor(ContextCompat.getColorStateList(this, R.color.available_chip_text_selector));
+                } else {
+                    chipDrawable= ChipDrawable.createFromAttributes(this,
+                            null,
+                            0,
+                            R.style.unavailable_chip);
+                    chip.setTextColor(ContextCompat.getColorStateList(this, R.color.unavailable_chip_text_selector));
+                }
+                chip.setCheckedIconTint(ContextCompat.getColorStateList(this,R.color.white));
+
+                chip.setChipDrawable(chipDrawable);
+                chip.setEnsureMinTouchTargetSize(false);
+                chipGroup.addView(chip);
             }
-            chip.setCheckedIconTint(ContextCompat.getColorStateList(this,R.color.white));
-
-            chip.setChipDrawable(chipDrawable);
-            chip.setEnsureMinTouchTargetSize(false);
-            chipGroup.addView(chip);
         }
         String  khauphan = "Khẩu phần: ",
                 khauphan_content = recipe.getRecipeRation() + " người",

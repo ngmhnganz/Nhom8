@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +26,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.CartAdapter;
 import com.mcommerce.model.Order;
@@ -35,8 +33,6 @@ import com.mcommerce.model.Product;
 import com.mcommerce.model.User;
 import com.mcommerce.nhom8.MainActivity;
 import com.mcommerce.nhom8.R;
-import com.mcommerce.nhom8.order.CartActivity;
-
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -248,12 +244,7 @@ public class ConfirmOrderFragment extends Fragment {
 
         txtChangeInfo.setOnClickListener(editInfomation);
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-            }
-        });
+        btnBack.setOnClickListener(view -> getActivity().finish());
 
     }
 
