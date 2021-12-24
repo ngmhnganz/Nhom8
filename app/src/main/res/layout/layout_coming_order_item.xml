@@ -79,29 +79,31 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp">
                     <TextView
+                        android:maxLength="15"
                         android:id="@+id/txtPrice_iComingOrder"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:maxWidth="100dp"
                         android:maxLines="1"
-                        android:ellipsize="end"
-                        android:text="fffffffffff"
+                        android:ellipsize="middle"
                         android:textColor="@color/colorPrimary"
                         android:fontFamily="@font/sfpro_bold" />
                     <TextView
+                        android:maxLength="20"
                         android:id="@+id/txtAmount_iComingOrder"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:maxWidth="100dp"
                         android:maxLines="1"
-                        android:ellipsize="end"
-                        android:text="ffffffffffffffffff"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="middle"
+                        android:text=""
                         android:textColor="@color/colorSubText"
                         android:fontFamily="@font/sfpro_regular" />
                     <TextView
                         android:id="@+id/txtPayment_iComingOrder"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
-                        android:text="Gdsddđiá"
+                        android:maxWidth="60dp"
                         android:textColor="@color/colorSubText"
                         android:fontFamily="@font/sfpro_regular" />
 

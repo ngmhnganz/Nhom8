@@ -315,12 +315,6 @@ public class ConfirmOrderFragment extends Fragment {
             ref = firebaseDatabase.getReference().child("User").child(user.getUid());
             ref.child("userOrder").child(order.getIdOrder()).setValue(order);
 
-            if (order.getDiscountOrder()==0){
-                ref.child("userPoint").setValue(ServerValue.increment(sum/100));
-            } else {
-                ref.child("userPoint").setValue(ServerValue.increment(-point));
-            }
-
             Intent intent = new Intent(getActivity(), MainActivity.class);
             intent.putExtra(MainActivity.SELECTED_FRAGMENT,MainActivity.ORDER_FRAGMENT);
             startActivity(intent);
