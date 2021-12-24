@@ -1,5 +1,4 @@
 package com.mcommerce.nhom8.setting;
-
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Context;
@@ -7,10 +6,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mcommerce.adapter.DiaPhuongAdapter;
@@ -33,6 +31,7 @@ public class FillAddressActivity extends AppCompatActivity {
 
     AutoCompleteTextView txtProvince, txtDistrict, txtWard;
     Button btnXong;
+    ImageButton btnBack;
     Cursor cursor;
     TextInputLayout inpWard, inpProvince, inpDistrict, inpDetail;
     Intent returnIntent;
@@ -92,6 +91,7 @@ public class FillAddressActivity extends AppCompatActivity {
         txtDistrict = findViewById(R.id.txtDistrict);
         txtWard = findViewById(R.id.txtWard);
         btnXong = findViewById(R.id.btnXong);
+        btnBack = findViewById(R.id.btnBack);
 
         inpWard = findViewById(R.id.inpWard);
         inpProvince = findViewById(R.id.inpProvince);
@@ -103,24 +103,18 @@ public class FillAddressActivity extends AppCompatActivity {
         db = openOrCreateDatabase(DB_NAME, MODE_PRIVATE, null);
         cursor=db.rawQuery("SELECT*FROM province",null);
         txtProvince.setAdapter(initAutoComplete(cursor,this));
-        txtProvince.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                DiaPhuong district = (DiaPhuong) parent.getItemAtPosition(position);
-                cursor=db.rawQuery("SELECT*FROM district WHERE province_id ='"+district.getId()+"'",null);
-                txtDistrict.setText("");
+        txtProvince.setOnItemClickListener((parent, view, position, id) -> {
+            DiaPhuong district = (DiaPhuong) parent.getItemAtPosition(position);
+            cursor=db.rawQuery("SELECT*FROM district WHERE province_id ='"+district.getId()+"'",null);
+            txtDistrict.setText("");
+            txtWard.setText("");
+            txtDistrict.setAdapter(initAutoComplete(cursor, getBaseContext()));
+            txtDistrict.setOnItemClickListener((parent1, view1, position1, id1) -> {
+                DiaPhuong ward = (DiaPhuong) parent1.getItemAtPosition(position1);
+                cursor=db.rawQuery("SELECT*FROM ward WHERE district_id ='"+ward.getId()+"'",null);
                 txtWard.setText("");
-                txtDistrict.setAdapter(initAutoComplete(cursor, getBaseContext()));
-                txtDistrict.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        DiaPhuong ward = (DiaPhuong) parent.getItemAtPosition(position);
-                        cursor=db.rawQuery("SELECT*FROM ward WHERE district_id ='"+ward.getId()+"'",null);
-                        txtWard.setText("");
-                        txtWard.setAdapter(initAutoComplete(cursor, getBaseContext()));
-                    }
-                });
-            }
+                txtWard.setAdapter(initAutoComplete(cursor, getBaseContext()));
+            });
         });
     }
 
@@ -142,6 +136,7 @@ public class FillAddressActivity extends AppCompatActivity {
                 finish();
             }
         });
+        btnBack.setOnClickListener(v -> finish());
     }
 
     private boolean ValidateInputs(){

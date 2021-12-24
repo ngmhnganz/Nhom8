@@ -146,7 +146,6 @@ public class ProductDetailActivity extends AppCompatActivity {
                 }
             });
         }
-
     }
 
     View.OnClickListener xuLyGioHang = new View.OnClickListener() {
@@ -186,14 +185,13 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
     };
 
-    View.OnClickListener gioHangDangNhap = v -> yeuCauDangNhap();
-
-    CompoundButton.OnCheckedChangeListener xuLyYeuThich = new CompoundButton.OnCheckedChangeListener() {
+    View.OnClickListener yeuCauDangNhap = v -> yeuCauDangNhap();
+    View.OnClickListener xuLyYeuThich = new View.OnClickListener() {
         @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        public void onClick(View v) {
             int productID = (int) product.getProductID();
             productRef = FirebaseDatabase.getInstance().getReference(Key.PRODUCT+"/"+productID+"/"+Product.Like);
-            if (isChecked) {
+            if (chkLike1.isChecked()) {
 
                 Likeref.child("id"+productID).child("name").setValue(product.getProductName());
                 Likeref.child("id"+productID).child("id").setValue(productID);
@@ -207,8 +205,6 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         }
     };
-
-    CompoundButton.OnCheckedChangeListener yeuThichDangNhap = (buttonView, isChecked) -> yeuCauDangNhap();
 
     private void yeuCauDangNhap() {
         Dialog requestUser = new Dialog(ProductDetailActivity.this);
@@ -279,11 +275,11 @@ public class ProductDetailActivity extends AppCompatActivity {
 
         if (user != null) {
             btnAddProduct_productDetail.setOnClickListener(xuLyGioHang);
-            chkLike1.setOnCheckedChangeListener(xuLyYeuThich);
+            chkLike1.setOnClickListener(xuLyYeuThich);
         }
         else {
-            btnAddProduct_productDetail.setOnClickListener(gioHangDangNhap);
-            chkLike1.setOnCheckedChangeListener(yeuThichDangNhap);
+            btnAddProduct_productDetail.setOnClickListener(yeuCauDangNhap);
+            chkLike1.setOnClickListener(yeuCauDangNhap);
         }
     }
 }

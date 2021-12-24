@@ -129,7 +129,6 @@
                         android:layout_gravity="center"
                         android:inputType="date"
                         android:maxLines="1"
-                        android:text=""
                         android:textColor="@color/colorText" />
                 </com.google.android.material.textfield.TextInputLayout>
 

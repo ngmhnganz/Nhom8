@@ -108,8 +108,8 @@ public class EachRecipeActivity extends AppCompatActivity {
             Likeref.child("id"+recipe.getRecipeID()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.getValue()!=null){
-                        chkLike.setChecked(true);
+                    if (snapshot.getValue()==null){
+                        chkLike.setChecked(false);
                     }
                 }
                 @Override
@@ -138,10 +138,10 @@ public class EachRecipeActivity extends AppCompatActivity {
                     Toast.makeText(EachRecipeActivity.this, "Thêm hàng thành công",Toast.LENGTH_SHORT).show();
                 }
             });
-            chkLike.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            chkLike.setOnClickListener((v) -> {
                 String recipeIDs = recipe.getRecipeID();
                 recipeRef = FirebaseDatabase.getInstance().getReference(Key.RECIPE+"/"+recipeIDs+"/"+Recipe.Like);
-                if (isChecked) {
+                if (chkLike.isChecked()) {
                     Likeref.child("id"+recipeIDs).child("name").setValue(recipe.getRecipeName());
                     Likeref.child("id"+recipeIDs).child("id").setValue(recipeIDs);
                     Likeref.child("id"+recipeIDs).child("des").setValue(recipe.getRecipeDescription());

@@ -115,6 +115,7 @@
                     <CheckBox
                         android:id="@+id/chkLike"
                         style="@style/checked_wish"
+                        android:checked="true"
                         android:layout_width="30dp"
                         android:layout_height="30dp" />
                 </LinearLayout>
