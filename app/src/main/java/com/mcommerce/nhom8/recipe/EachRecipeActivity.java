@@ -14,7 +14,6 @@ import android.text.style.TextAppearanceSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -108,8 +107,8 @@ public class EachRecipeActivity extends AppCompatActivity {
             Likeref.child("id"+recipe.getRecipeID()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.getValue()==null){
-                        chkLike.setChecked(false);
+                    if (snapshot.getValue()!=null){
+                        chkLike.setChecked(true);
                     }
                 }
                 @Override
@@ -156,8 +155,8 @@ public class EachRecipeActivity extends AppCompatActivity {
             });
         }
         else {
-            btnAddToCart_Recipe.setOnClickListener(requestSignInCart);
-            chkLike.setOnCheckedChangeListener(requestSignInLike);
+            btnAddToCart_Recipe.setOnClickListener(requestSignIn);
+            chkLike.setOnClickListener(requestSignIn);
         }
 
     }
@@ -191,6 +190,8 @@ public class EachRecipeActivity extends AppCompatActivity {
                 chipGroup.addView(chip);
             }
         }
+
+
         String  khauphan = "Khẩu phần: ",
                 khauphan_content = recipe.getRecipeRation() + " người",
                 thoigian = " - Thời gian: ",
@@ -218,9 +219,11 @@ public class EachRecipeActivity extends AppCompatActivity {
         String step, step_content;
         SpannableStringBuilder instruction = new SpannableStringBuilder();
         String content;
-        s =0; int e2;
+        s =0;
+        int e2;
         for (int i =0; i<steps.length; i=i+2){
-            step = steps[i]; step_content = steps[i+1]+"\n";
+            step = steps[i];
+            step_content = steps[i+1]+"\n";
             e = s+ step.length();
             e2 = e + step_content.length();
             content = step+step_content;
@@ -245,12 +248,8 @@ public class EachRecipeActivity extends AppCompatActivity {
         }
     };
 
-    View.OnClickListener requestSignInCart = v -> {
+    View.OnClickListener requestSignIn = v -> {
        openRequestDialog();
-    };
-
-    CompoundButton.OnCheckedChangeListener requestSignInLike = (buttonView, isChecked) -> {
-        openRequestDialog();
     };
 
     private void openRequestDialog() {

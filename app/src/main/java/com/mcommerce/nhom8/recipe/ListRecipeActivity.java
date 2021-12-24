@@ -69,7 +69,6 @@ public class ListRecipeActivity extends AppCompatActivity {
         ref.child(Key.RECIPE).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 recipe = new Recipe();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                     recipe = dataSnapshot.getValue(Recipe.class);
@@ -81,7 +80,8 @@ public class ListRecipeActivity extends AppCompatActivity {
                         for (HashMap<String,?> value: recipe.getRecipeIngredient().values()) {
                             ingredients.add( ( (Long) value.get("id")).intValue() );
                         }
-                        if (check(ingredients)) recipeList.add(recipe);
+                        if (check(ingredients))
+                            recipeList.add(recipe);
                     }
                 }
                 initAdapter();
@@ -125,8 +125,8 @@ public class ListRecipeActivity extends AppCompatActivity {
 
     private boolean check(List<Integer> ingredients){
         Collections.sort(ingredients);
-        int i =0; int j =0;
 
+        int i =0;   int j =0;
         while ((i < ingredients.size()) && (j < filter.size())) {
             while (filter.get(j) > ingredients.get(i)){
                 i = i+1;
@@ -134,13 +134,15 @@ public class ListRecipeActivity extends AppCompatActivity {
                     return false;
                 }
             }
+
             if (!filter.get(j).equals(ingredients.get(i)))
                 return false;
             else {
                 i = i+1;
                 j= j+1;
             }
-            if (j<filter.size() && i>= ingredients.size())
+
+            if (j < filter.size() && i >= ingredients.size())
                 return false;
         }
         return true;

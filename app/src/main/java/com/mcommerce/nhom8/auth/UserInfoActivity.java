@@ -66,7 +66,7 @@ public class UserInfoActivity extends AppCompatActivity {
     private static final int REQUEST_GALLERY =2;
 
     private MaterialAutoCompleteTextView txtGender;
-    private ImageView imv_aUserInfo;
+    private ImageView imv_aUserInfo, imv_edit;
     private TextInputLayout inpUserEmail_aUserInfo,
                             inpUserName_aUserInfo,
                             inpUserBirthday_aUserInfo,
@@ -99,6 +99,7 @@ public class UserInfoActivity extends AppCompatActivity {
     private void linkview() {
         txtGender = findViewById(R.id.txtGender);
         imv_aUserInfo = findViewById(R.id.imv_aUserInfo);
+        imv_edit = findViewById(R.id.imv_edit);
 
         inpUserEmail_aUserInfo = findViewById(R.id.inpUserEmail_aUserInfo);
         inpUserName_aUserInfo = findViewById(R.id.inpUserName_aUserInfo);
@@ -234,14 +235,18 @@ public class UserInfoActivity extends AppCompatActivity {
             createBottomSheet();
             sheetDialog.show();
         });
+        imv_edit.setOnClickListener(v -> {
+            createBottomSheet();
+            sheetDialog.show();
+        });
 
         inpUserAdress_aUserInfo.getEditText().setOnClickListener(v-> {
             Intent intent = new Intent(UserInfoActivity.this, FillAddressActivity.class);
             getAdress.launch(intent);
         });
-
-
     }
+
+
 
     private void checkValidInput(){
         inpUserBirthday_aUserInfo.getEditText().setOnClickListener(v -> {

@@ -9,11 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,12 +20,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.mcommerce.model.User;
 import com.mcommerce.nhom8.R;
+import com.mcommerce.util.Key;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
@@ -85,7 +84,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                                         holder.txtQuantity_lyCart.setText("1");
                                     });
                                     builder.setPositiveButton("Xóa", (dialog, v) -> {
-                                        myRef.child("User").child(user.getUid()).child("userCart").child(productIDs.get(holder.getBindingAdapterPosition())).removeValue();
+                                        myRef.child(Key.USER).child(user.getUid()).child(User.Cart).child(productIDs.get(holder.getBindingAdapterPosition())).removeValue();
                                         cartList.remove(productIDs.get(holder.getBindingAdapterPosition()));
                                         productIDs.remove(productIDs.get(holder.getBindingAdapterPosition()));
                                         notifyItemRemoved(holder.getBindingAdapterPosition());
@@ -114,12 +113,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                         });
 
                         holder.btn_decrease_lyCart.setOnClickListener(v-> {
-                            int currentQuantity = Integer.parseInt(holder.txtQuantity_lyCart.getText().toString());
+                            long currentQuantity = Long.parseLong(holder.txtQuantity_lyCart.getText().toString());
                             holder.txtQuantity_lyCart.setText(String.valueOf(currentQuantity-1));
                         });
 
                         holder.btn_increase_lyCart.setOnClickListener(v-> {
-                            int currentQuantity = Integer.parseInt(holder.txtQuantity_lyCart.getText().toString());
+                            long currentQuantity = Long.parseLong(holder.txtQuantity_lyCart.getText().toString());
                             holder.txtQuantity_lyCart.setText(String.valueOf(currentQuantity+1));
                         });
                     }
@@ -149,9 +148,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         TextView    txtSanPham_lyCart,
                     txtAmount_lyCart,
                     txtQuantity_lyCart,
-                txtProductQuantity,
-                txtProductName,
-                txtProductPrice;
+                    txtProductQuantity,
+                    txtProductName,
+                    txtProductPrice;
         Button      btn_decrease_lyCart,
                     btn_increase_lyCart;
         ImageView   imv_lyCart;
@@ -162,10 +161,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                 case R.layout.layout_cart_item: {
                     txtSanPham_lyCart = itemView.findViewById(R.id.txtSanPham_lyCart);
                     txtAmount_lyCart = itemView.findViewById(R.id.txtAmount_lyCart);
-
                     txtQuantity_lyCart = itemView.findViewById(R.id.txtQuantity_lyCart);
                     btn_decrease_lyCart = itemView.findViewById(R.id.btn_decrease_lyCart);
-
                     btn_increase_lyCart = itemView.findViewById(R.id.btn_increase_lyCart);
                     imv_lyCart = itemView.findViewById(R.id.imv_lyCart);
                     break;
@@ -177,8 +174,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
                     break;
                 }
             }
-
-
         }
     }
 }

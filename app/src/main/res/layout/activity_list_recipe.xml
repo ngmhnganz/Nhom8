@@ -33,8 +33,7 @@
             android:background="@drawable/round_corner_image"
             android:iconifiedByDefault="false"
             android:queryBackground="@null"
-            android:queryHint="Nhập nguyên liệu bạn muốn tìm"
-            />
+            android:queryHint="Nhập tên công thức"/>
 
         <ImageButton
             android:id="@+id/btnCart"

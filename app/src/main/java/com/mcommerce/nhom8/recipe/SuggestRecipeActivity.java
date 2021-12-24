@@ -155,10 +155,11 @@ public class SuggestRecipeActivity extends AppCompatActivity {
         });
 
         lvResult.setOnItemClickListener((parent, view, position, id) -> {
-            if (!filter.contains((int) results.get(position).getId())){
+            if ( !filter.contains((int) results.get(position).getId())){
+
                 filter.add((int) results.get(position).getId());
-                System.out.println("đây nè "+ filter.toString());
                 inputCHip(resultChipCGroup, results.get(position), null);
+
             }
             searchView.clearFocus();
             searchView.setQuery("", false);
@@ -283,7 +284,7 @@ public class SuggestRecipeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 filter.remove((Integer) (int) ingredient.getId());
                 chipGroup.removeView(v);
-                System.out.println("đây nè "+filter.toString());
+
             }
         });
     }

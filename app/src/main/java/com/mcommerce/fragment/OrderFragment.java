@@ -93,7 +93,6 @@ public class OrderFragment extends Fragment {
     };
 
     private void loadFragment(Fragment fragment) {
-        // load fragment
         FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
         transaction.replace(R.id.containerOrderLists_orderactivity, fragment);
         transaction.commit();

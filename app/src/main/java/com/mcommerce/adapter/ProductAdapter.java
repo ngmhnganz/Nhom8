@@ -50,17 +50,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             case PRODUCT:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_listproduct_layout,parent,false);
                 break;
-
-
         }
-
         return new ProductViewHolder(view) ;
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-
         if(productList == null) {
             AnimationDrawable animationDrawable;
             switch (type){
@@ -80,8 +76,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     animationDrawable.start();
                     break;
             }
-
-        } else {
+        }
+        else {
             Product product = productList.get(position);
             switch (type){
                 case PRODUCT:
@@ -123,8 +119,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 }
             });
         }
-
-
     }
 
     @Override
@@ -167,9 +161,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     btnAdd_listProduct = itemView.findViewById(R.id.btnAdd_listProduct);
                     break;
             }
-
             itemView.setOnClickListener(this);
-
         }
 
         public void setItemClickListener(RecyclerViewItemClickListener itemClickListener)
