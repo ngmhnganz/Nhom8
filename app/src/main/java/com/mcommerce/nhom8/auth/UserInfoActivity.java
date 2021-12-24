@@ -442,6 +442,7 @@ public class UserInfoActivity extends AppCompatActivity {
                         Toast.makeText(this,"Vui lòng cho phép truy cập vào thư viện", Toast.LENGTH_SHORT).show();
                     }
                 }
+                break;
             }
             case REQUEST_CAMERA:{
                 if (grantResults.length>0){
@@ -451,6 +452,7 @@ public class UserInfoActivity extends AppCompatActivity {
                         Toast.makeText(this,"Vui lòng cho phép truy cập vào máy ảnh", Toast.LENGTH_SHORT).show();
                     }
                 }
+                break;
             }
         }
     }
