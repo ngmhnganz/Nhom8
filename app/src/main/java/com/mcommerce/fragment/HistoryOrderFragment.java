@@ -25,7 +25,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.OrderAdapter;
 import com.mcommerce.model.Order;
@@ -35,9 +34,7 @@ import com.mcommerce.nhom8.R;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 public class HistoryOrderFragment extends Fragment {
 
@@ -53,7 +50,7 @@ public class HistoryOrderFragment extends Fragment {
     long startDate, endDate;
     private LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false);
 
-    private DatabaseReference myRef;
+    private DatabaseReference ref;
     private static FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Nullable
@@ -83,7 +80,7 @@ public class HistoryOrderFragment extends Fragment {
 
         @Override
         public void onCancelled(@NonNull DatabaseError error) {
-
+            Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_LONG);
         }
     };
 
@@ -92,8 +89,8 @@ public class HistoryOrderFragment extends Fragment {
 
         } else {
             //region Lấy dữ liệu Order từ Firebase
-            myRef = FirebaseDatabase.getInstance().getReference("User/"+user.getUid()+"/userOrder");
-            myRef.orderByChild("statusOrder").startAt(Order.THANH_CONG).endAt(Order.DA_HUY).addValueEventListener(valueEventListener);
+            ref = FirebaseDatabase.getInstance().getReference("User/"+user.getUid()+"/userOrder");
+            ref.orderByChild("statusOrder").startAt(Order.THANH_CONG).endAt(Order.DA_HUY).addValueEventListener(valueEventListener);
             //endregion
         }
 
@@ -120,43 +117,39 @@ public class HistoryOrderFragment extends Fragment {
     private void addEvent() {
 
         //region Xử lý chọn ngày
-        materialDatePicker = MaterialDatePicker.Builder.dateRangePicker().setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(),MaterialDatePicker.todayInUtcMilliseconds())).build();
+        materialDatePicker = MaterialDatePicker.Builder
+                        .dateRangePicker()
+                        .setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(),MaterialDatePicker.todayInUtcMilliseconds()))
+                        .build();
 
-        txtDate_fragmentHistoryOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                materialDatePicker.show(((MainActivity)getActivity()).getSupportFragmentManager(), "DateRangePicker");
-                materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Pair<Long,Long>>() {
-                    @Override
-                    public void onPositiveButtonClick(Pair<Long,Long> selection) {
+        txtDate_fragmentHistoryOrder.setOnClickListener(view -> {
+            materialDatePicker.show(((MainActivity)getActivity()).getSupportFragmentManager(), "DateRangePicker");
+            materialDatePicker.addOnPositiveButtonClickListener((MaterialPickerOnPositiveButtonClickListener<Pair<Long, Long>>) selection -> {
+                startDate = selection.first;
+                endDate=selection.second;
 
-                        startDate = selection.first;
-                        endDate=selection.second;
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                txtDate_fragmentHistoryOrder.setText(simpleDateFormat.format(new Timestamp(startDate))+ " - " + simpleDateFormat.format(new Timestamp(endDate)));
 
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                        txtDate_fragmentHistoryOrder.setText(simpleDateFormat.format(new Timestamp(startDate))+ " - " + simpleDateFormat.format(new Timestamp(endDate)));
-
-                        if (orderLists!=null){
-                            ArrayList<Order> newList = new ArrayList<>();
-                            for (Order order: orderLists) {
-                                if (order.getDateLongOrder()>=startDate && order.getDateLongOrder()<=endDate){
-                                    newList.add(order);
-                                }
-                            }
-                            if (newList.size()!=0) {
-                                adapter = new OrderAdapter(getContext(),R.layout.layout_history_order_item,newList, OrderAdapter.HISTORY_ITEM);
-                                rcv_fragmentHistoryOrder.setAdapter(adapter);
-                                imvSearchEmpty.setVisibility(View.GONE);
-                                rcv_fragmentHistoryOrder.setVisibility(View.VISIBLE);
-                                adapter.notifyDataSetChanged();
-                            } else {
-                                rcv_fragmentHistoryOrder.setVisibility(View.GONE);
-                                imvSearchEmpty.setVisibility(View.VISIBLE);
-                            }
+                if (orderLists!=null){
+                    ArrayList<Order> newList = new ArrayList<>();
+                    for (Order order: orderLists) {
+                        if (order.getDateLongOrder()>=startDate && order.getDateLongOrder()<=endDate){
+                            newList.add(order);
                         }
                     }
-                });
-            }
+                    if (newList.size()!=0) {
+                        adapter = new OrderAdapter(getContext(),R.layout.layout_history_order_item,newList, OrderAdapter.HISTORY_ITEM);
+                        rcv_fragmentHistoryOrder.setAdapter(adapter);
+                        imvSearchEmpty.setVisibility(View.GONE);
+                        rcv_fragmentHistoryOrder.setVisibility(View.VISIBLE);
+                        adapter.notifyDataSetChanged();
+                    } else {
+                        rcv_fragmentHistoryOrder.setVisibility(View.GONE);
+                        imvSearchEmpty.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
         });
 
         //endregion
@@ -175,6 +168,6 @@ public class HistoryOrderFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        myRef.removeEventListener(valueEventListener);
+        ref.removeEventListener(valueEventListener);
     }
 }
