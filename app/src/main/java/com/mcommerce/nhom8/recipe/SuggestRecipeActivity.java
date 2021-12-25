@@ -255,6 +255,7 @@ public class SuggestRecipeActivity extends AppCompatActivity {
         ChipDrawable chipDrawable;
         chipEntry.setId((int) ingredient.getId());
         chipEntry.setText(ingredient.getShortname());
+        chipEntry.setCheckable(false);
         chipDrawable = ChipDrawable.createFromAttributes(this,
                 null,
                 0,

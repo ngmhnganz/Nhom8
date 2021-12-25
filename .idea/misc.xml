@@ -104,8 +104,8 @@
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_confirm_order.xml" value="0.25" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_history_order.xml" value="0.25" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_history_order2.xml" value="0.36141304347826086" />
-        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_home.xml" value="0.26358695652173914" />
-        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_order.xml" value="0.15625" />
+        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_order.xml" value="0.33" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_order_done_detail.xml" value="0.22" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_point_history.xml" value="0.2890625" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/fragment_user.xml" value="0.22" />
@@ -114,7 +114,7 @@
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/goi_y_monan_layout.xml" value="0.67" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/item_listproduct_layout.xml" value="0.33" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/item_points_history.xml" value="0.2890625" />
-        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/item_product_allproducts_layout.xml" value="0.25" />
+        <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/item_product_allproducts_layout.xml" value="0.9" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/item_product_orderdetail_layout.xml" value="0.33" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/item_recipe_listrecipe_layout.xml" value="0.26403985507246375" />
         <entry key="..\:/M-Commerce/Projects/Nhom8/app/src/main/res/layout/item_recipe_material_layout.xml" value="0.21965579710144928" />
