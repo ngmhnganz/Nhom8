@@ -128,10 +128,10 @@
                 android:id="@+id/inpMatKhau_aSignUp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-
                 android:layout_height="wrap_content"
 
                 app:boxStrokeColor="@color/colorPrimary"
+
                 app:endIconMode="password_toggle"
                 app:endIconTint="@color/colorText"
                 android:hint="Mật khẩu"
@@ -140,7 +140,6 @@
                 android:paddingVertical="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtMatKhau_"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"

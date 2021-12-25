@@ -118,9 +118,7 @@ public class ProductDetailActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     long quantiy;
-                    // nếu khách hàng đã từng thêm món này vào cart
                     if (snapshot.getValue()!=null){
-                        // nội dung nút là cập nhật
                         btnText = "Cập nhật giỏ hàng";
                         HashMap<String, Object> result = (HashMap<String, Object>) snapshot.getValue();
                         quantiy = (long) result.get("quantity");
@@ -185,7 +183,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         }
     };
 
-    View.OnClickListener yeuCauDangNhap = v -> yeuCauDangNhap();
+
     View.OnClickListener xuLyYeuThich = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -205,7 +203,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             }
         }
     };
-
+    View.OnClickListener yeuCauDangNhap = v -> yeuCauDangNhap();
     private void yeuCauDangNhap() {
         Dialog requestUser = new Dialog(ProductDetailActivity.this);
         requestUser.setContentView(R.layout.dialog_request_user);

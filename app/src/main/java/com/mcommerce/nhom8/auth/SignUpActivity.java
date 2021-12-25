@@ -132,33 +132,6 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
 
-        inpMatKhau_aSignUp.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (!s.toString().isEmpty()) {
-                    if (checkValidatePassword(s.toString())){
-                        inpMatKhau_aSignUp.setEndIconMode(TextInputLayout.END_ICON_PASSWORD_TOGGLE);
-                        inpMatKhau_aSignUp.setErrorEnabled(false);
-                    }
-                    else {
-                        InvalidInput("Mật khẩu cần có tối thiểu 6 ký tự và tối đa 20 ký tự",inpMatKhau_aSignUp);
-                    }
-                } else {
-                    inpMatKhau_aSignUp.setErrorEnabled(false);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
         btnTiepTuc_aSignUp.setOnClickListener(v -> {
             boolean valid;
 
@@ -181,7 +154,8 @@ public class SignUpActivity extends AppCompatActivity {
                 valid = false;
             } else {
                 String password = inpMatKhau_aSignUp.getEditText().getText().toString();
-                String passwordAgain = inpNhapLaiMatKhau_aSignUp.getEditText().getText().toString();
+                if (checkValidatePassword(password)) {
+                    String passwordAgain = inpNhapLaiMatKhau_aSignUp.getEditText().getText().toString();
                     if (!password.equals(passwordAgain)){
                         InvalidInput("Mật khẩu không đúng", inpNhapLaiMatKhau_aSignUp);
                         valid = false;
@@ -190,6 +164,12 @@ public class SignUpActivity extends AppCompatActivity {
                         inpNhapLaiMatKhau_aSignUp.setErrorEnabled(false);
                         valid = true;
                     }
+                }
+                else {
+                    InvalidInput("Mật khẩu cần tối thiếu 6 ký tự và tối đa 20 kí tự", inpMatKhau_aSignUp);
+                    valid = false;
+                }
+
             }
 
             if (!chkAccept.isChecked()){
