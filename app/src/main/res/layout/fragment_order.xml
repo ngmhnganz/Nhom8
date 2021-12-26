@@ -60,7 +60,6 @@
 
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/txtDangNhap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,6 +69,7 @@
         android:text="Để sử dụng chức năng này, bạn cần đăng nhập"
         android:textColor="@color/colorSubText"
         android:textSize="18sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

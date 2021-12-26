@@ -113,16 +113,15 @@ public class UserFragment extends Fragment {
             btnLogout_fmuser.setOnClickListener(signin);
             llUserInfo_fmuser.setOnClickListener(yeuCauDangNhap);
             llPoint_fmuser.setOnClickListener(yeuCauDangNhap);
-            llChinhSach_fmuser.setOnClickListener(yeuCauDangNhap);
         }
         else {
             btnLogout_fmuser.setOnClickListener(logout);
             llUserInfo_fmuser.setOnClickListener(goToContentActivity);
             llPoint_fmuser.setOnClickListener(goToContentActivity);
-            llChinhSach_fmuser.setOnClickListener(goToContentActivity);
         }
         llSetting_fmuser.setOnClickListener(goToContentActivity);
         llSupport_fmuser.setOnClickListener(goToContentActivity);
+        llChinhSach_fmuser.setOnClickListener(goToContentActivity);
     }
 
     View.OnClickListener logout = v -> {

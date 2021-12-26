@@ -1,6 +1,7 @@
 package com.mcommerce.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -38,8 +40,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
 
     private Context context;
     private int item_layout,
-                type,
-                amount;
+                type;
+    long amount;
     private String s;
     private List<Order> orderList;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -70,7 +72,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
 
                     for (String i :  order.getItemOrder().keySet()) {
                         s = String.valueOf(order.getItemOrder().get(i).get("quantity"));
-                        amount += Integer.parseInt(s);
+                        amount += Long.parseLong(s);
                     }
                     holder.txtPrice_iComingOrder.setText(""+order.getTotalOrder() +"đ");
 
@@ -103,31 +105,37 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OderViewHold
                     }
                     holder.btnCancel.setOnClickListener(v ->{
 
-                        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference(Key.ORDER+"/"+order.getIdOrder()+"/"+Order.Status);
-                        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference(Key.USER+"/"+
-                                                                                            user.getUid() +"/"+
-                                                                                            User.Order+ "/"+
-                                                                                            order.getIdOrder()+"/"+
-                                                                                            Order.Status);
-                        orderRef.setValue(Order.DA_HUY);
-                        userRef.setValue(Order.DA_HUY);
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setMessage("Bạn muốn hủy đơn ?");
+                        builder.setNegativeButton("Hong muốn", (dialog, l) -> {
+                            dialog.dismiss();
+                        });
+                        builder.setPositiveButton("Có", (dialog, l) -> {
+                            DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference(Key.ORDER+"/"+order.getIdOrder()+"/"+Order.Status);
+                            DatabaseReference userRef = FirebaseDatabase.getInstance().getReference(Key.USER+"/"+
+                                    user.getUid() +"/"+
+                                    User.Order+ "/"+
+                                    order.getIdOrder()+"/"+
+                                    Order.Status);
+                            orderRef.setValue(Order.DA_HUY);
+                            userRef.setValue(Order.DA_HUY);
+                        });
+                        builder.create().show();
+
                     });
                     break;
 
                 case HISTORY_ITEM:
-                    amount =0;
+                    amount =0L;
 
                     for (String i :  order.getItemOrder().keySet()) {
                         s = String.valueOf(order.getItemOrder().get(i).get("quantity"));
-                        amount += Integer.parseInt(s);
+                        amount += Long.parseLong(s);
                     }
 
                     holder.txtPrice_iHistoryOrder.setText(""+order.getTotalOrder() +"đ");
-
                     holder.txtAmount_iHistoryOrder.setText("   |   " + amount +" sản phẩm");
-
                     holder.txtPayment_iHistoryOrder.setText("   |   " + order.getPaymentOrder());
-
                     holder.txtID_iHistoryOrder.setText(order.getIdOrder());
                     holder.txtDate_iHistoryOrder.setText(order.getDateOrder());
                     holder.txtAddress_iHistoryOrder.setText(order.getAddOrder());

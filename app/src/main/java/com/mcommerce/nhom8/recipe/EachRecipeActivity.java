@@ -14,7 +14,6 @@ import android.text.style.TextAppearanceSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,7 +36,6 @@ import com.mcommerce.model.User;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.nhom8.auth.LoginActivity;
 import com.mcommerce.nhom8.order.CartActivity;
-import com.mcommerce.nhom8.product.ProductDetailActivity;
 import com.mcommerce.util.Constant;
 import com.mcommerce.util.Key;
 import java.util.HashMap;
@@ -51,7 +49,7 @@ public class EachRecipeActivity extends AppCompatActivity {
     TextView txtPreparedMaterials_Recipe,txtRecipe_Info_recipe, txtRecipeName_recipe, txtShortRecipe, txtDescription;
     LinearLayout llMaterialBuying;
     CheckBox chkLike,chkLike1;
-    DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference cartRef = FirebaseDatabase.getInstance().getReference();
 
     Recipe recipe = new Recipe();
     HashMap<String,HashMap<String,?>> recipeIngredient;
@@ -61,7 +59,7 @@ public class EachRecipeActivity extends AppCompatActivity {
     List<Integer> filter;
 
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    private DatabaseReference Likeref;
+    private DatabaseReference Likeref, recipeRef;
 
 
     @Override
@@ -130,31 +128,35 @@ public class EachRecipeActivity extends AppCompatActivity {
 
         if (user != null){
             btnAddToCart_Recipe.setOnClickListener(v -> {
+                cartRef = FirebaseDatabase.getInstance().getReference(Key.USER+"/"+user.getUid()+"/"+User.Cart);
                 for (int productID: chipGroup.getCheckedChipIds()) {
-                    ref.child(Key.USER).child(user.getUid()).child(User.Cart).child("id"+productID).child("quantity").setValue(ServerValue.increment(1));
-                    ref.child(Key.USER).child(user.getUid()).child(User.Cart).child("id"+productID).child("name").setValue(recipeIngredient.get("id"+productID).get("name"));
-                    ref.child(Key.USER).child(user.getUid()).child(User.Cart).child("id"+productID).child("id").setValue(productID);
-                    ref.child(Key.USER).child(user.getUid()).child(User.Cart).child("id"+productID).child("price").setValue(recipeIngredient.get("id"+productID).get("price"));
+                    cartRef.child("id"+productID).child("quantity").setValue(ServerValue.increment(1));
+                    cartRef.child("id"+productID).child("name").setValue(recipeIngredient.get("id"+productID).get("name"));
+                    cartRef.child("id"+productID).child("id").setValue(productID);
+                    cartRef.child("id"+productID).child("price").setValue(recipeIngredient.get("id"+productID).get("price"));
                     Toast.makeText(EachRecipeActivity.this, "Thêm hàng thành công",Toast.LENGTH_SHORT).show();
                 }
             });
-            chkLike.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            chkLike.setOnClickListener((v) -> {
                 String recipeIDs = recipe.getRecipeID();
-                if (isChecked) {
+                recipeRef = FirebaseDatabase.getInstance().getReference(Key.RECIPE+"/"+recipeIDs+"/"+Recipe.Like);
+                if (chkLike.isChecked()) {
                     Likeref.child("id"+recipeIDs).child("name").setValue(recipe.getRecipeName());
                     Likeref.child("id"+recipeIDs).child("id").setValue(recipeIDs);
                     Likeref.child("id"+recipeIDs).child("des").setValue(recipe.getRecipeDescription());
                     Likeref.child("id"+recipeIDs).child("thumb").setValue(recipe.getRecipeImage());
                     Likeref.child("id"+recipeIDs).child("time").setValue(recipe.getRecipeTime());
+                    recipeRef.setValue(ServerValue.increment(1));
                 }
                 else {
                     Likeref.child("id"+recipeIDs).removeValue();
+                    recipeRef.setValue(ServerValue.increment(-1));
                 }
             });
         }
         else {
-            btnAddToCart_Recipe.setOnClickListener(requestSignInCart);
-            chkLike.setOnCheckedChangeListener(requestSignInLike);
+            btnAddToCart_Recipe.setOnClickListener(requestSignIn);
+            chkLike.setOnClickListener(requestSignIn);
         }
 
     }
@@ -162,30 +164,34 @@ public class EachRecipeActivity extends AppCompatActivity {
     private void initUI() {
         txtRecipeName_recipe.setText("Công thức làm "+recipe.getRecipeName());
         Glide.with(EachRecipeActivity.this).load(recipe.getRecipeImage()).into(imvRecipe);
-        for (HashMap<String,?>  ingredient: recipeIngredient.values()) {
-            chip = new Chip(this);
-            chip.setText(ingredient.get("name").toString());
-            chip.setId(  ( (Long)ingredient.get("id") ).intValue() );
+        if (recipeIngredient!=null){
+            for (HashMap<String,?>  ingredient: recipeIngredient.values()) {
+                chip = new Chip(this);
+                chip.setText(ingredient.get("name").toString());
+                chip.setId(  ( (Long)ingredient.get("id") ).intValue() );
 
-            if (filter!= null && filter.contains(chip.getId())){
-                chipDrawable= ChipDrawable.createFromAttributes(this,
-                        null,
-                        0,
-                        R.style.available_chip);
-                chip.setTextColor(ContextCompat.getColorStateList(this, R.color.available_chip_text_selector));
-            } else {
-                chipDrawable= ChipDrawable.createFromAttributes(this,
-                        null,
-                        0,
-                        R.style.unavailable_chip);
-                chip.setTextColor(ContextCompat.getColorStateList(this, R.color.unavailable_chip_text_selector));
+                if (filter!= null && filter.contains(chip.getId())){
+                    chipDrawable= ChipDrawable.createFromAttributes(this,
+                            null,
+                            0,
+                            R.style.available_chip);
+                    chip.setTextColor(ContextCompat.getColorStateList(this, R.color.available_chip_text_selector));
+                } else {
+                    chipDrawable= ChipDrawable.createFromAttributes(this,
+                            null,
+                            0,
+                            R.style.unavailable_chip);
+                    chip.setTextColor(ContextCompat.getColorStateList(this, R.color.unavailable_chip_text_selector));
+                }
+                chip.setCheckedIconTint(ContextCompat.getColorStateList(this,R.color.white));
+
+                chip.setChipDrawable(chipDrawable);
+                chip.setEnsureMinTouchTargetSize(false);
+                chipGroup.addView(chip);
             }
-            chip.setCheckedIconTint(ContextCompat.getColorStateList(this,R.color.white));
-
-            chip.setChipDrawable(chipDrawable);
-            chip.setEnsureMinTouchTargetSize(false);
-            chipGroup.addView(chip);
         }
+
+
         String  khauphan = "Khẩu phần: ",
                 khauphan_content = recipe.getRecipeRation() + " người",
                 thoigian = " - Thời gian: ",
@@ -213,9 +219,11 @@ public class EachRecipeActivity extends AppCompatActivity {
         String step, step_content;
         SpannableStringBuilder instruction = new SpannableStringBuilder();
         String content;
-        s =0; int e2;
+        s =0;
+        int e2;
         for (int i =0; i<steps.length; i=i+2){
-            step = steps[i]; step_content = steps[i+1]+"\n";
+            step = steps[i];
+            step_content = steps[i+1]+"\n";
             e = s+ step.length();
             e2 = e + step_content.length();
             content = step+step_content;
@@ -240,12 +248,8 @@ public class EachRecipeActivity extends AppCompatActivity {
         }
     };
 
-    View.OnClickListener requestSignInCart = v -> {
+    View.OnClickListener requestSignIn = v -> {
        openRequestDialog();
-    };
-
-    CompoundButton.OnCheckedChangeListener requestSignInLike = (buttonView, isChecked) -> {
-        openRequestDialog();
     };
 
     private void openRequestDialog() {

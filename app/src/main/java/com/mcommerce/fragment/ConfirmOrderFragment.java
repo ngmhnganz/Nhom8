@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +26,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.CartAdapter;
 import com.mcommerce.model.Order;
@@ -35,8 +33,7 @@ import com.mcommerce.model.Product;
 import com.mcommerce.model.User;
 import com.mcommerce.nhom8.MainActivity;
 import com.mcommerce.nhom8.R;
-import com.mcommerce.nhom8.order.CartActivity;
-
+import com.mcommerce.util.Key;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -119,17 +116,17 @@ public class ConfirmOrderFragment extends Fragment {
         progressDialog.show();
         if (user!=null) {
             ref = firebaseDatabase.getReference();
-            ref.addValueEventListener(new ValueEventListener() {
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    userSnapshot = snapshot.child("User").child(user.getUid());
+                    userSnapshot = snapshot.child(Key.USER).child(user.getUid());
                     mUser = userSnapshot.getValue(User.class);
                     cartList = (HashMap<String, HashMap<String, ?>>) mUser.getUserCart();
 
                     String idFirstItem = cartList.keySet().toArray()[0].toString();
                     String idProduct = String.valueOf(cartList.get(idFirstItem).get("id"));
                     if (cartList != null){
-                        productSnapshot = snapshot.child("NguyenLieu").child(idProduct).child("productImg");
+                        productSnapshot = snapshot.child(Key.PRODUCT).child(idProduct).child(Product.Image);
                         product.setProductImg(productSnapshot.getValue().toString());
                         loadUI();
                     }
@@ -138,7 +135,7 @@ public class ConfirmOrderFragment extends Fragment {
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
-
+                    Toast.makeText(getActivity(),error.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
         }
@@ -245,15 +242,9 @@ public class ConfirmOrderFragment extends Fragment {
             }
         });
         txtAddress.setOnClickListener(editInfomation);
-
         txtChangeInfo.setOnClickListener(editInfomation);
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().finish();
-            }
-        });
+        btnBack.setOnClickListener(view -> getActivity().finish());
 
     }
 
@@ -275,19 +266,15 @@ public class ConfirmOrderFragment extends Fragment {
     };
 
 
-        private void createrOrder() {
+    private void createrOrder() {
         Order order = new Order();
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         Timestamp ts = new Timestamp(date.getTime());
         order.setDateLongOrder(ts.getTime());
         order.setDateOrder(simpleDateFormat.format(ts));
-        if (txtDiscountTitle.getVisibility()==View.GONE) {
-            order.setDiscountOrder(0);
-        } else {
-            order.setDiscountOrder((int) discount);
-        }
-
+        if (txtDiscountTitle.getVisibility()==View.GONE) order.setDiscountOrder(0);
+         else order.setDiscountOrder((int) discount);
         order.setIdOrder(user.getUid()+ts.getTime());
         order.setItemOrder(cartList);
         order.setPaymentOrder(Order.CASH);
@@ -300,32 +287,27 @@ public class ConfirmOrderFragment extends Fragment {
         order.setCustomerPhone(phone);
         order.setAddOrder(address);
         order.setTotalOrder(total);
-        if (order.getDiscountOrder()==0){
-            order.setRewardOrder(sum/100);
-        } else {
-            order.setRewardOrder(0);
-        }
-        ref = firebaseDatabase.getReference().child("DonHang").child(order.getIdOrder());
+        if (order.getDiscountOrder()==0) order.setRewardOrder(sum/100);
+         else order.setRewardOrder(0);
+        ref = firebaseDatabase.getReference().child(Key.ORDER).child(order.getIdOrder());
         ref.setValue(order).addOnSuccessListener(task -> {
             isClear= true;
-            ref = firebaseDatabase.getReference().child("User").child(user.getUid()).child("userCart");
+            ref = firebaseDatabase.getReference().child(Key.USER).child(user.getUid()).child(User.Cart);
             ref.removeValue();
-
             order.setUidOrder(null);
-            ref = firebaseDatabase.getReference().child("User").child(user.getUid());
-            ref.child("userOrder").child(order.getIdOrder()).setValue(order);
-
-            if (order.getDiscountOrder()==0){
-                ref.child("userPoint").setValue(ServerValue.increment(sum/100));
-            } else {
-                ref.child("userPoint").setValue(ServerValue.increment(-point));
-            }
-
-            Intent intent = new Intent(getActivity(), MainActivity.class);
-            intent.putExtra(MainActivity.SELECTED_FRAGMENT,MainActivity.ORDER_FRAGMENT);
-            startActivity(intent);
-            Toast.makeText(getActivity(), "Đặt hàng thành công", Toast.LENGTH_SHORT).show();
-            getActivity().finishAffinity();
+            ref = firebaseDatabase.getReference().child(Key.USER).child(user.getUid()).child(User.Order).child(order.getIdOrder());
+            ref.setValue(order).addOnCompleteListener(task1 -> {
+                if (task1.isSuccessful()){
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    intent.putExtra(MainActivity.SELECTED_FRAGMENT,MainActivity.ORDER_FRAGMENT);
+                    startActivity(intent);
+                    Toast.makeText(getActivity(), "Đặt hàng thành công", Toast.LENGTH_SHORT).show();
+                    getActivity().finishAffinity();
+                }
+                else {
+                    Toast.makeText(getContext(), task1.getException().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
         });
     }
 }

@@ -6,6 +6,9 @@ import java.util.Map;
 public class User {
     public  static final String Cart = "userCart";
     public  static final String Order = "userOrder";
+    public  static final String LikeProduct = "userLikeProduct";
+    public  static final String LikeRecipe = "userLikeRecipe";
+
     private String userID;
     private String userName;
     private String userBirthday;

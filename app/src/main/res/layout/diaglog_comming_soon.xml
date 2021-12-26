@@ -4,7 +4,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/round_corner_image"
-    android:layout_margin="20dp">
+    android:layout_margin="40dp">
 
     <ImageView
         android:id="@+id/imageView"
@@ -23,22 +23,26 @@
         android:id="@+id/txt1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="Tính năng đang được phát triển"
         android:textColor="@color/colorPrimary"
         android:fontFamily="@font/gilroy_bold"
         android:textSize="18sp"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"
         app:layout_constraintBottom_toTopOf="@+id/txt2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
     <TextView
         android:id="@+id/txt2"
+        android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Xin hãy cho Trứng thời gian, Trứng cũng muốn ngủ"
         android:textColor="@color/colorSubText"
         android:fontFamily="@font/gilroy_regular"
         android:textSize="14sp"
+        android:paddingHorizontal="20dp"
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toTopOf="@+id/btnOK"
         app:layout_constraintEnd_toEndOf="parent"

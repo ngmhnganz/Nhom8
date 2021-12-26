@@ -18,6 +18,7 @@ public class Recipe implements Parcelable {
     private String recipeImage;
     private Map<String, HashMap<String,?>> recipeIngredient;
 
+    public static final String Like = "recipeLike";
     public String getRecipeShortDescription() {
         return recipeShortDescription;
     }

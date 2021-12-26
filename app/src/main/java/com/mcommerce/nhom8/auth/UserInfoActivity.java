@@ -32,7 +32,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
@@ -64,7 +66,7 @@ public class UserInfoActivity extends AppCompatActivity {
     private static final int REQUEST_GALLERY =2;
 
     private MaterialAutoCompleteTextView txtGender;
-    private ImageView imv_aUserInfo;
+    private ImageView imv_aUserInfo, imv_edit;
     private TextInputLayout inpUserEmail_aUserInfo,
                             inpUserName_aUserInfo,
                             inpUserBirthday_aUserInfo,
@@ -97,6 +99,7 @@ public class UserInfoActivity extends AppCompatActivity {
     private void linkview() {
         txtGender = findViewById(R.id.txtGender);
         imv_aUserInfo = findViewById(R.id.imv_aUserInfo);
+        imv_edit = findViewById(R.id.imv_edit);
 
         inpUserEmail_aUserInfo = findViewById(R.id.inpUserEmail_aUserInfo);
         inpUserName_aUserInfo = findViewById(R.id.inpUserName_aUserInfo);
@@ -119,9 +122,7 @@ public class UserInfoActivity extends AppCompatActivity {
         pickImage = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if ( result.getResultCode()==RESULT_OK && result.getData()!=null){
                 Uri uri = null;
-                //result là một cái màn hình resul
-                // getdata lần nhất dc màn hình
-                // get data lần hai dc data đã pick
+
                 if (isCamera){
                     Bitmap bitmap = (Bitmap) result.getData().getExtras().get("data");
                     uri = getImageUri(bitmap);
@@ -232,14 +233,18 @@ public class UserInfoActivity extends AppCompatActivity {
             createBottomSheet();
             sheetDialog.show();
         });
+        imv_edit.setOnClickListener(v -> {
+            createBottomSheet();
+            sheetDialog.show();
+        });
 
         inpUserAdress_aUserInfo.getEditText().setOnClickListener(v-> {
             Intent intent = new Intent(UserInfoActivity.this, FillAddressActivity.class);
             getAdress.launch(intent);
         });
-
-
     }
+
+
 
     private void checkValidInput(){
         inpUserBirthday_aUserInfo.getEditText().setOnClickListener(v -> {
@@ -247,8 +252,14 @@ public class UserInfoActivity extends AppCompatActivity {
             MaterialDatePicker<Long> materialDatePicker = builder.build();
             materialDatePicker.show(getSupportFragmentManager(), "DatePicker");
             materialDatePicker.addOnPositiveButtonClickListener(selection -> {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-                inpUserBirthday_aUserInfo.getEditText().setText(simpleDateFormat.format(new Timestamp(selection)));
+                Date date = new Date();
+                Timestamp now = new Timestamp(date.getTime());
+
+                if (selection < now.getTime()){
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    inpUserBirthday_aUserInfo.getEditText().setText(simpleDateFormat.format(new Timestamp(selection)));
+                }
+
             });
         });
 
@@ -279,11 +290,16 @@ public class UserInfoActivity extends AppCompatActivity {
                 builder.setPhotoUri(userImage);
             }
             UserProfileChangeRequest profileUpdates = builder.build();
-            user.updateProfile(profileUpdates);
-            user.updateEmail(inpUserEmail_aUserInfo.getEditText().getText().toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
-                public void onSuccess(Void unused) {
-                    Toast.makeText(UserInfoActivity.this, "Thành công set email",Toast.LENGTH_SHORT).show();
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()){
+                        Toast.makeText(UserInfoActivity.this, "Thay đổi thông tin thành công",Toast.LENGTH_SHORT).show();
+                    }
+                     else {
+                         String error = task.getException().getMessage();
+                        Toast.makeText(UserInfoActivity.this, error,Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         });
@@ -354,7 +370,7 @@ public class UserInfoActivity extends AppCompatActivity {
         return email.matches(regex);
     }
     private boolean checkValidatePhone(String phone) {
-        String regex = "^(0|84|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$";
+        String regex = "^(0)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$";
         return phone.matches(regex);
     }
     //endregion
@@ -388,9 +404,6 @@ public class UserInfoActivity extends AppCompatActivity {
 
     //region Quyền truy cập cho thư viện ảnh
     private void galerryPermisson(){
-        // với android M về trước chỉ cần grant permission thông qua manifest
-        // từ android m trở đi thì cần ng dùng cho phép quyền thì mới được, nhưng do min sdk là 24 nên phải check per
-        //nếu như đã được cho quyền truy cập
         if (this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){
             openGallery();
         } else {
@@ -424,6 +437,7 @@ public class UserInfoActivity extends AppCompatActivity {
                         Toast.makeText(this,"Vui lòng cho phép truy cập vào thư viện", Toast.LENGTH_SHORT).show();
                     }
                 }
+                break;
             }
             case REQUEST_CAMERA:{
                 if (grantResults.length>0){
@@ -433,6 +447,7 @@ public class UserInfoActivity extends AppCompatActivity {
                         Toast.makeText(this,"Vui lòng cho phép truy cập vào máy ảnh", Toast.LENGTH_SHORT).show();
                     }
                 }
+                break;
             }
         }
     }

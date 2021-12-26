@@ -13,7 +13,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.adapter.OrderAdapter;
-import com.mcommerce.adapter.PointsHistoryAdapter;
 import com.mcommerce.model.Order;
 import com.mcommerce.model.User;
 import com.mcommerce.nhom8.R;

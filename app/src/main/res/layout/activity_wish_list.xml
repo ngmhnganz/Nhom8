@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
-    // Đổi tên class - làm xong fix navigation bar
     <LinearLayout
         android:id="@+id/lnheader"
         android:layout_width="match_parent"
@@ -97,8 +96,26 @@
             android:id="@+id/layoutContainer_WishList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical">
+
+        </LinearLayout>
 
     </ScrollView>
+
+    <TextView
+        android:id="@+id/txtDangNhap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="40dp"
+        android:fontFamily="@font/gilroy_bold"
+        android:gravity="center"
+        android:text="Để sử dụng chức năng này, bạn cần đăng nhập"
+        android:textColor="@color/colorSubText"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lnlNut_LikeList" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

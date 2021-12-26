@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -41,6 +42,7 @@ public class SuggestRecipeActivity extends AppCompatActivity {
             imvDropDownBo_SuggestRecipe,
             imvDropDownKhac_SuggestRecipe;
     Button btnSearch;
+    ImageButton btnBack_allproducts;
     SearchView searchView;
 
     ListView lvResult;
@@ -88,6 +90,8 @@ public class SuggestRecipeActivity extends AppCompatActivity {
 
         btnSearch = findViewById(R.id.btnSearch);
         lvResult = findViewById(R.id.lvResult);
+
+        btnBack_allproducts = findViewById(R.id.btnBack_allproducts);
     }
 
     private void addEvents() {
@@ -151,10 +155,11 @@ public class SuggestRecipeActivity extends AppCompatActivity {
         });
 
         lvResult.setOnItemClickListener((parent, view, position, id) -> {
-            if (!filter.contains((int) results.get(position).getId())){
+            if ( !filter.contains((int) results.get(position).getId())){
+
                 filter.add((int) results.get(position).getId());
-                System.out.println("đây nè "+ filter.toString());
                 inputCHip(resultChipCGroup, results.get(position), null);
+
             }
             searchView.clearFocus();
             searchView.setQuery("", false);
@@ -168,6 +173,7 @@ public class SuggestRecipeActivity extends AppCompatActivity {
             intent.putIntegerArrayListExtra(Constant.FILTER_OPTION, (ArrayList<Integer>) filter);
             startActivity(intent);
         });
+        btnBack_allproducts.setOnClickListener(v ->finish());
     }
 
     private void initData() {
@@ -249,6 +255,7 @@ public class SuggestRecipeActivity extends AppCompatActivity {
         ChipDrawable chipDrawable;
         chipEntry.setId((int) ingredient.getId());
         chipEntry.setText(ingredient.getShortname());
+        chipEntry.setCheckable(false);
         chipDrawable = ChipDrawable.createFromAttributes(this,
                 null,
                 0,
@@ -278,7 +285,7 @@ public class SuggestRecipeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 filter.remove((Integer) (int) ingredient.getId());
                 chipGroup.removeView(v);
-                System.out.println("đây nè "+filter.toString());
+
             }
         });
     }

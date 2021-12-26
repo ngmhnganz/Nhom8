@@ -20,14 +20,15 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.mcommerce.interfaces.RecyclerViewItemClickListener;
 import com.mcommerce.model.Recipe;
+import com.mcommerce.model.User;
 import com.mcommerce.nhom8.R;
-import com.mcommerce.nhom8.product.ProductDetailActivity;
 import com.mcommerce.nhom8.recipe.EachRecipeActivity;
 import com.mcommerce.util.Constant;
-
+import com.mcommerce.util.Key;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,7 +40,7 @@ public class WishRecipeAdapter extends  RecyclerView.Adapter<WishRecipeAdapter.W
     private final Context context;
     private final Map<String, HashMap<String,?>> wishListR;
     private final int item_layout;
-    private DatabaseReference Likeref = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     List<String> wishID;
 
@@ -61,36 +62,39 @@ public class WishRecipeAdapter extends  RecyclerView.Adapter<WishRecipeAdapter.W
     public void onBindViewHolder(@NonNull WishViewHolder holder, int position) {
         String key = wishID.get(position);
         String recipeID = (String) wishListR.get(key).get("id");
-        Likeref.child("CongThuc").child(String.valueOf(recipeID)).addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child(Key.RECIPE).child(String.valueOf(recipeID)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Recipe recipe = snapshot.getValue(Recipe.class);
                 Glide.with(context).load(recipe.getRecipeImage()).into(holder.imv_WishR);
                 holder.txtName_WishR.setText(recipe.getRecipeName());
-                holder.txtDes_WishR.setText(recipe.getRecipeDescription());
+                holder.txtDes_WishR.setText(recipe.getRecipeShortDescription());
                 holder.txtTime_WishR.setText(recipe.getRecipeTime()+" phút");
                 holder.chkLike_WL.setChecked(true);
-                holder.chkLike_WL.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (holder.chkLike_WL.isChecked()==false){
-                            Likeref.child("User").child(user.getUid()).child("userLikeRecipe").child(wishID.get(holder.getBindingAdapterPosition())).removeValue();
-                            wishListR.remove(wishID.get(holder.getBindingAdapterPosition()));
-                            wishID.remove(wishID.get(holder.getBindingAdapterPosition()));
-                            notifyItemRemoved(holder.getBindingAdapterPosition());
-                        }
+                holder.chkLike_WL.setOnClickListener(view -> {
+                    if (!holder.chkLike_WL.isChecked()){
+                        String selectedKey = wishID.get(holder.getBindingAdapterPosition());
+                        ref.child(Key.USER)
+                                .child(user.getUid())
+                                .child(User.LikeRecipe)
+                                .child(wishID.get(holder.getBindingAdapterPosition()))
+                                .removeValue();
+                        ref.child(Key.RECIPE)
+                                .child(String.valueOf(wishListR.get(selectedKey).get("id")))
+                                .child(Recipe.Like)
+                                .setValue(ServerValue.increment(-1));
+                        wishListR.remove(wishID.get(holder.getBindingAdapterPosition()));
+                        wishID.remove(wishID.get(holder.getBindingAdapterPosition()));
+                        notifyItemRemoved(holder.getBindingAdapterPosition());
                     }
                 });
-                holder.setItemClickListener(new RecyclerViewItemClickListener() {
-                    @Override
-                    public void onClick(View view, int position) {
-                        Intent intent = new Intent(context, EachRecipeActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable(Constant.SECLECTED_RECIPE,recipe);
-                        intent.putExtra(Constant.RECIPE_BUNDLE, bundle);
-                        bundle.putSerializable(Constant.ITEMS_INGREDIENT, (Serializable) recipe.getRecipeIngredient());
-                        context.startActivity(intent);
-                    }
+                holder.setItemClickListener((view, position1) -> {
+                    Intent intent = new Intent(context, EachRecipeActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(Constant.SECLECTED_RECIPE,recipe);
+                    intent.putExtra(Constant.RECIPE_BUNDLE, bundle);
+                    bundle.putSerializable(Constant.ITEMS_INGREDIENT, (Serializable) recipe.getRecipeIngredient());
+                    context.startActivity(intent);
                 });
             }
 
@@ -126,7 +130,7 @@ public class WishRecipeAdapter extends  RecyclerView.Adapter<WishRecipeAdapter.W
         }
         @Override
         public void onClick(View v) {
-            itemClickListener.onClick(v,getAdapterPosition());
+            itemClickListener.onClick(v,getBindingAdapterPosition());
         }
     }
 }

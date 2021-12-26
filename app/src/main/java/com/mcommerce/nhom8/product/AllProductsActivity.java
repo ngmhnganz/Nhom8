@@ -18,6 +18,7 @@ import com.mcommerce.model.Product;
 import com.mcommerce.nhom8.R;
 import com.mcommerce.nhom8.order.CartActivity;
 import com.mcommerce.util.Constant;
+import com.mcommerce.util.Key;
 
 import java.util.ArrayList;
 
@@ -77,7 +78,7 @@ public class AllProductsActivity extends AppCompatActivity {
     private void initAdapter() {
         //region Lấy dữ liệu Sản Phẩm từ Fireabase về truyền cho adapter
 
-        Query queryNL = firebaseDatabase.getReference().child("NguyenLieu");
+        Query queryNL = firebaseDatabase.getReference().child(Key.PRODUCT);
         queryNL.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
