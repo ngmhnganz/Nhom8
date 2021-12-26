@@ -122,9 +122,7 @@ public class UserInfoActivity extends AppCompatActivity {
         pickImage = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if ( result.getResultCode()==RESULT_OK && result.getData()!=null){
                 Uri uri = null;
-                //result là một cái màn hình resul
-                // getdata lần nhất dc màn hình
-                // get data lần hai dc data đã pick
+
                 if (isCamera){
                     Bitmap bitmap = (Bitmap) result.getData().getExtras().get("data");
                     uri = getImageUri(bitmap);
@@ -406,9 +404,6 @@ public class UserInfoActivity extends AppCompatActivity {
 
     //region Quyền truy cập cho thư viện ảnh
     private void galerryPermisson(){
-        // với android M về trước chỉ cần grant permission thông qua manifest
-        // từ android m trở đi thì cần ng dùng cho phép quyền thì mới được, nhưng do min sdk là 24 nên phải check per
-        //nếu như đã được cho quyền truy cập
         if (this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){
             openGallery();
         } else {
