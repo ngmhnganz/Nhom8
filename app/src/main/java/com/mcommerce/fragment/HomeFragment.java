@@ -1,28 +1,22 @@
 package com.mcommerce.fragment;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
-
 import com.github.mmin18.widget.RealtimeBlurView;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -119,9 +113,9 @@ public class HomeFragment extends Fragment {
 
         //region Banner
         bannerMainModelList = new ArrayList<>();
-        bannerMainModelList.add(new BannerMainModel(R.drawable.mot,"1"));
-        bannerMainModelList.add(new BannerMainModel(R.drawable.hai,"2"));
-        bannerMainModelList.add(new BannerMainModel(R.drawable.ba,"3"));
+        bannerMainModelList.add(new BannerMainModel(R.drawable.one,"1"));
+        bannerMainModelList.add(new BannerMainModel(R.drawable.two,"2"));
+        bannerMainModelList.add(new BannerMainModel(R.drawable.three,"3"));
 
         bannerMainAdapter = new BannerMainAdapter(getContext(), bannerMainModelList);
         vpgBannerMain.setAdapter(bannerMainAdapter);

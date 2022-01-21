@@ -110,7 +110,7 @@
                 app:boxBackgroundColor="@color/white"
                 app:boxStrokeWidth="1dp"
                 android:textColorHint="@color/colorSubText"
-                android:hint="Quận / Huyện">
+                android:hint="Phường / Xã">
 
                 <AutoCompleteTextView
                     android:id="@+id/txtWard"

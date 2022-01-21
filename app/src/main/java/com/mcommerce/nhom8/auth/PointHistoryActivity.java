@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
+import android.widget.ImageButton;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -26,12 +27,14 @@ public class PointHistoryActivity extends AppCompatActivity {
     RecyclerView rcv_PointsHistory;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     DatabaseReference ref;
+    ImageButton btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_point_history);
         linkview();
+        btnBack.setOnClickListener(v -> finish());
     }
 
     @Override
@@ -44,6 +47,8 @@ public class PointHistoryActivity extends AppCompatActivity {
     private void linkview() {
         rcv_PointsHistory = findViewById(R.id.rcv_PointsHistory);
         rcv_PointsHistory.setLayoutManager(new LinearLayoutManager(PointHistoryActivity.this, LinearLayoutManager.VERTICAL,false));
+
+        btnBack = findViewById(R.id.btnBack);
     }
 
 
